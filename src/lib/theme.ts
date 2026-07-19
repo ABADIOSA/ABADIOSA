@@ -12,6 +12,7 @@ import velvetPreview from "@/assets/theme-previews/velvet.png";
 import { getCustomThemes } from "./custom-themes";
 
 export type ThemePresetId =
+  | "abadiosa"
   | "cool-grey"
   | "nord"
   | "stremio"
@@ -99,6 +100,26 @@ export type FontPair = {
 };
 
 export const THEME_PRESETS: Record<ThemePresetId, ThemePreset> = {
+  abadiosa: {
+    id: "abadiosa",
+    name: "ABADIOSA",
+    blurb: "أخضر زمردي على فحمي داكن. توقيع النسخة الخاصة.",
+    swatch: ["#0d1512", "#1b2a23", "#00c26a"],
+    tokens: {
+      "--color-canvas": "#0d1512",
+      "--color-surface": "#14201b",
+      "--color-elevated": "#1b2a23",
+      "--color-raised": "#24352c",
+      "--color-ink": "#f2f7f4",
+      "--color-ink-muted": "#a8b8af",
+      "--color-ink-subtle": "#63736a",
+      "--color-edge": "rgba(120,160,140,0.35)",
+      "--color-edge-soft": "rgba(120,160,140,0.15)",
+      "--color-accent": "#00c26a",
+      "--color-accent-soft": "rgba(0,194,106,0.18)",
+      "--color-danger": "#e5484d",
+    },
+  },
   "cool-grey": {
     id: "cool-grey",
     name: "Harbor default",
@@ -1625,7 +1646,7 @@ export const DEFAULT_CUSTOM_COLORS: CustomColors = {
 };
 
 export const DEFAULT_THEME: ThemeSettings = {
-  preset: "cool-grey",
+  preset: "abadiosa",
   backgroundImage: null,
   backgroundDim: 0.65,
   fontPair: "sentient-switzer",

@@ -16,7 +16,7 @@ export type TextDirection = "ltr" | "rtl";
 type Vars = Record<string, string | number>;
 type Catalog = Record<string, string>;
 
-export const DEFAULT_LANGUAGE: UiLanguage = "en";
+export const DEFAULT_LANGUAGE: UiLanguage = "ar";
 
 const supportedLanguages = new Set<string>(LANGUAGES.map(({ code }) => code));
 const catalogs: Record<UiLanguage, Catalog> = { en, ar, pt };
