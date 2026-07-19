@@ -13,8 +13,10 @@ jobs:
   update-news:
     runs-on: ubuntu-latest
     steps:
-      - name: جلب المستودع
+      - name: جلب المستودع (فرع main)
         uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: إعداد بايثون
         uses: actions/setup-python@v5
@@ -24,14 +26,16 @@ jobs:
       - name: تحديث ملف الأخبار
         run: python scripts/update_news.py
 
-      - name: رفع التحديث إن وُجد
+      - name: رفع التحديث ونشره على الموقع
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           if ! git diff --quiet data/news.json; then
             git add data/news.json
             git commit -m "تحديث تلقائي للأخبار $(date -u '+%Y-%m-%d %H:%M UTC')"
-            git push
+            git push origin HEAD:main
           else
             echo "لا توجد أخبار جديدة."
           fi
+          # إعادة نشر الموقع على gh-pages في كل الحالات
+          git push -f origin HEAD:gh-pages
