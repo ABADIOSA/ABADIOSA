@@ -6,7 +6,8 @@
   const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 
   const AHLI_ID = "8346";
-  const AHLI_LOGO = "https://a.espncdn.com/i/teamlogos/soccer/500/8346.png";
+  // الشعار الجديد (هوية 2025) — شعار ESPN قديم
+  const AHLI_LOGO = "https://upload.wikimedia.org/wikipedia/ar/thumb/3/3e/Al-Ahli_SFC_%282025%29.svg/langar-330px-Al-Ahli_SFC_%282025%29.svg.png";
   const ESPN = "https://site.api.espn.com/apis/site/v2/sports/soccer/ksa.1";
   const ESPN_STANDINGS = "https://site.api.espn.com/apis/v2/sports/soccer/ksa.1/standings";
 
@@ -86,6 +87,7 @@
   const lastUpdated = $("#lastUpdated");
 
   function renderNews(items, updatedAt, live) {
+    if (items && items.length) window.__chatNews = items;
     if (!items || !items.length) {
       newsGrid.innerHTML = '<div class="loader">لا توجد أخبار حاليًا — حاول التحديث بعد قليل.</div>';
       return;
@@ -190,20 +192,45 @@
     return displayName(p).split(" ").slice(0, 2).map((w) => w[0]).join(" ");
   }
 
+  function renderCoach(coach) {
+    if (!coach || !coach.name) return;
+    $("#coachCard").innerHTML = `
+      <div class="coach-card">
+        ${coach.photo ? `<img class="coach-photo" src="${escapeHTML(coach.photo)}" alt="${escapeHTML(coach.name)}" onerror="this.remove()">` : ""}
+        <div class="coach-info">
+          <div class="label">المدير الفني</div>
+          <div class="name">${escapeHTML(coach.name)}</div>
+          <div class="nat">🇩🇪 ${escapeHTML(coach.nationality || "")}</div>
+        </div>
+      </div>`;
+  }
+
+  let clubData = { coach: null, departed: [] };
+
   async function loadPlayers() {
     try {
-      const [squad, meta] = await Promise.all([loadJSON("data/squad.json"), loadJSON("data/players.json")]);
+      const [squad, meta, team] = await Promise.all([
+        loadJSON("data/squad.json"),
+        loadJSON("data/players.json"),
+        loadJSON("data/team.json").catch(() => ({})),
+      ]);
       const overlay = meta.overlay || {};
-      allPlayers = (squad.players || []).map((p) => {
-        const extra = overlay[p.name] || {};
-        return {
-          ...p,
-          ar: extra.ar,
-          rating: extra.rating || null,
-          stats: extra.stats || null,
-          bio: extra.bio || null,
-        };
-      });
+      clubData.departed = meta.departed || [];
+      clubData.coach = { ...(meta.coach || {}), ...(team.coach || {}) };
+      renderCoach(clubData.coach);
+      const departedSet = new Set(clubData.departed);
+      allPlayers = (squad.players || [])
+        .filter((p) => !departedSet.has(p.name))
+        .map((p) => {
+          const extra = overlay[p.name] || {};
+          return {
+            ...p,
+            ar: extra.ar,
+            rating: extra.rating || null,
+            stats: extra.stats || null,
+            bio: extra.bio || null,
+          };
+        });
       // ترتيب: حراسة ثم دفاع ثم وسط ثم هجوم، وبداخلها أصحاب التقييم أولًا
       const order = { GK: 0, DF: 1, MF: 2, FW: 3 };
       allPlayers.sort((a, b) => (order[a.position] ?? 9) - (order[b.position] ?? 9) || (b.rating || 0) - (a.rating || 0));
@@ -224,7 +251,8 @@
           <span class="pc-pos">${escapeHTML(p.roleAr || p.position)}</span>
         </div>
         <div class="pc-avatar">${escapeHTML(initials(p))}
-          ${p.flag ? `<img class="pc-flag" src="${escapeHTML(p.flag)}" alt="${escapeHTML(p.nationalityAr || "")}" loading="lazy">` : ""}
+          ${p.photo ? `<img class="pc-photo" src="${escapeHTML(p.photo)}" alt="${escapeHTML(displayName(p))}" loading="lazy" onerror="this.remove()">` : ""}
+          ${p.flag ? `<img class="pc-flag" src="${escapeHTML(p.flag)}" alt="${escapeHTML(p.nationalityAr || "")}" loading="lazy" onerror="this.remove()">` : ""}
         </div>
         <div class="pc-name">${escapeHTML(displayName(p))}</div>
         <div class="pc-country">${escapeHTML(p.nationalityAr || p.nationality || "")}${p.age ? ` · ${p.age} سنة` : ""}</div>
@@ -250,7 +278,7 @@
     modalCard.innerHTML = `
       <button class="pm-close" data-close>✕</button>
       <div class="pm-head">
-        <div class="pm-avatar">${escapeHTML(p.jersey || "-")}</div>
+        <div class="pm-avatar">${escapeHTML(p.jersey || "-")}${p.photo ? `<img src="${escapeHTML(p.photo)}" alt="" onerror="this.remove()">` : ""}</div>
         <div>
           <h3>${escapeHTML(displayName(p))}</h3>
           <p>${escapeHTML(p.roleAr || "")} · ${escapeHTML(p.nationalityAr || p.nationality || "")}
@@ -322,6 +350,7 @@
   }
 
   function renderMatches(data) {
+    window.__chatMatches = data;
     const upcoming = $("#upcomingList");
     const results = $("#resultsList");
 
@@ -373,9 +402,9 @@
         <div class="nm-teams">
           <div class="nm-team"><div class="logo">🌏</div><div class="name">بطل آسيا 2025</div></div>
           <span class="nm-vs">+</span>
-          <div class="nm-team"><div class="logo">🥇</div><div class="name">سوبر 2025</div></div>
+          <div class="nm-team"><div class="logo">🌏</div><div class="name">بطل آسيا 2026</div></div>
         </div>
-        <div class="nm-meta">سيظهر العد التنازلي للمباراة القادمة هنا تلقائيًا فور اعتماد الجدول</div>`;
+        <div class="nm-meta">نسختان متتاليتان من دوري أبطال آسيا للنخبة — سيظهر العد التنازلي للمباراة القادمة هنا تلقائيًا</div>`;
       return;
     }
 
@@ -424,13 +453,16 @@
   };
   const arTeam = (n) => AR_TEAMS[n] || n;
 
+  const teamLogo = (name, fallback) => (name === "Al Ahli" ? AHLI_LOGO : fallback);
+
   function espnSide(competitor) {
     const team = competitor.team || {};
     const score = competitor.score;
+    const name = team.displayName || "";
     return {
-      name: team.displayName || "",
-      nameAr: arTeam(team.displayName || ""),
-      logo: (team.logos && team.logos[0] && team.logos[0].href) || team.logo || "",
+      name,
+      nameAr: arTeam(name),
+      logo: teamLogo(name, (team.logos && team.logos[0] && team.logos[0].href) || team.logo || ""),
       score: typeof score === "object" && score !== null ? score.displayValue || "" : String(score ?? ""),
     };
   }
@@ -475,6 +507,7 @@
 
   /* ================= الترتيب ================= */
   function renderStandings(data) {
+    if (data.entries && data.entries.length) window.__chatStandings = data.entries;
     const tbody = $("#standingsTable tbody");
     if (!data.entries || !data.entries.length) {
       tbody.innerHTML = '<tr><td colspan="8">جدول الترتيب غير متاح حاليًا — يظهر تلقائيًا مع انطلاق الموسم.</td></tr>';
@@ -509,10 +542,11 @@
     const entries = (d.children?.[0]?.standings?.entries || []).map((entry) => {
       const stats = {};
       for (const s of entry.stats || []) stats[s.name] = s.displayValue || "";
+      const teamName = entry.team?.displayName || "";
       return {
-        team: entry.team?.displayName || "",
-        teamAr: arTeam(entry.team?.displayName || ""),
-        logo: entry.team?.logos?.[0]?.href || "",
+        team: teamName,
+        teamAr: arTeam(teamName),
+        logo: teamLogo(teamName, entry.team?.logos?.[0]?.href || ""),
         played: stats.gamesPlayed || "",
         wins: stats.wins || "",
         draws: stats.ties || "",
@@ -545,14 +579,16 @@
   const QUIZ = [
     { q: "في أي عام تأسس النادي الأهلي السعودي؟", opts: ["1937", "1945", "1927", "1953"], a: 0 },
     { q: "ما لقب النادي الأهلي الأشهر؟", opts: ["الملكي", "الزعيم", "العميد", "الفارس"], a: 0 },
-    { q: "بأي بطولة قارية تُوّج الأهلي عام 2025؟", opts: ["دوري أبطال آسيا للنخبة", "كأس الاتحاد الآسيوي", "كأس السوبر الآسيوي", "دوري أبطال الخليج"], a: 0 },
+    { q: "كم نسخة متتالية حقق الأهلي من دوري أبطال آسيا للنخبة؟", opts: ["نسختان (2025 و2026)", "نسخة واحدة (2025)", "ثلاث نسخ", "لم يحققها"], a: 0 },
+    { q: "من سجّل هدف نهائي دوري أبطال آسيا للنخبة 2026 أمام ماتشيدا زيلفيا؟", opts: ["فراس البريكان", "إيفان توني", "غالينو", "إنزو ميو"], a: 0 },
     { q: "على أي ملعب يلعب الأهلي مبارياته؟", opts: ["الجوهرة المشعة (الإنماء)", "ملعب الملك فهد", "مرسول بارك", "ملعب الأمير عبدالله الفيصل"], a: 0 },
-    { q: "من أي دولة قائد الفريق رياض محرز؟", opts: ["الجزائر", "المغرب", "تونس", "فرنسا"], a: 0 },
-    { q: "كم مرة حقق الأهلي كأس الملك؟", opts: ["13 مرة", "9 مرات", "6 مرات", "16 مرة"], a: 0 },
+    { q: "كم بطولة دوري سعودي للأهلي وفق لجنة توثيق البطولات؟", opts: ["9 بطولات", "3 بطولات", "5 بطولات", "12 بطولة"], a: 0 },
+    { q: "كم مرة حقق الأهلي كأس الملك وفق لجنة التوثيق؟", opts: ["8 مرات", "13 مرة", "5 مرات", "10 مرات"], a: 0 },
+    { q: "كم إجمالي البطولات الرسمية للأهلي وفق التقرير النهائي للجنة التوثيق؟", opts: ["53 بطولة", "43 بطولة", "60 بطولة", "35 بطولة"], a: 0 },
     { q: "في أي مدينة يقع النادي الأهلي؟", opts: ["جدة", "الرياض", "الدمام", "مكة المكرمة"], a: 0 },
     { q: "من هو حارس مرمى الأهلي الأول؟", opts: ["إدوارد ميندي", "محمد العويس", "ياسين بونو", "عبدالله المعيوف"], a: 0 },
-    { q: "متى كان آخر تتويج للأهلي بالدوري السعودي؟", opts: ["2016", "2012", "2019", "2008"], a: 0 },
-    { q: "من أي نادٍ انتقل إيفان توني إلى الأهلي؟", opts: ["برينتفورد", "أرسنال", "توتنهام", "وست هام"], a: 0 },
+    { q: "من أي نادٍ انتقل فرانشيسكو ترينكاو إلى الأهلي صيف 2026؟", opts: ["سبورتينغ لشبونة", "برشلونة", "بورتو", "بنفيكا"], a: 0 },
+    { q: "متى دشّن الأهلي شعاره وهويته الجديدة؟", opts: ["يوليو 2025", "يناير 2024", "سبتمبر 2026", "مارس 2023"], a: 0 },
   ];
 
   function gameIntro(title, desc, startLabel, onStart) {
@@ -668,19 +704,19 @@
 
   /* --- لعبة الذاكرة --- */
   const MEMORY_LOGOS = [
-    "8346",  // الأهلي
-    "929",   // الهلال
-    "817",   // النصر
-    "2276",  // الاتحاد
-    "793",   // الشباب
-    "8363",  // الاتفاق
-    "22022", // القادسية
-    "18459", // التعاون
+    { id: "ahli", src: AHLI_LOGO },
+    { id: "929", src: "https://a.espncdn.com/i/teamlogos/soccer/500/929.png" },   // الهلال
+    { id: "817", src: "https://a.espncdn.com/i/teamlogos/soccer/500/817.png" },   // النصر
+    { id: "2276", src: "https://a.espncdn.com/i/teamlogos/soccer/500/2276.png" }, // الاتحاد
+    { id: "793", src: "https://a.espncdn.com/i/teamlogos/soccer/500/793.png" },   // الشباب
+    { id: "8363", src: "https://a.espncdn.com/i/teamlogos/soccer/500/8363.png" }, // الاتفاق
+    { id: "22022", src: "https://a.espncdn.com/i/teamlogos/soccer/500/22022.png" }, // القادسية
+    { id: "18459", src: "https://a.espncdn.com/i/teamlogos/soccer/500/18459.png" }, // التعاون
   ];
 
   function startMemory() {
     const cards = shuffle(
-      [...MEMORY_LOGOS, ...MEMORY_LOGOS].map((id, i) => ({ id, key: i }))
+      [...MEMORY_LOGOS, ...MEMORY_LOGOS].map((logo, i) => ({ ...logo, key: i }))
     );
     let flipped = [], moves = 0, matched = 0, lock = false;
 
@@ -689,7 +725,7 @@
         ${cards.map((c, i) => `
           <button class="mem-card" data-i="${i}" aria-label="بطاقة">
             <span class="face back">؟</span>
-            <span class="face front"><img src="https://a.espncdn.com/i/teamlogos/soccer/500/${c.id}.png" alt="" loading="lazy"></span>
+            <span class="face front"><img src="${c.src}" alt="" loading="lazy"></span>
           </button>`).join("")}
       </div>
       <div class="mem-stats" id="memStats">المحاولات: 0</div>`;
@@ -736,6 +772,214 @@
     $$("#gamesTabs .chip").forEach((c) => c.classList.remove("active"));
     chip.classList.add("active");
     GAMES[chip.dataset.game]();
+  });
+
+  /* ================= المساعد الأهلاوي الذكي ================= */
+  // مساعد ذكي يعمل محليًا في المتصفح على بيانات الموقع الحية (بلا خوادم خارجية)
+  const chatState = {
+    get news() { return window.__chatNews || []; },
+    get matches() { return window.__chatMatches || { upcoming: [], results: [] }; },
+    get standings() { return window.__chatStandings || []; },
+  };
+
+  const chatFab = $("#chatFab");
+  const chatPanel = $("#chatPanel");
+  const chatBody = $("#chatBody");
+  const chatForm = $("#chatForm");
+  const chatInput = $("#chatInput");
+  const chatSuggest = $("#chatSuggest");
+
+  const SUGGESTIONS = ["متى المباراة القادمة؟", "كم نقطة الأهلي؟", "معلومات عن توني", "توقع لي مباراة", "آخر الأخبار", "بطولات النادي"];
+
+  function chatMsg(html, who = "bot") {
+    const div = document.createElement("div");
+    div.className = `chat-msg ${who}`;
+    div.innerHTML = html;
+    chatBody.appendChild(div);
+    chatBody.scrollTop = chatBody.scrollHeight;
+    return div;
+  }
+
+  function renderSuggestions() {
+    chatSuggest.innerHTML = SUGGESTIONS.map((s) => `<button type="button">${s}</button>`).join("");
+    $$("button", chatSuggest).forEach((b) =>
+      b.addEventListener("click", () => {
+        chatInput.value = b.textContent;
+        chatForm.requestSubmit();
+      })
+    );
+  }
+
+  function normalize(s) {
+    return s
+      .replace(/[أإآ]/g, "ا").replace(/ة/g, "ه").replace(/ى/g, "ي")
+      .replace(/[ًٌٍَُِّْ]/g, "").replace(/[؟?!.,،]/g, " ")
+      .toLowerCase();
+  }
+
+  function has(text, ...words) {
+    return words.some((w) => text.includes(normalize(w)));
+  }
+
+  function findPlayer(text) {
+    let best = null, bestLen = 0;
+    for (const p of allPlayers) {
+      const names = [p.ar, p.name].filter(Boolean);
+      for (const n of names) {
+        for (const part of normalize(n).split(" ")) {
+          if (part.length >= 3 && text.includes(part) && part.length > bestLen) {
+            best = p;
+            bestLen = part.length;
+          }
+        }
+      }
+    }
+    return best;
+  }
+
+  function playerAnswer(p) {
+    const stats = p.stats
+      ? Object.entries(p.stats).map(([k, v]) => `${k}: ${v}`).join(" · ")
+      : "";
+    return `${p.photo ? `<img src="${escapeHTML(p.photo)}" style="width:56px;height:56px;border-radius:50%;object-fit:cover;float:inline-start;margin-inline-end:8px" onerror="this.remove()">` : ""}
+      <strong>${escapeHTML(displayName(p))}</strong> 🎽 رقم ${escapeHTML(p.jersey || "؟")}<br>
+      ${escapeHTML(p.roleAr || "")} · ${escapeHTML(p.nationalityAr || "")}${p.age ? ` · ${p.age} سنة` : ""}${p.rating ? ` · ⭐ ${p.rating}` : ""}
+      ${stats ? `<br><small>${escapeHTML(stats)}</small>` : ""}
+      ${p.bio ? `<br><small>${escapeHTML(p.bio)}</small>` : ""}`;
+  }
+
+  function ahliRow() {
+    const idx = chatState.standings.findIndex((e) => e.team === "Al Ahli");
+    return idx >= 0 ? { ...chatState.standings[idx], pos: idx + 1 } : null;
+  }
+
+  function predictAnswer() {
+    const next = chatState.matches.upcoming.find((m) => m.date && new Date(m.date) > new Date());
+    const form = chatState.matches.results.slice(0, 5);
+    const wins = form.filter((m) => ahliOutcome(m) === "win").length;
+    if (!next) {
+      return `لا توجد مباراة مجدولة حاليًا لأتوقعها 📋<br><small>لكن للعلم: الأهلي فاز في ${wins} من آخر ${form.length} مباريات، وهو بطل آسيا نسختين متتاليتين — التوقعات دائمًا خضراء 💚</small>`;
+    }
+    const opp = next.home.name === "Al Ahli" ? next.away : next.home;
+    const oppIdx = chatState.standings.findIndex((e) => e.team === opp.name);
+    const us = ahliRow();
+    let confidence = 55 + wins * 6;
+    if (us && oppIdx >= 0) confidence += Math.max(-15, Math.min(15, (oppIdx - us.pos + 1) * 2));
+    confidence = Math.max(35, Math.min(90, confidence));
+    const score = confidence >= 70 ? "2-0" : confidence >= 55 ? "2-1" : "1-1";
+    return `🔮 توقعي لمباراة <strong>${escapeHTML(next.home.nameAr)} × ${escapeHTML(next.away.nameAr)}</strong>:<br>
+      فوز أهلاوي بنتيجة <strong>${score}</strong> بنسبة ثقة ${confidence}%<br>
+      <small>بناءً على: ${wins} انتصارات في آخر ${form.length} مباريات${us ? ` · المركز ${us.pos} برصيد ${us.points} نقطة` : ""} — والتحليل الأهم: نحن الملكي 💚</small>`;
+  }
+
+  function answer(raw) {
+    const text = normalize(raw);
+
+    if (has(text, "محرز", "كيسيه", "كيسي")) {
+      const who = has(text, "محرز") ? "رياض محرز" : "فرانك كيسيه";
+      return `${who} غادر النادي في صيف 2026 🥲 — محرز بفسخ عقده بالتراضي وكيسيه بنهاية عقده. شكرًا لهما على قيادة الملكي للقب الآسيوي مرتين 💚<br><small>البديل وصل: فرانشيسكو ترينكاو من سبورتينغ لشبونة!</small>`;
+    }
+
+    if (has(text, "قادم", "متي المباراه", "متى", "موعد", "جدول")) {
+      const next = chatState.matches.upcoming.find((m) => m.date && new Date(m.date) > new Date());
+      if (next) {
+        return `المباراة القادمة: <strong>${escapeHTML(next.home.nameAr)} × ${escapeHTML(next.away.nameAr)}</strong><br>🗓️ ${formatDate(next.date)} — ${escapeHTML(next.competition)}`;
+      }
+      return "لا توجد مباريات مجدولة حاليًا — نحن في فترة التوقف الصيفي، وسيظهر الجدول تلقائيًا فور اعتماده 📋";
+    }
+
+    if (has(text, "نتيجه", "نتائج", "اخر مباراه", "خسر", "فاز")) {
+      const last = chatState.matches.results.slice(0, 3);
+      if (!last.length) return "لا توجد نتائج مسجلة بعد.";
+      return "آخر النتائج:<br>" + last.map((m) => {
+        const icon = { win: "✅", loss: "❌", draw: "➖" }[ahliOutcome(m)];
+        return `${icon} ${escapeHTML(m.home.nameAr)} ${escapeHTML(m.home.score)} - ${escapeHTML(m.away.score)} ${escapeHTML(m.away.nameAr)}`;
+      }).join("<br>");
+    }
+
+    if (has(text, "ترتيب", "نقطه", "نقاط", "مركز", "وصيف", "متصدر")) {
+      const us = ahliRow();
+      if (!us) return "جدول الترتيب غير متاح حاليًا.";
+      const top = chatState.standings[0];
+      return `الأهلي في المركز <strong>${us.pos}</strong> برصيد <strong>${escapeHTML(us.points)}</strong> نقطة (${escapeHTML(us.wins)} فوز، ${escapeHTML(us.draws)} تعادل، ${escapeHTML(us.losses)} خسارة)${top && top.team !== "Al Ahli" ? `<br><small>المتصدر: ${escapeHTML(top.teamAr)} بـ${escapeHTML(top.points)} نقطة</small>` : " — متصدرين! 🔝"}`;
+    }
+
+    if (has(text, "توقع", "تكهن", "تحليل", "من يفوز")) return predictAnswer();
+
+    if (has(text, "خبر", "اخبار", "جديد", "صفقه", "صفقات", "انتقال")) {
+      const top = chatState.news.slice(0, 3);
+      if (!top.length) return "لم أجد أخبارًا الآن — جرّب قسم الأخبار بالأعلى.";
+      return "آخر الأخبار:<br>" + top.map((n) => `📰 <a href="${escapeHTML(n.link)}" target="_blank" rel="noopener">${escapeHTML(n.title)}</a>`).join("<br>");
+    }
+
+    if (has(text, "مدرب", "يايسله", "جهاز فني")) {
+      const c = clubData.coach || {};
+      return `المدير الفني: <strong>${escapeHTML(c.name || "ماتياس يايسله")}</strong> 🇩🇪 (${escapeHTML(c.nationality || "ألمانيا")}) — قاد الملكي للقب الآسيوي نسختين متتاليتين 2025 و2026 🏆🏆`;
+    }
+
+    if (has(text, "بطوله", "بطولات", "القاب", "لقب", "توثيق", "انجاز")) {
+      return `سجل الأهلي وفق لجنة توثيق البطولات 📜:<br>
+        🌏 دوري أبطال آسيا للنخبة: <strong>مرتان</strong> (2025، 2026 — نسختان متتاليتان)<br>
+        🏆 الدوري السعودي: <strong>9</strong> · كأس الملك: <strong>8</strong> · كأس ولي العهد: <strong>6</strong><br>
+        📜 الإجمالي: <strong>53 بطولة رسمية</strong> حتى التقرير النهائي (سبتمبر 2025) + لقب آسيا 2026`;
+    }
+
+    if (has(text, "تشكيله", "كم لاعب", "لاعبين", "قائمه")) {
+      const by = { GK: 0, DF: 0, MF: 0, FW: 0 };
+      allPlayers.forEach((p) => { if (by[p.position] !== undefined) by[p.position]++; });
+      return `قائمة الفريق الأول تضم <strong>${allPlayers.length}</strong> لاعبًا:<br>🧤 ${by.GK} حراس · 🛡️ ${by.DF} مدافعًا · ⚙️ ${by.MF} وسطًا · ⚡ ${by.FW} مهاجمًا<br><small>اسألني عن أي لاعب بالاسم!</small>`;
+    }
+
+    if (has(text, "تاسس", "تاريخ", "متي انشئ")) {
+      return "تأسس النادي الأهلي عام <strong>1937</strong> في جدة، ويُلقب بالملكي والقلعة الخضراء، وشعاره الخالد: «وعبر الزمان سنمضي معًا» 💚";
+    }
+
+    if (has(text, "ملعب", "استاد", "الجوهره")) {
+      return "يلعب الأهلي على ملعب <strong>الإنماء</strong> (الجوهرة المشعة) في مدينة الملك عبدالله الرياضية بجدة، بسعة تتجاوز 62 ألف متفرج 🏟️";
+    }
+
+    if (has(text, "شعار", "هويه")) {
+      return "دشّن النادي شعاره وهويته الجديدة في <strong>يوليو 2025</strong> — احتفظ بالأخضر والأبيض وعبارة «وعبر الزمان سنمضي معًا» وتاريخ التأسيس 1937 ✨";
+    }
+
+    const player = findPlayer(text);
+    if (player) return playerAnswer(player);
+
+    if (has(text, "سلام", "مرحبا", "هلا", "اهلين", "صباح", "مساء")) {
+      return "هلا والله بأهلاوي أصيل! 💚 اسألني عن أي شيء يخص الملكي: اللاعبين، المباريات، الترتيب، الأخبار، أو اطلب توقعًا لمباراة!";
+    }
+
+    return `لم أفهم سؤالك تمامًا 🤔 جرّب أن تسألني عن:<br>
+      ⚽ لاعب بالاسم (مثل: «معلومات عن توني»)<br>
+      📅 «متى المباراة القادمة؟» · 🏅 «كم نقطة الأهلي؟»<br>
+      📰 «آخر الأخبار» · 🏆 «بطولات النادي» · 🔮 «توقع لي مباراة»`;
+  }
+
+  function botReply(userText) {
+    const typing = chatMsg('<span class="typing">يفكر…</span>');
+    setTimeout(() => {
+      typing.innerHTML = answer(userText);
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }, 450 + Math.random() * 500);
+  }
+
+  chatFab.addEventListener("click", () => {
+    chatPanel.hidden = !chatPanel.hidden;
+    if (!chatPanel.hidden && !chatBody.children.length) {
+      chatMsg("أهلًا بك في القلعة الخضراء! 💚 أنا المساعد الأهلاوي الذكي — أجيبك من بيانات الموقع الحية عن أي شيء يخص الملكي. جرّب الأزرار بالأسفل أو اكتب سؤالك.");
+      renderSuggestions();
+    }
+    if (!chatPanel.hidden) chatInput.focus();
+  });
+  $("#chatClose").addEventListener("click", () => (chatPanel.hidden = true));
+
+  chatForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const q = chatInput.value.trim();
+    if (!q) return;
+    chatMsg(escapeHTML(q), "user");
+    chatInput.value = "";
+    botReply(q);
   });
 
   /* ================= المتجر ================= */

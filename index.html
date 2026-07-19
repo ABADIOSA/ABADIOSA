@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="موقع جماهيري يهتم بكل أخبار النادي الأهلي السعودي: الأخبار، الفريق الأول، المباريات، الترتيب، الألعاب، والمتجر — يتحدث تلقائيًا أول بأول.">
   <title>الأهلي السعودي | الملكي — الأخبار والفريق والمتجر</title>
-  <link rel="icon" href="https://a.espncdn.com/i/teamlogos/soccer/500/8346.png">
+  <link rel="icon" href="https://upload.wikimedia.org/wikipedia/ar/thumb/3/3e/Al-Ahli_SFC_%282025%29.svg/langar-330px-Al-Ahli_SFC_%282025%29.svg.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -17,10 +17,10 @@
   <header class="topbar">
     <div class="container topbar-inner">
       <a href="#home" class="brand" data-nav="home">
-        <img class="brand-logo" src="https://a.espncdn.com/i/teamlogos/soccer/500/8346.png" alt="شعار النادي الأهلي السعودي">
+        <img class="brand-logo" src="https://upload.wikimedia.org/wikipedia/ar/thumb/3/3e/Al-Ahli_SFC_%282025%29.svg/langar-330px-Al-Ahli_SFC_%282025%29.svg.png" alt="شعار النادي الأهلي السعودي">
         <span class="brand-text">
           <strong>الأهلي السعودي</strong>
-          <small>الملكي · بطل آسيا 2025</small>
+          <small>الملكي · بطل آسيا 2025 و2026</small>
         </span>
       </a>
       <nav class="mainnav" id="mainnav">
@@ -41,7 +41,7 @@
   <section class="hero" id="home">
     <div class="container hero-inner">
       <div class="hero-text">
-        <span class="hero-badge">🏆 بطل دوري أبطال آسيا للنخبة 2025</span>
+        <span class="hero-badge">🏆 بطل دوري أبطال آسيا للنخبة 2025 و2026 — نسختان متتاليتان</span>
         <h1>القلعة <span class="accent">الخضراء</span></h1>
         <p>كل ما يخص النادي الأهلي السعودي في مكان واحد: أخبار لحظية، التشكيلة الحقيقية للفريق، نتائج المباريات وترتيب الدوري محدثة تلقائيًا من مصادر موثوقة، ألعاب واختبارات تفاعلية، ومتجر النادي.</p>
         <div class="hero-actions">
@@ -51,7 +51,7 @@
         <p class="auto-update-note" id="lastUpdated">⟳ البيانات تتحدث تلقائيًا…</p>
       </div>
       <div class="hero-side">
-        <img class="hero-logo" src="https://a.espncdn.com/i/teamlogos/soccer/500/8346.png" alt="شعار الأهلي">
+        <img class="hero-logo" src="https://upload.wikimedia.org/wikipedia/ar/thumb/3/3e/Al-Ahli_SFC_%282025%29.svg/langar-330px-Al-Ahli_SFC_%282025%29.svg.png" alt="شعار الأهلي">
         <div class="hero-card" id="nextMatchCard"></div>
       </div>
     </div>
@@ -83,7 +83,8 @@
           <button class="chip" data-pos="FW">هجوم</button>
         </div>
       </div>
-      <p class="section-sub">التشكيلة الحقيقية محدثة تلقائيًا من ESPN — اضغط على أي لاعب لعرض خصائصه.</p>
+      <p class="section-sub">التشكيلة الحقيقية محدثة تلقائيًا — اضغط على أي لاعب لعرض خصائصه.</p>
+      <div id="coachCard"></div>
       <div class="players-grid" id="playersGrid"><div class="loader">جارٍ تحميل التشكيلة…</div></div>
     </section>
 
@@ -149,13 +150,14 @@
           <p>يخوض الأهلي مبارياته على ملعب <strong>الإنماء (مدينة الملك عبدالله الرياضية — الجوهرة المشعة)</strong> في جدة بسعة تتجاوز 62 ألف متفرج.</p>
         </div>
         <div class="about-card honors">
-          <h3>أبرز البطولات</h3>
+          <h3>البطولات الرسمية <small style="font-weight:600;color:var(--muted)">(وفق لجنة توثيق تاريخ الكرة السعودية)</small></h3>
           <ul>
-            <li>🏆 دوري أبطال آسيا للنخبة: <strong>2025</strong></li>
-            <li>🏆 الدوري السعودي: <strong>3 مرات</strong> (أبرزها 2016)</li>
-            <li>🏆 كأس الملك: <strong>13 مرة</strong> (رقم قياسي مشترك)</li>
+            <li>🌏 دوري أبطال آسيا للنخبة: <strong>مرتان</strong> (2025، 2026)</li>
+            <li>🏆 الدوري السعودي: <strong>9 مرات</strong></li>
+            <li>🏆 كأس الملك: <strong>8 مرات</strong></li>
             <li>🏆 كأس ولي العهد: <strong>6 مرات</strong></li>
-            <li>🏆 كأس السوبر السعودي: <strong>2016، 2025</strong></li>
+            <li>🥇 كأس السوبر السعودي: <strong>2016، 2025</strong></li>
+            <li>📜 الإجمالي: <strong>53 بطولة رسمية</strong> وثّقتها اللجنة في تقريرها النهائي (سبتمبر 2025) + لقب آسيا 2026</li>
           </ul>
         </div>
       </div>
@@ -167,6 +169,21 @@
   <div class="modal" id="playerModal" hidden>
     <div class="modal-backdrop" data-close></div>
     <div class="modal-card" id="playerModalCard"></div>
+  </div>
+
+  <!-- المساعد الأهلاوي الذكي -->
+  <button class="chat-fab" id="chatFab" aria-label="المساعد الذكي">🤖</button>
+  <div class="chat-panel" id="chatPanel" hidden>
+    <div class="chat-head">
+      <span>🤖 المساعد الأهلاوي الذكي</span>
+      <button class="chat-close" id="chatClose" aria-label="إغلاق">✕</button>
+    </div>
+    <div class="chat-body" id="chatBody"></div>
+    <div class="chat-suggest" id="chatSuggest"></div>
+    <form class="chat-form" id="chatForm">
+      <input type="text" id="chatInput" placeholder="اسألني عن الأهلي: اللاعبين، الترتيب، المباريات…" autocomplete="off">
+      <button type="submit" class="btn btn-small">إرسال</button>
+    </form>
   </div>
 
   <footer class="footer">

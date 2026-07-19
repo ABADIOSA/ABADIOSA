@@ -168,6 +168,24 @@ a { color: var(--green); text-decoration: none; }
   width: 26px; height: 26px; border-radius: 50%; object-fit: cover;
   border: 2px solid var(--green-dark); background: #fff;
 }
+.pc-photo {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  border-radius: 50%; object-fit: cover; object-position: top;
+}
+
+/* بطاقة المدرب */
+.coach-card {
+  display: flex; align-items: center; gap: 18px; margin-top: 22px;
+  background: linear-gradient(120deg, var(--green-darker), var(--green-dark));
+  color: #fff; border-radius: var(--radius); padding: 18px 24px; box-shadow: var(--shadow);
+}
+.coach-photo {
+  width: 72px; height: 72px; border-radius: 50%; object-fit: cover; object-position: top;
+  border: 3px solid var(--gold); background: #fff; flex-shrink: 0;
+}
+.coach-info .label { font-size: 12px; color: #ffe9a8; font-weight: 700; }
+.coach-info .name { font-size: 20px; font-weight: 900; }
+.coach-info .nat { font-size: 13px; color: #bfe6d3; }
 .pc-name { text-align: center; font-weight: 800; font-size: 16px; }
 .pc-country { text-align: center; font-size: 12px; color: #bfe6d3; margin-top: 2px; }
 .pc-rating { text-align: center; margin-top: 10px; font-size: 13px; color: #ffe9a8; font-weight: 800; }
@@ -184,7 +202,9 @@ a { color: var(--green); text-decoration: none; }
 .pm-avatar {
   width: 64px; height: 64px; border-radius: 50%; background: var(--green);
   color: #fff; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 900; flex-shrink: 0;
+  position: relative; overflow: hidden;
 }
+.pm-avatar img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; }
 .pm-head h3 { font-size: 20px; font-weight: 900; color: var(--green-dark); }
 .pm-head p { font-size: 13px; color: var(--muted); }
 .pm-close {
@@ -328,6 +348,46 @@ a { color: var(--green); text-decoration: none; }
 .footer { background: var(--green-darker); color: #cfe8dc; margin-top: 64px; padding: 26px 0; }
 .footer-inner { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; font-size: 14px; }
 .footer a { color: #7fe0b0; }
+
+/* المساعد الذكي */
+.chat-fab {
+  position: fixed; bottom: 22px; inset-inline-start: 22px; z-index: 90;
+  width: 58px; height: 58px; border-radius: 50%; border: none; cursor: pointer;
+  background: linear-gradient(140deg, var(--green), var(--green-dark)); font-size: 26px;
+  box-shadow: 0 8px 24px rgba(0,60,35,.4); transition: .2s;
+}
+.chat-fab:hover { transform: scale(1.08); }
+.chat-panel {
+  position: fixed; bottom: 92px; inset-inline-start: 22px; z-index: 95;
+  width: min(380px, calc(100vw - 44px)); height: min(520px, 70vh);
+  background: var(--card); border-radius: 18px; box-shadow: 0 20px 60px rgba(0,0,0,.35);
+  display: flex; flex-direction: column; overflow: hidden; border: 1px solid var(--border);
+}
+.chat-panel[hidden] { display: none; }
+.chat-head {
+  background: var(--green-dark); color: #fff; padding: 14px 18px; font-weight: 800; font-size: 15px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.chat-close { background: none; border: none; color: #fff; font-size: 16px; cursor: pointer; }
+.chat-body { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+.chat-msg { max-width: 85%; padding: 10px 14px; border-radius: 14px; font-size: 14px; line-height: 1.6; }
+.chat-msg.bot { background: #eef6f1; color: var(--text); align-self: flex-start; border-end-start-radius: 4px; }
+.chat-msg.user { background: var(--green); color: #fff; align-self: flex-end; border-end-end-radius: 4px; }
+.chat-msg a { font-weight: 700; }
+.chat-msg .typing { display: inline-block; animation: blink 1s infinite; }
+@keyframes blink { 50% { opacity: .3; } }
+.chat-suggest { display: flex; gap: 6px; padding: 0 12px 8px; flex-wrap: wrap; }
+.chat-suggest button {
+  border: 1px solid var(--border); background: #fafcfb; color: var(--green-dark);
+  border-radius: 999px; padding: 4px 12px; font-size: 12px; font-weight: 700; cursor: pointer; font-family: inherit;
+}
+.chat-suggest button:hover { background: var(--green); color: #fff; }
+.chat-form { display: flex; gap: 8px; padding: 12px; border-top: 1px solid var(--border); }
+.chat-form input {
+  flex: 1; border: 1px solid var(--border); border-radius: 10px; padding: 10px 14px;
+  font-family: inherit; font-size: 14px; outline: none;
+}
+.chat-form input:focus { border-color: var(--green); }
 
 /* ====== استجابة الشاشات ====== */
 @media (max-width: 860px) {

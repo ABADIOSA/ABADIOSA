@@ -27,7 +27,7 @@
     {
       "team": "Al Ahli",
       "teamAr": "الأهلي",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/8346.png",
+      "logo": "https://upload.wikimedia.org/wikipedia/ar/thumb/3/3e/Al-Ahli_SFC_%282025%29.svg/langar-330px-Al-Ahli_SFC_%282025%29.svg.png",
       "played": "34",
       "wins": "25",
       "draws": "6",
@@ -201,5 +201,5 @@
       "points": "16"
     }
   ],
-  "updatedAt": "2026-07-19T17:25:10.943319+00:00"
+  "updatedAt": "2026-07-19T17:41:03.734952+00:00"
 }
