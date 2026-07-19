@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="موقع جماهيري يهتم بكل أخبار النادي الأهلي السعودي: الأخبار، الفريق الأول، المباريات، والمتجر — يتحدث تلقائيًا أول بأول.">
+  <title>الأهلي السعودي | الملكي — الأخبار والفريق والمتجر</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23006b3f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white'>⚽</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- شريط علوي -->
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a href="#home" class="brand" data-nav="home">
+        <span class="brand-logo">🦅</span>
+        <span class="brand-text">
+          <strong>الأهلي السعودي</strong>
+          <small>الملكي · بطل آسيا 2025</small>
+        </span>
+      </a>
+      <nav class="mainnav" id="mainnav">
+        <a href="#home"    class="nav-link active" data-nav="home">الرئيسية</a>
+        <a href="#news"    class="nav-link" data-nav="news">الأخبار</a>
+        <a href="#team"    class="nav-link" data-nav="team">الفريق الأول</a>
+        <a href="#matches" class="nav-link" data-nav="matches">المباريات</a>
+        <a href="#store"   class="nav-link" data-nav="store">المتجر</a>
+        <a href="#about"   class="nav-link" data-nav="about">عن النادي</a>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-label="القائمة">☰</button>
+    </div>
+  </header>
+
+  <!-- الواجهة الرئيسية -->
+  <section class="hero" id="home">
+    <div class="container hero-inner">
+      <div class="hero-text">
+        <span class="hero-badge">🏆 بطل دوري أبطال آسيا للنخبة 2025</span>
+        <h1>القلعة <span class="accent">الخضراء</span></h1>
+        <p>كل ما يخص النادي الأهلي السعودي في مكان واحد: آخر الأخبار لحظة بلحظة، الفريق الأول ومهارات كل لاعب، جدول المباريات، ومتجر النادي.</p>
+        <div class="hero-actions">
+          <a href="#news" class="btn btn-primary" data-nav="news">آخر الأخبار</a>
+          <a href="#team" class="btn btn-ghost" data-nav="team">تعرّف على الفريق</a>
+        </div>
+        <p class="auto-update-note" id="lastUpdated">⟳ الأخبار تتحدث تلقائيًا…</p>
+      </div>
+      <div class="hero-card" id="nextMatchCard">
+        <!-- بطاقة المباراة القادمة تُعبأ عبر JS -->
+      </div>
+    </div>
+  </section>
+
+  <main class="container">
+
+    <!-- الأخبار -->
+    <section class="section" id="news">
+      <div class="section-head">
+        <h2>📰 آخر الأخبار</h2>
+        <button class="btn btn-small" id="refreshNews">تحديث الآن ⟳</button>
+      </div>
+      <p class="section-sub">تُجلب الأخبار تلقائيًا من مصادر إخبارية وتتجدد باستمرار.</p>
+      <div class="news-grid" id="newsGrid">
+        <div class="loader">جارٍ تحميل الأخبار…</div>
+      </div>
+    </section>
+
+    <!-- الفريق الأول -->
+    <section class="section" id="team">
+      <div class="section-head">
+        <h2>👕 الفريق الأول</h2>
+        <div class="filters" id="posFilters">
+          <button class="chip active" data-pos="all">الكل</button>
+          <button class="chip" data-pos="GK">حراسة</button>
+          <button class="chip" data-pos="DF">دفاع</button>
+          <button class="chip" data-pos="MF">وسط</button>
+          <button class="chip" data-pos="FW">هجوم</button>
+        </div>
+      </div>
+      <p class="section-sub">اضغط على أي لاعب لعرض خصائصه الكاملة.</p>
+      <div class="players-grid" id="playersGrid"></div>
+    </section>
+
+    <!-- المباريات -->
+    <section class="section" id="matches">
+      <div class="section-head"><h2>📅 المباريات</h2></div>
+      <div class="matches-cols">
+        <div>
+          <h3 class="col-title">المباريات القادمة</h3>
+          <div id="upcomingList" class="match-list"></div>
+        </div>
+        <div>
+          <h3 class="col-title">آخر النتائج</h3>
+          <div id="resultsList" class="match-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- المتجر -->
+    <section class="section" id="store">
+      <div class="section-head"><h2>🛍️ متجر النادي</h2></div>
+      <p class="section-sub">تشكيلة من منتجات النادي — الشراء يتم عبر المتجر الرسمي للنادي.</p>
+      <div class="store-grid" id="storeGrid"></div>
+    </section>
+
+    <!-- عن النادي -->
+    <section class="section" id="about">
+      <div class="section-head"><h2>🦅 عن النادي</h2></div>
+      <div class="about-grid">
+        <div class="about-card">
+          <h3>التأسيس</h3>
+          <p>تأسس النادي الأهلي السعودي عام <strong>1937م</strong> في مدينة جدة، وهو أحد أعرق وأكبر الأندية في المملكة العربية السعودية وقارة آسيا، ويُلقّب بـ«الملكي» و«القلعة الخضراء».</p>
+        </div>
+        <div class="about-card">
+          <h3>الملعب</h3>
+          <p>يخوض الأهلي مبارياته على ملعب <strong>الإنماء (مدينة الملك عبدالله الرياضية — الجوهرة المشعة)</strong> في جدة بسعة تتجاوز 62 ألف متفرج.</p>
+        </div>
+        <div class="about-card honors">
+          <h3>أبرز البطولات</h3>
+          <ul>
+            <li>🏆 دوري أبطال آسيا للنخبة: <strong>2025</strong></li>
+            <li>🏆 الدوري السعودي: <strong>3 مرات</strong> (أبرزها 2016)</li>
+            <li>🏆 كأس الملك: <strong>13 مرة</strong> (رقم قياسي مشترك)</li>
+            <li>🏆 كأس ولي العهد: <strong>6 مرات</strong></li>
+            <li>🏆 كأس السوبر السعودي: <strong>2016، 2025</strong></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- نافذة تفاصيل اللاعب -->
+  <div class="modal" id="playerModal" hidden>
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-card" id="playerModalCard"></div>
+  </div>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>موقع جماهيري غير رسمي لمحبي النادي الأهلي السعودي 💚 — يتحدّث تلقائيًا</p>
+      <p><a href="https://www.alahlifc.sa" target="_blank" rel="noopener">الموقع الرسمي للنادي ↗</a></p>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

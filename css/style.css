@@ -1,0 +1,250 @@
+/* ====== الأساسيات ====== */
+:root {
+  --green: #006b3f;
+  --green-dark: #004d2c;
+  --green-darker: #00331d;
+  --green-light: #0e8a55;
+  --gold: #d4af37;
+  --bg: #f4f7f5;
+  --card: #ffffff;
+  --text: #1c2b23;
+  --muted: #5c6f65;
+  --border: #e2eae5;
+  --radius: 16px;
+  --shadow: 0 6px 24px rgba(0, 60, 35, 0.10);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: "Cairo", "Segoe UI", Tahoma, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+}
+
+.container { max-width: 1150px; margin: 0 auto; padding: 0 20px; }
+
+a { color: var(--green); text-decoration: none; }
+
+/* ====== الشريط العلوي ====== */
+.topbar {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(0, 51, 29, 0.97);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 12px rgba(0,0,0,.25);
+}
+.topbar-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 68px; }
+.brand { display: flex; align-items: center; gap: 10px; color: #fff; }
+.brand-logo { font-size: 30px; }
+.brand-text { display: flex; flex-direction: column; line-height: 1.2; }
+.brand-text strong { font-size: 17px; font-weight: 800; }
+.brand-text small { color: #9fd6bb; font-size: 11px; }
+.mainnav { display: flex; gap: 4px; }
+.nav-link {
+  color: #cfe8dc; padding: 8px 14px; border-radius: 10px;
+  font-weight: 600; font-size: 15px; transition: .2s;
+}
+.nav-link:hover { background: rgba(255,255,255,.10); color: #fff; }
+.nav-link.active { background: var(--green); color: #fff; }
+.nav-toggle {
+  display: none; background: none; border: 1px solid rgba(255,255,255,.3);
+  color: #fff; font-size: 20px; padding: 4px 12px; border-radius: 8px; cursor: pointer;
+}
+
+/* ====== الواجهة ====== */
+.hero {
+  background:
+    radial-gradient(1000px 400px at 85% -10%, rgba(212,175,55,.18), transparent 60%),
+    linear-gradient(135deg, var(--green-darker) 0%, var(--green-dark) 55%, var(--green) 100%);
+  color: #fff;
+  padding: 72px 0 84px;
+}
+.hero-inner { display: grid; grid-template-columns: 1.2fr .8fr; gap: 40px; align-items: center; }
+.hero-badge {
+  display: inline-block; background: rgba(212,175,55,.15); border: 1px solid rgba(212,175,55,.5);
+  color: #ffe9a8; padding: 6px 14px; border-radius: 999px; font-size: 13px; font-weight: 700;
+  margin-bottom: 14px;
+}
+.hero h1 { font-size: clamp(38px, 6vw, 60px); font-weight: 900; line-height: 1.15; }
+.hero .accent { color: #7fe0b0; }
+.hero p { margin-top: 14px; color: #d7ece2; max-width: 560px; }
+.hero-actions { margin-top: 24px; display: flex; gap: 12px; flex-wrap: wrap; }
+.auto-update-note { margin-top: 18px; font-size: 13px; color: #9fd6bb; }
+
+.btn {
+  display: inline-block; padding: 12px 26px; border-radius: 12px; font-weight: 800;
+  font-size: 15px; border: none; cursor: pointer; transition: .2s; font-family: inherit;
+}
+.btn-primary { background: var(--gold); color: #3a2e00; }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(212,175,55,.35); }
+.btn-ghost { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,.5); }
+.btn-ghost:hover { background: rgba(255,255,255,.12); }
+.btn-small { padding: 7px 16px; font-size: 13px; background: var(--green); color: #fff; }
+.btn-small:hover { background: var(--green-light); }
+
+/* بطاقة المباراة القادمة */
+.hero-card {
+  background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18);
+  border-radius: 20px; padding: 26px; backdrop-filter: blur(6px);
+}
+.hero-card .nm-title { font-size: 13px; color: #ffe9a8; font-weight: 700; margin-bottom: 12px; }
+.nm-teams { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.nm-team { text-align: center; flex: 1; }
+.nm-team .logo { font-size: 40px; }
+.nm-team .name { font-weight: 800; margin-top: 6px; font-size: 15px; }
+.nm-vs { font-size: 22px; font-weight: 900; color: var(--gold); }
+.nm-meta { text-align: center; margin-top: 14px; color: #cfe8dc; font-size: 13px; }
+.nm-countdown { display: flex; justify-content: center; gap: 10px; margin-top: 14px; }
+.nm-countdown .cd {
+  background: rgba(0,0,0,.25); border-radius: 10px; padding: 8px 0; width: 62px; text-align: center;
+}
+.nm-countdown .cd b { display: block; font-size: 20px; }
+.nm-countdown .cd span { font-size: 11px; color: #9fd6bb; }
+
+/* ====== الأقسام ====== */
+.section { padding: 56px 0 8px; }
+.section-head { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.section-head h2 { font-size: 28px; font-weight: 900; color: var(--green-dark); }
+.section-sub { color: var(--muted); font-size: 14px; margin-top: 4px; }
+
+/* الأخبار */
+.news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 18px; margin-top: 22px; }
+.news-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 20px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 10px;
+  transition: .2s;
+}
+.news-card:hover { transform: translateY(-4px); }
+.news-card h3 { font-size: 16px; line-height: 1.55; font-weight: 700; }
+.news-card h3 a { color: var(--text); }
+.news-card h3 a:hover { color: var(--green); }
+.news-meta { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--muted); margin-top: auto; }
+.news-source { background: #e8f3ee; color: var(--green-dark); padding: 2px 10px; border-radius: 999px; font-weight: 700; }
+.loader { grid-column: 1/-1; text-align: center; color: var(--muted); padding: 40px 0; }
+
+/* الفريق */
+.filters { display: flex; gap: 8px; flex-wrap: wrap; }
+.chip {
+  border: 1px solid var(--border); background: var(--card); color: var(--muted);
+  padding: 6px 16px; border-radius: 999px; cursor: pointer; font-family: inherit; font-weight: 700; font-size: 13px;
+  transition: .2s;
+}
+.chip.active, .chip:hover { background: var(--green); color: #fff; border-color: var(--green); }
+
+.players-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(215px, 1fr)); gap: 18px; margin-top: 22px; }
+.player-card {
+  background: linear-gradient(160deg, var(--green-dark), var(--green));
+  color: #fff; border-radius: var(--radius); padding: 20px; cursor: pointer;
+  box-shadow: var(--shadow); transition: .2s; position: relative; overflow: hidden;
+}
+.player-card::after {
+  content: ""; position: absolute; inset-inline-start: -30%; top: -40%;
+  width: 90%; height: 90%; background: radial-gradient(circle, rgba(255,255,255,.10), transparent 70%);
+}
+.player-card:hover { transform: translateY(-5px); box-shadow: 0 12px 28px rgba(0,60,35,.3); }
+.pc-top { display: flex; justify-content: space-between; align-items: center; }
+.pc-num { font-size: 26px; font-weight: 900; color: var(--gold); }
+.pc-pos { background: rgba(255,255,255,.15); padding: 2px 12px; border-radius: 999px; font-size: 12px; font-weight: 700; }
+.pc-avatar {
+  width: 74px; height: 74px; border-radius: 50%; background: rgba(255,255,255,.12);
+  display: flex; align-items: center; justify-content: center; font-size: 30px; font-weight: 900;
+  margin: 14px auto 10px; border: 2px solid rgba(255,255,255,.35); color: #fff;
+}
+.pc-name { text-align: center; font-weight: 800; font-size: 16px; }
+.pc-country { text-align: center; font-size: 12px; color: #bfe6d3; margin-top: 2px; }
+.pc-rating { text-align: center; margin-top: 10px; font-size: 13px; color: #ffe9a8; font-weight: 800; }
+
+/* نافذة اللاعب */
+.modal { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; }
+.modal[hidden] { display: none; }
+.modal-backdrop { position: absolute; inset: 0; background: rgba(0, 25, 14, .7); }
+.modal-card {
+  position: relative; background: var(--card); border-radius: 20px; padding: 28px;
+  width: min(480px, 92vw); max-height: 88vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,.4);
+}
+.pm-head { display: flex; gap: 16px; align-items: center; }
+.pm-avatar {
+  width: 64px; height: 64px; border-radius: 50%; background: var(--green);
+  color: #fff; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 900; flex-shrink: 0;
+}
+.pm-head h3 { font-size: 20px; font-weight: 900; color: var(--green-dark); }
+.pm-head p { font-size: 13px; color: var(--muted); }
+.pm-close {
+  position: absolute; inset-inline-end: 14px; top: 14px; background: #eef4f1; border: none;
+  width: 34px; height: 34px; border-radius: 50%; cursor: pointer; font-size: 16px; font-family: inherit;
+}
+.pm-info { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 18px 0; }
+.pm-info div { background: #f0f6f3; border-radius: 10px; padding: 8px; text-align: center; }
+.pm-info b { display: block; color: var(--green-dark); font-size: 15px; }
+.pm-info span { font-size: 11px; color: var(--muted); }
+.pm-stats { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+.stat-row { display: grid; grid-template-columns: 92px 1fr 34px; align-items: center; gap: 10px; font-size: 13px; }
+.stat-bar { background: #e8efeb; border-radius: 999px; height: 9px; overflow: hidden; }
+.stat-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--green-light), var(--green)); }
+.stat-fill.high { background: linear-gradient(90deg, #2eb872, #0e8a55); }
+.stat-fill.top { background: linear-gradient(90deg, var(--gold), #b8912a); }
+.stat-val { font-weight: 800; color: var(--green-dark); text-align: center; }
+.pm-bio { margin-top: 16px; font-size: 13.5px; color: var(--muted); background: #f7faf8; border-radius: 12px; padding: 12px 14px; }
+
+/* المباريات */
+.matches-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; margin-top: 22px; }
+.col-title { font-size: 17px; font-weight: 800; color: var(--green-dark); margin-bottom: 12px; }
+.match-list { display: flex; flex-direction: column; gap: 12px; }
+.match-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+  padding: 14px 18px; box-shadow: var(--shadow);
+}
+.match-comp { font-size: 11.5px; color: var(--muted); font-weight: 700; }
+.match-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 6px; }
+.match-row .t { font-weight: 800; font-size: 15px; flex: 1; }
+.match-row .t.away { text-align: left; }
+.match-score { font-weight: 900; font-size: 17px; color: var(--green-dark); background: #eef6f1; border-radius: 8px; padding: 2px 12px; white-space: nowrap; }
+.match-score.win { background: #e2f6ea; color: #0c7a44; }
+.match-score.loss { background: #fdeaea; color: #b33; }
+.match-score.draw { background: #f4f1e3; color: #8a7a2a; }
+.match-date { font-size: 12px; color: var(--muted); margin-top: 6px; }
+
+/* المتجر */
+.store-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 18px; margin-top: 22px; }
+.store-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+  overflow: hidden; box-shadow: var(--shadow); display: flex; flex-direction: column; transition: .2s;
+}
+.store-card:hover { transform: translateY(-4px); }
+.store-img {
+  height: 150px; display: flex; align-items: center; justify-content: center; font-size: 56px;
+  background: linear-gradient(150deg, #eaf5ef, #d8ece1);
+}
+.store-body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.store-body h3 { font-size: 15px; font-weight: 800; }
+.store-body .desc { font-size: 12.5px; color: var(--muted); flex: 1; }
+.store-foot { display: flex; align-items: center; justify-content: space-between; margin-top: 6px; }
+.price { font-weight: 900; color: var(--green-dark); }
+.price small { font-weight: 600; color: var(--muted); }
+.store-tag { position: absolute; }
+.badge-new { background: var(--gold); color: #3a2e00; font-size: 11px; font-weight: 800; padding: 2px 10px; border-radius: 999px; align-self: flex-start; }
+
+/* عن النادي */
+.about-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; margin-top: 22px; }
+.about-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow); }
+.about-card h3 { color: var(--green-dark); font-weight: 900; margin-bottom: 8px; }
+.about-card ul { list-style: none; display: flex; flex-direction: column; gap: 6px; font-size: 14.5px; }
+
+/* التذييل */
+.footer { background: var(--green-darker); color: #cfe8dc; margin-top: 64px; padding: 26px 0; }
+.footer-inner { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; font-size: 14px; }
+.footer a { color: #7fe0b0; }
+
+/* ====== استجابة الشاشات ====== */
+@media (max-width: 860px) {
+  .hero-inner, .matches-cols { grid-template-columns: 1fr; }
+  .mainnav {
+    display: none; position: absolute; top: 68px; inset-inline: 0;
+    background: var(--green-darker); flex-direction: column; padding: 12px 20px 18px; gap: 6px;
+  }
+  .mainnav.open { display: flex; }
+  .nav-toggle { display: block; }
+}
