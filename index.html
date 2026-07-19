@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="موقع جماهيري يهتم بكل أخبار النادي الأهلي السعودي: الأخبار، الفريق الأول، المباريات، والمتجر — يتحدث تلقائيًا أول بأول.">
+  <meta name="description" content="موقع جماهيري يهتم بكل أخبار النادي الأهلي السعودي: الأخبار، الفريق الأول، المباريات، الترتيب، الألعاب، والمتجر — يتحدث تلقائيًا أول بأول.">
   <title>الأهلي السعودي | الملكي — الأخبار والفريق والمتجر</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23006b3f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white'>⚽</text></svg>">
+  <link rel="icon" href="https://a.espncdn.com/i/teamlogos/soccer/500/8346.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -17,19 +17,21 @@
   <header class="topbar">
     <div class="container topbar-inner">
       <a href="#home" class="brand" data-nav="home">
-        <span class="brand-logo">🦅</span>
+        <img class="brand-logo" src="https://a.espncdn.com/i/teamlogos/soccer/500/8346.png" alt="شعار النادي الأهلي السعودي">
         <span class="brand-text">
           <strong>الأهلي السعودي</strong>
           <small>الملكي · بطل آسيا 2025</small>
         </span>
       </a>
       <nav class="mainnav" id="mainnav">
-        <a href="#home"    class="nav-link active" data-nav="home">الرئيسية</a>
-        <a href="#news"    class="nav-link" data-nav="news">الأخبار</a>
-        <a href="#team"    class="nav-link" data-nav="team">الفريق الأول</a>
-        <a href="#matches" class="nav-link" data-nav="matches">المباريات</a>
-        <a href="#store"   class="nav-link" data-nav="store">المتجر</a>
-        <a href="#about"   class="nav-link" data-nav="about">عن النادي</a>
+        <a href="#home"      class="nav-link active" data-nav="home">الرئيسية</a>
+        <a href="#news"      class="nav-link" data-nav="news">الأخبار</a>
+        <a href="#team"      class="nav-link" data-nav="team">الفريق</a>
+        <a href="#matches"   class="nav-link" data-nav="matches">المباريات</a>
+        <a href="#standings" class="nav-link" data-nav="standings">الترتيب</a>
+        <a href="#games"     class="nav-link" data-nav="games">الألعاب</a>
+        <a href="#store"     class="nav-link" data-nav="store">المتجر</a>
+        <a href="#about"     class="nav-link" data-nav="about">عن النادي</a>
       </nav>
       <button class="nav-toggle" id="navToggle" aria-label="القائمة">☰</button>
     </div>
@@ -41,15 +43,16 @@
       <div class="hero-text">
         <span class="hero-badge">🏆 بطل دوري أبطال آسيا للنخبة 2025</span>
         <h1>القلعة <span class="accent">الخضراء</span></h1>
-        <p>كل ما يخص النادي الأهلي السعودي في مكان واحد: آخر الأخبار لحظة بلحظة، الفريق الأول ومهارات كل لاعب، جدول المباريات، ومتجر النادي.</p>
+        <p>كل ما يخص النادي الأهلي السعودي في مكان واحد: أخبار لحظية، التشكيلة الحقيقية للفريق، نتائج المباريات وترتيب الدوري محدثة تلقائيًا من مصادر موثوقة، ألعاب واختبارات تفاعلية، ومتجر النادي.</p>
         <div class="hero-actions">
           <a href="#news" class="btn btn-primary" data-nav="news">آخر الأخبار</a>
-          <a href="#team" class="btn btn-ghost" data-nav="team">تعرّف على الفريق</a>
+          <a href="#games" class="btn btn-ghost" data-nav="games">جرّب الألعاب 🎮</a>
         </div>
-        <p class="auto-update-note" id="lastUpdated">⟳ الأخبار تتحدث تلقائيًا…</p>
+        <p class="auto-update-note" id="lastUpdated">⟳ البيانات تتحدث تلقائيًا…</p>
       </div>
-      <div class="hero-card" id="nextMatchCard">
-        <!-- بطاقة المباراة القادمة تُعبأ عبر JS -->
+      <div class="hero-side">
+        <img class="hero-logo" src="https://a.espncdn.com/i/teamlogos/soccer/500/8346.png" alt="شعار الأهلي">
+        <div class="hero-card" id="nextMatchCard"></div>
       </div>
     </div>
   </section>
@@ -80,13 +83,14 @@
           <button class="chip" data-pos="FW">هجوم</button>
         </div>
       </div>
-      <p class="section-sub">اضغط على أي لاعب لعرض خصائصه الكاملة.</p>
-      <div class="players-grid" id="playersGrid"></div>
+      <p class="section-sub">التشكيلة الحقيقية محدثة تلقائيًا من ESPN — اضغط على أي لاعب لعرض خصائصه.</p>
+      <div class="players-grid" id="playersGrid"><div class="loader">جارٍ تحميل التشكيلة…</div></div>
     </section>
 
     <!-- المباريات -->
     <section class="section" id="matches">
       <div class="section-head"><h2>📅 المباريات</h2></div>
+      <p class="section-sub">النتائج والمواعيد محدثة تلقائيًا.</p>
       <div class="matches-cols">
         <div>
           <h3 class="col-title">المباريات القادمة</h3>
@@ -97,6 +101,32 @@
           <div id="resultsList" class="match-list"></div>
         </div>
       </div>
+    </section>
+
+    <!-- الترتيب -->
+    <section class="section" id="standings">
+      <div class="section-head"><h2>🏅 ترتيب دوري روشن</h2></div>
+      <p class="section-sub" id="standingsSeason"></p>
+      <div class="table-wrap">
+        <table class="standings-table" id="standingsTable">
+          <thead>
+            <tr><th>#</th><th class="team-col">الفريق</th><th>لعب</th><th>فوز</th><th>تعادل</th><th>خسارة</th><th>الفارق</th><th>النقاط</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- الألعاب -->
+    <section class="section" id="games">
+      <div class="section-head"><h2>🎮 ألعاب واختبارات</h2></div>
+      <p class="section-sub">اختبر معلوماتك الأهلاوية وتحدَّ أصحابك!</p>
+      <div class="games-tabs" id="gamesTabs">
+        <button class="chip active" data-game="quiz">🧠 اختبار أهلاوي</button>
+        <button class="chip" data-game="guess">🕵️ خمّن اللاعب</button>
+        <button class="chip" data-game="memory">🃏 لعبة الذاكرة</button>
+      </div>
+      <div class="game-area" id="gameArea"></div>
     </section>
 
     <!-- المتجر -->
@@ -141,7 +171,7 @@
 
   <footer class="footer">
     <div class="container footer-inner">
-      <p>موقع جماهيري غير رسمي لمحبي النادي الأهلي السعودي 💚 — يتحدّث تلقائيًا</p>
+      <p>موقع جماهيري غير رسمي لمحبي النادي الأهلي السعودي 💚 — البيانات من ESPN وGoogle News وتتحدث تلقائيًا</p>
       <p><a href="https://www.alahlifc.sa" target="_blank" rel="noopener">الموقع الرسمي للنادي ↗</a></p>
     </div>
   </footer>

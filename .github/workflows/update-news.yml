@@ -1,4 +1,4 @@
-name: تحديث الأخبار تلقائيًا
+name: تحديث الأخبار والبيانات تلقائيًا
 
 on:
   schedule:
@@ -23,19 +23,22 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: تحديث ملف الأخبار
+      - name: تحديث الأخبار
         run: python scripts/update_news.py
+
+      - name: تحديث بيانات الفريق والمباريات والترتيب
+        run: python scripts/update_data.py
 
       - name: رفع التحديث ونشره على الموقع
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          if ! git diff --quiet data/news.json; then
-            git add data/news.json
-            git commit -m "تحديث تلقائي للأخبار $(date -u '+%Y-%m-%d %H:%M UTC')"
+          if ! git diff --quiet data/; then
+            git add data/
+            git commit -m "تحديث تلقائي للبيانات $(date -u '+%Y-%m-%d %H:%M UTC')"
             git push origin HEAD:main
           else
-            echo "لا توجد أخبار جديدة."
+            echo "لا توجد بيانات جديدة."
           fi
           # إعادة نشر الموقع على gh-pages في كل الحالات
           git push -f origin HEAD:gh-pages

@@ -1,0 +1,187 @@
+{
+  "source": "espn",
+  "upcoming": [],
+  "results": [
+    {
+      "date": "2026-05-20T18:00Z",
+      "competition": "دوري روشن السعودي",
+      "home": {
+        "name": "Al Khaleej",
+        "nameAr": "الخليج",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/21829.png",
+        "score": "1",
+        "winner": false
+      },
+      "away": {
+        "name": "Al Ahli",
+        "nameAr": "الأهلي",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/8346.png",
+        "score": "4",
+        "winner": true
+      }
+    },
+    {
+      "date": "2026-05-16T18:00Z",
+      "competition": "دوري روشن السعودي",
+      "home": {
+        "name": "Al Ahli",
+        "nameAr": "الأهلي",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/8346.png",
+        "score": "3",
+        "winner": true
+      },
+      "away": {
+        "name": "Al Kholood",
+        "nameAr": "الخلود",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/22028.png",
+        "score": "0",
+        "winner": false
+      }
+    },
+    {
+      "date": "2026-05-11T18:00Z",
+      "competition": "دوري روشن السعودي",
+      "home": {
+        "name": "Al Taawoun",
+        "nameAr": "التعاون",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/18459.png",
+        "score": "1",
+        "winner": false
+      },
+      "away": {
+        "name": "Al Ahli",
+        "nameAr": "الأهلي",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/8346.png",
+        "score": "2",
+        "winner": true
+      }
+    },
+    {
+      "date": "2026-05-06T18:00Z",
+      "competition": "دوري روشن السعودي",
+      "home": {
+        "name": "Al Ahli",
+        "nameAr": "الأهلي",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/8346.png",
+        "score": "3",
+        "winner": true
+      },
+      "away": {
+        "name": "Al Fateh",
+        "nameAr": "الفتح",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/13033.png",
+        "score": "1",
+        "winner": false
+      }
+    },
+    {
+      "date": "2026-05-03T18:00Z",
+      "competition": "دوري روشن السعودي",
+      "home": {
+        "name": "Al Ahli",
+        "nameAr": "الأهلي",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/8346.png",
+        "score": "4",
+        "winner": true
+      },
+      "away": {
+        "name": "Al Okhdood",
+        "nameAr": "الأخدود",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/21966.png",
+        "score": "0",
+        "winner": false
+      }
+    },
+    {
+      "date": "2026-04-29T18:00Z",
+      "competition": "دوري روشن السعودي",
+      "home": {
+        "name": "Al Nassr",
+        "nameAr": "النصر",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/817.png",
+        "score": "2",
+        "winner": true
+      },
+      "away": {
+        "name": "Al Ahli",
+        "nameAr": "الأهلي",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/8346.png",
+        "score": "0",
+        "winner": false
+      }
+    },
+    {
+      "date": "2026-04-08T15:55Z",
+      "competition": "دوري روشن السعودي",
+      "home": {
+        "name": "Al Fayha",
+        "nameAr": "الفيحاء",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/21827.png",
+        "score": "1",
+        "winner": false
+      },
+      "away": {
+        "name": "Al Ahli",
+        "nameAr": "الأهلي",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/8346.png",
+        "score": "1",
+        "winner": false
+      }
+    },
+    {
+      "date": "2026-04-04T16:15Z",
+      "competition": "دوري روشن السعودي",
+      "home": {
+        "name": "Al Ahli",
+        "nameAr": "الأهلي",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/8346.png",
+        "score": "3",
+        "winner": true
+      },
+      "away": {
+        "name": "Damac",
+        "nameAr": "ضمك",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/21828.png",
+        "score": "0",
+        "winner": false
+      }
+    },
+    {
+      "date": "2026-03-13T19:00Z",
+      "competition": "دوري روشن السعودي",
+      "home": {
+        "name": "Al Qadsiah",
+        "nameAr": "القادسية",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/22022.png",
+        "score": "3",
+        "winner": true
+      },
+      "away": {
+        "name": "Al Ahli",
+        "nameAr": "الأهلي",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/8346.png",
+        "score": "2",
+        "winner": false
+      }
+    },
+    {
+      "date": "2026-03-06T19:00Z",
+      "competition": "دوري روشن السعودي",
+      "home": {
+        "name": "Al Ahli",
+        "nameAr": "الأهلي",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/8346.png",
+        "score": "3",
+        "winner": true
+      },
+      "away": {
+        "name": "Al Ittihad",
+        "nameAr": "الاتحاد",
+        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2276.png",
+        "score": "1",
+        "winner": false
+      }
+    }
+  ],
+  "updatedAt": "2026-07-19T17:25:10.608181+00:00"
+}
