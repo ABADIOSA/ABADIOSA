@@ -20,7 +20,6 @@ import { flushCloudSync } from "@/views/player/hooks/use-stremio-sync";
 import { PlayerRouteFallback } from "@/views/player/player-route-fallback";
 import { setNativeMemoryActive } from "@/lib/native-memory";
 import { useOverlayPinned } from "@/lib/overlay-pin";
-import { isMobileDevice, isWeb } from "@/lib/platform";
 import { makeSafeTauriUnlisten } from "@/lib/tauri-unlisten";
 import { activeLayout } from "@/lib/theme";
 import { useThemePreview } from "@/lib/theme-preview";
@@ -39,7 +38,6 @@ import { UpdateRoot } from "@/components/update/update-root";
 import { CustomCodeMount } from "@/components/custom-code-mount";
 import { MemoryHud } from "@/components/memory-hud";
 import { OfflineBanner } from "@/chrome/offline-banner";
-import { MobileNotice } from "@/components/mobile-notice";
 import { WebhookLoopMount } from "@/components/webhook-loop-mount";
 import { ListToastHost } from "@/components/lists/list-toast";
 import { TogetherChatToast } from "@/components/together-chat-toast";
@@ -279,7 +277,6 @@ function useIdleEvict(active: boolean, pin = false): boolean {
 }
 
 export function App({ onReady }: { onReady?: () => void }) {
-  if (isWeb() && isMobileDevice()) return <MobileNotice />;
   return (
     <HarborQueryProvider>
       <HarborRouterProvider>

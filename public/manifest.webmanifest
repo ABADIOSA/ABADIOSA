@@ -1,0 +1,21 @@
+{
+  "name": "Harbor — ABADIOSA Edition",
+  "short_name": "Harbor",
+  "description": "عميل Stremio مفتوح المصدر — نسخة ABADIOSA الخاصة",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0d1512",
+  "theme_color": "#0d1512",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "200x200",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
