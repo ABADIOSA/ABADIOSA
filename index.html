@@ -1,198 +1,70 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="موقع جماهيري يهتم بكل أخبار النادي الأهلي السعودي: الأخبار، الفريق الأول، المباريات، الترتيب، الألعاب، والمتجر — يتحدث تلقائيًا أول بأول.">
-  <title>الأهلي السعودي | الملكي — الأخبار والفريق والمتجر</title>
-  <link rel="icon" href="https://upload.wikimedia.org/wikipedia/ar/thumb/3/3e/Al-Ahli_SFC_%282025%29.svg/langar-330px-Al-Ahli_SFC_%282025%29.svg.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-
-  <!-- شريط علوي -->
-  <header class="topbar">
-    <div class="container topbar-inner">
-      <a href="#home" class="brand" data-nav="home">
-        <img class="brand-logo" src="https://upload.wikimedia.org/wikipedia/ar/thumb/3/3e/Al-Ahli_SFC_%282025%29.svg/langar-330px-Al-Ahli_SFC_%282025%29.svg.png" alt="شعار النادي الأهلي السعودي">
-        <span class="brand-text">
-          <strong>الأهلي السعودي</strong>
-          <small>الملكي · بطل آسيا 2025 و2026</small>
-        </span>
-      </a>
-      <nav class="mainnav" id="mainnav">
-        <a href="#home"      class="nav-link active" data-nav="home">الرئيسية</a>
-        <a href="#news"      class="nav-link" data-nav="news">الأخبار</a>
-        <a href="#team"      class="nav-link" data-nav="team">الفريق</a>
-        <a href="#matches"   class="nav-link" data-nav="matches">المباريات</a>
-        <a href="#standings" class="nav-link" data-nav="standings">الترتيب</a>
-        <a href="#games"     class="nav-link" data-nav="games">الألعاب</a>
-        <a href="#store"     class="nav-link" data-nav="store">المتجر</a>
-        <a href="#about"     class="nav-link" data-nav="about">عن النادي</a>
-      </nav>
-      <button class="nav-toggle" id="navToggle" aria-label="القائمة">☰</button>
-    </div>
-  </header>
-
-  <!-- الواجهة الرئيسية -->
-  <section class="hero" id="home">
-    <div class="container hero-inner">
-      <div class="hero-text">
-        <span class="hero-badge">🏆 بطل دوري أبطال آسيا للنخبة 2025 و2026 — نسختان متتاليتان</span>
-        <h1>القلعة <span class="accent">الخضراء</span></h1>
-        <p>كل ما يخص النادي الأهلي السعودي في مكان واحد: أخبار لحظية، التشكيلة الحقيقية للفريق، نتائج المباريات وترتيب الدوري محدثة تلقائيًا من مصادر موثوقة، ألعاب واختبارات تفاعلية، ومتجر النادي.</p>
-        <div class="hero-actions">
-          <a href="#news" class="btn btn-primary" data-nav="news">آخر الأخبار</a>
-          <a href="#games" class="btn btn-ghost" data-nav="games">جرّب الألعاب 🎮</a>
-        </div>
-        <p class="auto-update-note" id="lastUpdated">⟳ البيانات تتحدث تلقائيًا…</p>
-      </div>
-      <div class="hero-side">
-        <img class="hero-logo" src="https://upload.wikimedia.org/wikipedia/ar/thumb/3/3e/Al-Ahli_SFC_%282025%29.svg/langar-330px-Al-Ahli_SFC_%282025%29.svg.png" alt="شعار الأهلي">
-        <div class="hero-card" id="nextMatchCard"></div>
-      </div>
-    </div>
-  </section>
-
-  <main class="container">
-
-    <!-- الأخبار -->
-    <section class="section" id="news">
-      <div class="section-head">
-        <h2>📰 آخر الأخبار</h2>
-        <button class="btn btn-small" id="refreshNews">تحديث الآن ⟳</button>
-      </div>
-      <p class="section-sub">تُجلب الأخبار تلقائيًا من مصادر إخبارية وتتجدد باستمرار.</p>
-      <div class="news-grid" id="newsGrid">
-        <div class="loader">جارٍ تحميل الأخبار…</div>
-      </div>
-    </section>
-
-    <!-- الفريق الأول -->
-    <section class="section" id="team">
-      <div class="section-head">
-        <h2>👕 الفريق الأول</h2>
-        <div class="filters" id="posFilters">
-          <button class="chip active" data-pos="all">الكل</button>
-          <button class="chip" data-pos="GK">حراسة</button>
-          <button class="chip" data-pos="DF">دفاع</button>
-          <button class="chip" data-pos="MF">وسط</button>
-          <button class="chip" data-pos="FW">هجوم</button>
-        </div>
-      </div>
-      <p class="section-sub">التشكيلة الحقيقية محدثة تلقائيًا — اضغط على أي لاعب لعرض خصائصه.</p>
-      <div id="coachCard"></div>
-      <div class="players-grid" id="playersGrid"><div class="loader">جارٍ تحميل التشكيلة…</div></div>
-    </section>
-
-    <!-- المباريات -->
-    <section class="section" id="matches">
-      <div class="section-head"><h2>📅 المباريات</h2></div>
-      <p class="section-sub">النتائج والمواعيد محدثة تلقائيًا.</p>
-      <div class="matches-cols">
-        <div>
-          <h3 class="col-title">المباريات القادمة</h3>
-          <div id="upcomingList" class="match-list"></div>
-        </div>
-        <div>
-          <h3 class="col-title">آخر النتائج</h3>
-          <div id="resultsList" class="match-list"></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- الترتيب -->
-    <section class="section" id="standings">
-      <div class="section-head"><h2>🏅 ترتيب دوري روشن</h2></div>
-      <p class="section-sub" id="standingsSeason"></p>
-      <div class="table-wrap">
-        <table class="standings-table" id="standingsTable">
-          <thead>
-            <tr><th>#</th><th class="team-col">الفريق</th><th>لعب</th><th>فوز</th><th>تعادل</th><th>خسارة</th><th>الفارق</th><th>النقاط</th></tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- الألعاب -->
-    <section class="section" id="games">
-      <div class="section-head"><h2>🎮 ألعاب واختبارات</h2></div>
-      <p class="section-sub">اختبر معلوماتك الأهلاوية وتحدَّ أصحابك!</p>
-      <div class="games-tabs" id="gamesTabs">
-        <button class="chip active" data-game="quiz">🧠 اختبار أهلاوي</button>
-        <button class="chip" data-game="guess">🕵️ خمّن اللاعب</button>
-        <button class="chip" data-game="memory">🃏 لعبة الذاكرة</button>
-      </div>
-      <div class="game-area" id="gameArea"></div>
-    </section>
-
-    <!-- المتجر -->
-    <section class="section" id="store">
-      <div class="section-head"><h2>🛍️ متجر النادي</h2></div>
-      <p class="section-sub">تشكيلة من منتجات النادي — الشراء يتم عبر المتجر الرسمي للنادي.</p>
-      <div class="store-grid" id="storeGrid"></div>
-    </section>
-
-    <!-- عن النادي -->
-    <section class="section" id="about">
-      <div class="section-head"><h2>🦅 عن النادي</h2></div>
-      <div class="about-grid">
-        <div class="about-card">
-          <h3>التأسيس</h3>
-          <p>تأسس النادي الأهلي السعودي عام <strong>1937م</strong> في مدينة جدة، وهو أحد أعرق وأكبر الأندية في المملكة العربية السعودية وقارة آسيا، ويُلقّب بـ«الملكي» و«القلعة الخضراء».</p>
-        </div>
-        <div class="about-card">
-          <h3>الملعب</h3>
-          <p>يخوض الأهلي مبارياته على ملعب <strong>الإنماء (مدينة الملك عبدالله الرياضية — الجوهرة المشعة)</strong> في جدة بسعة تتجاوز 62 ألف متفرج.</p>
-        </div>
-        <div class="about-card honors">
-          <h3>البطولات الرسمية <small style="font-weight:600;color:var(--muted)">(وفق لجنة توثيق تاريخ الكرة السعودية)</small></h3>
-          <ul>
-            <li>🌏 دوري أبطال آسيا للنخبة: <strong>مرتان</strong> (2025، 2026)</li>
-            <li>🏆 الدوري السعودي: <strong>9 مرات</strong></li>
-            <li>🏆 كأس الملك: <strong>8 مرات</strong></li>
-            <li>🏆 كأس ولي العهد: <strong>6 مرات</strong></li>
-            <li>🥇 كأس السوبر السعودي: <strong>2016، 2025</strong></li>
-            <li>📜 الإجمالي: <strong>53 بطولة رسمية</strong> وثّقتها اللجنة في تقريرها النهائي (سبتمبر 2025) + لقب آسيا 2026</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- نافذة تفاصيل اللاعب -->
-  <div class="modal" id="playerModal" hidden>
-    <div class="modal-backdrop" data-close></div>
-    <div class="modal-card" id="playerModalCard"></div>
-  </div>
-
-  <!-- المساعد الأهلاوي الذكي -->
-  <button class="chat-fab" id="chatFab" aria-label="المساعد الذكي">🤖</button>
-  <div class="chat-panel" id="chatPanel" hidden>
-    <div class="chat-head">
-      <span>🤖 المساعد الأهلاوي الذكي</span>
-      <button class="chat-close" id="chatClose" aria-label="إغلاق">✕</button>
-    </div>
-    <div class="chat-body" id="chatBody"></div>
-    <div class="chat-suggest" id="chatSuggest"></div>
-    <form class="chat-form" id="chatForm">
-      <input type="text" id="chatInput" placeholder="اسألني عن الأهلي: اللاعبين، الترتيب، المباريات…" autocomplete="off">
-      <button type="submit" class="btn btn-small">إرسال</button>
-    </form>
-  </div>
-
-  <footer class="footer">
-    <div class="container footer-inner">
-      <p>موقع جماهيري غير رسمي لمحبي النادي الأهلي السعودي 💚 — البيانات من ESPN وGoogle News وتتحدث تلقائيًا</p>
-      <p><a href="https://www.alahlifc.sa" target="_blank" rel="noopener">الموقع الرسمي للنادي ↗</a></p>
-    </div>
-  </footer>
-
-  <script src="js/app.js"></script>
-</body>
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+    <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+    <meta name="referrer" content="no-referrer" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title>Harbor</title>
+    <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+    <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://image.tmdb.org" crossorigin />
+    <link rel="preconnect" href="https://api.themoviedb.org" crossorigin />
+    <link rel="preconnect" href="https://v3-cinemeta.strem.io" crossorigin />
+    <link rel="preconnect" href="https://api.strem.io" crossorigin />
+    <link rel="dns-prefetch" href="https://www.omdbapi.com" />
+    <link rel="dns-prefetch" href="https://www.youtube-nocookie.com" />
+    <link
+      href="https://api.fontshare.com/v2/css?f[]=sentient@400,500,600,700,401,501,601,701&f[]=switzer@400,500,600,700&f[]=general-sans@400,500,600,700&f[]=cabinet-grotesk@400,500,700,800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Vazirmatn:wght@100..900&family=Inter:wght@100..900&family=IBM+Plex+Sans:wght@100..700&family=Plus+Jakarta+Sans:wght@100..800&family=Fredoka:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      html,
+      body,
+      #root {
+        background: var(--color-canvas, #0a0a0a);
+        color-scheme: dark;
+        margin: 0;
+        height: 100%;
+      }
+      #harbor-boot {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #0a0a0a;
+        z-index: 9999;
+        pointer-events: none;
+      }
+      #root[data-startup-hidden] {
+        visibility: hidden;
+      }
+    </style>
+    <script>
+      (function () {
+        try {
+          var p = new URLSearchParams(window.location.search);
+          if (p.get("harbor-modal") === "1") {
+            var s = document.createElement("style");
+            s.textContent = "#harbor-boot{display:none !important}";
+            document.head.appendChild(s);
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="harbor-boot"></div>
+    <div id="root" inert data-startup-hidden></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
