@@ -9,17 +9,10 @@ export function WelcomeStep() {
         <div className="flex items-center gap-2 text-ink">
           <HarborMark className="h-12 w-12 shrink-0" />
           <span
-            className="font-display text-[44px] font-medium leading-none tracking-tight"
-            style={{ transform: "translateY(2px)" }}
+            className="font-display text-[34px] font-medium leading-none tracking-[0.06em]"
+            style={{ transform: "translateY(2px)", color: "#c9a45c" }}
           >
-            Harb
-            <span
-              className="inline-block"
-              style={{ transform: "rotate(7deg)", transformOrigin: "50% 65%" }}
-            >
-              o
-            </span>
-            r
+            ABADIOSA
           </span>
         </div>
         <p className="text-[15.5px] leading-relaxed text-ink-muted">
@@ -29,7 +22,9 @@ export function WelcomeStep() {
         </p>
       </div>
       <div className="grid grid-cols-3 gap-3 pt-2">
-        <Bullet title={t("Current")}>{t("Trending, in theaters, what's on every streamer.")}</Bullet>
+        <Bullet title={t("Current")}>
+          {t("Trending, in theaters, what's on every streamer.")}
+        </Bullet>
         <Bullet title={t("Yours")}>{t("Your Stremio library + addons sync in untouched.")}</Bullet>
         <Bullet title={t("Quiet")}>{t("No telemetry, no servers, no bundled keys.")}</Bullet>
       </div>

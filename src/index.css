@@ -2562,3 +2562,26 @@ html[data-theme-card="crunch"][dir="rtl"] .harbor-profile-dropdown {
     max-width: 100%;
   }
 }
+
+/* ABADIOSA brand loader pulse */
+@keyframes abadiosa-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.92;
+    filter: drop-shadow(0 0 10px rgba(201, 164, 92, 0.25));
+  }
+  50% {
+    transform: scale(1.06);
+    opacity: 1;
+    filter: drop-shadow(0 0 26px rgba(201, 164, 92, 0.55));
+  }
+}
+.abadiosa-loader-pulse {
+  animation: abadiosa-pulse 1.8s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .abadiosa-loader-pulse {
+    animation: none;
+  }
+}

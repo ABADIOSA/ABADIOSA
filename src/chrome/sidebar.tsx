@@ -80,42 +80,24 @@ export function Sidebar() {
               />
             ) : kid ? (
               <span
-                className="hidden whitespace-nowrap text-[42px] font-bold leading-none tracking-tight lg:inline-flex lg:items-center"
+                className="hidden whitespace-nowrap text-[26px] font-bold leading-none tracking-tight lg:inline-flex lg:items-center"
                 style={{
                   fontFamily: '"Fredoka", "Baloo 2", system-ui, sans-serif',
                   transform: "translateY(1px)",
                 }}
               >
-                Harb
-                <img
-                  src="/kids/wheel.png"
-                  alt="o"
-                  draggable={false}
-                  className="inline-block h-[0.92em] w-auto"
-                  style={{
-                    transform: "translateY(0.08em)",
-                    marginLeft: "-5px",
-                    marginRight: "-5px",
-                  }}
-                />
-                r
+                ABADIOSA
               </span>
             ) : (
               <span
-                className="hidden whitespace-nowrap text-[44px] font-medium leading-none tracking-tight lg:inline"
+                className="hidden whitespace-nowrap text-[27px] font-medium leading-none tracking-[0.08em] lg:inline"
                 style={{
                   fontFamily: '"Fraunces", "Iowan Old Style", "Georgia", serif',
                   transform: "translateY(2px)",
+                  color: "#c9a45c",
                 }}
               >
-                Harb
-                <span
-                  className="inline-block"
-                  style={{ transform: "rotate(7deg)", transformOrigin: "50% 65%" }}
-                >
-                  o
-                </span>
-                r
+                ABADIOSA
               </span>
             ))}
         </div>

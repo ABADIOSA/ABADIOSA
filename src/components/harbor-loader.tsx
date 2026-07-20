@@ -1,12 +1,5 @@
-import lottie, { type AnimationItem } from "lottie-web";
-import { useCallback, useEffect, useRef, useState } from "react";
-import whiteBoat from "@/assets/lottie/addons-boat-white.json";
-import darkBoat from "@/assets/lottie/addons-boat-dark.json";
-import harborBoat from "@/assets/lottie/harbor-loader.json";
-import {
-  prefetchTopAddonLogos,
-  prefetchedTopAddonLogos,
-} from "@/lib/providers/addon-logo-prefetch";
+import { useEffect } from "react";
+import abadiosaMark from "@/assets/abadiosa-mark.png";
 
 type Size = "sm" | "md" | "lg" | "xl";
 
@@ -17,44 +10,10 @@ const SIZE_CLASS: Record<Size, string> = {
   xl: "h-60 w-60",
 };
 
-const XLINK = "http://www.w3.org/1999/xlink";
-
-function darkBackground(): boolean {
-  if (typeof document === "undefined") return true;
-  const probe = document.createElement("div");
-  probe.style.cssText =
-    "background-color:var(--color-canvas);position:absolute;opacity:0;pointer-events:none";
-  document.body.appendChild(probe);
-  const m = getComputedStyle(probe).backgroundColor.match(/[\d.]+/g);
-  probe.remove();
-  if (!m || m.length < 3) return true;
-  const [r, g, b] = m.map(Number);
-  return (0.299 * r + 0.587 * g + 0.114 * b) / 255 < 0.5;
-}
-
-function useTopAddonLogos(enabled: boolean): string[] {
-  const [logos, setLogos] = useState<string[]>(() => (enabled ? prefetchedTopAddonLogos() : []));
-  useEffect(() => {
-    if (!enabled) return;
-    let cancelled = false;
-    prefetchTopAddonLogos().then((urls) => {
-      if (!cancelled) setLogos(urls);
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, [enabled]);
-  return logos;
-}
-
-export function HarborLoader({
-  size = "md",
-  caption,
-  className = "",
-  keyed = false,
-  logos,
-  onReady,
-}: {
+// Brand loader: the ABADIOSA emblem with a soft pulse. Keeps the original
+// lottie loader's prop contract (keyed/logos are accepted and ignored) so
+// every call site keeps working unchanged.
+export function HarborLoader(props: {
   size?: Size;
   caption?: string;
   className?: string;
@@ -62,76 +21,21 @@ export function HarborLoader({
   logos?: string[];
   onReady?: () => void;
 }) {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const cargo = keyed || logos !== undefined;
-  const fetched = useTopAddonLogos(keyed && logos === undefined);
-  const effective = logos ?? fetched;
-  const logosRef = useRef<string[]>([]);
-  const cycleRef = useRef(0);
-  const [dark] = useState(darkBackground);
-
+  const { size = "md", caption, className = "", onReady } = props;
   useEffect(() => {
-    logosRef.current = effective;
-  }, [effective]);
-
-  const paint = useCallback(() => {
-    const root = ref.current;
-    if (!root) return;
-    const imgs = root.querySelectorAll<SVGImageElement>("image");
-    const list = logosRef.current;
-    const count = imgs.length;
-    imgs.forEach((img, k) => {
-      img.setAttribute("preserveAspectRatio", "xMidYMid meet");
-      img.setAttribute("referrerpolicy", "no-referrer");
-      const flyPos = count - 1 - k;
-      const url = flyPos < list.length ? list[(cycleRef.current + flyPos) % list.length] : "";
-      if (url) {
-        img.setAttributeNS(XLINK, "href", url);
-        img.setAttribute("href", url);
-        img.style.opacity = "1";
-      } else {
-        img.style.opacity = "0";
-      }
-    });
-  }, []);
-
-  useEffect(() => {
-    const container = ref.current;
-    if (!container) return;
-    container.replaceChildren();
-    const anim: AnimationItem = lottie.loadAnimation({
-      container,
-      renderer: "svg",
-      loop: true,
-      autoplay: true,
-      animationData: cargo ? (dark ? whiteBoat : darkBoat) : harborBoat,
-    });
-    const onLoaded = () => {
-      cycleRef.current = 0;
-      paint();
-      onReady?.();
-    };
-    const onLoop = () => {
-      cycleRef.current += 3;
-      paint();
-    };
-    anim.addEventListener("DOMLoaded", onLoaded);
-    anim.addEventListener("loopComplete", onLoop);
-    return () => {
-      anim.removeEventListener("DOMLoaded", onLoaded);
-      anim.removeEventListener("loopComplete", onLoop);
-      anim.destroy();
-      container.replaceChildren();
-    };
-  }, [dark, paint, cargo, onReady]);
-
-  useEffect(() => {
-    paint();
-  }, [effective, paint]);
-
+    const frame = requestAnimationFrame(() => onReady?.());
+    return () => cancelAnimationFrame(frame);
+  }, [onReady]);
   return (
     <div className={`flex flex-col items-center justify-center gap-2 ${className}`}>
-      <div ref={ref} className={SIZE_CLASS[size]} aria-hidden />
+      <div className={`relative ${SIZE_CLASS[size]}`} aria-hidden>
+        <img
+          src={abadiosaMark}
+          alt=""
+          draggable={false}
+          className="abadiosa-loader-pulse h-full w-full object-contain"
+        />
+      </div>
       {caption && (
         <p className="mt-1 text-[12.5px] font-medium uppercase tracking-[0.18em] text-white/70">
           {caption}

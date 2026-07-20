@@ -4634,5 +4634,7 @@
   "Zoom {pct}%": "Zoom {pct}%",
   "Zoom in": "Zoom in",
   "Zoom out": "Zoom out",
-  "العربية": "العربية"
+  "العربية": "العربية",
+  "Harbor checked every available source for {title} and none of them played. The most common reasons:": "Harbor checked every available source for {title} and none of them played. The most common reasons:",
+  "· In the browser version, raw torrent sources can't play — use an addon configured with a debrid account so it returns direct links, or use the desktop app.": "· In the browser version, raw torrent sources can't play — use an addon configured with a debrid account so it returns direct links, or use the desktop app."
 }

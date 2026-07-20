@@ -4634,5 +4634,7 @@
   "Zoom {pct}%": "تكبير {pct}%",
   "Zoom in": "تكبير",
   "Zoom out": "تصغير",
-  "العربية": "العربية"
+  "العربية": "العربية",
+  "Harbor checked every available source for {title} and none of them played. The most common reasons:": "فحص Harbor كل مصدر متاح لـ {title} ولم يعمل أي منها. الأسباب الأكثر شيوعًا:",
+  "· In the browser version, raw torrent sources can't play — use an addon configured with a debrid account so it returns direct links, or use the desktop app.": "· في نسخة المتصفح لا تعمل مصادر التورنت الخام — استخدم إضافة مضبوطة بحساب Debrid لتعيد روابط مباشرة، أو استخدم تطبيق سطح المكتب."
 }

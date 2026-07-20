@@ -1,8 +1,17 @@
 import { safeFetch as fetch } from "@/lib/safe-fetch";
 import { dwarn } from "@/lib/debug";
 import { hasUncachedMarker } from "./cached";
-import { magnetFromHash, type DebridResult, type DebridStore, type DirectLink } from "@/lib/debrid/types";
-import { lastEngineAddError, torrentEngineAdd, torrentEngineSelect } from "@/lib/torrent/local-engine";
+import {
+  magnetFromHash,
+  type DebridResult,
+  type DebridStore,
+  type DirectLink,
+} from "@/lib/debrid/types";
+import {
+  lastEngineAddError,
+  torrentEngineAdd,
+  torrentEngineSelect,
+} from "@/lib/torrent/local-engine";
 import { fullDownloadEnabled, startFullDownload } from "@/lib/torrent/full-download";
 import {
   directTorrentEnabled,
@@ -12,15 +21,24 @@ import {
   trackersFromSources,
   type TorrentFile,
 } from "@/lib/torrent/stremio-stream";
+import { remoteStreamServerUrl } from "@/lib/stremio-server";
 import type { ParsedStream, ScoredStream } from "./types";
 import { matchEpisodeFileIndex, type EpisodeHint } from "./episode-file";
+
+// In a plain browser there is no local torrent engine; raw torrents are only
+// playable through a configured remote streaming server.
+function torrentEngineAvailable(): boolean {
+  if (typeof window !== "undefined" && "__TAURI_INTERNALS__" in window) return true;
+  return !!remoteStreamServerUrl();
+}
 
 export type ResolveResult =
   | { ok: true; data: DirectLink; via: string }
   | { ok: false; code: string; tried: Array<{ slug: string; code: string }>; webUrl?: string };
 
 const ERROR_VIDEO_MAX_BYTES = 80 * 1024 * 1024;
-const VIDEO_EXT_RE = /\.(mkv|mp4|avi|mov|m4v|webm|ts|m3u8|mpd|flv|wmv|m2ts|mpg|mpeg|ogv|3gp)(\?|#|$)/i;
+const VIDEO_EXT_RE =
+  /\.(mkv|mp4|avi|mov|m4v|webm|ts|m3u8|mpd|flv|wmv|m2ts|mpg|mpeg|ogv|3gp)(\?|#|$)/i;
 
 async function probeIsWebPage(
   url: string,
@@ -32,7 +50,11 @@ async function probeIsWebPage(
     const onAbort = () => ac.abort();
     signal.addEventListener("abort", onAbort);
     const timer = setTimeout(() => ac.abort(), 3500);
-    const res = await fetch(url, { method: "HEAD", headers: headers ?? {}, signal: ac.signal }).finally(() => {
+    const res = await fetch(url, {
+      method: "HEAD",
+      headers: headers ?? {},
+      signal: ac.signal,
+    }).finally(() => {
       clearTimeout(timer);
       signal.removeEventListener("abort", onAbort);
     });
@@ -56,6 +78,7 @@ export async function resolveStream(
   const tried: Array<{ slug: string; code: string }> = [];
 
   if (forceP2p && stream.infoHash && engineP2pEligible(stream)) {
+    if (!torrentEngineAvailable()) return { ok: false, code: "torrent-needs-desktop", tried };
     const direct = await tryTorrentEngine(stream, hint);
     if (direct) return { ok: true, data: direct, via: "p2p" };
     return { ok: false, code: engineFailureCode(), tried };
@@ -101,6 +124,7 @@ export async function resolveStream(
     return { ok: false, code: "no-source", tried };
   }
   if (debrids.length === 0) {
+    if (!torrentEngineAvailable()) return { ok: false, code: "torrent-needs-desktop", tried };
     const direct = await tryTorrentEngine(stream, hint);
     if (direct) return { ok: true, data: direct, via: "p2p" };
     return { ok: false, code: engineFailureCode(), tried };
@@ -137,7 +161,9 @@ export async function resolveStream(
       if (fullDownloadEnabled()) startFullDownload(stream.infoHash.toLowerCase(), r.data.url);
       return { ok: true, data: r.data, via: d.slug };
     }
-    dwarn(`[resolve] ${d.slug} returned suspicious link (likely error/downloading video), trying next debrid`);
+    dwarn(
+      `[resolve] ${d.slug} returned suspicious link (likely error/downloading video), trying next debrid`,
+    );
     tried.push({ slug: d.slug, code: "stub-or-error-video" });
   }
   const direct = await tryTorrentEngine(stream, hint);
@@ -159,7 +185,11 @@ async function validateLink(
         return false;
       }
     }
-    if (expectedSize != null && link.filesize < expectedSize * 0.4 && expectedSize > 100 * 1024 * 1024) {
+    if (
+      expectedSize != null &&
+      link.filesize < expectedSize * 0.4 &&
+      expectedSize > 100 * 1024 * 1024
+    ) {
       return false;
     }
     return true;
@@ -183,7 +213,10 @@ async function validateLink(
     if (!lenStr) return true;
     const len = parseInt(lenStr, 10);
     if (!Number.isFinite(len) || len <= 0) return true;
-    if (len < ERROR_VIDEO_MAX_BYTES && (expectedSize == null || expectedSize > ERROR_VIDEO_MAX_BYTES)) {
+    if (
+      len < ERROR_VIDEO_MAX_BYTES &&
+      (expectedSize == null || expectedSize > ERROR_VIDEO_MAX_BYTES)
+    ) {
       return false;
     }
     if (expectedSize != null && len < expectedSize * 0.4 && expectedSize > 100 * 1024 * 1024) {
@@ -195,7 +228,10 @@ async function validateLink(
   }
 }
 
-function sortDebridsForStream(stream: ParsedStream | ScoredStream, debrids: DebridStore[]): DebridStore[] {
+function sortDebridsForStream(
+  stream: ParsedStream | ScoredStream,
+  debrids: DebridStore[],
+): DebridStore[] {
   return debrids.slice().sort((a, b) => {
     const aCached = stream.cached[a.slug] ? 1 : 0;
     const bCached = stream.cached[b.slug] ? 1 : 0;
@@ -216,7 +252,10 @@ export async function resolveViaDebrids(
   if (!hash || debrids.length === 0) return { ok: false, code: "no-debrid-configured", tried: [] };
   const stream = { infoHash: hash, fileIdx, cached } as unknown as ScoredStream;
   const sorted = sortDebridsForStream(stream, debrids);
-  if (!userCommitted && !sorted.some((d) => cached[d.slug] === true || inLibrary[d.slug] === true)) {
+  if (
+    !userCommitted &&
+    !sorted.some((d) => cached[d.slug] === true || inLibrary[d.slug] === true)
+  ) {
     return { ok: false, code: "uncached-not-committed", tried: [] };
   }
   const magnet = magnetFromHash(hash);
@@ -239,13 +278,13 @@ export async function resolveViaDebrids(
   return { ok: false, code: tried[tried.length - 1]?.code ?? "all-debrids-failed", tried };
 }
 
-
 async function tryLocalEngine(
   stream: ParsedStream | ScoredStream,
   hint?: EpisodeHint,
 ): Promise<DirectLink | null> {
   if (!stream.infoHash || !localTorrentAllowed()) return null;
-  const addIdx = typeof stream.fileIdx === "number" && stream.fileIdx >= 0 ? stream.fileIdx : undefined;
+  const addIdx =
+    typeof stream.fileIdx === "number" && stream.fileIdx >= 0 ? stream.fileIdx : undefined;
   const added = await torrentEngineAdd(
     magnetFromHash(stream.infoHash),
     trackersFromSources(stream.sources),
@@ -285,10 +324,17 @@ function engineFailureCode(): string {
   return "engine-not-ready";
 }
 
-function selectEngineFileIdx(files: TorrentFile[], season?: number | null, episode?: number | null): number {
+function selectEngineFileIdx(
+  files: TorrentFile[],
+  season?: number | null,
+  episode?: number | null,
+): number {
   const vids = files.filter(isVideoFile);
   const pool = vids.length > 0 ? vids : files;
-  const mi = matchEpisodeFileIndex(pool.map((f) => f.name), { season: season ?? null, episode: episode ?? null });
+  const mi = matchEpisodeFileIndex(
+    pool.map((f) => f.name),
+    { season: season ?? null, episode: episode ?? null },
+  );
   if (mi >= 0) return pool[mi].idx;
   const largest = pool.reduce((a, b) => (b.length > a.length ? b : a));
   return largest.idx;
