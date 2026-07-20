@@ -53,6 +53,7 @@ export function Topbar({ connecting = false }: { connecting?: boolean } = {}) {
   const dragProps = IS_TAURI && !fullscreen ? { "data-tauri-drag-region": true } : {};
   return (
     <header
+      data-harbor-topbar
       className={`fixed inset-x-0 top-0 ${topKind === "picker" || connecting ? "z-[130]" : "z-[55]"} h-20`}
     >
       <div

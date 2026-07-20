@@ -4,6 +4,7 @@ import { WindowControls } from "@/chrome/window-controls";
 import { WindowResizeEdges } from "@/chrome/window-resize-edges";
 import { MinUIDock } from "@/chrome/minui-dock";
 import { Sidebar } from "@/chrome/sidebar";
+import { MobileNav } from "@/chrome/mobile-nav";
 import { DraculaSidebar } from "@/chrome/dracula-sidebar";
 import { NordSidebar } from "@/chrome/nord-sidebar";
 import { ForestSidebar } from "@/chrome/forest-sidebar";
@@ -988,6 +989,7 @@ function Shell({ onReady }: { onReady?: () => void }) {
 
   return (
     <div data-kids={kidsTop || kid ? "on" : undefined} className="relative flex h-full">
+      {!settingsTop && !playerActive && !liveTop && !pickerTop && <MobileNav />}
       {!settingsTop && !playerActive && !liveTop && !pickerTop && layout === "sidebar" && (
         <Sidebar />
       )}
@@ -1026,6 +1028,7 @@ function Shell({ onReady }: { onReady?: () => void }) {
       )}
       {!playerActive && <WindowResizeEdges />}
       <div
+        data-harbor-content
         className={`relative flex min-h-0 min-w-0 flex-1 flex-col ${playerActive ? "invisible" : ""}`}
       >
         <div className={layer(homeTop)}>

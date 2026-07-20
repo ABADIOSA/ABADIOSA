@@ -2538,3 +2538,27 @@ html[data-theme-card="crunch"][dir="rtl"] .harbor-profile-dropdown {
     color: var(--color-ink-subtle);
   }
 }
+
+/* Phone adaptation: the desktop chrome assumes a wide window. Below 820px the
+   side navigation is replaced by the fixed bottom tab bar (mobile-nav.tsx),
+   the fixed topbar absorbs the iOS notch/status-bar safe area, and the home
+   hero drops its desktop padding so content and title art fit the viewport.
+   These rules are unlayered on purpose so they win over Tailwind utilities. */
+@media (max-width: 819px) {
+  aside[data-harbor-sidebar] {
+    display: none;
+  }
+  header[data-harbor-topbar] {
+    height: calc(5rem + env(safe-area-inset-top));
+    padding-top: env(safe-area-inset-top);
+  }
+  [data-harbor-content] {
+    padding-bottom: calc(58px + env(safe-area-inset-bottom));
+  }
+  [data-harbor-hero-content] {
+    padding: calc(88px + env(safe-area-inset-top)) 20px 28px;
+  }
+  [data-harbor-hero-logo] {
+    max-width: 100%;
+  }
+}
