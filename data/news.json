@@ -1,13 +1,7 @@
 {
-  "updatedAt": "2026-07-19T21:47:15.601779+00:00",
+  "updatedAt": "2026-07-20T02:33:57.495134+00:00",
   "source": "google-news-rss",
   "items": [
-    {
-      "title": "على خطى جواو فيليكس.. هل ينجح الأهلي السعودي في تكرار \"معجزة النصر\" البرتغالية؟",
-      "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE15UEp3M1o2S2pLal91NW1OQVZzOENaNXhhRUZCblFvVHFCbGN5QzZTdmZRRkJoVVpqMWZRZklKbHJhNzFVSUxibUlvVU9UaUZM?oc=5",
-      "source": "إرم نيوز",
-      "date": "2026-07-19T08:42:51+00:00"
-    },
     {
       "title": "ما القنوات الناقلة لمباراة الأهلي ورايو آفي الودية التحضرية لموسم 2026-2027؟ وكيف تشاهدها عبر الإنترنت؟",
       "link": "https://news.google.com/rss/articles/CBMi2AZBVV95cUxNWDRDbE5XSWR0MDRCcWNQcXR0M1NMWjVRU1RMOEZ1Wk4yMXdGUlp3VHZCRzZRdG80LUVwUE1pSUV2YUswVVd1LTVwVFhvOTYyYWtXSjF5VS00TTF1YzdELWZ5UE5TdzlERXR4WHQwUVkweVFHZy1YV0JDM1EyQlYtWERSV0VVam14cExTQmhtaDlDckxDblh5dE9va1Y4cmJiYmRobElKSmh3S1BqRlEwbFBqLWh5TUJfanpYSTdYLTFXNWRDM2N3ektPRmRaaGVYeEkwV0ZfejM1ZWF2R2d2S3hadEhjSjA0RVJ5a1FXUVFiT2xqV1EyenRBWlUwM0JXeHQyc0hROTFBbTZqUTJ0LW4zZkx2b0NfcDRvWnVRV2VreW9GOF9XNVZ3RGZyZERRQllOam4wdk14enYtMnQzS0lhcVhxNEJLRkVBc2ZSbnhiVkJyQjZjRXlnaDk4TnhfZUVEQzEzb2FmSW55cjVXLTA2ZVBXbFVhdldwM2pXSENrTWdRckJqZkdLZ2RqdjZnWVoybG9pYlhYQWVGUUZkazdsdDlzQzU2cUM0UDl6eGRSN3h5bGpjZTdmM3hHUWNhT1ZjNEIyajRGVHcwc3ZCQi1wZzZRMFliWGNDbEZsNm50bDNpUnkxVktCWDBacXVmNUYwcENmYUYtdzB1YWZreHBIWmc1QXRwOHU0NVlfNko2T3h5dzluaUpFS0dRRkZBYzZpTzVrWmtXTHlqZk1WdnF3VjNhcGJPR2tXWGpEUTVKTnp6MEZLY3lRcW11U3NPWThZWmh4bVdWbkdQSC1ybFh2RmtIcWVfWDY3WC1Nd01ZZmZPQkZSOE13SUtEVzZnbnJWR1lBQ016NVdtWkNFWGFnZnlaNGlnajQxNjM2LVNYTk9SV2lvYWQtSzdjT3R0OVJ6UG5TTFJzemdBejFVYnRJLTV4aGo4NmtUS1ZOaHI0ODFScEhsMnBveHRPQWtKY2x6VFQxNUtiNkxEdEw3c1VFQmlrNUtMUko2MGJoOU1KUHF0ZnAwNnV6N2RsTW9zS3ZES2lvRVAzWkpZbGctbTNiRXY5dFV5ZWVJc2M2OExLNkNMY1dMRFZEdDhYUENpV2VPSW1qQ0ctaFItbl8xdHgyOTcwOV84?oc=5",
@@ -15,10 +9,58 @@
       "date": "2026-07-19T12:46:30+00:00"
     },
     {
+      "title": "رسميًا.. الأهلي السعودي يخطف ترينكاو من أنياب كبار أوروبا",
+      "link": "https://news.google.com/rss/articles/CBMizgRBVV95cUxNYTFLMVQ0OWhfbE9menkxSDVrM3dLaEpkS0x5OG4yVlcwdFdOWTRLRE1UTmM5bTE5Qk5zbVB4U2ROVWFNMll4aGpfa0g2ZTZjbE1hanFWU2Fpb3VWM1hGVUZMc3BUMDlmRF9Wb1BCVU9WaWZ3cERlb1ZyOVlxTUh2S19KZVctTEU1bXIzUXYtYnpidklyN0RfbW9Ea2pzeHR6ZThBbWxOaG4yeWdvQm9MYUQtcy1hVnNKYnB2TXRHN1g0bnU0c3JyS3RNdlJHRTZ5YW1XVW5ZNUVkeU9VYmhRblBaNXY2Zjc0OUpGWUxlWWpuMzRQNzA1YjBWbGlUVnhEbXhKRkRDRTZYODc2c25INzVkdFB2YXMxZnc0SXltOUtVRzItdVhVYlRSWDRidDd5WUlCZGUyX3pPM0dZc2JScGhOZzJOeENzSklXNWhjbXF1TF9ieDJCQzB4a0JGOEE3UG9xMXdZNkVheEtRZEs3N2JpU0VZNkVRNFdEMFRnZEpHRWFXSEJXOTZrTnVCVFJXV1pFVWliOWRHelIzcWdkbC1MdzQxNUNUOVk5aGRqUnVtMFFoakhTamhfYlNPS2NJRXR0R3VvMVNnYl9WTzduLWtPN3VMM2c0SDhYbXl1RTZqdjBpUm14dHRSR05mZ09Qd3VOMDhGQzZxa2NwelBSejQ3cHFZNnZIbmRINlJZYThKZkpfYUdDeVZ6OXNQdElHSFBqR29SUWgtWHpmUGlqN2g5emVkYXBhM2dzcFFLcHdhT0NuOU5oV0dhXzBmZw?oc=5",
+      "source": "Kooora",
+      "date": "2026-07-18T15:23:26+00:00"
+    },
+    {
+      "title": "الأهلي يتعادل مع ريو آفي البرتغالي «ودياً»",
+      "link": "https://news.google.com/rss/articles/CBMi7ANBVV95cUxQUldtQnhJTVJ5cmp4UHFrODQyVjQtS195cVE1YXFIeEd5T2lCUHN3UURrb2ZnVWE1cjNCQWF4c1BzY1o0djMzdXNyZXlHYXk2UjFKQmZUWk45cll1REdKV0I1N05hTDhMb1IxRlVUUVNrWEFYZnlyS1p6YTNsSWVfYlZVNTN0YW41N241Mk1nVllPeEZFY3A1Z3htNmdiS1oyR2hGWjRZSWZWT1Z1aHAxZDBzQW96TlI5czFVd0wxc0w2UVY1bWFyeDlqRHdoc2tEQ0pNUTFORkMxQ0FfSXQ5akt3azRWTkxyV0oyc2xXcU1DM2d6Z0J6RVZ3bG1vTlNYSFc2T3RHRFBhZWVyWVRtSnoza2dpdl9yT20tbGY4Ym5RSmhIR24tQTdReGF3Y0xtbDdSNzlyQTNOaFctVVU4c2taNTBjeTBRTGZWRlJPMDNLeFBFbmR1Um5Jcl9nbDJZSU5PU0pVNW9jMXg4NTA3ekZjdjQ1OTk0NElHVDl4Z1JDYlM0QnJpeWNsbkZUdGJSbHRpLXQ3V1ZmOElfRmpfQm0wVFdiQk1nV2dBSlB1c0N0ajNpUEx0QVZBVEdGSnNrbXRjaVh3czgwTllzQjI3TEk3WF9KR0FWa2gtWjlMUjF5NzlDR1VnLVI0Yzg?oc=5",
+      "source": "الشرق الأوسط",
+      "date": "2026-07-19T18:37:19+00:00"
+    },
+    {
+      "title": "استقالة الغامدي من رئاسة الأهلي - جريدة المدينة",
+      "link": "https://news.google.com/rss/articles/CBMi2gJBVV95cUxQOGdVcDFXUGhRVFdDQXZ5ZGFHcUM4ODNMZDVxU3dxa0tRc1ZuQ3BwTFktREFQbnNVdlB5QnNZbUt2TUN5NW1OZWVSSzFuT0kzZnVaeUplOUlVM2JoWV9vcDJ0MzJ6U1ZhMkdLS19DWkJpLTMwbHBOZkFPZ0ZqdTZCZ29LWnRqaGYtVzd5TVprUk1INENmRTVqVU5GQ3RHSHF3RlFxUjk4Y0pYU1VtX01QYzdUOHJkYXpoaXpaNlE5NlZXR0ZULUptS3gyWEpKZEpFblBvVTlqQmZBYWJxNnlPekUxWWlnYlhxeWt4U1NFUUk2NGNWaFpycDU5TTVLZTRTLVNIQVFZSkZpenlEc3JVYlc3QVNiakJQMWN5Z3p3aWd3XzNJOXlUQm5kVFNJT0l1SVFzeVFkZ3kyRHEyU1hmTlBVTDllRTd0RGhydHNtZjdncDVUdW0yTmNR0gFWQVVfeXFMUFZnbmx4WnZwNGFMQ2d5LWktcW5kRmdLaWlPSS1ybE1HZGRFWlZpczJIZXI2cHJobUZDQ0wza3VrdnR3RXF4a3lEbzFXT0Y5SGFoUC1DdXc?oc=5",
+      "source": "جريدة المدينة",
+      "date": "2026-07-19T23:31:21+00:00"
+    },
+    {
       "title": "الأهلي السعودي الـ 14 عالميا في الإنفاق على صفقات الصيف",
       "link": "https://news.google.com/rss/articles/CBMi4gNBVV95cUxQdklkRTJVeFhqQllCOVUyMmdBZnE2OUhMZk5QQVFpZ2tsMl9ENW51UVVFYzRUR1dmQ3R6R2o4Z1RDS2ZjRUUyRC1PRl9JSjBrbGdxZGw0VkhEaHdjZjczc2tSM2xDbC1IRXFiSmJuNjc0QXdoNWZZV3d1X0FRWVVWTWQzLV9sdkZkX0NRV1hDa2Z5YWF0UnY0R0NkY0EtN3dJWnY5YlJyVEhfQ241U1czYzNjbWRuWncwbGFaRXh0QTE4OGppZ1ZtVjZKLWp6b0xTVUt3dVlnNWhnbmhual82dlVRYldVRG5BaVdfUDhwYTFlQkNUTGZRdm9OTURMX3pNUEQxbGtiMTRvTUZtYl9EZkJpc1BLTXVSVlNCQWd6TlZ0a21FNzNjbUNtUEJXckVkMGNIQnFnZTFZdDBuZzQyeDc3XzY0ODJ0ZktudHk4Y1NscVZrZVlMVHlXM2hvWXlnbW1xQmZZNnIxS1Q1b19aWlF3cENPR0tiV1FMZGxGZ1JCR20yVHNpRmU4MlNxS2ZaZWRpNnJrenZZQ2xWOUhkSFpObzV3eVl6QzFRazA2el92THhZbjJjZ3hzTjVlQW8yRGxMXzQwUk9fSjFmMzFINVNuWFNXdmJwU3VUa21Ba3A0UQ?oc=5",
       "source": "الاقتصادية",
       "date": "2026-07-19T12:16:07+00:00"
+    },
+    {
+      "title": "نجم منتخب المغرب يفجر صراعاً سعودياً بين الأهلي والاتحاد",
+      "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE9TVmQtU0VxM3pjVjNwQ0xBbV9IRmxmTnBlQnhpRlRISEVFU1poV3dtY3lVYkhQZEt3eDdlXzV1N2JCbWQ3TTJ0WEpaeXdubWdM?oc=5",
+      "source": "إرم نيوز",
+      "date": "2026-07-19T20:07:29+00:00"
+    },
+    {
+      "title": "نجم أتلتيكو مدريد يحسم موقفه من عرض الأهلي السعودي",
+      "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTFB0eWd0amdUbUs3emg5QVhCazlibUJoWjJzS3RHcEJvSFdPaFdaY2ZQSURMbEVmN2VmN1Rpay1Mcy1mMi1XM3Y4VWljV2psYjR6?oc=5",
+      "source": "إرم نيوز",
+      "date": "2026-07-19T08:07:23+00:00"
+    },
+    {
+      "title": "يايسله يريده.. الأهلي السعودي يحسم صفقة جديدة في معسكر أوروبا",
+      "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTFB4OTlXLWpLcFUxMmlDa0xHVjczbXRyRGdEM0I3c005Y3FHYld6OF9LUjBSVGlzRHhhWW5UUnhfbWVuTXIzal9HckRNeWhwMXpj?oc=5",
+      "source": "إرم نيوز",
+      "date": "2026-07-19T09:02:37+00:00"
+    },
+    {
+      "title": "3 أسباب خطيرة.. لماذا صدم يايسله إدارة الأهلي السعودي؟",
+      "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE5ENy1NamtWWEtIVy1YSzFheU9IUWNCWDVnbUV0eFQ4bjFqTmdhbkVGUU1Hc2FvQlhZR2hrR1JHcEd2clIxNzhWZHdGS1FCaDNO?oc=5",
+      "source": "إرم نيوز",
+      "date": "2026-07-18T08:32:12+00:00"
+    },
+    {
+      "title": "أول تحرك من الأهلي السعودي لضم بديل علي مجرشي",
+      "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE9wOHVLYmlZcWZLVFAxR2RVSm5wbVAxVjhCcnBsM0NBX0RSRjNoVllPbGZHVmJWT0tTeEtkMWhzMXRla1BEX2gwVWZSZWFHOXB2?oc=5",
+      "source": "إرم نيوز",
+      "date": "2026-07-18T23:27:19+00:00"
     },
     {
       "title": "الأهلي السعودي يوجه ضربة للنصر والهلال",
@@ -36,19 +78,7 @@
       "title": "قدم.. الأهلي السعودي يتعاقد مع البرتغالي فرانسيسكو ترينكاو",
       "link": "https://news.google.com/rss/articles/CBMigwRBVV95cUxOanRqRVJfenRhZ0tkQzN3dk9sMkJKR0pLNEtReXFuTEt2UFdhal9nOFI1UHpzWTA3QnZpbklMWmd1RlJ5dUROTDhNd1I4Sno2QjdjTUdtcDFEamlXNFFac3lSNkZnMzN6TlhGdEI0Y0hycVMtMERLMGpma1N6UFBkTHVhUVFOR1dWMzZLYWF2RUYwQnVlbUJJRElxYlpidkVmVXBuTFZpSlQyandQNy1uV0F4eDN6VDc2UmVNYk8tbGJoMEo5OWxubTBvR1pUYTZFVWd1a0doQWdYVDRyV2JwaEEzQzhlcDYwMzZrNUxhNmpLbVAxUllpNlVia2VEeGhRdkc2aTl2Ui1tS0VHSFN5T2E2Q1U3cFdEa0xhOXdUOVlmejVKZFk3dkJKUGNiNUJMMnV5TkZwMEtrdklKNGJ1Rzd0YVhxYU5oWFBEeTJBTG1NS2lvallVM0JsNkdCZERBLTk4RTR2NzFMcUJLbW0zNVVlTnJrNFNCY00yV3lfczZLcnBkOW5BTW8teWdlRGU2X2o5aVMzcFZ0YnZwSTJuVHZDcFZQQ2tDaXlkRmVFamxCZ1NwbHhWYmN1ODdmOENaNWpFbkE3eV9zLW1MQ0lmQ1Y3UnZNeV80c0ppZ2ZWM1ltazlCc1ZITnVBdTBtUXVrdG5ENkMxc2pyNExiT2hBSUpINA?oc=5",
       "source": "Anadolu Ajansı",
-      "date": "2026-07-19T05:57:58+00:00"
-    },
-    {
-      "title": "الأهلي السعودي يعلن التعاقد مع البرتغالي فرانسيسكو ترينكاو",
-      "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTFBIUU8zUHBjSmtFTHROVXB6aXhPMzVINlMwSmxMUFJocVlERHpDWjdDTWlVbVNwY0ZhbVVjNlF4Y01ycUYzX1pFVHdUTnlqMkEx?oc=5",
-      "source": "alsaudi.news",
-      "date": "2026-07-19T07:03:58+00:00"
-    },
-    {
-      "title": "رسميًا.. الأهلي السعودي يخطف ترينكاو من أنياب كبار أوروبا",
-      "link": "https://news.google.com/rss/articles/CBMizgRBVV95cUxNYTFLMVQ0OWhfbE9menkxSDVrM3dLaEpkS0x5OG4yVlcwdFdOWTRLRE1UTmM5bTE5Qk5zbVB4U2ROVWFNMll4aGpfa0g2ZTZjbE1hanFWU2Fpb3VWM1hGVUZMc3BUMDlmRF9Wb1BCVU9WaWZ3cERlb1ZyOVlxTUh2S19KZVctTEU1bXIzUXYtYnpidklyN0RfbW9Ea2pzeHR6ZThBbWxOaG4yeWdvQm9MYUQtcy1hVnNKYnB2TXRHN1g0bnU0c3JyS3RNdlJHRTZ5YW1XVW5ZNUVkeU9VYmhRblBaNXY2Zjc0OUpGWUxlWWpuMzRQNzA1YjBWbGlUVnhEbXhKRkRDRTZYODc2c25INzVkdFB2YXMxZnc0SXltOUtVRzItdVhVYlRSWDRidDd5WUlCZGUyX3pPM0dZc2JScGhOZzJOeENzSklXNWhjbXF1TF9ieDJCQzB4a0JGOEE3UG9xMXdZNkVheEtRZEs3N2JpU0VZNkVRNFdEMFRnZEpHRWFXSEJXOTZrTnVCVFJXV1pFVWliOWRHelIzcWdkbC1MdzQxNUNUOVk5aGRqUnVtMFFoakhTamhfYlNPS2NJRXR0R3VvMVNnYl9WTzduLWtPN3VMM2c0SDhYbXl1RTZqdjBpUm14dHRSR05mZ09Qd3VOMDhGQzZxa2NwelBSejQ3cHFZNnZIbmRINlJZYThKZkpfYUdDeVZ6OXNQdElHSFBqR29SUWgtWHpmUGlqN2g5emVkYXBhM2dzcFFLcHdhT0NuOU5oV0dhXzBmZw?oc=5",
-      "source": "Kooora",
-      "date": "2026-07-18T15:23:26+00:00"
+      "date": "2026-07-19T06:03:45+00:00"
     },
     {
       "title": "الأهلي السعودي يضم المهاجم البرتغالي ترينكاو",
@@ -57,34 +87,16 @@
       "date": "2026-07-19T11:04:00+00:00"
     },
     {
-      "title": "يايسله يريده.. الأهلي السعودي يحسم صفقة جديدة في معسكر أوروبا",
-      "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTFB4OTlXLWpLcFUxMmlDa0xHVjczbXRyRGdEM0I3c005Y3FHYld6OF9LUjBSVGlzRHhhWW5UUnhfbWVuTXIzal9HckRNeWhwMXpj?oc=5",
-      "source": "إرم نيوز",
-      "date": "2026-07-19T09:02:37+00:00"
+      "title": "الأهلي السعودي يعلن ضم ترينكاو بعقد لأربعة مواسم",
+      "link": "https://news.google.com/rss/articles/CBMitgNBVV95cUxOcnJPVHktUzB0OFhnbGxNRGJ6bmo4bFJNMHl0dnYweVRiczBFRm5xeGRHQ0hjZWxfUEtHUl9ZbnEzMzVqVy1EUU5WNmMta3pkYWE3VXZDakU4Y3lmdXR2YmNEZzIxYmpKcUE1bUpqZG9uRHhpLXVPLUk3NW1NTVkybmEyV1J0ZjgwenI0T3pzYVdmSnpFd2ZxbFBWVVpBUHVuRVdTVzBnNjhoWnlaY0x0Zzg5R0lwSUJBVkRNdC1Kek9qZjlmRFFZMlc0MWFwZVU5SWF5ZjF5M1ljM0EtRWZqWDZocjdoUkJGckt5Y0phcGNURzI1eWc3X1dWU3JhUVRkWVRGeUlaaUZnNDY0YWpyajJ4M3EyNGFFTW9tUTJOU0NjZTVyZ1FTSXQxeWF4TFhWc0lJcXAyVGVtbDlaTmJVOXdMQjBxRFZNa3RyOTkyTGNadFFYX2xPRk42S3RsZ3g5bFZCbjJfbFc3ZnJDTjVGak1yeTBzM2xRTjFnNWhvU3FNTGpQbW5SSFltdGNaZmZaSUY5SDE3SXdSeWhmMmlCUVUwemVWWnlSZVNEU0NIUkdwd2lRemfSAbsDQVVfeXFMTloxNU5aUFdBOTcxTUpfOHBLbVNHZGgxQ0U5QkhyVUdzSWprTVAtVVBtNGRteVNlTFBxbXgyclBvS3JXWDJicVNyR2w3MWNaeGQ4cjlWTDIySm9EMzFseTVNbTlQYThnMmQ3eUtzcG0wblZIRjc2WGNkVjN4dlRLaFlFTm1FbFBSZXdIZTBFOEZYSWtqZTlnSjVRLVctZ0pZQzZUWWJGclROdlM1bm1sX0pqT0ZMVnJac2IzU0hnMUhMOVNjVm5pbXkzMmRET2VVcEpEQ3NjSFVjVllSeEhxd3hmbVZtdF81N1pwWEowOElVTTh6VWUzOElhZmNfRnBJZE1raFJKVDBBUkdPU0VKbnJjc2FpNkQxN0I1MHhQVTUzY2QwVlY0THlRdEJ5SjVKSGdIVWxyZEduV0RxU0kyZVpIRHJwNDVzcU0xQ0F5TlA3WUk5eWRfVi1hWWdOZWxiblF1Z1NlQkllUE5lcnlnUC14TkJBR2Y1M0lBM21SZHhYS3ZraWM5TmpDWE5rdkF2VzNsWjRWMXViQlp5cF9nWFpXWVY3UHFrcFcwejdYZC1pS3BranJmakR5U2c?oc=5",
+      "source": "يلاكورة",
+      "date": "2026-07-18T15:55:00+00:00"
     },
     {
-      "title": "ليس 50 مليونا فقط.. كم سيدفع الأهلي السعودي في صفقة ترينكاو بالكامل؟",
-      "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE1wZGJvYUgwdDJ0SDVMUE5WNm03dUhrNF9XalMtSlhDS0lTTmVZNWpEMlVKak5NaGdjSDdZYzN4NDJuWXZIMmVfYkNweXdodmdh?oc=5",
-      "source": "إرم نيوز",
-      "date": "2026-07-19T08:07:33+00:00"
-    },
-    {
-      "title": "نجم أتلتيكو مدريد يحسم موقفه من عرض الأهلي السعودي",
-      "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTFB0eWd0amdUbUs3emg5QVhCazlibUJoWjJzS3RHcEJvSFdPaFdaY2ZQSURMbEVmN2VmN1Rpay1Mcy1mMi1XM3Y4VWljV2psYjR6?oc=5",
-      "source": "إرم نيوز",
-      "date": "2026-07-19T08:07:23+00:00"
-    },
-    {
-      "title": "الأهلي السعودي يضم رسميا نجم البرتغال ترينكاو حتى 2030",
-      "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE81anlqZ3pVdDBuZGJBUXFjazhJMVZVT1pJT1BuVnBEVlYtcmtTN2JFc1c3NGZKNEF6bXlLSmZtbGJOOHFBMWJYZTdVUjV4dld1?oc=5",
-      "source": "إرم نيوز",
-      "date": "2026-07-18T16:47:17+00:00"
-    },
-    {
-      "title": "3 أسباب خطيرة.. لماذا صدم يايسله إدارة الأهلي السعودي؟",
-      "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE5ENy1NamtWWEtIVy1YSzFheU9IUWNCWDVnbUV0eFQ4bjFqTmdhbkVGUU1Hc2FvQlhZR2hrR1JHcEd2clIxNzhWZHdGS1FCaDNO?oc=5",
-      "source": "إرم نيوز",
-      "date": "2026-07-18T08:32:12+00:00"
+      "title": "الأهلي السعودي يعلن التعاقد مع البرتغالي فرانسيسكو ترينكاو",
+      "link": "https://news.google.com/rss/articles/CBMiREFVX3lxTE13LVJfQmpGblF5MXRlbVZVbEpvNHNDNzlTVzZzR0dueVpRTzhQOTBaaUFrbndKMkw2em03QjJ4YmdSXzdT?oc=5",
+      "source": "صحيفة حقائق الأخبار الإلكترونية",
+      "date": "2026-07-19T18:26:44+00:00"
     },
     {
       "title": "الأهلي يتحرك سريعًا لتعويض محرز.. نجم النصر على رأس قائمة البدلاء",
@@ -93,34 +105,22 @@
       "date": "2026-07-05T07:00:00+00:00"
     },
     {
-      "title": "طلبات كيسيه «مرفوضة» في الأهلي",
-      "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE1wQklqX3F5TW5mNXZGb01sS3FISmd1VHRWZDBKYTRVVGZrMnNnMVUzQ1Q0T2lWNkNPejI5c1ltNnY5WW1pRmRJczkycUtySGlqZGxVRjBR?oc=5",
-      "source": "عكاظ",
-      "date": "2026-07-05T07:00:00+00:00"
+      "title": "وقع العقود.. فرانشيسكو ترينكاو رابع صفقات الأهلي السعودي الصيفية",
+      "link": "https://news.google.com/rss/articles/CBMi9gRBVV95cUxQSDBNZ1dYOXlpYlFmMTZtRVVHNnBuSktuS29id0dBYjF2TXhmN0ZTbXlDYVo5NFFTU1BtQ2dSUHJPdzg0aExJcXNuYjVQS3owT0JBbEEtYkcyNnRHYUJ2dzFLbi11a3Z0bV9LaVI5UzV1TGZ0TnhvNHhEbGo2cVRfaTh4VFQzamxLZEZtbTRRRVd3Yjd5RFJ1OHVYVC0tZUxRcTRzQ215VTBvb2FiZTFRQ2ljVDRLZkRsVkxoYkNWRHdPbWItNUFsV2FkVlQybk5IV0trTkV2U2hUel93Nlc2ZHF0TEItSC1xVEkzdENzd2kxeE9QejM5MjdmTFhxSmFyaGR2angtUmZZOEtPU1BwVWZnU2ptZmRrSl9lNlFkWEtGdGw5dXFTYmY0Y0hrelhreDJFMFhaallPSjRaRFZFeEpBcE9tQ2Y5M0ROczVxc3dBYTFKQlJDWll1dWZNdGY1MHlSZHZjaXdaQWwtaFRWT2tiMVdwS2F2T1lHMDZsdkhyYzNPOG9zNkRlem1DY0JXdUhZMFJmNzdVMHhKMUQ5OEsyaW5kX0IzcHBFMGtHUDE0cmlXZXRiTTJlOThPeUZJSWEwNzJZQlVCTGtPVEZuSFZEWjlyRFF1X0dwYmo0c1FwSWxxN1ZXUHkzakRELW5idk0tRDJMVE9TZnNOZURsOU52RUxDdmFpQVU1b3VFZlRiTmliZmJsRTF6aHdMU2RPR1J2dWJJZzNRcml1cmJhWHFVdUJnSG0zeEh1enFDbVl4dHBLelpKaTd1NHBxdmlfRmV4WDhvaHJtUVJ4WVN2Sk1KbEwzeGU3UmI2UHd4UkxYVHJxSWc?oc=5",
+      "source": "Kooora",
+      "date": "2026-07-18T07:48:42+00:00"
     },
     {
-      "title": "تفاصيل إصابة صفقة الأهلي الجديدة في ودية ريو آفي البرتغالي",
-      "link": "https://news.google.com/rss/articles/CBMi3wJBVV95cUxNZUZYYUpXODRyTWhOYWlxb3BlWkRTSUR4TmUxd0lrYXRRZ1RXcjdfMkdmaHNHUFdqODlnc0Fjdk1VemdhbERzcjlQTGdiMThFdXltSGFzVVBKSHFFdkVyaEczb2EzcjBBX3JRM1Z6VFA1WWc2ODBiS1FMeEgybjJRbEdSejd4V1c4SU96ajM3VktxWE1FMUxZbm5DLWNobU1yRXlxcFZma2dqUlUyZFhiZ2Q3ZW9GemVxQ3hKSHd2RVBicWg2ektKLVdYM01NdlB3NDhscDhDSTZFVlE3eXFnd0VXdTk3aHNMeHh5U0VMX0pudUlqRHBWR1c3TWxfN0NWa2FRYVdKeFpBZGh0Y193TnBvbmg4SWx2emw4VHRsZ0t5MlBpV3htWkFBOE94a3BqSm85RjFmUnRfS1dBR2o4YmszcXJxbUtMT1A5R1F1UUZjSDl6SU12ZlhKWG1DZ2s?oc=5",
-      "source": "365Scores",
-      "date": "2026-07-19T20:41:16+00:00"
-    },
-    {
-      "title": "رسميًا.. الأهلي السعودي يعلن تعاقده مع البرتغالي ترينكاو",
-      "link": "https://news.google.com/rss/articles/CBMi3wJBVV95cUxNSHJqSTE5UUlMQ05qNjVyamoxZTBoMnBJSm9HMGlIN21JOGRHdEFmR2U3WEdUYlR3MDI4a3NFU3llVFRramYtM0liMF8tc0lhZnhubXFmanR1T1hYRjZoS1ZNc0dtRldMZ1kxUm1UMFRZOVYyNXZoZ0pyN2s4c1RqUFZFbjk4Zm5PMXB4RHhJM2NWUndmRmxxTVZXU01MLUUyNlJVeWFrWnU4UF9qUk1TaGNxN1M3Zmh3VWVNMFNaMnhEd2FMaVlFQ2JfUzV1NjlBVUVkUlN2T0J0QTczQmc5dTFGOXFQVnluSGhwZGd0QVA1eFRxNkhxWWhQdWJMVXpmS0FwQlFWMW4yazBYT09yRDlKVW5QRkRGaGR4aW1kaFBTUlV4OEt6YXBjd3V6SzRNLVA1elBjWk5Pc21abHRMalU3TFExbklkampyeHVZOVlfck11dUh0dGZwRHgtODA?oc=5",
-      "source": "365Scores",
-      "date": "2026-07-18T15:30:05+00:00"
-    },
-    {
-      "title": "نجم منتخب المغرب يفجر صراعاً سعودياً بين الأهلي والاتحاد",
-      "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE9TVmQtU0VxM3pjVjNwQ0xBbV9IRmxmTnBlQnhpRlRISEVFU1poV3dtY3lVYkhQZEt3eDdlXzV1N2JCbWQ3TTJ0WEpaeXdubWdM?oc=5",
+      "title": "ليس 50 مليونا فقط.. كم سيدفع الأهلي السعودي في صفقة ترينكاو بالكامل؟",
+      "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE1wZGJvYUgwdDJ0SDVMUE5WNm03dUhrNF9XalMtSlhDS0lTTmVZNWpEMlVKak5NaGdjSDdZYzN4NDJuWXZIMmVfYkNweXdodmdh?oc=5",
       "source": "إرم نيوز",
-      "date": "2026-07-19T20:07:29+00:00"
+      "date": "2026-07-19T08:07:33+00:00"
     },
     {
-      "title": "على بعد خطوة.. الأهلي السعودي يقترب من حسم صفقة \"القائد\"",
-      "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE9jQ09sQXpMaWkzQUJYRnAwQ2g4SzNEVWwyZkhaaTZ0NjZSd1lMbVQwdld6bG96dlVDbDBteGRuODgwMTA4ZGRuQ2l0THA4ZWx0?oc=5",
+      "title": "يايسله يفاجئ \"جوهرتي\" الأهلي السعودي",
+      "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE14dmZTNHNWVmpiaHhsYkd4Q3hRSjJVUTVDYmVMeVhOU1UtTFZ2bTBrbFptOU9hTm5wTjVxWjM3OFU0RzZlWF9kTldsNTVGRUY0?oc=5",
       "source": "إرم نيوز",
-      "date": "2026-07-03T07:00:00+00:00"
+      "date": "2026-07-19T05:02:21+00:00"
     }
   ]
 }
