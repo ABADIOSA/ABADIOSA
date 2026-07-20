@@ -195,7 +195,7 @@ export function StreamingSourcesPanel({
             dir="auto"
           >
             {t(
-              "In the browser version, debrid providers block direct API access, so keys saved here won't work. Instead, install your debrid's own Stremio addon (for TorBox: stremio.torbox.app) or configure Torrentio with your debrid — those return direct links that play right here.",
+              "In the browser version, debrid providers block direct API access, so keys saved here won't work. Instead, configure Torrentio (torrentio.strem.fun) or Comet with your debrid account — the addon then returns direct links that play right here. For TorBox, easy-torbox.github.io/stremio sets this up in one click.",
             )}
           </div>
         )}
