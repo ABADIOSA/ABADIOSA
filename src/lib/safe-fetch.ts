@@ -10,6 +10,13 @@ const isTauri = typeof window !== "undefined" && "__TAURI_INTERNALS__" in window
 // works) — proxying them through the VPS gets 403'd. EVERYTHING ELSE routes through the
 // VPS /api-proxy: it's required for addons that send no CORS header at all (OpenSubtitles)
 // and for the CORS-less debrid REST APIs, and it's fine for the rest (Cinemeta, Comet).
+//
+// The proxy only exists on deployments that run a backend (harbor.site). Static hosts
+// (GitHub Pages) must leave VITE_HARBOR_WEB_PROXY unset: every host is then fetched
+// directly, which works for the Stremio API and protocol-compliant addons since they
+// all send CORS; only CORS-less services (debrid REST APIs, legacy OpenSubtitles)
+// genuinely need a proxy.
+const WEB_PROXY_BASE = (import.meta.env.VITE_HARBOR_WEB_PROXY as string | undefined) ?? "";
 const DIRECT_HOSTS = new Set([
   "torrentio.strem.fun",
   "stremio.torbox.app",
@@ -46,7 +53,7 @@ const PROXY_SUFFIXES = [
 ];
 
 function rewriteForWeb(url: string, init?: RequestInit): { url: string; init?: RequestInit } {
-  if (isTauri) return { url, init };
+  if (isTauri || !WEB_PROXY_BASE) return { url, init };
   let parsed: URL;
   try {
     parsed = new URL(url);
@@ -58,7 +65,7 @@ function rewriteForWeb(url: string, init?: RequestInit): { url: string; init?: R
     PROXY_HOSTS.has(parsed.hostname) || PROXY_SUFFIXES.some((s) => parsed.hostname.endsWith(s));
   if (!proxiable) return { url, init };
 
-  const proxied = `/api-proxy/${parsed.hostname}${parsed.pathname}${parsed.search}`;
+  const proxied = `${WEB_PROXY_BASE}/${parsed.hostname}${parsed.pathname}${parsed.search}`;
   if (!init?.headers) return { url: proxied, init };
   const out = new Headers(init.headers as HeadersInit);
   const auth = out.get("authorization");
