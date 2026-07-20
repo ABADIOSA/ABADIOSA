@@ -2585,3 +2585,21 @@ html[data-theme-card="crunch"][dir="rtl"] .harbor-profile-dropdown {
     animation: none;
   }
 }
+
+/* Phone adaptation: Settings. The 288px section nav can't share a phone screen
+   with the content, so it hides behind the horizontal section chips rendered
+   by settings.tsx, and the content column takes the full width. */
+@media (max-width: 819px) {
+  nav[data-harbor-sidebar] {
+    display: none;
+  }
+  [data-harbor-settings-main] {
+    padding-top: calc(6.5rem + env(safe-area-inset-top));
+  }
+  [data-harbor-settings-content] {
+    padding-inline: 20px;
+  }
+  [data-harbor-settings-content] > header h1 {
+    font-size: 30px;
+  }
+}

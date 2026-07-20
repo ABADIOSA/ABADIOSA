@@ -288,8 +288,34 @@ export function Settings() {
     <SettingsActiveContext.Provider value={{ setActive }}>
       <div className="flex h-full bg-canvas">
         <SettingsNav active={active} onChange={handleNav} />
-        <main ref={scrollRef} className="flex-1 overflow-y-auto pt-28 pb-16">
-          <div data-tauri-drag-region className="mx-auto flex max-w-3xl flex-col gap-10 px-12">
+        <main
+          ref={scrollRef}
+          data-harbor-settings-main
+          className="flex-1 overflow-y-auto pt-28 pb-16"
+        >
+          <div
+            data-tauri-drag-region
+            data-harbor-settings-content
+            className="mx-auto flex max-w-3xl flex-col gap-10 px-12"
+          >
+            <div
+              className="flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden min-[820px]:hidden"
+              dir="auto"
+            >
+              {(Object.keys(SECTION_META) as SectionId[]).map((id) => (
+                <button
+                  key={id}
+                  onClick={() => handleNav(id)}
+                  className={`h-9 shrink-0 whitespace-nowrap rounded-full px-4 text-[13px] font-semibold transition-colors ${
+                    active === id
+                      ? "bg-ink text-canvas"
+                      : "bg-elevated text-ink-muted ring-1 ring-edge-soft"
+                  }`}
+                >
+                  {t(SECTION_META[id].label)}
+                </button>
+              ))}
+            </div>
             {!(active === "relay" && relayMode !== "panel") && (
               <header className="flex flex-col gap-2">
                 <h1 className="font-display text-[44px] font-medium leading-[1.05] tracking-tight text-ink">

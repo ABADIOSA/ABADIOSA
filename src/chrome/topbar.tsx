@@ -79,7 +79,7 @@ export function Topbar({ connecting = false }: { connecting?: boolean } = {}) {
             </button>
           )}
           {onLiveRoot && (
-            <div className="flex items-center gap-1.5 text-ink">
+            <div className="hidden items-center gap-1.5 text-ink min-[820px]:flex">
               <HarborMark className="h-7 w-7" />
               <span className="font-display text-[18px] font-semibold leading-none tracking-tight">
                 {t("Live")}
