@@ -1,4 +1,4 @@
-import { Check, Download, ExternalLink, Loader2, Play, Zap } from "lucide-react";
+import { Check, Download, ExternalLink, Loader2, MonitorPlay, Play, Zap } from "lucide-react";
 import { Flag } from "@/components/flag";
 import { DubSubPill, streamDubSub } from "@/components/dub-sub-pill";
 import { CopyLinkButton, resolveStreamLink } from "@/components/player/copy-link-button";
@@ -6,13 +6,24 @@ import { FormatBadge, streamBadges } from "@/components/format-badge";
 import { HostMatchChip } from "@/components/host-match-chip";
 import type { Meta } from "@/lib/cinemeta";
 import { useDebridClients } from "@/lib/debrid/registry";
+import { useT } from "@/lib/i18n";
+import { isExternalPlayerCapable } from "@/lib/player/external-player";
 import { useSettings } from "@/lib/settings";
 import type { ScoredStream } from "@/lib/streams/types";
 import { directStreamAvailable } from "@/lib/torrent/stremio-stream";
 import type { PlayEpisode } from "@/lib/view";
 import { EditionChip } from "./edition-chip";
-import { anyStreamCached, confirmationLabel, displayTitle, hasUncachedMarker, streamSummaryParts, torrentFilename } from "./picker-utils";
+import {
+  anyStreamCached,
+  confirmationLabel,
+  displayTitle,
+  hasUncachedMarker,
+  streamSummaryParts,
+  torrentFilename,
+} from "./picker-utils";
 import { PlayProvenance } from "./play-provenance";
+
+const EXTERNAL_CAPABLE = isExternalPlayerCapable();
 
 export function PrimaryCard({
   meta,
@@ -22,6 +33,7 @@ export function PrimaryCard({
   addonLogo,
   onPlay,
   onCache,
+  onExternalPlay,
   resolving,
   queued,
   inSession,
@@ -35,6 +47,7 @@ export function PrimaryCard({
   addonLogo: string | null;
   onPlay: () => void;
   onCache: () => void;
+  onExternalPlay?: (title: string) => void;
   resolving: boolean;
   queued: boolean;
   inSession: boolean;
@@ -42,6 +55,7 @@ export function PrimaryCard({
   match?: "same" | "close" | null;
 }) {
   const { settings } = useSettings();
+  const t = useT();
   const cachedDebrids = debrids.filter((d) => stream.cached[d.slug]);
   const libraryDebrids = debrids.filter((d) => stream.inLibrary[d.slug]);
   const cachedDebrid = cachedDebrids[0] ?? null;
@@ -65,23 +79,30 @@ export function PrimaryCard({
   const heroImage = landscapeImage || meta.poster || meta.background || null;
   const isLandscape = Boolean(landscapeImage);
 
+  // On the web build the top pick is often an MKV/HEVC file the browser can't
+  // decode, so offer a one-tap handoff to an external app (Infuse/VLC) right on
+  // the primary card. Only for sources that resolve to a real file.
+  const canExternal =
+    EXTERNAL_CAPABLE &&
+    !!onExternalPlay &&
+    (!!stream.url || !!stream.infoHash) &&
+    !stream.ytId &&
+    !stream.externalUrl;
+
   return (
     <section className="relative overflow-hidden rounded-[24px] bg-canvas/70">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-ink/12 to-transparent" />
 
-      <div className={`grid gap-7 p-7 ${isLandscape ? "grid-cols-[320px_1fr] items-center" : "grid-cols-[224px_1fr]"}`}>
+      <div
+        className={`grid gap-7 p-7 ${isLandscape ? "grid-cols-[320px_1fr] items-center" : "grid-cols-[224px_1fr]"}`}
+      >
         <div
           className={`relative overflow-hidden rounded-[16px] bg-canvas/50 ring-1 ring-edge-soft/60 ${
             isLandscape ? "aspect-video self-center" : "aspect-[2/3]"
           }`}
         >
           {heroImage ? (
-            <img
-              src={heroImage}
-              alt=""
-              className="h-full w-full object-cover"
-              draggable={false}
-            />
+            <img src={heroImage} alt="" className="h-full w-full object-cover" draggable={false} />
           ) : (
             <div className="h-full w-full bg-gradient-to-br from-canvas to-elevated" />
           )}
@@ -146,9 +167,7 @@ export function PrimaryCard({
               </p>
             )}
             <HostMatchChip match={match} long />
-            <p className="break-all font-mono text-[15.5px] leading-relaxed text-ink">
-              {title}
-            </p>
+            <p className="break-all font-mono text-[15.5px] leading-relaxed text-ink">{title}</p>
             {fname && fname !== title && (
               <p className="break-all font-mono text-[12.5px] leading-relaxed text-ink-subtle/80">
                 {fname}
@@ -159,14 +178,22 @@ export function PrimaryCard({
               <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-[13px] font-semibold uppercase tracking-[0.16em] text-ink-muted">
                 {summary.map((part, i) => (
                   <span key={`${part}-${i}`} className="flex items-center gap-3">
-                    {i > 0 && <span aria-hidden className="h-1 w-1 rounded-full bg-ink-subtle/40" />}
+                    {i > 0 && (
+                      <span aria-hidden className="h-1 w-1 rounded-full bg-ink-subtle/40" />
+                    )}
                     <span>{part}</span>
                   </span>
                 ))}
               </div>
             )}
 
-            {(cachedDebrid || addonCached || queued || (debrids.length > 0 && !stream.url) || stream.remux || stream.releaseGroupNormalized || stream.edition) && (
+            {(cachedDebrid ||
+              addonCached ||
+              queued ||
+              (debrids.length > 0 && !stream.url) ||
+              stream.remux ||
+              stream.releaseGroupNormalized ||
+              stream.edition) && (
               <div className="flex flex-wrap items-center gap-2.5 pt-0.5">
                 {libraryDebrids.length > 0 ? (
                   <span className="inline-flex items-center gap-1.5 text-[12.5px] font-semibold tracking-[0.04em] text-accent">
@@ -283,13 +310,23 @@ export function PrimaryCard({
                 Not cached
               </button>
             )}
-            <PlayProvenance stream={stream} debrids={debrids} isCached={isCached} addonLogo={addonLogo} />
+            {canExternal && (
+              <button
+                onClick={() => onExternalPlay?.(title)}
+                className="group flex h-14 items-center gap-2.5 rounded-full border border-edge-soft bg-canvas/60 px-6 text-[14px] font-semibold tracking-[0.04em] text-ink-muted transition-[transform,background-color,color] duration-200 hover:scale-[1.02] hover:bg-canvas hover:text-ink active:scale-[0.98]"
+              >
+                <MonitorPlay size={18} strokeWidth={2} />
+                {t("External player")}
+              </button>
+            )}
+            <PlayProvenance
+              stream={stream}
+              debrids={debrids}
+              isCached={isCached}
+              addonLogo={addonLogo}
+            />
             {link && (
-              <CopyLinkButton
-                url={link}
-                size={15}
-                className="h-9 w-9 ring-1 ring-edge-soft/60"
-              />
+              <CopyLinkButton url={link} size={15} className="h-9 w-9 ring-1 ring-edge-soft/60" />
             )}
           </div>
         </div>

@@ -808,6 +808,7 @@ export function PlayPicker({
                 debrids={debrids}
                 addonLogo={lookupLogo(currentPick.addonId)}
                 onPlay={() => playManually(currentPick)}
+                onExternalPlay={(title) => external.launch(currentPick, title)}
                 onCache={() => onCache(currentPick)}
                 resolving={resolving?.stream === currentPick}
                 queued={currentPick.infoHash != null && queuedHash === currentPick.infoHash}
