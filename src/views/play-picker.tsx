@@ -701,7 +701,7 @@ export function PlayPicker({
         className="absolute inset-x-0 top-0 z-10 h-20"
       />
 
-      <div className="relative mx-auto flex min-h-full w-full max-w-5xl flex-col gap-12 px-12 pb-32 pt-32">
+      <div className="relative mx-auto flex min-h-full w-full max-w-5xl flex-col gap-8 px-4 pb-32 pt-28 min-[820px]:gap-12 min-[820px]:px-12 min-[820px]:pt-32">
         <PickerHeader
           meta={metaForDisplay}
           episode={episode}
@@ -793,6 +793,7 @@ export function PlayPicker({
             preserveOrder={addonOrderMode || !!hostMatch}
             matchFor={hostMatch ? matchFor : undefined}
             onPlay={playManually}
+            onExternalPlay={external.launch}
             download={isDownload}
             isAnime={isAnimeMetaId}
           />
