@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import snip404 from "@/assets/snip404.svg";
 import { HarborMark } from "@/components/icons/harbor-mark";
 import { IS_ADMIN } from "@/lib/build-info";
+import { captureError } from "@/lib/admin/capture";
 import { submitErrorReport } from "@/lib/bug-report";
 import { loadStartupCrashReport, startupCrashToHarborError } from "@/lib/startup-crash";
 import { isStaleTauriListenerError } from "@/lib/tauri-unlisten";
@@ -56,6 +57,16 @@ export function ErrorView() {
     const onWindowError = (e: ErrorEvent) => {
       if (isNoisyError(e.error, e.message)) return;
       const err = e.error as Error | undefined;
+      captureError({
+        kind: "runtime",
+        code: err?.name || "RuntimeError",
+        message: e.message || err?.message || "An unexpected runtime error occurred.",
+        detail: [
+          `${err?.name ?? "Error"}: ${err?.message ?? e.message}`,
+          err?.stack ? `\n${err.stack}` : "",
+          `\nSource: ${e.filename}:${e.lineno}:${e.colno}`,
+        ].join(""),
+      });
       showHarborError({
         code: err?.name || "RuntimeError",
         title: IS_ADMIN ? "RuntimeError" : "Something went wrong",
@@ -80,6 +91,15 @@ export function ErrorView() {
         typeof reason === "string" ? reason : (reason?.message ?? "Unhandled promise rejection.");
       const name = typeof reason === "object" ? (reason?.name ?? "Rejection") : "Rejection";
       if (isNoisyError(reason, message)) return;
+      captureError({
+        kind: "rejection",
+        code: name,
+        message,
+        detail: [
+          `${name}: ${message}`,
+          typeof reason === "object" && reason?.stack ? `\n${reason.stack}` : "",
+        ].join(""),
+      });
       showHarborError({
         code: name,
         title: IS_ADMIN ? "Promise rejection" : "Something went wrong",

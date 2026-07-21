@@ -3,6 +3,10 @@
 declare const __APP_VERSION__: string;
 declare const __IS_BETA_BUILD__: boolean;
 
+interface ImportMetaEnv {
+  readonly VITE_ABADIOSA_REPORT_URL?: string;
+}
+
 interface Window {
   __harborStremioDeeplink?: boolean;
   __harborInstallerOpen?: boolean;

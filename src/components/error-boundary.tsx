@@ -1,5 +1,6 @@
 import { Component, type ErrorInfo, type ReactNode } from "react";
 import { IS_ADMIN } from "@/lib/build-info";
+import { captureError } from "@/lib/admin/capture";
 import { showHarborError } from "./error-view";
 
 type State = { crashed: boolean };
@@ -12,6 +13,21 @@ export class HarborErrorBoundary extends Component<{ children: ReactNode }, Stat
   }
 
   componentDidCatch(error: Error, info: ErrorInfo) {
+    // Always capture the full crash for the dashboard / crash feed, regardless
+    // of channel, so the owner can diagnose it.
+    captureError({
+      kind: "crash",
+      code: error.name || "Crash",
+      message: error.message || "Render crash",
+      detail: [
+        `${error.name}: ${error.message}`,
+        "",
+        error.stack ?? "(no stack)",
+        "",
+        "Component stack:",
+        info.componentStack ?? "(none)",
+      ].join("\n"),
+    });
     // Friends/family on the stable channel get a calm, recoverable message with
     // no stack trace; the admin/canary channel keeps the full technical detail
     // so the owner can actually diagnose the crash.
