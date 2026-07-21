@@ -27,6 +27,7 @@ import { useThemePreview } from "@/lib/theme-preview";
 import { DevErrorTrigger } from "@/components/dev-error-trigger";
 import { ErrorView } from "@/components/error-view";
 import { HarborErrorBoundary } from "@/components/error-boundary";
+import { ChannelBadge } from "@/components/channel-badge";
 import { ContextMenu } from "@/components/context-menu";
 import { WatchLocalModal } from "@/components/player/watch-local-modal";
 import { LocalEpisodesModal } from "@/components/player/local-episodes-modal";
@@ -341,6 +342,7 @@ export function App({ onReady }: { onReady?: () => void }) {
                                                   <EmbedViewportRoot />
                                                   <InstallerViewportRoot />
                                                   <UpdateRoot />
+                                                  <ChannelBadge />
                                                 </HarborErrorBoundary>
                                                 <ErrorView />
                                                 <DevErrorTrigger />

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import snip404 from "@/assets/snip404.svg";
 import { HarborMark } from "@/components/icons/harbor-mark";
+import { IS_ADMIN } from "@/lib/build-info";
 import { submitErrorReport } from "@/lib/bug-report";
 import { loadStartupCrashReport, startupCrashToHarborError } from "@/lib/startup-crash";
 import { isStaleTauriListenerError } from "@/lib/tauri-unlisten";
@@ -57,13 +58,17 @@ export function ErrorView() {
       const err = e.error as Error | undefined;
       showHarborError({
         code: err?.name || "RuntimeError",
-        title: "RuntimeError",
-        message: e.message || err?.message || "An unexpected runtime error occurred.",
-        detail: [
-          `${err?.name ?? "Error"}: ${err?.message ?? e.message}`,
-          err?.stack ? `\n${err.stack}` : "",
-          `\nSource: ${e.filename}:${e.lineno}:${e.colno}`,
-        ].join(""),
+        title: IS_ADMIN ? "RuntimeError" : "Something went wrong",
+        message: IS_ADMIN
+          ? e.message || err?.message || "An unexpected runtime error occurred."
+          : "The app hit a snag. Reload to keep going.",
+        detail: IS_ADMIN
+          ? [
+              `${err?.name ?? "Error"}: ${err?.message ?? e.message}`,
+              err?.stack ? `\n${err.stack}` : "",
+              `\nSource: ${e.filename}:${e.lineno}:${e.colno}`,
+            ].join("")
+          : undefined,
       });
     };
     const onUnhandledRejection = (e: PromiseRejectionEvent) => {
@@ -77,12 +82,14 @@ export function ErrorView() {
       if (isNoisyError(reason, message)) return;
       showHarborError({
         code: name,
-        title: "Promise rejection",
-        message,
-        detail: [
-          `${name}: ${message}`,
-          typeof reason === "object" && reason?.stack ? `\n${reason.stack}` : "",
-        ].join(""),
+        title: IS_ADMIN ? "Promise rejection" : "Something went wrong",
+        message: IS_ADMIN ? message : "The app hit a snag. Reload to keep going.",
+        detail: IS_ADMIN
+          ? [
+              `${name}: ${message}`,
+              typeof reason === "object" && reason?.stack ? `\n${reason.stack}` : "",
+            ].join("")
+          : undefined,
       });
     };
     window.addEventListener("harbor:error", onError);
