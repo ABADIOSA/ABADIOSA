@@ -1,4 +1,4 @@
-import { Search, X, Loader2, CornerDownLeft, CalendarRange, Tag } from "lucide-react";
+import { ArrowLeft, Search, X, Loader2, CornerDownLeft, CalendarRange, Tag } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { TvModalClose } from "@/components/tv-modal-close";
@@ -124,6 +124,14 @@ export function SearchOverlay() {
         data-harbor-search-inner
         className="relative mx-auto flex h-full w-full max-w-[1080px] flex-col px-6 py-6 sm:px-10 sm:py-10"
       >
+        <button
+          type="button"
+          onClick={close}
+          className="mb-3 flex h-10 w-fit items-center gap-1.5 rounded-full bg-elevated/70 px-4 text-[13.5px] font-semibold text-ink ring-1 ring-edge-soft transition-colors hover:bg-elevated min-[820px]:hidden"
+        >
+          <ArrowLeft size={16} strokeWidth={2.2} className="dir-icon" />
+          {t("common.back")}
+        </button>
         <div
           className={`modal-panel relative flex shrink-0 items-center gap-3 rounded-2xl border bg-elevated/70 px-5 shadow-[0_24px_80px_-30px_rgba(0,0,0,0.7)] transition-colors ${
             aiMode ? "border-accent/55" : "border-edge-soft/80"

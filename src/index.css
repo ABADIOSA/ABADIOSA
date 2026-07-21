@@ -2620,3 +2620,23 @@ html[data-theme-card="crunch"][dir="rtl"] .harbor-profile-dropdown {
     padding-inline: 16px;
   }
 }
+
+/* Phone adaptation: movie/series detail. The desktop layout uses a 78vh hero and
+   48px (px-12) side padding, which overflows the horizontal edge and leaves the
+   title/actions cramped on a phone. Shrink the hero, pull the side padding in to
+   20px, and tighten the large vertical rhythm so everything fits the viewport. */
+@media (max-width: 819px) {
+  [data-harbor-detail-backdrop] {
+    height: 62vh;
+    min-height: 420px;
+  }
+  [data-harbor-detail-hero] {
+    padding-inline: 20px;
+    padding-bottom: 2rem;
+  }
+  [data-harbor-detail-body] {
+    padding-inline: 20px;
+    padding-top: 2.25rem;
+    gap: 2.75rem;
+  }
+}

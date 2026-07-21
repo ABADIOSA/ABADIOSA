@@ -98,9 +98,9 @@ export function EpisodeRow({
           })
         }
         onFocus={() => prefetchSegments(meta, playEpisode)}
-        className="flex min-w-0 flex-1 gap-6 text-start"
+        className="flex min-w-0 flex-1 gap-3 text-start sm:gap-6"
       >
-        <div className="relative w-[200px] shrink-0 overflow-hidden rounded-lg">
+        <div className="relative w-[128px] shrink-0 overflow-hidden rounded-lg sm:w-[200px]">
           <div className={spoiler?.thumb ? SPOILER_THUMB_CLASS : undefined}>
             <Poster
               src={still}

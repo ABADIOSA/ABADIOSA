@@ -47,9 +47,13 @@ export function Topbar({ connecting = false }: { connecting?: boolean } = {}) {
       : settings.sidebarCollapsed
         ? "ps-[84px]"
         : "ps-[84px] lg:ps-[260px]";
+  // On phones the topbar is a tight three-column grid: a wide search pill in the
+  // centre used to crowd the back button out of the left column (it ended up
+  // visually behind the pill). Collapse the pill to a compact icon below 820px so
+  // the back button always has room; expand to the full pill on larger screens.
   const searchWidth = canGoBack
-    ? "w-[14rem] sm:w-[18rem] lg:w-[22rem] xl:w-[24rem]"
-    : "w-[14rem] sm:w-[20rem] lg:w-[24rem] xl:w-[28rem] hover:w-[18rem] sm:hover:w-[24rem] lg:hover:w-[28rem] xl:hover:w-[34rem] focus-within:w-[18rem] sm:focus-within:w-[24rem] lg:focus-within:w-[28rem] xl:focus-within:w-[34rem]";
+    ? "w-11 min-[820px]:w-[18rem] lg:w-[22rem] xl:w-[24rem]"
+    : "w-11 min-[820px]:w-[20rem] lg:w-[24rem] xl:w-[28rem] min-[820px]:hover:w-[24rem] lg:hover:w-[28rem] xl:hover:w-[34rem] min-[820px]:focus-within:w-[24rem] lg:focus-within:w-[28rem] xl:focus-within:w-[34rem]";
   const dragProps = IS_TAURI && !fullscreen ? { "data-tauri-drag-region": true } : {};
   return (
     <header
@@ -487,18 +491,20 @@ function SearchPill() {
         type="button"
         data-tauri-drag-region="false"
         onClick={() => setOpen(true)}
+        aria-label={t("search.placeholder")}
         className="
           harbor-search-pill
           flex h-full w-full
-          items-center gap-3
+          items-center justify-center gap-3
           rounded-full
-          bg-transparent px-5
+          bg-transparent px-0
           text-start outline-none
+          min-[820px]:justify-start min-[820px]:px-5
         "
       >
         <Search size={16} strokeWidth={1.75} className="shrink-0 text-ink-subtle" />
 
-        <span className="flex-1 truncate text-[14px] text-ink-subtle">
+        <span className="hidden flex-1 truncate text-[14px] text-ink-subtle min-[820px]:inline">
           {t("search.placeholder")}
         </span>
 

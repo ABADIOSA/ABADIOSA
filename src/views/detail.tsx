@@ -1278,6 +1278,7 @@ export function DetailView({
       <section className="relative">
         <div
           data-tauri-drag-region
+          data-harbor-detail-backdrop
           className="harbor-bleed-stremio relative h-[78vh] min-h-[640px] overflow-hidden"
         >
           {carouselOn ? (
@@ -1303,7 +1304,7 @@ export function DetailView({
           <div className="absolute inset-0 bg-gradient-to-t from-canvas via-canvas/55 via-45% to-transparent" />
           <div className="absolute inset-0 bg-gradient-to-r rtl:bg-gradient-to-l from-canvas/85 via-canvas/35 to-transparent" />
 
-          <div className="absolute inset-x-0 bottom-0 px-12 pb-14">
+          <div data-harbor-detail-hero className="absolute inset-x-0 bottom-0 px-12 pb-14">
             <div className={awardsInDescription ? "max-w-3xl" : undefined}>
               {tagline && !loading && !detectingAnime && (
                 <p
@@ -1532,7 +1533,11 @@ export function DetailView({
         </div>
       </section>
 
-      <div data-tauri-drag-region className="flex flex-col gap-16 px-12 pb-24 pt-14">
+      <div
+        data-tauri-drag-region
+        data-harbor-detail-body
+        className="flex flex-col gap-16 px-12 pb-24 pt-14"
+      >
         {(overview || heroAwardsInline || parentalGuide) && (
           <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-10">
             {overview && <Synopsis text={overview} />}

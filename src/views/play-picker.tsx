@@ -69,6 +69,12 @@ import { SubtitleSelectStep } from "./play-picker/subtitle-select-step";
 
 const TIER_ORDER: Tier[] = ["4K_DV", "4K_HDR", "4K", "1080p_HDR", "1080p", "720p", "SD", "ROUGH"];
 
+// On the web build the in-browser player can't decode MKV/HEVC, so auto-firing
+// the top source silently hangs on the loader. Force the source list open
+// instead, so the user can pick a source and hand it to an external player.
+// The desktop app (native mpv) keeps instant auto-play.
+const FORCE_MANUAL_PICK = typeof window !== "undefined" && !("__TAURI_INTERNALS__" in window);
+
 export function PlayPicker({
   meta,
   episode,
@@ -349,7 +355,7 @@ export function PlayPicker({
   const isLiveLikeContent =
     !!meta.type && !["movie", "series", "anime"].includes(String(meta.type).toLowerCase());
   const autoActive =
-    !!((autoPlay && !isLiveLikeContent) || wasInvitedTo(inviteKey)) &&
+    !!((autoPlay && !isLiveLikeContent && !FORCE_MANUAL_PICK) || wasInvitedTo(inviteKey)) &&
     !autoCancelled &&
     !autoExhausted &&
     !isDownload &&
