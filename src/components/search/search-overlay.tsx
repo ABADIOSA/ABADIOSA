@@ -121,6 +121,7 @@ export function SearchOverlay() {
 
       <div
         data-tauri-drag-region
+        data-harbor-search-inner
         className="relative mx-auto flex h-full w-full max-w-[1080px] flex-col px-6 py-6 sm:px-10 sm:py-10"
       >
         <div

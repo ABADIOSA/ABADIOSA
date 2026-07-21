@@ -2603,3 +2603,20 @@ html[data-theme-card="crunch"][dir="rtl"] .harbor-profile-dropdown {
     font-size: 30px;
   }
 }
+
+/* Phone adaptation: search overlay. iOS Safari renders backdrop-filter blur
+   unreliably behind a fixed portal, so an 88%-opaque backdrop lets the page
+   behind bleed through and look broken. Below 820px make it fully opaque and
+   drop the blur, and pad the panel below the notch/status-bar safe area. */
+@media (max-width: 819px) {
+  [data-search-overlay] .harbor-search-backdrop {
+    background: var(--color-canvas);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  [data-harbor-search-inner] {
+    padding-top: calc(1rem + env(safe-area-inset-top));
+    padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+    padding-inline: 16px;
+  }
+}
