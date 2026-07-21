@@ -77,7 +77,7 @@
       "nationality": "Brazil",
       "nationalityAr": "البرازيل",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/bra.png",
-      "photo": ""
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Ibanez_Brazil_V_Morocco_13_June_2026-66.jpg/330px-Ibanez_Brazil_V_Morocco_13_June_2026-66.jpg"
     },
     {
       "id": "267178",
@@ -220,7 +220,7 @@
       "nationality": "Saudi Arabia",
       "nationalityAr": "السعودية",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/en/6/6e/Al-Hussein_SC_%28Irbid%29_-_2025_logo.png"
+      "photo": ""
     },
     {
       "id": "410897",
@@ -499,5 +499,5 @@
       "photo": ""
     }
   ],
-  "updatedAt": "2026-07-20T21:59:42.663700+00:00"
+  "updatedAt": "2026-07-21T02:14:43.222688+00:00"
 }

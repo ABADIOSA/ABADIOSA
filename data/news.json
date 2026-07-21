@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-20T21:57:21.753128+00:00",
+  "updatedAt": "2026-07-21T02:12:31.279609+00:00",
   "source": "google-news-rss",
   "items": [
     {
@@ -111,16 +111,16 @@
       "date": "2026-07-18T17:01:00+00:00"
     },
     {
-      "title": "وقع العقود.. فرانشيسكو ترينكاو رابع صفقات الأهلي السعودي الصيفية",
-      "link": "https://news.google.com/rss/articles/CBMi9gRBVV95cUxQSDBNZ1dYOXlpYlFmMTZtRVVHNnBuSktuS29id0dBYjF2TXhmN0ZTbXlDYVo5NFFTU1BtQ2dSUHJPdzg0aExJcXNuYjVQS3owT0JBbEEtYkcyNnRHYUJ2dzFLbi11a3Z0bV9LaVI5UzV1TGZ0TnhvNHhEbGo2cVRfaTh4VFQzamxLZEZtbTRRRVd3Yjd5RFJ1OHVYVC0tZUxRcTRzQ215VTBvb2FiZTFRQ2ljVDRLZkRsVkxoYkNWRHdPbWItNUFsV2FkVlQybk5IV0trTkV2U2hUel93Nlc2ZHF0TEItSC1xVEkzdENzd2kxeE9QejM5MjdmTFhxSmFyaGR2angtUmZZOEtPU1BwVWZnU2ptZmRrSl9lNlFkWEtGdGw5dXFTYmY0Y0hrelhreDJFMFhaallPSjRaRFZFeEpBcE9tQ2Y5M0ROczVxc3dBYTFKQlJDWll1dWZNdGY1MHlSZHZjaXdaQWwtaFRWT2tiMVdwS2F2T1lHMDZsdkhyYzNPOG9zNkRlem1DY0JXdUhZMFJmNzdVMHhKMUQ5OEsyaW5kX0IzcHBFMGtHUDE0cmlXZXRiTTJlOThPeUZJSWEwNzJZQlVCTGtPVEZuSFZEWjlyRFF1X0dwYmo0c1FwSWxxN1ZXUHkzakRELW5idk0tRDJMVE9TZnNOZURsOU52RUxDdmFpQVU1b3VFZlRiTmliZmJsRTF6aHdMU2RPR1J2dWJJZzNRcml1cmJhWHFVdUJnSG0zeEh1enFDbVl4dHBLelpKaTd1NHBxdmlfRmV4WDhvaHJtUVJ4WVN2Sk1KbEwzeGU3UmI2UHd4UkxYVHJxSWc?oc=5",
-      "source": "Kooora",
-      "date": "2026-07-18T07:48:42+00:00"
-    },
-    {
       "title": "طلبات كيسيه «مرفوضة» في الأهلي",
       "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE1wQklqX3F5TW5mNXZGb01sS3FISmd1VHRWZDBKYTRVVGZrMnNnMVUzQ1Q0T2lWNkNPejI5c1ltNnY5WW1pRmRJczkycUtySGlqZGxVRjBR?oc=5",
       "source": "عكاظ",
       "date": "2026-07-05T07:00:00+00:00"
+    },
+    {
+      "title": "وقع العقود.. فرانشيسكو ترينكاو رابع صفقات الأهلي السعودي الصيفية",
+      "link": "https://news.google.com/rss/articles/CBMi9gRBVV95cUxQSDBNZ1dYOXlpYlFmMTZtRVVHNnBuSktuS29id0dBYjF2TXhmN0ZTbXlDYVo5NFFTU1BtQ2dSUHJPdzg0aExJcXNuYjVQS3owT0JBbEEtYkcyNnRHYUJ2dzFLbi11a3Z0bV9LaVI5UzV1TGZ0TnhvNHhEbGo2cVRfaTh4VFQzamxLZEZtbTRRRVd3Yjd5RFJ1OHVYVC0tZUxRcTRzQ215VTBvb2FiZTFRQ2ljVDRLZkRsVkxoYkNWRHdPbWItNUFsV2FkVlQybk5IV0trTkV2U2hUel93Nlc2ZHF0TEItSC1xVEkzdENzd2kxeE9QejM5MjdmTFhxSmFyaGR2angtUmZZOEtPU1BwVWZnU2ptZmRrSl9lNlFkWEtGdGw5dXFTYmY0Y0hrelhreDJFMFhaallPSjRaRFZFeEpBcE9tQ2Y5M0ROczVxc3dBYTFKQlJDWll1dWZNdGY1MHlSZHZjaXdaQWwtaFRWT2tiMVdwS2F2T1lHMDZsdkhyYzNPOG9zNkRlem1DY0JXdUhZMFJmNzdVMHhKMUQ5OEsyaW5kX0IzcHBFMGtHUDE0cmlXZXRiTTJlOThPeUZJSWEwNzJZQlVCTGtPVEZuSFZEWjlyRFF1X0dwYmo0c1FwSWxxN1ZXUHkzakRELW5idk0tRDJMVE9TZnNOZURsOU52RUxDdmFpQVU1b3VFZlRiTmliZmJsRTF6aHdMU2RPR1J2dWJJZzNRcml1cmJhWHFVdUJnSG0zeEh1enFDbVl4dHBLelpKaTd1NHBxdmlfRmV4WDhvaHJtUVJ4WVN2Sk1KbEwzeGU3UmI2UHd4UkxYVHJxSWc?oc=5",
+      "source": "Kooora",
+      "date": "2026-07-18T07:48:42+00:00"
     }
   ]
 }
