@@ -5,7 +5,7 @@ import {
   filterEnabled,
   loadInstalled,
 } from "@/lib/addon-store";
-import { torboxAddonFor, userAddons, withDebridKeys, type Addon } from "@/lib/addons";
+import { torrentioAddonFor, userAddons, withDebridKeys, type Addon } from "@/lib/addons";
 import { applyOrderToItems, loadDisplayOrder } from "@/lib/addons-store/reorder";
 import { withTimeout } from "@/lib/progressive-rows";
 import type { useSettings } from "@/lib/settings";
@@ -62,7 +62,7 @@ export function useAddons(
       pmKey: settings.pmKey,
       dlKey: settings.dlKey,
     };
-    const torbox = torboxAddonFor(settings.tbKey);
+    const anyDebridKey = Object.values(debridKeys).some((k) => !!k?.trim());
     void Promise.resolve().then(() => {
       if (!cancelled) setDiscovering(true);
     });
@@ -102,30 +102,29 @@ export function useAddons(
       const userStreamCount = merged.filter(declaresStream).length;
       setUserHasStreamAddons(userStreamCount > 0);
       const list = withDebridKeys(merged, debridKeys);
-      const existingTorboxIdx = list.findIndex(
-        (a) =>
-          a.manifest.id === "app.torbox.stremio" || a.transportUrl?.includes("stremio.torbox.app"),
-      );
-      console.info(
-        `[picker] authKey=${authKey ? "yes" : "no"} tbKey=${settings.tbKey ? `set(${settings.tbKey.slice(0, 8)}…)` : "EMPTY"} stremioAddons=${stremioAddons.length} installed=${installed.length} merged=${merged.length} userStreamCount=${userStreamCount} hasTorbox=${existingTorboxIdx >= 0} torboxAutoAddable=${!!torbox}`,
-      );
-      if (torbox) {
-        if (existingTorboxIdx >= 0) {
-          const existing = list[existingTorboxIdx];
-          if (existing.transportUrl !== torbox.transportUrl) {
-            console.info(
-              `[picker] overriding stale TorBox URL: ${existing.transportUrl} → ${torbox.transportUrl}`,
-            );
-            list[existingTorboxIdx] = torbox;
-          }
-        } else {
-          console.info(`[picker] auto-adding TorBox addon: ${torbox.transportUrl}`);
-          list.push(torbox);
+      // Drop the retired official TorBox addon (stremio.torbox.app no longer
+      // resolves) so a stale saved copy doesn't produce dead sources.
+      for (let i = list.length - 1; i >= 0; i--) {
+        const a = list[i];
+        if (
+          a.manifest.id === "app.torbox.stremio" ||
+          a.transportUrl?.includes("stremio.torbox.app")
+        ) {
+          list.splice(i, 1);
         }
       }
-      console.info(
-        `[picker] final addon list (${list.length}): ${list.map((a) => a.manifest.name).join(", ")}`,
+      // When the user has a debrid key but no stream addon that already carries
+      // it, auto-add Torrentio configured with their keys. Torrentio returns
+      // direct debrid links, which play in the browser; a raw-torrent addon
+      // would not. This removes the need for any external setup site.
+      const hasConfiguredStreamAddon = list.some(
+        (a) =>
+          declaresStream(a) && /torrentio\.strem\.fun\/[^/]+\/manifest/.test(a.transportUrl ?? ""),
       );
+      if (anyDebridKey && !hasConfiguredStreamAddon) {
+        const torrentio = torrentioAddonFor(debridKeys);
+        list.push(torrentio);
+      }
       setAddons(list);
     })().finally(() => {
       if (!cancelled) setDiscovering(false);

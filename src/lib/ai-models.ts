@@ -46,13 +46,34 @@ export const DEFAULT_AI_MODEL = "openai/gpt-oss-20b:free";
 export const AI_MODELS: AiModel[] = [
   { id: "openai/gpt-oss-20b:free", label: "GPT-OSS 20B", provider: "openai", free: true },
   { id: "google/gemma-3-27b-it:free", label: "Gemma 3 27B", provider: "gemini", free: true },
-  { id: "meta-llama/llama-3.3-70b-instruct:free", label: "Llama 3.3 70B", provider: "meta", free: true },
+  {
+    id: "meta-llama/llama-3.3-70b-instruct:free",
+    label: "Llama 3.3 70B",
+    provider: "meta",
+    free: true,
+  },
   { id: "qwen/qwen-2.5-72b-instruct:free", label: "Qwen 2.5 72B", provider: "qwen", free: true },
-  { id: "deepseek/deepseek-chat-v3-0324:free", label: "DeepSeek V3", provider: "deepseek", free: true },
+  {
+    id: "deepseek/deepseek-chat-v3-0324:free",
+    label: "DeepSeek V3",
+    provider: "deepseek",
+    free: true,
+  },
   { id: "openai/gpt-4o-mini", label: "GPT-4o mini", provider: "openai" },
   { id: "openai/gpt-4o", label: "GPT-4o", provider: "openai" },
-  { id: "anthropic/claude-3.5-haiku", label: "Claude 3.5 Haiku", provider: "anthropic" },
-  { id: "anthropic/claude-3.7-sonnet", label: "Claude 3.7 Sonnet", provider: "anthropic" },
+  {
+    id: "anthropic/claude-haiku-4.5",
+    label: "Claude Haiku 4.5",
+    provider: "anthropic",
+    recommended: true,
+  },
+  {
+    id: "anthropic/claude-sonnet-5",
+    label: "Claude Sonnet 5",
+    provider: "anthropic",
+    recommended: true,
+  },
+  { id: "anthropic/claude-opus-4.8", label: "Claude Opus 4.8", provider: "anthropic" },
   { id: "google/gemini-2.0-flash-001", label: "Gemini 2.0 Flash", provider: "gemini" },
   { id: "google/gemini-2.5-flash", label: "Gemini 2.5 Flash", provider: "gemini" },
   { id: "mistralai/mistral-large", label: "Mistral Large", provider: "mistral" },
@@ -60,14 +81,67 @@ export const AI_MODELS: AiModel[] = [
 ];
 
 export const GROQ_MODELS: AiModel[] = [
-  { id: "llama-3.3-70b-versatile", label: "Llama 3.3 70B Versatile", provider: "groq", family: "meta", free: true, recommended: true },
-  { id: "meta-llama/llama-4-scout-17b-16e-instruct", label: "Llama 4 Scout 17B", provider: "groq", family: "meta", free: true, recommended: true },
-  { id: "meta-llama/llama-4-maverick-17b-128e-instruct", label: "Llama 4 Maverick 17B", provider: "groq", family: "meta", free: true, recommended: true },
-  { id: "moonshotai/kimi-k2-instruct", label: "Kimi K2 Instruct", provider: "groq", family: "moonshot", free: true },
-  { id: "openai/gpt-oss-120b", label: "GPT-OSS 120B", provider: "groq", family: "openai", free: true, recommended: true },
-  { id: "openai/gpt-oss-20b", label: "GPT-OSS 20B", provider: "groq", family: "openai", free: true },
-  { id: "qwen/qwen3-32b", label: "Qwen 3 32B", provider: "groq", family: "qwen", free: true, recommended: true },
-  { id: "llama-3.1-8b-instant", label: "Llama 3.1 8B Instant", provider: "groq", family: "meta", free: true },
+  {
+    id: "llama-3.3-70b-versatile",
+    label: "Llama 3.3 70B Versatile",
+    provider: "groq",
+    family: "meta",
+    free: true,
+    recommended: true,
+  },
+  {
+    id: "meta-llama/llama-4-scout-17b-16e-instruct",
+    label: "Llama 4 Scout 17B",
+    provider: "groq",
+    family: "meta",
+    free: true,
+    recommended: true,
+  },
+  {
+    id: "meta-llama/llama-4-maverick-17b-128e-instruct",
+    label: "Llama 4 Maverick 17B",
+    provider: "groq",
+    family: "meta",
+    free: true,
+    recommended: true,
+  },
+  {
+    id: "moonshotai/kimi-k2-instruct",
+    label: "Kimi K2 Instruct",
+    provider: "groq",
+    family: "moonshot",
+    free: true,
+  },
+  {
+    id: "openai/gpt-oss-120b",
+    label: "GPT-OSS 120B",
+    provider: "groq",
+    family: "openai",
+    free: true,
+    recommended: true,
+  },
+  {
+    id: "openai/gpt-oss-20b",
+    label: "GPT-OSS 20B",
+    provider: "groq",
+    family: "openai",
+    free: true,
+  },
+  {
+    id: "qwen/qwen3-32b",
+    label: "Qwen 3 32B",
+    provider: "groq",
+    family: "qwen",
+    free: true,
+    recommended: true,
+  },
+  {
+    id: "llama-3.1-8b-instant",
+    label: "Llama 3.1 8B Instant",
+    provider: "groq",
+    family: "meta",
+    free: true,
+  },
 ];
 
 const MODEL_MIGRATIONS: Record<string, string> = {
@@ -77,7 +151,9 @@ const MODEL_MIGRATIONS: Record<string, string> = {
   "deepseek/deepseek-chat": "deepseek/deepseek-chat-v3-0324:free",
   "meta-llama/llama-3.3-70b-instruct": "meta-llama/llama-3.3-70b-instruct:free",
   "qwen/qwen-2.5-72b-instruct": "qwen/qwen-2.5-72b-instruct:free",
-  "anthropic/claude-3.5-sonnet": "anthropic/claude-3.7-sonnet",
+  "anthropic/claude-3.5-sonnet": "anthropic/claude-sonnet-5",
+  "anthropic/claude-3.7-sonnet": "anthropic/claude-sonnet-5",
+  "anthropic/claude-3.5-haiku": "anthropic/claude-haiku-4.5",
 };
 
 export function migrateModelId(id: string): string {
