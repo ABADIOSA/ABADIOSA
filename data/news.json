@@ -1,18 +1,18 @@
 {
-  "updatedAt": "2026-07-21T19:13:42.861236+00:00",
+  "updatedAt": "2026-07-21T22:00:47.834044+00:00",
   "source": "google-news-rss",
   "items": [
-    {
-      "title": "الأهلي السعودي ينقض على نجم فنربخشة التركي",
-      "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE5CUkZhOGhxeFR2RzVDUldGMzJEQlB4Q1NrckRVSU5Pb0cwQ2ZYMVplM0V3eDYyUnU0ZWJhZXI5cTd0SUN5VzEzWFU1aUFDYk9T?oc=5",
-      "source": "إرم نيوز",
-      "date": "2026-07-21T17:18:30+00:00"
-    },
     {
       "title": "26 أغسطس موعداً لمباراة الأهلي و«بطل أوقيانوسيا» في كأس القارات",
       "link": "https://news.google.com/rss/articles/CBMi8wRBVV95cUxNSXhXYnN4b1puUUdiMktyekp0OElFcHEtSGxzT3AxXzgwbXJPSXMxb19YOUV4ZWJ2cUl3Q2tZaVRNc2tMTTdvanN2dGpBbWVLbXB0VllhblRVUWFwYXo0M0xzZWgtb0M3V3ZyTVNJRjViV21wMUd5dEVETnJpa1RUSkZWYm9LYzA5RHc4YWRvUk95MEYzYldxbk93VUJUdHZxSnBxVHM5a3RuSjBCVFRCTmtsa2pVQWhLT1RCTXNFSjh2d3lvMFpWV1pvejNpY1hhcVlrSjBKN2k2c2xnWTZzSkU0ZnB0cXBGbGRQRV9BTzRnRGlfaFgzd0tmWVpXQWhYR3dkdGVjNjAtZzF0cW16QTVibjEtRGtnOVVpbWJxc2NjV1VqWDZzU19YNnczTlRlU0k0Wjl1VmZJRjJJc00wRzY0WE4yVFBuTFAxakViaWQ5YVUtUi1WWk9WN0pGZE1nZDF0NGlMTVZMQUVibGJBMWc1bWd3c0xITDViSkVtZ05waHFkQkVicWtNWmx6bVdaSFRzQUo5bzF0VTNPLTM0bDFuT3VYRkRQMVdYeWpReWJERHFNNXh0ZlV3dV9Rb0JOYTNfcHcyUXJKNFBoR2dxMWJIT25CWW9MTEYtMkNveHNGVkJrZFlhOWtEQXFBcEpQVFR3cjRBdTdBY3VGWXZBTlVicm5kRFRSVUZXcnJpc2s0MGlwblpoZldEMXlydUpESk1kcEZLUkEwYnV4bU9MZl84Q0twb2R3NW9ZbDhqTWhteWQxWk5URVRuRmZUa1dnZXVXVTlYN1hsRnVZQ3lOMlJCbWZiOHdSbW9zWkdOZUNPZ2s?oc=5",
       "source": "الشرق الأوسط",
       "date": "2026-07-21T15:05:57+00:00"
+    },
+    {
+      "title": "الأهلي السعودي ينقض على نجم فنربخشة التركي",
+      "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE5CUkZhOGhxeFR2RzVDUldGMzJEQlB4Q1NrckRVSU5Pb0cwQ2ZYMVplM0V3eDYyUnU0ZWJhZXI5cTd0SUN5VzEzWFU1aUFDYk9T?oc=5",
+      "source": "إرم نيوز",
+      "date": "2026-07-21T17:18:30+00:00"
     },
     {
       "title": "الأهلي يؤجل الكشف عن طاقمه الجديد",
@@ -39,16 +39,16 @@
       "date": "2026-07-20T08:02:40+00:00"
     },
     {
-      "title": "أول تحرك من الأهلي السعودي لضم بديل علي مجرشي",
-      "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE9wOHVLYmlZcWZLVFAxR2RVSm5wbVAxVjhCcnBsM0NBX0RSRjNoVllPbGZHVmJWT0tTeEtkMWhzMXRla1BEX2gwVWZSZWFHOXB2?oc=5",
-      "source": "إرم نيوز",
-      "date": "2026-07-18T23:27:19+00:00"
-    },
-    {
       "title": "الأهلي يتعادل مع ريو آفي البرتغالي «ودياً»",
       "link": "https://news.google.com/rss/articles/CBMi7ANBVV95cUxQUldtQnhJTVJ5cmp4UHFrODQyVjQtS195cVE1YXFIeEd5T2lCUHN3UURrb2ZnVWE1cjNCQWF4c1BzY1o0djMzdXNyZXlHYXk2UjFKQmZUWk45cll1REdKV0I1N05hTDhMb1IxRlVUUVNrWEFYZnlyS1p6YTNsSWVfYlZVNTN0YW41N241Mk1nVllPeEZFY3A1Z3htNmdiS1oyR2hGWjRZSWZWT1Z1aHAxZDBzQW96TlI5czFVd0wxc0w2UVY1bWFyeDlqRHdoc2tEQ0pNUTFORkMxQ0FfSXQ5akt3azRWTkxyV0oyc2xXcU1DM2d6Z0J6RVZ3bG1vTlNYSFc2T3RHRFBhZWVyWVRtSnoza2dpdl9yT20tbGY4Ym5RSmhIR24tQTdReGF3Y0xtbDdSNzlyQTNOaFctVVU4c2taNTBjeTBRTGZWRlJPMDNLeFBFbmR1Um5Jcl9nbDJZSU5PU0pVNW9jMXg4NTA3ekZjdjQ1OTk0NElHVDl4Z1JDYlM0QnJpeWNsbkZUdGJSbHRpLXQ3V1ZmOElfRmpfQm0wVFdiQk1nV2dBSlB1c0N0ajNpUEx0QVZBVEdGSnNrbXRjaVh3czgwTllzQjI3TEk3WF9KR0FWa2gtWjlMUjF5NzlDR1VnLVI0Yzg?oc=5",
       "source": "الشرق الأوسط",
       "date": "2026-07-19T18:37:19+00:00"
+    },
+    {
+      "title": "أول تحرك من الأهلي السعودي لضم بديل علي مجرشي",
+      "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE9wOHVLYmlZcWZLVFAxR2RVSm5wbVAxVjhCcnBsM0NBX0RSRjNoVllPbGZHVmJWT0tTeEtkMWhzMXRla1BEX2gwVWZSZWFHOXB2?oc=5",
+      "source": "إرم نيوز",
+      "date": "2026-07-18T23:27:19+00:00"
     },
     {
       "title": "يايسله يفاجئ \"جوهرتي\" الأهلي السعودي",
@@ -73,6 +73,12 @@
       "link": "https://news.google.com/rss/articles/CBMitARBVV95cUxQelBrQjNKWHItejdwQzRUYVZlbmF4a3pKT3hSZUNNeXlFS0F4S3BZMk5Md0t3WkdMbFlXT1VnSC1fT19ZcUxPSFNYcmVEUTBDa3NkUEttdUpZU185RWxDMm1qbFhnelU5S21JNXdhcFNiX291TW9xcHZTLVV3V1lzYnN2aWF0eW45a0w0NXdicTN3MnR5S2wyXzZmS3FiY2g3RkZSd2syYzV4T0Z5aEU1dWhkRzRfYjRhYkR0Wkg0dFZuS0VTWnJCU04zMjhoMGhEZm9YWUltemV1VGVnX0IxQlVQOHVUczl4WXQ1MVNLdHprSzdDbGxGVFpYZHBvTDBtZnV2dzQ5bkxBNE1Ea0oyNmxpUWdlTEVWclhuNkdBallmS1prbjU4WTNXU3Z6THlvdGJjYndDVEc1U0ZtQjNrekRidVBCWC1JZ19hSTRFVmhsOGY1dnFxajNUb2ctS0ZYb2E1Zk1yTE9tc0s1Wlo1Q0s3U3pSU3ZkRFgtT1RqZTM0Vkpaa0tLUGZ6Zi1NTWstY1RELUZWY0dzV2xlZms2WDVvOFpfU3BpSlU4bktXS0xVSHRRRjVqdWRQVUQ2bTdWMUNEV0o1aExzWm80a3N5LVQ1cWlZZ2ZIX2d5ZVZnc3k1ODNlRVJjR2VLVm96TUZnVWk0Vi1XZUxmMWNna1JacTU3ZmNENERBQzZuVUhJUUpMdnZ4dGJHVGxMX2ZEQTBXX3VFanJQS1VDejk2M0NCMEVpdmbSAbQEQVVfeXFMUHpQa0IzSlhyLXo3cEM0VGFWZW5heGt6Sk94UmVDTXl5RUtBeEtwWTJOTHdLd1pHTGxZV09VZ0gtX09fWXFMT0hTWHJlRFEwQ2tzZFBLbXVKWVNfOUVsQzJtamxYZ3pVOUttSTV3YXBTYl9vdU1vcXB2Uy1Vd1dZc2JzdmlhdHluOWtMNDV3YnEzdzJ0eUtsMl82ZktxYmNoN0ZGUndrMmM1eE9GeWhFNXVoZEc0X2I0YWJEdFpINHRWbktFU1pyQlNOMzI4aDBoRGZvWFlJbXpldVRlZ19CMUJVUDh1VHM5eFl0NTFTS3R6a0s3Q2xsRlRaWGRwb0wwbWZ1dnc0OW5MQTRNRGtKMjZsaVFnZUxFVnJYbjZHQWpZZktaa241OFkzV1N2ekx5b3RiY2J3Q1RHNVNGbUIza3pEYnVQQlgtSWdfYUk0RVZobDhmNXZxcWozVG9nLUtGWG9hNWZNckxPbXNLNVpaNUNLN1N6UlN2ZERYLU9UamUzNFZKWmtLS1BmemYtTU1rLWNURC1GVmNHc1dsZWZrNlg1bzhaX1NwaUpVOG5LV0tMVUh0UUY1anVkUFVENm03VjFDRFdKNWhMc1pvNGtzeS1UNXFpWWdmSF9neWVWZ3N5NTgzZUVSY0dlS1Zvek1GZ1VpNFYtV2VMZjFjZ2tSWnE1N2ZjRDREQUM2blVISVFKTHZ2eHRiR1RsTF9mREEwV191RWpyUEtVQ3o5NjNDQjBFaXZm?oc=5",
       "source": "العربية",
       "date": "2026-07-21T07:25:00+00:00"
+    },
+    {
+      "title": "البرتغالي ترينكاو يخلف رياض محرز في الأهلي السعودي",
+      "link": "https://news.google.com/rss/articles/CBMi3wFBVV95cUxQaXFOSzhmaTg5bllJcU5TcVNQbEVrbUJKSXBuZGV5WVVxWHNZQlpkc3NRVnJ6UktHQmxKRVQ4Z053M1FaRUcxT3hWVElNM0lMUW5RcXVNei1LWGU4eHlwN19YSk9xSkFFRXNhSmdkakxWdEJnOGxqal9xOGZGbDBtVmNFWm13ZTh1dDMzeHpxWnkydC01QnhyWDJ1Q1NpNDEyMzBYcTViY1hJTkhVc2Rub01jVGc5OXFVSGtqWk4xSks4clh2TkJHOFRUTXJSSkN1QThzZjFJbGRJZDI2MUJV0gHkAUFVX3lxTE5ldHhLdzZkdDFOTkE3VmJIcURGc01jRXhrb1B6RlhITlNNaVp6TEFTM0pzSjA0eTY1eDg3Z3ZSYS1lQmljemJ4Rm5rLWtaQy1Da2ZIXzNHMU44dmZmOURuS09jd3oycTJaNnh3SnpJTmVWT1Rmdkl4RE82VGpfcmU3NWhqRmZQeWdxMzN4bE5Vai1BUXhtUHd2QWoxVDBuaDl3Vmt0YVhyeUMwMWxtQkcwb3dyMEQwWlhnZENqNDdGUXkxN2FKOGtPU3hQOWg4aGNoY0dBNzNLMnVtUkhORGJkS0RQdQ?oc=5",
+      "source": "الجزيرة نت",
+      "date": "2026-07-21T19:51:46+00:00"
     },
     {
       "title": "\"الأعمال المتعددة\" تجدد اتفاقية تسهيلات ائتمانية مع البنك الأهلي السعودي",
@@ -114,13 +120,7 @@
       "title": "البنك الأهلي السعودي يحقق 6.6 مليار ريال أرباحًا في الربع الثاني",
       "link": "https://news.google.com/rss/articles/CBMiwwJBVV95cUxQSU5Ed1psX1B5RXpfUUgtbWZxS1NwaUZ6Y19YLVNJUE5ybG1mbEd4QTVJUTdNT3l2dTR3ZjVkRmhTRFlFR0wxZExLVTJIdmFybFBOUnRhbHU2WDg0dERtTzM4dnQ3bElhZXVlV094TXJaNG02dzR3NFpJRmdTSnBfZ1otbXdLaE9RTDlhYjIwa0V3WU9qLU9Ta1RyY29fZExBRWlhWU1yRnl1aGVGWllfS3cxRUpyd1ZVZm51SjhzQzVaNkl1NkNBMVQzSzdKLW5HalRheHhHdU53R3BWQjZkNkljV3RBZEtKazUwVFZNY3FCd0ZpOTNHaXB4T3NzNDdOT1A1SnVnWlppS21HRExWMEZzRnp6bTNrRGZKVlFSYTBCaHRjUXNnUkRmV1pKclhBeVhJQWMtQmZfZHJ2SFhDd2pXUQ?oc=5",
       "source": "aleqtsad.org",
-      "date": "2026-07-21T09:44:20+00:00"
-    },
-    {
-      "title": "الأهلي السعودي يتصدر تصنيف الأندية في قرعة دوري أبطال آسيا للنخبة",
-      "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE1BLVBNR1JaNjJKZmVFb0VwYkhRMFNQTHgtZzBtYWxGTUlPazFTTXFxb1BxOUVjODRuRmpMRkt3cVVwUk1tTXFoWXgwR0s3SE9X?oc=5",
-      "source": "alsaudi.news",
-      "date": "2026-07-21T15:01:34+00:00"
+      "date": "2026-07-21T09:13:42+00:00"
     }
   ]
 }
