@@ -4644,5 +4644,11 @@
   "Feel-good animated films for the whole family": "Feel-good animated films for the whole family",
   "Mind-bending sci-fi with a twist ending": "Mind-bending sci-fi with a twist ending",
   "Turn on the AI assistant": "Turn on the AI assistant",
-  "· On iPhone/Safari, many sources use formats the browser can't play (MKV, HEVC). Try a different source below — pick one marked MP4/H.264 — or use the desktop app, which plays every format.": "· On iPhone/Safari, many sources use formats the browser can't play (MKV, HEVC). Try a different source below — pick one marked MP4/H.264 — or use the desktop app, which plays every format."
+  "· On iPhone/Safari, many sources use formats the browser can't play (MKV, HEVC). Try a different source below — pick one marked MP4/H.264 — or use the desktop app, which plays every format.": "· On iPhone/Safari, many sources use formats the browser can't play (MKV, HEVC). Try a different source below — pick one marked MP4/H.264 — or use the desktop app, which plays every format.",
+  "This source has no direct link to hand off. Pick a source from a debrid account (TorBox, Real-Debrid).": "This source has no direct link to hand off. Pick a source from a debrid account (TorBox, Real-Debrid).",
+  "Preparing the stream and subtitles…": "Preparing the stream and subtitles…",
+  "Open in an external player": "Open in an external player",
+  "No subtitle found — video only.": "No subtitle found — video only.",
+  "+ subtitle": "+ subtitle",
+  "Infuse and VLC also load the subtitle. If nothing opens, install the app with Get, then try again.": "Infuse and VLC also load the subtitle. If nothing opens, install the app with Get, then try again."
 }

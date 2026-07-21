@@ -51,6 +51,7 @@ import { SourceDiagnostic } from "./play-picker/source-diagnostic";
 import { CachedTip } from "./play-picker/cached-tip";
 import { StremioLayout } from "./play-picker/stremio-layout";
 import { SourceDrawer } from "./play-picker/source-drawer";
+import { useExternalLaunch } from "./play-picker/use-external-launch";
 import { TierStrip } from "./play-picker/tier-strip";
 import { usePickHandler } from "./play-picker/use-pick-handler";
 import { useActiveKid } from "@/lib/profiles";
@@ -450,6 +451,15 @@ export function PlayPicker({
     setResolving,
   });
 
+  const external = useExternalLaunch({
+    meta: metaForDisplay,
+    episode,
+    imdbId,
+    imdbVerified: resolvedImdb.verified,
+    debrids,
+    authKey,
+  });
+
   const playManually = useCallback(
     (s: ScoredStream) => {
       setAutoCancelled(true);
@@ -843,6 +853,7 @@ export function PlayPicker({
                 getAddonLogo={lookupLogo}
                 matchFor={hostMatch ? matchFor : undefined}
                 onPlay={playManually}
+                onExternalPlay={external.launch}
                 resolvingId={resolving?.stream.infoHash ?? null}
                 showName={meta.name}
                 episode={episode}
@@ -866,6 +877,7 @@ export function PlayPicker({
       {(settings.pickerLayout === "stremio" || isDownload) &&
         filteredPicker &&
         filteredPicker.all.length > 0 && <PickerScrollTop scrollRef={mainRef} />}
+      {external.node}
     </main>
   );
 }

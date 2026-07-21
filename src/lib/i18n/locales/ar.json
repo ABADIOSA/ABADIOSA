@@ -4644,5 +4644,11 @@
   "Feel-good animated films for the whole family": "أفلام رسوم متحركة مبهجة لكل العائلة",
   "Mind-bending sci-fi with a twist ending": "خيال علمي محيّر بنهاية صادمة",
   "Turn on the AI assistant": "تفعيل المساعد الذكي",
-  "· On iPhone/Safari, many sources use formats the browser can't play (MKV, HEVC). Try a different source below — pick one marked MP4/H.264 — or use the desktop app, which plays every format.": "· على الآيفون/سفاري، كثير من المصادر بصيغ لا يشغّلها المتصفح (MKV، HEVC). جرّب مصدرًا آخر بالأسفل — اختر واحدًا موسومًا MP4/H.264 — أو استخدم تطبيق سطح المكتب الذي يشغّل كل الصيغ."
+  "· On iPhone/Safari, many sources use formats the browser can't play (MKV, HEVC). Try a different source below — pick one marked MP4/H.264 — or use the desktop app, which plays every format.": "· على الآيفون/سفاري، كثير من المصادر بصيغ لا يشغّلها المتصفح (MKV، HEVC). جرّب مصدرًا آخر بالأسفل — اختر واحدًا موسومًا MP4/H.264 — أو استخدم تطبيق سطح المكتب الذي يشغّل كل الصيغ.",
+  "This source has no direct link to hand off. Pick a source from a debrid account (TorBox, Real-Debrid).": "هذا المصدر لا يملك رابطًا مباشرًا لتمريره. اختر مصدرًا من حساب Debrid (TorBox، Real-Debrid).",
+  "Preparing the stream and subtitles…": "جارٍ تجهيز البث والترجمات…",
+  "Open in an external player": "فتح في مشغّل خارجي",
+  "No subtitle found — video only.": "لم يُعثر على ترجمة — فيديو فقط.",
+  "+ subtitle": "+ ترجمة",
+  "Infuse and VLC also load the subtitle. If nothing opens, install the app with Get, then try again.": "يحمّل Infuse و VLC الترجمة أيضًا. إذا لم يُفتح شيء، ثبّت التطبيق عبر «تثبيت» ثم أعد المحاولة."
 }

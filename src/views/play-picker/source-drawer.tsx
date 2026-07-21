@@ -1,4 +1,4 @@
-import { ChevronDown, Download, ExternalLink, Loader2, Play, Zap } from "lucide-react";
+import { ChevronDown, Download, ExternalLink, Loader2, MonitorPlay, Play, Zap } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { AddonLogo, AddonLogoStack } from "@/components/addon-logo";
 import { CopyLinkButton, resolveStreamLink } from "@/components/player/copy-link-button";
@@ -6,6 +6,8 @@ import { FlagStack } from "@/components/flag";
 import { FormatBadge } from "@/components/format-badge";
 import { HostMatchChip } from "@/components/host-match-chip";
 import { useDebridClients } from "@/lib/debrid/registry";
+import { useT } from "@/lib/i18n";
+import { isExternalPlayerCapable } from "@/lib/player/external-player";
 import { useSettings } from "@/lib/settings";
 import type { ScoredStream } from "@/lib/streams/types";
 import type { PlayEpisode } from "@/lib/view";
@@ -32,6 +34,7 @@ export function SourceDrawer({
   getAddonLogo,
   matchFor,
   onPlay,
+  onExternalPlay,
   resolvingId,
   showName,
   episode,
@@ -46,6 +49,7 @@ export function SourceDrawer({
   getAddonLogo: (addonId: string) => string | null;
   matchFor?: (s: ScoredStream) => "same" | "close" | null;
   onPlay: (s: ScoredStream) => void;
+  onExternalPlay?: (s: ScoredStream, title: string) => void;
   resolvingId: string | null;
   showName: string;
   episode?: PlayEpisode;
@@ -53,11 +57,13 @@ export function SourceDrawer({
   const [addonFilter, setAddonFilter] = useState("all");
   const addonOptions = useMemo(() => buildAddonOptions(streams), [streams]);
   const shown = useMemo(
-    () => (addonFilter === "all" ? streams : streams.filter((s) => addonInstanceKey(s) === addonFilter)),
+    () =>
+      addonFilter === "all" ? streams : streams.filter((s) => addonInstanceKey(s) === addonFilter),
     [streams, addonFilter],
   );
   useEffect(() => {
-    if (addonFilter !== "all" && !addonOptions.some((o) => o.id === addonFilter)) setAddonFilter("all");
+    if (addonFilter !== "all" && !addonOptions.some((o) => o.id === addonFilter))
+      setAddonFilter("all");
   }, [addonOptions, addonFilter]);
   return (
     <div className="flex flex-col gap-4">
@@ -82,7 +88,12 @@ export function SourceDrawer({
       </button>
       {open && addonOptions.length > 1 && (
         <div className="flex flex-wrap items-center gap-1.5">
-          <AddonPill active={addonFilter === "all"} onClick={() => setAddonFilter("all")} label="All" count={streams.length} />
+          <AddonPill
+            active={addonFilter === "all"}
+            onClick={() => setAddonFilter("all")}
+            label="All"
+            count={streams.length}
+          />
           {addonOptions.map((o) => (
             <AddonPill
               key={o.id}
@@ -104,6 +115,7 @@ export function SourceDrawer({
               addonLogo={getAddonLogo(s.addonId)}
               match={matchFor ? matchFor(s) : null}
               onPlay={() => onPlay(s)}
+              onExternalPlay={onExternalPlay}
               resolving={resolvingId !== null && s.infoHash === resolvingId}
               divider={i > 0}
               showName={showName}
@@ -142,12 +154,15 @@ function AddonPill({
   );
 }
 
+const EXTERNAL_CAPABLE = isExternalPlayerCapable();
+
 function SourceRow({
   stream,
   debrids,
   addonLogo,
   match,
   onPlay,
+  onExternalPlay,
   resolving,
   divider,
   showName,
@@ -158,12 +173,14 @@ function SourceRow({
   addonLogo: string | null;
   match: "same" | "close" | null;
   onPlay: () => void;
+  onExternalPlay?: (s: ScoredStream, title: string) => void;
   resolving: boolean;
   divider: boolean;
   showName: string;
   episode?: PlayEpisode;
 }) {
   const { settings } = useSettings();
+  const t = useT();
   const cachedDebrids = debrids.filter((d) => stream.cached[d.slug]);
   const libraryDebrids = debrids.filter((d) => stream.inLibrary[d.slug]);
   const addonCached = anyStreamCached(stream);
@@ -172,12 +189,22 @@ function SourceRow({
   const title = displayTitle(stream, showName, episode);
   const fname = settings.pickerShowFilename ? torrentFilename(stream) : "";
 
+  // Sources that resolve to a real file (direct URL or a debrid/torrent that
+  // yields one) can be handed to an external app; pure external/YouTube links
+  // cannot. Only offer it on the web build (desktop plays everything natively).
+  const canExternal =
+    EXTERNAL_CAPABLE &&
+    !!onExternalPlay &&
+    (!!stream.url || !!stream.infoHash) &&
+    !stream.ytId &&
+    !stream.externalUrl;
+
   return (
-    <li className={divider ? "border-t border-edge-soft/30" : ""}>
+    <li className={`flex items-stretch ${divider ? "border-t border-edge-soft/30" : ""}`}>
       <button
         onClick={onPlay}
         disabled={resolving}
-        className="group flex w-full items-start gap-4 px-5 py-4 text-start transition-colors hover:bg-ink/5 disabled:cursor-wait disabled:opacity-60"
+        className="group flex flex-1 items-start gap-4 px-5 py-4 text-start transition-colors hover:bg-ink/5 disabled:cursor-wait disabled:opacity-60"
       >
         <div className="flex shrink-0 items-center gap-1.5 pt-0.5">
           {tierChipBadges(stream).map((k) => (
@@ -203,7 +230,9 @@ function SourceRow({
             />
             <span className="truncate">
               {contributorLabel(stream)}
-              {summary.length > 0 && <span className="text-ink-subtle/60"> · {summary.join(" · ")}</span>}
+              {summary.length > 0 && (
+                <span className="text-ink-subtle/60"> · {summary.join(" · ")}</span>
+              )}
             </span>
           </p>
         </div>
@@ -261,6 +290,16 @@ function SourceRow({
           )}
         </div>
       </button>
+      {canExternal && (
+        <button
+          onClick={() => onExternalPlay?.(stream, title)}
+          aria-label={t("Open in an external player")}
+          title={t("Open in an external player")}
+          className="flex shrink-0 items-center justify-center border-s border-edge-soft/40 px-4 text-ink-subtle transition-colors hover:bg-ink/5 hover:text-ink"
+        >
+          <MonitorPlay size={17} strokeWidth={2} />
+        </button>
+      )}
     </li>
   );
 }
