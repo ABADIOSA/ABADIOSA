@@ -9,7 +9,8 @@
 //   1. https://dash.cloudflare.com → Workers & Pages → Create → paste this file.
 //   2. Settings → Variables → add secrets:
 //        GITHUB_TOKEN   a fine-grained PAT with Issues: read & write on the repo
-//        GITHUB_REPO    ABADIOSA/abadiosa   (owner/repo that receives the issues)
+//        GITHUB_REPO    abadiosa/abadiosa.github.io  (PUBLIC repo that receives the
+//                       issues — public so the autonomous fixer can read them)
 //        ALLOW_ORIGIN   https://abadiosa.github.io
 //        DISCORD_WEBHOOK (optional) your Discord webhook for phone notifications
 //   3. Copy the Worker URL and set it as the build variable

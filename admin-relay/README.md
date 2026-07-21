@@ -26,8 +26,10 @@
 ### الخيار الكامل — إشعار + إصلاح ذاتي (مع Worker)
 
 1. انشر `worker.js` على Cloudflare Workers (مجاني) واضبط الأسرار المذكورة في
-   أعلى الملف: `GITHUB_TOKEN` و`GITHUB_REPO` و`ALLOW_ORIGIN` و(اختياري)
-   `DISCORD_WEBHOOK`.
+   أعلى الملف: `GITHUB_TOKEN`، و`GITHUB_REPO = abadiosa/abadiosa.github.io`
+   (مستودع عام حتى يقرأه المُصلِح التلقائي)، و`ALLOW_ORIGIN`، و(اختياري)
+   `DISCORD_WEBHOOK`. تُنشأ الأعطال كـissues بوسم `production-error`، ويوقظ
+   Routine مجدول (كل ١٢ ساعة) Claude ليشخّصها ويصلح البسيط منها على `/admin/`.
 2. ضع رابط الـWorker في `VITE_ABADIOSA_REPORT_URL`.
 3. راقِب issues المستودع من تطبيق GitHub على هاتفك لتصلك الإشعارات.
 
