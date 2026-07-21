@@ -55,7 +55,7 @@ export function AutoExhaustedModal({
           {!IS_TAURI && (
             <li dir="auto">
               {t(
-                "· In the browser version, raw torrent sources can't play — use an addon configured with a debrid account so it returns direct links, or use the desktop app.",
+                "· On iPhone/Safari, many sources use formats the browser can't play (MKV, HEVC). Try a different source below — pick one marked MP4/H.264 — or use the desktop app, which plays every format.",
               )}
             </li>
           )}

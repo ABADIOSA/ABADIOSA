@@ -4636,7 +4636,6 @@
   "Zoom out": "تصغير",
   "العربية": "العربية",
   "Harbor checked every available source for {title} and none of them played. The most common reasons:": "فحص Harbor كل مصدر متاح لـ {title} ولم يعمل أي منها. الأسباب الأكثر شيوعًا:",
-  "· In the browser version, raw torrent sources can't play — use an addon configured with a debrid account so it returns direct links, or use the desktop app.": "· في نسخة المتصفح لا تعمل مصادر التورنت الخام — استخدم إضافة مضبوطة بحساب Debrid لتعيد روابط مباشرة، أو استخدم تطبيق سطح المكتب.",
   "In the browser version, debrid providers block direct API access, so keys saved here won't work. Instead, configure Torrentio (torrentio.strem.fun) or Comet with your debrid account — the addon then returns direct links that play right here. For TorBox, easy-torbox.github.io/stremio sets this up in one click.": "في نسخة المتصفح تمنع خدمات Debrid الوصول المباشر لواجهاتها البرمجية، لذا المفاتيح المحفوظة هنا لن تعمل. بدلًا من ذلك اضبط Torrentio ‏(torrentio.strem.fun) أو Comet بحساب Debrid الخاص بك — فتعيد الإضافة روابط مباشرة تعمل هنا فورًا. ولمستخدمي TorBox، الأداة easy-torbox.github.io/stremio تجهّز كل شيء بنقرة واحدة.",
   "Ask ABADIOSA": "اسأل ABADIOSA",
   "Describe what you're in the mood for, in your own words.": "صف ما ترغب بمشاهدته بكلماتك الخاصة.",
@@ -4644,5 +4643,6 @@
   "Something like Inception but funnier": "شيء مثل Inception لكن أخف وأطرف",
   "Feel-good animated films for the whole family": "أفلام رسوم متحركة مبهجة لكل العائلة",
   "Mind-bending sci-fi with a twist ending": "خيال علمي محيّر بنهاية صادمة",
-  "Turn on the AI assistant": "تفعيل المساعد الذكي"
+  "Turn on the AI assistant": "تفعيل المساعد الذكي",
+  "· On iPhone/Safari, many sources use formats the browser can't play (MKV, HEVC). Try a different source below — pick one marked MP4/H.264 — or use the desktop app, which plays every format.": "· على الآيفون/سفاري، كثير من المصادر بصيغ لا يشغّلها المتصفح (MKV، HEVC). جرّب مصدرًا آخر بالأسفل — اختر واحدًا موسومًا MP4/H.264 — أو استخدم تطبيق سطح المكتب الذي يشغّل كل الصيغ."
 }

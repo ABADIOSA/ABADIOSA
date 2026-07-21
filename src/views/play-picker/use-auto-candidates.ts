@@ -2,7 +2,11 @@ import { useMemo } from "react";
 import { isStreamDead } from "@/lib/dead-streams";
 import { engineP2pEligible } from "@/lib/torrent/stremio-stream";
 import type { ScoredStream } from "@/lib/streams/types";
-import { streamMatchesEntry, streamMatchesSource, type PlaybackEntry } from "@/lib/playback-history";
+import {
+  streamMatchesEntry,
+  streamMatchesSource,
+  type PlaybackEntry,
+} from "@/lib/playback-history";
 import type { SourceDescriptor } from "@/lib/together/protocol";
 import { buildMatchScores } from "@/lib/together/source-match";
 import { hostSourceStream } from "@/lib/together/host-stream";
@@ -10,6 +14,18 @@ import { hasInstantMarker, isWatchHub, needsDownload, streamMatchesLangs } from 
 
 const RES_PREF: Record<string, number> = { "1080p": 0, "720p": 1, "480p": 2, "4K": 3, SD: 4 };
 const LIKELY_PACK_BYTES = 12 * 1024 * 1024 * 1024;
+
+// In a browser the player is HTML5 <video>, which only decodes MP4/MOV/M4V
+// containers (MKV/AVI/WebM are refused by Safari). The desktop app uses mpv and
+// plays everything, so this preference only applies on web.
+const IS_TAURI = typeof window !== "undefined" && "__TAURI_INTERNALS__" in window;
+function webPlayableRank(s: ScoredStream): number {
+  if (IS_TAURI) return 0;
+  const c = s.container;
+  if (c === "mp4" || c === "m4v" || c === "mov") return 0; // Safari-friendly
+  if (c === null) return 1; // unknown container — worth trying before known-bad
+  return 2; // mkv/avi/webm/wmv/ts — Safari can't play these directly
+}
 
 export function useAutoCandidates(args: {
   filteredPicker: { all: ScoredStream[]; primary: ScoredStream | null } | null;
@@ -26,7 +42,21 @@ export function useAutoCandidates(args: {
   season?: number | null;
   episode?: number | null;
 }): ScoredStream[] {
-  const { filteredPicker, previousPlayback, sourceEntry, isCached, addons, hasStrongAddon, isTorrentioStream, preferredLangs, hostSource, prefer1080, preferPacks, season, episode } = args;
+  const {
+    filteredPicker,
+    previousPlayback,
+    sourceEntry,
+    isCached,
+    addons,
+    hasStrongAddon,
+    isTorrentioStream,
+    preferredLangs,
+    hostSource,
+    prefer1080,
+    preferPacks,
+    season,
+    episode,
+  } = args;
   return useMemo(() => {
     const hostFallback = (): ScoredStream[] => {
       if (!hostSource) return [];
@@ -60,7 +90,7 @@ export function useAutoCandidates(args: {
     });
     const matchScores = hostSource ? buildMatchScores(filteredPicker.all, hostSource) : null;
     const previousMatch = previousPlayback
-      ? filteredPicker.all.find((s) => streamMatchesEntry(s, previousPlayback)) ?? null
+      ? (filteredPicker.all.find((s) => streamMatchesEntry(s, previousPlayback)) ?? null)
       : null;
     const sorted = filteredPicker.all.slice().sort((a, b) => {
       if (matchScores) {
@@ -73,6 +103,11 @@ export function useAutoCandidates(args: {
       const ai0 = instantTier(a);
       const bi0 = instantTier(b);
       if (ai0 !== bi0) return ai0 - bi0;
+      // On web, float Safari-playable containers to the top so auto-play picks a
+      // source that will actually play instead of stalling on an MKV.
+      const awp = webPlayableRank(a);
+      const bwp = webPlayableRank(b);
+      if (awp !== bwp) return awp - bwp;
       const ap = isLikelyPack(a) ? 1 : 0;
       const bp = isLikelyPack(b) ? 1 : 0;
       if (ap !== bp) return preferPacks ? bp - ap : ap - bp;
@@ -114,8 +149,9 @@ export function useAutoCandidates(args: {
       seen.add(k);
       out.push(s);
     };
-     const sourceMatch =
-      sourceEntry ? filteredPicker.all.find((s) => streamMatchesSource(s, sourceEntry)) ?? null : null;
+    const sourceMatch = sourceEntry
+      ? (filteredPicker.all.find((s) => streamMatchesSource(s, sourceEntry)) ?? null)
+      : null;
     const instantPlayable = (s: ScoredStream | null) => !!s && (isCached(s) || !!s.url);
     if (!matchScores) {
       if (instantPlayable(sourceMatch)) push(sourceMatch);
@@ -126,11 +162,23 @@ export function useAutoCandidates(args: {
     const synthetic = hostFallback();
     if (synthetic.length > 0) return synthetic;
     if (hostSource) {
-      const ownBest = sorted.find(
-        (s) => !isStreamDead(s) && !isWatchHub(s) && !episodeConflict(s),
-      );
+      const ownBest = sorted.find((s) => !isStreamDead(s) && !isWatchHub(s) && !episodeConflict(s));
       if (ownBest) return [ownBest];
     }
     return [];
-  }, [filteredPicker, previousPlayback, sourceEntry, isCached, addons, hasStrongAddon, isTorrentioStream, preferredLangs, hostSource, prefer1080, preferPacks, season, episode]);
+  }, [
+    filteredPicker,
+    previousPlayback,
+    sourceEntry,
+    isCached,
+    addons,
+    hasStrongAddon,
+    isTorrentioStream,
+    preferredLangs,
+    hostSource,
+    prefer1080,
+    preferPacks,
+    season,
+    episode,
+  ]);
 }
