@@ -1,3 +1,4 @@
+import { DEFAULT_AI_MODEL } from "@/lib/ai-models";
 import { DEFAULT_THEME } from "@/lib/theme";
 import type { Settings } from "./types";
 
@@ -238,7 +239,7 @@ export const DEFAULT: Settings = {
   mdblistKey: "",
   auddKey: "",
   aiSearchKey: "",
-  aiSearchModel: "",
+  aiSearchModel: DEFAULT_AI_MODEL,
   aiGroqKey: "",
   jinaKey: "",
   aiWebSearch: false,

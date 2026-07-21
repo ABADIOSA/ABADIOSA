@@ -4637,5 +4637,12 @@
   "العربية": "العربية",
   "Harbor checked every available source for {title} and none of them played. The most common reasons:": "Harbor checked every available source for {title} and none of them played. The most common reasons:",
   "· In the browser version, raw torrent sources can't play — use an addon configured with a debrid account so it returns direct links, or use the desktop app.": "· In the browser version, raw torrent sources can't play — use an addon configured with a debrid account so it returns direct links, or use the desktop app.",
-  "In the browser version, debrid providers block direct API access, so keys saved here won't work. Instead, configure Torrentio (torrentio.strem.fun) or Comet with your debrid account — the addon then returns direct links that play right here. For TorBox, easy-torbox.github.io/stremio sets this up in one click.": "In the browser version, debrid providers block direct API access, so keys saved here won't work. Instead, configure Torrentio (torrentio.strem.fun) or Comet with your debrid account — the addon then returns direct links that play right here. For TorBox, easy-torbox.github.io/stremio sets this up in one click."
+  "In the browser version, debrid providers block direct API access, so keys saved here won't work. Instead, configure Torrentio (torrentio.strem.fun) or Comet with your debrid account — the addon then returns direct links that play right here. For TorBox, easy-torbox.github.io/stremio sets this up in one click.": "In the browser version, debrid providers block direct API access, so keys saved here won't work. Instead, configure Torrentio (torrentio.strem.fun) or Comet with your debrid account — the addon then returns direct links that play right here. For TorBox, easy-torbox.github.io/stremio sets this up in one click.",
+  "Ask ABADIOSA": "Ask ABADIOSA",
+  "Describe what you're in the mood for, in your own words.": "Describe what you're in the mood for, in your own words.",
+  "A short 90s action movie": "A short 90s action movie",
+  "Something like Inception but funnier": "Something like Inception but funnier",
+  "Feel-good animated films for the whole family": "Feel-good animated films for the whole family",
+  "Mind-bending sci-fi with a twist ending": "Mind-bending sci-fi with a twist ending",
+  "Turn on the AI assistant": "Turn on the AI assistant"
 }
