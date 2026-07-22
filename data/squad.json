@@ -38,7 +38,7 @@
       "nationality": "Saudi Arabia",
       "nationalityAr": "السعودية",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/en/thumb/e/ee/Saudi_Arabia_national_football_team_logo.svg/330px-Saudi_Arabia_national_football_team_logo.svg.png"
+      "photo": ""
     },
     {
       "id": "409776",
@@ -486,7 +486,7 @@
       "nationalityAr": "السعودية",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
       "id": "manual-Mishal Al-Mutairi",
-      "photo": ""
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Al_Hilal_SFC_Logo.svg/330px-Al_Hilal_SFC_Logo.svg.png"
     },
     {
       "name": "Abubakar Sidi Kinteh",
@@ -499,5 +499,5 @@
       "photo": ""
     }
   ],
-  "updatedAt": "2026-07-22T05:47:15.443178+00:00"
+  "updatedAt": "2026-07-22T08:23:10.916783+00:00"
 }
