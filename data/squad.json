@@ -77,7 +77,7 @@
       "nationality": "Brazil",
       "nationalityAr": "البرازيل",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/bra.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Ibanez_Brazil_V_Morocco_13_June_2026-66.jpg/330px-Ibanez_Brazil_V_Morocco_13_June_2026-66.jpg"
+      "photo": ""
     },
     {
       "id": "267178",
@@ -90,7 +90,7 @@
       "nationality": "Türkiye",
       "nationalityAr": "تركيا",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/tur.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Merih_Demiral_2026.jpg/330px-Merih_Demiral_2026.jpg"
+      "photo": ""
     },
     {
       "id": "325035",
@@ -194,7 +194,7 @@
       "nationality": "Saudi Arabia",
       "nationalityAr": "السعودية",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
-      "photo": ""
+      "photo": "https://upload.wikimedia.org/wikipedia/en/thumb/4/45/Al_Ahli_Saudi_FC_logo.svg/330px-Al_Ahli_Saudi_FC_logo.svg.png"
     },
     {
       "id": "410714",
@@ -259,7 +259,7 @@
       "nationality": "Saudi Arabia",
       "nationalityAr": "السعودية",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Ziyad_Al-Johani.jpg/330px-Ziyad_Al-Johani.jpg"
+      "photo": ""
     },
     {
       "id": "359165",
@@ -272,7 +272,7 @@
       "nationality": "France",
       "nationalityAr": "فرنسا",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Atangana_asse_sr.png/330px-Atangana_asse_sr.png"
+      "photo": ""
     },
     {
       "id": "367696",
@@ -476,7 +476,7 @@
       "nationalityAr": "أرمينيا",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/arm.png",
       "id": "manual-Eduard Spertsyan",
-      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Eduard_Spertsyan_YantsImages_-_Asatur_Yesayants_633_%28cropped%29.jpg/330px-Eduard_Spertsyan_YantsImages_-_Asatur_Yesayants_633_%28cropped%29.jpg"
+      "photo": ""
     },
     {
       "name": "Mishal Al-Mutairi",
@@ -486,7 +486,7 @@
       "nationalityAr": "السعودية",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
       "id": "manual-Mishal Al-Mutairi",
-      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Al_Hilal_SFC_Logo.svg/330px-Al_Hilal_SFC_Logo.svg.png"
+      "photo": ""
     },
     {
       "name": "Abubakar Sidi Kinteh",
@@ -499,5 +499,5 @@
       "photo": ""
     }
   ],
-  "updatedAt": "2026-07-22T22:03:05.198625+00:00"
+  "updatedAt": "2026-07-23T02:24:17.576524+00:00"
 }
