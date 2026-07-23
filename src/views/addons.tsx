@@ -31,6 +31,7 @@ import livetvIcon from "@/assets/category/livetv.svg";
 import toolsIcon from "@/assets/category/tools.svg";
 import adultIcon from "@/assets/category/adult.svg";
 import { AddByUrlBar } from "./addons/add-by-url-bar";
+import { addonsLocked } from "@/lib/access/managed";
 import { AddonDetail } from "./addons/addon-detail";
 import { AddonInstallModal } from "./addons/install-modal";
 import { OrganizeAddonsPage } from "./addons/organize/page";
@@ -360,14 +361,16 @@ export function AddonsView() {
             <div className="min-w-0 max-w-72 flex-1">
               <SearchBar value={query} onChange={setQuery} />
             </div>
-            <div className="min-w-0 flex-[1.4]">
-              <AddByUrlBar
-                onSubmit={async (raw) => {
-                  setInstallModal({ kind: "install", url: raw });
-                }}
-                compact
-              />
-            </div>
+            {!addonsLocked() && (
+              <div className="min-w-0 flex-[1.4]">
+                <AddByUrlBar
+                  onSubmit={async (raw) => {
+                    setInstallModal({ kind: "install", url: raw });
+                  }}
+                  compact
+                />
+              </div>
+            )}
             <button
               onClick={() => {
                 if (settings.showAdultAddons) {

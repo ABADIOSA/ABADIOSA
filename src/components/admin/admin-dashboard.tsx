@@ -1,9 +1,19 @@
-import { AlertTriangle, Copy, KeyRound, Trash2, X } from "lucide-react";
+import { AlertTriangle, Copy, KeyRound, PackagePlus, Trash2, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { APP_VERSION, CHANNEL } from "@/lib/build-info";
 import { clearErrors, readErrors, type LoggedError } from "@/lib/admin/error-log";
 import { reportingEnabled } from "@/lib/admin/report";
 import { sha256Hex } from "@/lib/access/gate";
+import { exportInstalledAddons, loadAdminVaultKey, saveAdminVaultKey } from "@/lib/access/managed";
+import {
+  encryptConfig,
+  keyFromB64,
+  keyToB64,
+  makeVaultKey,
+  wrapForCode,
+  type Slot,
+  type VaultBlob,
+} from "@/lib/access/vault";
 
 // The owner-only control room, opened from the ADMIN badge on the canary build.
 // Everything it shows comes from this device (local error ring buffer + browser
@@ -131,7 +141,7 @@ export function AdminDashboard({ onClose }: { onClose: () => void }) {
             </div>
           </section>
 
-          <AccessCodeTool />
+          <ManagedAccessTool />
 
           <section>
             <div className="mb-2.5 flex items-center justify-between">
@@ -169,53 +179,161 @@ export function AdminDashboard({ onClose }: { onClose: () => void }) {
   );
 }
 
-// Generates a personal access code for someone you share the production app
-// with. It shows the code to hand to the person and the exact JSON line to paste
-// into public/access.json (then deploy) — the raw code is never stored, only its
-// hash, and deleting the line later revokes that person.
-function AccessCodeTool() {
-  const [name, setName] = useState("");
-  const [result, setResult] = useState<{ code: string; entry: string } | null>(null);
+const DRAFT_KEY = "abadiosa.managed.draft.v1";
 
-  const generate = async () => {
-    const person = name.trim() || "Guest";
-    const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-    const bytes = crypto.getRandomValues(new Uint8Array(12));
-    const raw = [...bytes].map((b) => alphabet[b % alphabet.length]).join("");
-    const code = `${raw.slice(0, 4)}-${raw.slice(4, 8)}-${raw.slice(8, 12)}`;
-    const hash = await sha256Hex(code);
-    const entry = `{ "name": ${JSON.stringify(person)}, "hash": "${hash}" }`;
-    setResult({ code, entry });
+type Draft = { vault: VaultBlob | null; slots: Slot[] };
+
+function loadDraft(): Draft {
+  try {
+    const raw = localStorage.getItem(DRAFT_KEY);
+    if (raw) return JSON.parse(raw) as Draft;
+  } catch {
+    /* ignore */
+  }
+  return { vault: null, slots: [] };
+}
+
+function saveDraft(d: Draft): void {
+  try {
+    localStorage.setItem(DRAFT_KEY, JSON.stringify(d));
+  } catch {
+    /* ignore */
+  }
+}
+
+function newCode(): string {
+  const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  const bytes = crypto.getRandomValues(new Uint8Array(12));
+  const raw = [...bytes].map((b) => alphabet[b % alphabet.length]).join("");
+  return `${raw.slice(0, 4)}-${raw.slice(4, 8)}-${raw.slice(8, 12)}`;
+}
+
+// The heart of the encrypted "managed access" flow. Step 1 bakes your installed
+// streaming addons into an encrypted vault (the debrid key inside is never
+// readable without a valid code). Step 2 mints a personal code per person, whose
+// slot unwraps that vault. The output is the full managed.json to commit — once
+// deployed, each person's code both lets them in AND installs your addons so they
+// can actually watch.
+function ManagedAccessTool() {
+  const [draft, setDraft] = useState<Draft>(() => loadDraft());
+  const [addonCount, setAddonCount] = useState<number | null>(null);
+  const [name, setName] = useState("");
+  const [lastCode, setLastCode] = useState<{ name: string; code: string } | null>(null);
+  const [busy, setBusy] = useState(false);
+  const hasVault = !!draft.vault && !!loadAdminVaultKey();
+
+  const exportAddons = async () => {
+    setBusy(true);
+    try {
+      const payload = exportInstalledAddons();
+      const key = await makeVaultKey();
+      const vault = await encryptConfig(payload, key);
+      saveAdminVaultKey(keyToB64(key));
+      const next: Draft = { vault, slots: [] }; // new key invalidates old slots
+      setDraft(next);
+      saveDraft(next);
+      setAddonCount(payload.addons.length);
+      setLastCode(null);
+    } finally {
+      setBusy(false);
+    }
   };
+
+  const addCode = async () => {
+    const keyB64 = loadAdminVaultKey();
+    if (!draft.vault || !keyB64) return;
+    setBusy(true);
+    try {
+      const person = name.trim() || "Guest";
+      const code = newCode();
+      const hash = await sha256Hex(code);
+      const slot = await wrapForCode(keyFromB64(keyB64), person, code, hash);
+      const next: Draft = { vault: draft.vault, slots: [...draft.slots, slot] };
+      setDraft(next);
+      saveDraft(next);
+      setLastCode({ name: person, code });
+      setName("");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const managedJson = draft.vault
+    ? JSON.stringify({ v: 1, vault: draft.vault, slots: draft.slots }, null, 2)
+    : "";
 
   return (
     <section>
       <h2 className="mb-2.5 flex items-center gap-1.5 text-[12px] font-semibold uppercase tracking-[0.18em] text-ink-subtle">
         <KeyRound size={13} />
-        Access codes
+        Managed access
       </h2>
-      <div className="rounded-2xl border border-edge-soft/60 bg-elevated/40 p-4">
-        <div className="flex gap-2">
-          <input
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Person's name"
-            className="h-10 flex-1 rounded-xl border border-edge-soft bg-canvas/60 px-3.5 text-[14px] text-ink outline-none focus:border-accent/60"
-          />
+      <div className="flex flex-col gap-3 rounded-2xl border border-edge-soft/60 bg-elevated/40 p-4">
+        <div>
+          <p className="mb-1.5 text-[12.5px] font-semibold text-ink">
+            1. Bake your addons into an encrypted vault
+          </p>
           <button
-            onClick={() => void generate()}
-            className="h-10 shrink-0 rounded-xl bg-ink px-4 text-[13.5px] font-semibold text-canvas"
+            onClick={() => void exportAddons()}
+            disabled={busy}
+            className="flex h-10 items-center gap-2 rounded-xl bg-ink px-4 text-[13.5px] font-semibold text-canvas disabled:opacity-50"
           >
-            Generate
+            <PackagePlus size={15} />
+            Export my addons
           </button>
+          {addonCount !== null && (
+            <p className="mt-1.5 text-[12px] text-ink-muted">
+              {addonCount === 0
+                ? "No addons installed on this device — add your streaming addons first."
+                : `Encrypted ${addonCount} addon${addonCount === 1 ? "" : "s"}. Existing codes were reset — mint them again below.`}
+            </p>
+          )}
         </div>
-        {result && (
-          <div className="mt-3 flex flex-col gap-2">
-            <CopyField label="Code (give to the person)" value={result.code} mono />
-            <CopyField label="Add this line to public/access.json → codes[]" value={result.entry} />
-            <p className="text-[11.5px] leading-relaxed text-ink-subtle">
-              Paste the line into <code>public/access.json</code> and deploy. Remove it later to
-              revoke access.
+
+        <div className="border-t border-edge-soft/40 pt-3">
+          <p className="mb-1.5 text-[12.5px] font-semibold text-ink">2. Mint a code per person</p>
+          <div className="flex gap-2">
+            <input
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Person's name"
+              disabled={!hasVault}
+              className="h-10 flex-1 rounded-xl border border-edge-soft bg-canvas/60 px-3.5 text-[14px] text-ink outline-none focus:border-accent/60 disabled:opacity-50"
+            />
+            <button
+              onClick={() => void addCode()}
+              disabled={!hasVault || busy}
+              className="h-10 shrink-0 rounded-xl bg-ink px-4 text-[13.5px] font-semibold text-canvas disabled:opacity-50"
+            >
+              Add
+            </button>
+          </div>
+          {!hasVault && (
+            <p className="mt-1.5 text-[12px] text-ink-subtle">Export your addons first.</p>
+          )}
+          {lastCode && (
+            <div className="mt-2.5">
+              <CopyField
+                label={`Code for ${lastCode.name} (give to them)`}
+                value={lastCode.code}
+                mono
+              />
+            </div>
+          )}
+        </div>
+
+        {draft.vault && (
+          <div className="border-t border-edge-soft/40 pt-3">
+            <p className="mb-1.5 text-[12.5px] font-semibold text-ink">
+              3. Deploy — {draft.slots.length} code{draft.slots.length === 1 ? "" : "s"}
+            </p>
+            <CopyField
+              label="Replace public/access.json with public/managed.json → this"
+              value={managedJson}
+            />
+            <p className="mt-1.5 text-[11.5px] leading-relaxed text-ink-subtle">
+              Commit this as <code>public/managed.json</code> on the <code>source</code> branch and
+              deploy. It supersedes access.json and installs your addons on unlock.
             </p>
           </div>
         )}

@@ -6,6 +6,8 @@
 // launch. The admin channel (/admin/) is never gated.
 
 import { IS_ADMIN } from "@/lib/build-info";
+import { applyManaged, type ManagedPayload } from "./managed";
+import { decryptConfig, unwrapVaultKey, type ManagedConfig } from "./vault";
 
 const STORE_KEY = "abadiosa.access.v1";
 
@@ -51,6 +53,20 @@ async function fetchAllowList(): Promise<AccessEntry[] | null> {
   }
 }
 
+// The encrypted managed config: identity slots + the admin's addon vault. When
+// present it supersedes access.json, because it also carries the streaming
+// addons the person needs to actually watch.
+async function fetchManaged(): Promise<ManagedConfig | null> {
+  try {
+    const res = await fetch(`${import.meta.env.BASE_URL}managed.json`, { cache: "no-store" });
+    if (!res.ok) return null;
+    const json = (await res.json()) as ManagedConfig;
+    return json && Array.isArray(json.slots) && json.vault ? json : null;
+  } catch {
+    return null;
+  }
+}
+
 // Decide whether the app should open. The admin build always passes (unless a
 // preview is forced with ?gate=1, so the owner can test the gate on /admin/
 // before promoting). Otherwise a previously-entered code is re-validated against
@@ -63,6 +79,20 @@ export async function evaluateAccess(forceGate = false): Promise<{
   if (IS_ADMIN && !forceGate) return { open: true, name: null };
   const state = readState();
   if (!state) return { open: false, name: null };
+
+  // Prefer the encrypted managed config; its slots carry identity too. The
+  // addons were installed on first unlock, so re-launch only re-checks identity.
+  const managed = await fetchManaged();
+  if (managed) {
+    const slot = managed.slots.find((s) => s.hash === state.hash);
+    if (!slot) {
+      writeState(null);
+      return { open: false, name: null };
+    }
+    if (slot.name !== state.name) writeState({ ...state, name: slot.name });
+    return { open: true, name: slot.name };
+  }
+
   const list = await fetchAllowList();
   if (list === null) return { open: true, name: state.name }; // offline grace
   const match = list.find((e) => e.hash === state.hash);
@@ -74,14 +104,28 @@ export async function evaluateAccess(forceGate = false): Promise<{
   return { open: true, name: match.name };
 }
 
-// Try a code the user typed. On success the unlock is persisted and their name
-// (assigned by the admin when the code was generated) is returned.
+// Try a code the user typed. With an encrypted managed config, a valid code also
+// unwraps the addon vault and installs the admin's streaming addons on this
+// device. Falls back to the plain access.json list when no managed config exists.
 export async function tryCode(code: string): Promise<{ ok: boolean; name?: string }> {
   const trimmed = code.trim();
   if (!trimmed) return { ok: false };
+  const hash = await sha256Hex(trimmed);
+
+  const managed = await fetchManaged();
+  if (managed) {
+    const slot = managed.slots.find((s) => s.hash === hash);
+    if (!slot) return { ok: false };
+    const vaultKey = await unwrapVaultKey(trimmed, slot);
+    if (!vaultKey) return { ok: false };
+    const payload = await decryptConfig<ManagedPayload>(managed.vault, vaultKey);
+    if (payload?.addons) await applyManaged(payload);
+    writeState({ hash, name: slot.name, at: Date.now() });
+    return { ok: true, name: slot.name };
+  }
+
   const list = await fetchAllowList();
   if (!list) return { ok: false };
-  const hash = await sha256Hex(trimmed);
   const match = list.find((e) => e.hash === hash);
   if (!match) return { ok: false };
   writeState({ hash, name: match.name, at: Date.now() });
