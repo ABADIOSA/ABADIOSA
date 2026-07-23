@@ -389,7 +389,7 @@
       "nationality": "Brazil",
       "nationalityAr": "البرازيل",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/bra.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Ricardo_Mathias_in_2024.png/330px-Ricardo_Mathias_in_2024.png"
+      "photo": ""
     },
     {
       "id": "371797",
@@ -465,7 +465,7 @@
       "nationalityAr": "البرتغال",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/por.png",
       "id": "manual-Francisco Trincão",
-      "photo": ""
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Francisco_Trinc%C3%A3o_USMNT_v_Portugal_Mar_31_2026-55_%28cropped%29.jpg/330px-Francisco_Trinc%C3%A3o_USMNT_v_Portugal_Mar_31_2026-55_%28cropped%29.jpg"
     },
     {
       "name": "Eduard Spertsyan",
@@ -476,7 +476,7 @@
       "nationalityAr": "أرمينيا",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/arm.png",
       "id": "manual-Eduard Spertsyan",
-      "photo": ""
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Eduard_Spertsyan_YantsImages_-_Asatur_Yesayants_633_%28cropped%29.jpg/330px-Eduard_Spertsyan_YantsImages_-_Asatur_Yesayants_633_%28cropped%29.jpg"
     },
     {
       "name": "Mishal Al-Mutairi",
@@ -499,5 +499,5 @@
       "photo": ""
     }
   ],
-  "updatedAt": "2026-07-23T11:08:26.095479+00:00"
+  "updatedAt": "2026-07-23T13:49:14.231856+00:00"
 }
