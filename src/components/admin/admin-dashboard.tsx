@@ -1,8 +1,9 @@
-import { AlertTriangle, Copy, Trash2, X } from "lucide-react";
+import { AlertTriangle, Copy, KeyRound, Trash2, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { APP_VERSION, CHANNEL } from "@/lib/build-info";
 import { clearErrors, readErrors, type LoggedError } from "@/lib/admin/error-log";
 import { reportingEnabled } from "@/lib/admin/report";
+import { sha256Hex } from "@/lib/access/gate";
 
 // The owner-only control room, opened from the ADMIN badge on the canary build.
 // Everything it shows comes from this device (local error ring buffer + browser
@@ -130,6 +131,8 @@ export function AdminDashboard({ onClose }: { onClose: () => void }) {
             </div>
           </section>
 
+          <AccessCodeTool />
+
           <section>
             <div className="mb-2.5 flex items-center justify-between">
               <h2 className="text-[12px] font-semibold uppercase tracking-[0.18em] text-ink-subtle">
@@ -162,6 +165,90 @@ export function AdminDashboard({ onClose }: { onClose: () => void }) {
           </section>
         </div>
       </div>
+    </div>
+  );
+}
+
+// Generates a personal access code for someone you share the production app
+// with. It shows the code to hand to the person and the exact JSON line to paste
+// into public/access.json (then deploy) — the raw code is never stored, only its
+// hash, and deleting the line later revokes that person.
+function AccessCodeTool() {
+  const [name, setName] = useState("");
+  const [result, setResult] = useState<{ code: string; entry: string } | null>(null);
+
+  const generate = async () => {
+    const person = name.trim() || "Guest";
+    const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+    const bytes = crypto.getRandomValues(new Uint8Array(12));
+    const raw = [...bytes].map((b) => alphabet[b % alphabet.length]).join("");
+    const code = `${raw.slice(0, 4)}-${raw.slice(4, 8)}-${raw.slice(8, 12)}`;
+    const hash = await sha256Hex(code);
+    const entry = `{ "name": ${JSON.stringify(person)}, "hash": "${hash}" }`;
+    setResult({ code, entry });
+  };
+
+  return (
+    <section>
+      <h2 className="mb-2.5 flex items-center gap-1.5 text-[12px] font-semibold uppercase tracking-[0.18em] text-ink-subtle">
+        <KeyRound size={13} />
+        Access codes
+      </h2>
+      <div className="rounded-2xl border border-edge-soft/60 bg-elevated/40 p-4">
+        <div className="flex gap-2">
+          <input
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Person's name"
+            className="h-10 flex-1 rounded-xl border border-edge-soft bg-canvas/60 px-3.5 text-[14px] text-ink outline-none focus:border-accent/60"
+          />
+          <button
+            onClick={() => void generate()}
+            className="h-10 shrink-0 rounded-xl bg-ink px-4 text-[13.5px] font-semibold text-canvas"
+          >
+            Generate
+          </button>
+        </div>
+        {result && (
+          <div className="mt-3 flex flex-col gap-2">
+            <CopyField label="Code (give to the person)" value={result.code} mono />
+            <CopyField label="Add this line to public/access.json → codes[]" value={result.entry} />
+            <p className="text-[11.5px] leading-relaxed text-ink-subtle">
+              Paste the line into <code>public/access.json</code> and deploy. Remove it later to
+              revoke access.
+            </p>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
+
+function CopyField({ label, value, mono }: { label: string; value: string; mono?: boolean }) {
+  const [copied, setCopied] = useState(false);
+  return (
+    <div>
+      <p className="mb-1 text-[11px] font-medium uppercase tracking-wider text-ink-subtle">
+        {label}
+      </p>
+      <button
+        onClick={() => {
+          void navigator.clipboard?.writeText(value).then(() => {
+            setCopied(true);
+            setTimeout(() => setCopied(false), 1400);
+          });
+        }}
+        className="flex w-full items-center gap-2 rounded-xl border border-edge-soft/60 bg-canvas/50 px-3 py-2 text-start transition-colors hover:bg-canvas/70"
+      >
+        <span
+          className={`min-w-0 flex-1 truncate text-[13px] text-ink ${mono ? "font-mono tracking-[0.1em]" : ""}`}
+        >
+          {value}
+        </span>
+        <span className="shrink-0 text-[11px] font-semibold text-ink-subtle">
+          {copied ? "copied" : <Copy size={13} />}
+        </span>
+      </button>
     </div>
   );
 }
