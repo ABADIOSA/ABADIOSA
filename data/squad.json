@@ -389,7 +389,7 @@
       "nationality": "Brazil",
       "nationalityAr": "البرازيل",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/bra.png",
-      "photo": ""
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Ricardo_Mathias_in_2024.png/330px-Ricardo_Mathias_in_2024.png"
     },
     {
       "id": "371797",
@@ -499,5 +499,5 @@
       "photo": ""
     }
   ],
-  "updatedAt": "2026-07-23T08:25:24.361877+00:00"
+  "updatedAt": "2026-07-23T11:08:26.095479+00:00"
 }
