@@ -5,6 +5,8 @@ import { clearErrors, readErrors, type LoggedError } from "@/lib/admin/error-log
 import { reportingEnabled } from "@/lib/admin/report";
 import { sha256Hex } from "@/lib/access/gate";
 import { exportInstalledAddons, loadAdminVaultKey, saveAdminVaultKey } from "@/lib/access/managed";
+import { useAuth } from "@/lib/auth";
+import { useSettings } from "@/lib/settings";
 import {
   encryptConfig,
   keyFromB64,
@@ -215,6 +217,8 @@ function newCode(): string {
 // deployed, each person's code both lets them in AND installs your addons so they
 // can actually watch.
 function ManagedAccessTool() {
+  const { authKey } = useAuth();
+  const { settings } = useSettings();
   const [draft, setDraft] = useState<Draft>(() => loadDraft());
   const [addonCount, setAddonCount] = useState<number | null>(null);
   const [name, setName] = useState("");
@@ -225,7 +229,13 @@ function ManagedAccessTool() {
   const exportAddons = async () => {
     setBusy(true);
     try {
-      const payload = exportInstalledAddons();
+      const payload = await exportInstalledAddons(authKey, {
+        rdKey: settings.rdKey,
+        tbKey: settings.tbKey,
+        adKey: settings.adKey,
+        pmKey: settings.pmKey,
+        dlKey: settings.dlKey,
+      });
       const key = await makeVaultKey();
       const vault = await encryptConfig(payload, key);
       saveAdminVaultKey(keyToB64(key));

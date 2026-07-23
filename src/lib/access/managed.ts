@@ -1,4 +1,10 @@
-import { installAddon, loadInstalled } from "@/lib/addon-store";
+import { userAddons, withDebridKeys, type Addon, type DebridKeySet } from "@/lib/addons";
+import {
+  fetchInstalledAddons,
+  filterEnabled,
+  installAddon,
+  loadInstalled,
+} from "@/lib/addon-store";
 import { IS_ADMIN } from "@/lib/build-info";
 
 // The managed addon set: the admin's streaming addons (Torrentio + debrid, etc.)
@@ -11,24 +17,42 @@ export type ManagedPayload = { addons: AddonEntry[] };
 const APPLIED_KEY = "abadiosa.managed.applied.v1";
 const VAULTKEY_KEY = "abadiosa.managed.vaultkey.v1"; // admin device only
 
-// Admin side: capture the currently-installed addons to bake into the config.
-export function exportInstalledAddons(): ManagedPayload {
-  const addons = loadInstalled()
+// Admin side: capture the admin's full addon set to bake into the config. Most
+// addons live in the Stremio account (synced), not the local store, so we pull
+// the account collection + the local list the same way the picker does, and
+// inject the admin's debrid keys so the streaming addons carry them.
+export async function exportInstalledAddons(
+  authKey: string | null,
+  debridKeys: DebridKeySet,
+): Promise<ManagedPayload> {
+  const [account, installed] = await Promise.all([
+    authKey ? userAddons(authKey).catch(() => [] as Addon[]) : Promise.resolve([] as Addon[]),
+    fetchInstalledAddons().catch(() => [] as Addon[]),
+  ]);
+  const local: Addon[] = filterEnabled(loadInstalled()).map((e) => ({
+    manifest: e.manifest ?? ({ id: e.id } as Addon["manifest"]),
+    transportUrl: e.transportUrl,
+  }));
+  const seen = new Set<string>();
+  const merged: Addon[] = [];
+  for (const a of [...filterEnabled(account), ...filterEnabled(installed), ...local]) {
+    if (!a.transportUrl || seen.has(a.transportUrl)) continue;
+    seen.add(a.transportUrl);
+    merged.push(a);
+  }
+  const withKeys = withDebridKeys(merged, debridKeys);
+  const addons = withKeys
     .filter((a) => a.transportUrl)
-    .map((a) => ({ id: a.id, transportUrl: a.transportUrl }));
+    .map((a) => ({ id: a.manifest?.id ?? a.transportUrl, transportUrl: a.transportUrl }));
   return { addons };
 }
 
 // Production side: install the admin's addons on this device, and record that a
-// managed set is active so the addon editor can lock itself.
+// managed set is active so the addon editor can lock itself. Installs run in
+// parallel so unlocking with a big addon set stays fast, and a single bad addon
+// never blocks the rest.
 export async function applyManaged(payload: ManagedPayload): Promise<void> {
-  for (const a of payload.addons) {
-    try {
-      await installAddon(a.id, a.transportUrl);
-    } catch {
-      /* one bad addon shouldn't block the rest */
-    }
-  }
+  await Promise.allSettled(payload.addons.map((a) => installAddon(a.id, a.transportUrl)));
   try {
     localStorage.setItem(APPLIED_KEY, String(Date.now()));
   } catch {
