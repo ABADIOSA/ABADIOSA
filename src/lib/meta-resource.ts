@@ -2,6 +2,7 @@ import { meta as cinemetaMeta, type Meta } from "./cinemeta";
 import { safeFetch as fetch } from "./safe-fetch";
 import { addonAccepts, userAddons, type Addon } from "./addons";
 import { loadInstalled } from "./addon-store";
+import { resolveAddonAuthKey } from "./access/managed";
 
 const ADDON_TIMEOUT_MS = 4000;
 
@@ -27,7 +28,8 @@ export async function resolveMeta(
 ): Promise<Meta | null> {
   const cinemetaPromise = cinemetaMeta(type, id).catch(() => null);
 
-  const user = authKey ? await userAddons(authKey).catch(() => [] as Addon[]) : [];
+  const addonKey = resolveAddonAuthKey(authKey);
+  const user = addonKey ? await userAddons(addonKey).catch(() => [] as Addon[]) : [];
   const seen = new Set<string>();
   const candidates: Addon[] = [];
   for (const a of [...user, ...localAddons()]) {

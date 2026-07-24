@@ -6,8 +6,15 @@
 // launch. The admin channel (/admin/) is never gated.
 
 import { IS_ADMIN } from "@/lib/build-info";
-import { applyManaged, type ManagedPayload } from "./managed";
-import { decryptConfig, unwrapVaultKey, type ManagedConfig } from "./vault";
+import { applyManaged, clearManaged, type ManagedPayload } from "./managed";
+import { decryptConfig, unwrapVaultKey, type ManagedConfig, type Slot } from "./vault";
+
+// A temporary account stops working once its date passes. This uses the device
+// clock, so it is an expiry convenience for people you trust — not a hardened
+// boundary. To cut someone off for certain, delete their slot and redeploy.
+function isExpired(slot: Slot): boolean {
+  return typeof slot.exp === "number" && Date.now() > slot.exp;
+}
 
 const STORE_KEY = "abadiosa.access.v1";
 
@@ -75,19 +82,27 @@ async function fetchManaged(): Promise<ManagedConfig | null> {
 export async function evaluateAccess(forceGate = false): Promise<{
   open: boolean;
   name: string | null;
+  expired?: boolean;
 }> {
   if (IS_ADMIN && !forceGate) return { open: true, name: null };
   const state = readState();
   if (!state) return { open: false, name: null };
 
   // Prefer the encrypted managed config; its slots carry identity too. The
-  // addons were installed on first unlock, so re-launch only re-checks identity.
+  // addons were installed on first unlock, so re-launch only re-checks identity,
+  // whether the admin removed this person, and whether a temporary account ran out.
   const managed = await fetchManaged();
   if (managed) {
     const slot = managed.slots.find((s) => s.hash === state.hash);
     if (!slot) {
       writeState(null);
+      clearManaged();
       return { open: false, name: null };
+    }
+    if (isExpired(slot)) {
+      writeState(null);
+      clearManaged();
+      return { open: false, name: null, expired: true };
     }
     if (slot.name !== state.name) writeState({ ...state, name: slot.name });
     return { open: true, name: slot.name };
@@ -107,7 +122,9 @@ export async function evaluateAccess(forceGate = false): Promise<{
 // Try a code the user typed. With an encrypted managed config, a valid code also
 // unwraps the addon vault and installs the admin's streaming addons on this
 // device. Falls back to the plain access.json list when no managed config exists.
-export async function tryCode(code: string): Promise<{ ok: boolean; name?: string }> {
+export async function tryCode(
+  code: string,
+): Promise<{ ok: boolean; name?: string; expired?: boolean }> {
   const trimmed = code.trim();
   if (!trimmed) return { ok: false };
   const hash = await sha256Hex(trimmed);
@@ -116,6 +133,7 @@ export async function tryCode(code: string): Promise<{ ok: boolean; name?: strin
   if (managed) {
     const slot = managed.slots.find((s) => s.hash === hash);
     if (!slot) return { ok: false };
+    if (isExpired(slot)) return { ok: false, expired: true };
     const vaultKey = await unwrapVaultKey(trimmed, slot);
     if (!vaultKey) return { ok: false };
     const payload = await decryptConfig<ManagedPayload>(managed.vault, vaultKey);

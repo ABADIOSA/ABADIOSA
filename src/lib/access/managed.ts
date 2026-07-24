@@ -7,17 +7,31 @@ import {
 } from "@/lib/addon-store";
 import { IS_ADMIN } from "@/lib/build-info";
 
-// The managed addon set: the admin's streaming addons (Torrentio + debrid, etc.)
-// that every family member's app installs automatically after unlocking with a
-// code. The payload is what gets encrypted into the vault (see vault.ts).
+// The managed configuration: the admin's streaming setup that every family
+// member's app picks up after unlocking with a code.
+//
+// It carries a *live link* — the admin's Stremio auth key — so the family app
+// reads the admin's addon collection straight from their account on every
+// launch. Adding or removing an addon in the admin's Stremio account therefore
+// reaches everyone immediately: no re-export, no redeploy, no new codes. The
+// `addons` snapshot is only a fallback for when the account can't be reached.
+//
+// The key is used to READ THE ADDON COLLECTION ONLY. Family members are never
+// signed in as the admin, so their library and watch history stay their own —
+// and the admin's email/password are never shown anywhere in their app.
 
 export type AddonEntry = { id: string; transportUrl: string };
-export type ManagedPayload = { addons: AddonEntry[] };
+export type ManagedPayload = {
+  addons: AddonEntry[];
+  /** Admin's Stremio auth key — live addon source. */
+  stremioAuthKey?: string;
+};
 
 const APPLIED_KEY = "abadiosa.managed.applied.v1";
+const PAYLOAD_KEY = "abadiosa.managed.payload.v1";
 const VAULTKEY_KEY = "abadiosa.managed.vaultkey.v1"; // admin device only
 
-// Admin side: capture the admin's full addon set to bake into the config. Most
+// Admin side: capture the admin's addon set plus the live account link. Most
 // addons live in the Stremio account (synced), not the local store, so we pull
 // the account collection + the local list the same way the picker does, and
 // inject the admin's debrid keys so the streaming addons carry them.
@@ -44,20 +58,56 @@ export async function exportInstalledAddons(
   const addons = withKeys
     .filter((a) => a.transportUrl)
     .map((a) => ({ id: a.manifest?.id ?? a.transportUrl, transportUrl: a.transportUrl }));
-  return { addons };
+  return { addons, stremioAuthKey: authKey ?? undefined };
 }
 
-// Production side: install the admin's addons on this device, and record that a
-// managed set is active so the addon editor can lock itself. Installs run in
-// parallel so unlocking with a big addon set stays fast, and a single bad addon
-// never blocks the rest.
+// Production side: remember the decrypted config for later launches, install the
+// snapshot so the device works immediately, and record that a managed set is
+// active so the addon editor can lock itself. Installs run in parallel so
+// unlocking with a big addon set stays fast, and one bad addon never blocks the
+// rest.
 export async function applyManaged(payload: ManagedPayload): Promise<void> {
+  savePayload(payload);
   await Promise.allSettled(payload.addons.map((a) => installAddon(a.id, a.transportUrl)));
   try {
     localStorage.setItem(APPLIED_KEY, String(Date.now()));
   } catch {
     /* ignore */
   }
+}
+
+function savePayload(p: ManagedPayload): void {
+  try {
+    localStorage.setItem(PAYLOAD_KEY, JSON.stringify(p));
+  } catch {
+    /* ignore */
+  }
+}
+
+export function loadPayload(): ManagedPayload | null {
+  try {
+    const raw = localStorage.getItem(PAYLOAD_KEY);
+    return raw ? (JSON.parse(raw) as ManagedPayload) : null;
+  } catch {
+    return null;
+  }
+}
+
+export function clearManaged(): void {
+  try {
+    localStorage.removeItem(PAYLOAD_KEY);
+    localStorage.removeItem(APPLIED_KEY);
+  } catch {
+    /* ignore */
+  }
+}
+
+// The addon collection to read from. On a managed device this is always the
+// admin's account, so the admin stays the single curator even if the family
+// member signs into their own Stremio account for their personal library.
+export function resolveAddonAuthKey(userAuthKey: string | null): string | null {
+  if (IS_ADMIN) return userAuthKey;
+  return loadPayload()?.stremioAuthKey ?? userAuthKey;
 }
 
 // Whether this device is running an admin-managed addon set (→ lock editing).

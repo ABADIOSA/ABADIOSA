@@ -1,3 +1,4 @@
+import { resolveAddonAuthKey } from "@/lib/access/managed";
 import { userAddons, type Addon } from "@/lib/addons";
 import { fetchManifestAt, loadInstalled } from "@/lib/addon-store";
 import { dlog } from "@/lib/debug";
@@ -18,7 +19,9 @@ function hasSubtitleResource(a: Addon): boolean {
   return hasSubtitles;
 }
 
-export async function gatherSubtitleAddons(authKey: string | null): Promise<Addon[]> {
+export async function gatherSubtitleAddons(userAuthKey: string | null): Promise<Addon[]> {
+  // On a managed device the admin's account supplies the subtitle addons too.
+  const authKey = resolveAddonAuthKey(userAuthKey);
   dlog(`[addon-source] === GATHERING SUBTITLE ADDONS ===`);
   dlog(`[addon-source] Auth key present: ${!!authKey}`);
 

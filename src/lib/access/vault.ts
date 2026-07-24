@@ -54,7 +54,15 @@ async function deriveWrapKey(code: string, salt: Bytes): Promise<CryptoKey> {
 }
 
 export type VaultBlob = { ct: string; iv: string };
-export type Slot = { name: string; hash: string; salt: string; iv: string; wrapped: string };
+export type Slot = {
+  name: string;
+  hash: string;
+  salt: string;
+  iv: string;
+  wrapped: string;
+  /** Optional expiry (epoch ms) for a temporary account. Omitted = permanent. */
+  exp?: number;
+};
 export type ManagedConfig = { v: 1; vault: VaultBlob; slots: Slot[] };
 
 // --- Admin side: build the vault + wrap the key for a code ---------------------

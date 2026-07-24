@@ -6,6 +6,7 @@ import {
   loadInstalled,
 } from "@/lib/addon-store";
 import { torrentioAddonFor, userAddons, withDebridKeys, type Addon } from "@/lib/addons";
+import { resolveAddonAuthKey } from "@/lib/access/managed";
 import { applyOrderToItems, loadDisplayOrder } from "@/lib/addons-store/reorder";
 import { withTimeout } from "@/lib/progressive-rows";
 import type { useSettings } from "@/lib/settings";
@@ -67,9 +68,12 @@ export function useAddons(
       if (!cancelled) setDiscovering(true);
     });
     (async () => {
+      // On a managed device this resolves to the admin's account, so their
+      // curated addon set reaches every family member live.
+      const addonKey = resolveAddonAuthKey(authKey);
       const [stremioResult, installedResult] = await Promise.all([
-        authKey
-          ? withTimeout(userAddons(authKey), ADDON_DISCOVERY_TIMEOUT_MS).catch(() => [] as Addon[])
+        addonKey
+          ? withTimeout(userAddons(addonKey), ADDON_DISCOVERY_TIMEOUT_MS).catch(() => [] as Addon[])
           : Promise.resolve([] as Addon[]),
         withTimeout(fetchInstalledAddons(), ADDON_DISCOVERY_TIMEOUT_MS).catch(() => []),
       ]);

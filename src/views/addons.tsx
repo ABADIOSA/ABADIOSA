@@ -31,7 +31,7 @@ import livetvIcon from "@/assets/category/livetv.svg";
 import toolsIcon from "@/assets/category/tools.svg";
 import adultIcon from "@/assets/category/adult.svg";
 import { AddByUrlBar } from "./addons/add-by-url-bar";
-import { addonsLocked } from "@/lib/access/managed";
+import { addonsLocked, resolveAddonAuthKey } from "@/lib/access/managed";
 import { AddonDetail } from "./addons/addon-detail";
 import { AddonInstallModal } from "./addons/install-modal";
 import { OrganizeAddonsPage } from "./addons/organize/page";
@@ -71,7 +71,9 @@ void Library;
 export function AddonsView() {
   const t = useT();
   const { settings, update } = useSettings();
-  const { authKey } = useAuth();
+  const { authKey: userAuthKey } = useAuth();
+  // On a managed device the addon list shown is the admin's curated collection.
+  const authKey = resolveAddonAuthKey(userAuthKey);
   const { byId, installedIds, loading, refetch } = useAddonsCatalog(settings.showAdultAddons);
   const { addonDetailId, openAddonDetail, goBack } = useView();
   const [tab, setTab] = useState<Tab>(() => consumeAddonsTab() ?? "discover");

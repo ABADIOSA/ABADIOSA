@@ -222,6 +222,7 @@ function ManagedAccessTool() {
   const [draft, setDraft] = useState<Draft>(() => loadDraft());
   const [addonCount, setAddonCount] = useState<number | null>(null);
   const [name, setName] = useState("");
+  const [expiryDays, setExpiryDays] = useState("");
   const [lastCode, setLastCode] = useState<{ name: string; code: string } | null>(null);
   const [busy, setBusy] = useState(false);
   const hasVault = !!draft.vault && !!loadAdminVaultKey();
@@ -258,6 +259,10 @@ function ManagedAccessTool() {
       const code = newCode();
       const hash = await sha256Hex(code);
       const slot = await wrapForCode(keyFromB64(keyB64), person, code, hash);
+      const days = Number(expiryDays);
+      if (Number.isFinite(days) && days > 0) {
+        slot.exp = Date.now() + days * 86_400_000;
+      }
       const next: Draft = { vault: draft.vault, slots: [...draft.slots, slot] };
       setDraft(next);
       saveDraft(next);
@@ -266,6 +271,36 @@ function ManagedAccessTool() {
     } finally {
       setBusy(false);
     }
+  };
+
+  const renameSlot = (hash: string, newName: string) => {
+    const next: Draft = {
+      vault: draft.vault,
+      slots: draft.slots.map((s) => (s.hash === hash ? { ...s, name: newName } : s)),
+    };
+    setDraft(next);
+    saveDraft(next);
+  };
+
+  const setSlotExpiry = (hash: string, days: number | null) => {
+    const next: Draft = {
+      vault: draft.vault,
+      slots: draft.slots.map((s) =>
+        s.hash === hash
+          ? days === null
+            ? { ...s, exp: undefined }
+            : { ...s, exp: Date.now() + days * 86_400_000 }
+          : s,
+      ),
+    };
+    setDraft(next);
+    saveDraft(next);
+  };
+
+  const deleteSlot = (hash: string) => {
+    const next: Draft = { vault: draft.vault, slots: draft.slots.filter((s) => s.hash !== hash) };
+    setDraft(next);
+    saveDraft(next);
   };
 
   const managedJson = draft.vault
@@ -281,7 +316,7 @@ function ManagedAccessTool() {
       <div className="flex flex-col gap-3 rounded-2xl border border-edge-soft/60 bg-elevated/40 p-4">
         <div>
           <p className="mb-1.5 text-[12.5px] font-semibold text-ink">
-            1. Bake your addons into an encrypted vault
+            1. Link your Stremio account
           </p>
           <button
             onClick={() => void exportAddons()}
@@ -289,19 +324,24 @@ function ManagedAccessTool() {
             className="flex h-10 items-center gap-2 rounded-xl bg-ink px-4 text-[13.5px] font-semibold text-canvas disabled:opacity-50"
           >
             <PackagePlus size={15} />
-            Export my addons
+            {draft.vault ? "Re-link account" : "Link my account"}
           </button>
+          <p className="mt-1.5 text-[11.5px] leading-relaxed text-ink-subtle">
+            Everyone reads your addons live from your Stremio account, so adding or removing an
+            addon reaches them automatically — no new codes, no redeploy. Only re-link if you change
+            Stremio account or debrid keys (that resets existing codes).
+          </p>
           {addonCount !== null && (
             <p className="mt-1.5 text-[12px] text-ink-muted">
               {addonCount === 0
-                ? "No addons installed on this device — add your streaming addons first."
-                : `Encrypted ${addonCount} addon${addonCount === 1 ? "" : "s"}. Existing codes were reset — mint them again below.`}
+                ? "No addons found — add your streaming addons first."
+                : `Linked, with a ${addonCount}-addon fallback snapshot. Codes were reset — mint them again below.`}
             </p>
           )}
         </div>
 
         <div className="border-t border-edge-soft/40 pt-3">
-          <p className="mb-1.5 text-[12.5px] font-semibold text-ink">2. Mint a code per person</p>
+          <p className="mb-1.5 text-[12.5px] font-semibold text-ink">2. Create an account</p>
           <div className="flex gap-2">
             <input
               value={name}
@@ -309,6 +349,15 @@ function ManagedAccessTool() {
               placeholder="Person's name"
               disabled={!hasVault}
               className="h-10 flex-1 rounded-xl border border-edge-soft bg-canvas/60 px-3.5 text-[14px] text-ink outline-none focus:border-accent/60 disabled:opacity-50"
+            />
+            <input
+              value={expiryDays}
+              onChange={(e) => setExpiryDays(e.target.value.replace(/\D/g, ""))}
+              placeholder="days"
+              inputMode="numeric"
+              disabled={!hasVault}
+              title="Leave empty for a permanent account"
+              className="h-10 w-20 rounded-xl border border-edge-soft bg-canvas/60 px-3 text-center text-[14px] text-ink outline-none focus:border-accent/60 disabled:opacity-50"
             />
             <button
               onClick={() => void addCode()}
@@ -318,8 +367,11 @@ function ManagedAccessTool() {
               Add
             </button>
           </div>
+          <p className="mt-1.5 text-[11.5px] text-ink-subtle">
+            Leave “days” empty for a permanent account, or enter a number for a temporary one.
+          </p>
           {!hasVault && (
-            <p className="mt-1.5 text-[12px] text-ink-subtle">Export your addons first.</p>
+            <p className="mt-1.5 text-[12px] text-ink-subtle">Link your account first.</p>
           )}
           {lastCode && (
             <div className="mt-2.5">
@@ -332,23 +384,137 @@ function ManagedAccessTool() {
           )}
         </div>
 
+        {draft.slots.length > 0 && (
+          <div className="border-t border-edge-soft/40 pt-3">
+            <p className="mb-2 text-[12.5px] font-semibold text-ink">
+              Accounts — {draft.slots.length}
+            </p>
+            <ul className="flex flex-col gap-1.5">
+              {draft.slots.map((s) => (
+                <SlotRow
+                  key={s.hash}
+                  slot={s}
+                  onRename={(n) => renameSlot(s.hash, n)}
+                  onExpiry={(d) => setSlotExpiry(s.hash, d)}
+                  onDelete={() => deleteSlot(s.hash)}
+                />
+              ))}
+            </ul>
+          </div>
+        )}
+
         {draft.vault && (
           <div className="border-t border-edge-soft/40 pt-3">
-            <p className="mb-1.5 text-[12.5px] font-semibold text-ink">
-              3. Deploy — {draft.slots.length} code{draft.slots.length === 1 ? "" : "s"}
-            </p>
-            <CopyField
-              label="Replace public/access.json with public/managed.json → this"
-              value={managedJson}
-            />
+            <p className="mb-1.5 text-[12.5px] font-semibold text-ink">3. Deploy</p>
+            <CopyField label="public/managed.json → this" value={managedJson} />
             <p className="mt-1.5 text-[11.5px] leading-relaxed text-ink-subtle">
               Commit this as <code>public/managed.json</code> on the <code>source</code> branch and
-              deploy. It supersedes access.json and installs your addons on unlock.
+              deploy. Only needed when you add, edit or remove an account — addon changes flow
+              automatically.
             </p>
           </div>
         )}
       </div>
     </section>
+  );
+}
+
+// One person's account: rename, change or clear the expiry, or delete them
+// outright. Deleting revokes their access on their next launch once deployed.
+function SlotRow({
+  slot,
+  onRename,
+  onExpiry,
+  onDelete,
+}: {
+  slot: Slot;
+  onRename: (name: string) => void;
+  onExpiry: (days: number | null) => void;
+  onDelete: () => void;
+}) {
+  const [editing, setEditing] = useState(false);
+  const [draftName, setDraftName] = useState(slot.name);
+  const [days, setDays] = useState("");
+  const expired = typeof slot.exp === "number" && Date.now() > slot.exp;
+  const daysLeft =
+    typeof slot.exp === "number" ? Math.ceil((slot.exp - Date.now()) / 86_400_000) : null;
+
+  return (
+    <li className="rounded-xl border border-edge-soft/60 bg-canvas/50 px-3 py-2.5">
+      <div className="flex items-center gap-2">
+        {editing ? (
+          <input
+            value={draftName}
+            onChange={(e) => setDraftName(e.target.value)}
+            onBlur={() => {
+              const n = draftName.trim();
+              if (n && n !== slot.name) onRename(n);
+              setEditing(false);
+            }}
+            onKeyDown={(e) => e.key === "Enter" && (e.target as HTMLInputElement).blur()}
+            autoFocus
+            className="h-8 min-w-0 flex-1 rounded-lg border border-accent/50 bg-canvas px-2 text-[13.5px] text-ink outline-none"
+          />
+        ) : (
+          <button
+            onClick={() => {
+              setDraftName(slot.name);
+              setEditing(true);
+            }}
+            className="min-w-0 flex-1 truncate text-start text-[13.5px] font-semibold text-ink"
+          >
+            {slot.name}
+          </button>
+        )}
+        <span
+          className={`shrink-0 rounded-md px-1.5 py-0.5 text-[10.5px] font-semibold uppercase tracking-wider ${
+            expired
+              ? "bg-danger/15 text-danger"
+              : daysLeft !== null
+                ? "bg-amber-400/15 text-amber-300"
+                : "bg-emerald-400/12 text-emerald-300"
+          }`}
+        >
+          {expired ? "expired" : daysLeft !== null ? `${daysLeft}d left` : "permanent"}
+        </span>
+        <button
+          onClick={onDelete}
+          aria-label={`Delete ${slot.name}`}
+          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-ink-subtle transition-colors hover:bg-danger/10 hover:text-danger"
+        >
+          <Trash2 size={14} />
+        </button>
+      </div>
+      <div className="mt-2 flex items-center gap-1.5">
+        <input
+          value={days}
+          onChange={(e) => setDays(e.target.value.replace(/\D/g, ""))}
+          placeholder="days"
+          inputMode="numeric"
+          className="h-8 w-16 rounded-lg border border-edge-soft bg-canvas/60 px-2 text-center text-[12.5px] text-ink outline-none focus:border-accent/60"
+        />
+        <button
+          onClick={() => {
+            const n = Number(days);
+            if (Number.isFinite(n) && n > 0) {
+              onExpiry(n);
+              setDays("");
+            }
+          }}
+          className="h-8 rounded-lg bg-elevated px-2.5 text-[12px] font-semibold text-ink-muted ring-1 ring-edge-soft transition-colors hover:text-ink"
+        >
+          Set expiry
+        </button>
+        {slot.exp != null && (
+          <button
+            onClick={() => onExpiry(null)}
+            className="h-8 rounded-lg px-2.5 text-[12px] font-semibold text-ink-subtle transition-colors hover:text-ink"
+          >
+            Make permanent
+          </button>
+        )}
+      </div>
+    </li>
   );
 }
 

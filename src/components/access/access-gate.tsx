@@ -11,6 +11,7 @@ export function AccessGate() {
   const [code, setCode] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState(false);
+  const [expired, setExpired] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -20,6 +21,7 @@ export function AccessGate() {
     evaluateAccess(forceGate).then((r) => {
       if (!alive) return;
       if (r.name) rememberName(r.name);
+      if (r.expired) setExpired(true);
       setStatus(r.open ? "open" : "locked");
     });
     return () => {
@@ -44,6 +46,7 @@ export function AccessGate() {
       if (r.name) rememberName(r.name);
       setStatus("open");
     } else {
+      setExpired(!!r.expired);
       setError(true);
       setCode("");
       inputRef.current?.focus();
@@ -68,7 +71,7 @@ export function AccessGate() {
           </div>
           <h1 className="font-display text-[26px] font-bold tracking-tight text-ink">ABADIOSA</h1>
           <p className="mt-1.5 text-center text-[14px] text-ink-muted">
-            أدخل رمز الدخول الخاص بك للمتابعة
+            {expired ? "انتهت مدة اشتراكك — اطلب رمزًا جديدًا." : "أدخل رمز الدخول الخاص بك للمتابعة"}
           </p>
           <input
             ref={inputRef}
@@ -87,7 +90,7 @@ export function AccessGate() {
           />
           {error && (
             <p className="mt-2.5 text-[13px] font-medium text-danger">
-              رمز غير صحيح — تأكد منه أو اطلب رمزًا جديدًا.
+              {expired ? "هذا الرمز انتهت صلاحيته." : "رمز غير صحيح — تأكد منه أو اطلب رمزًا جديدًا."}
             </p>
           )}
           <button
