@@ -25,7 +25,29 @@ export type ManagedPayload = {
   addons: AddonEntry[];
   /** Admin's Stremio auth key — live addon source. */
   stremioAuthKey?: string;
+  /** Service keys the whole household shares (metadata, debrid, AI). */
+  sharedKeys?: Record<string, string>;
 };
+
+// Keys that belong to the household rather than the person: metadata providers,
+// debrid accounts and AI. They are paid for and managed by the admin, so they
+// travel inside the encrypted vault and are applied on every managed device.
+// (Personal things — theme, language, trackers — are deliberately not here.)
+export const SHARED_KEY_FIELDS = [
+  "tmdbKey",
+  "omdbKey",
+  "rpdbKey",
+  "fanartKey",
+  "tvdbKey",
+  "mdblistKey",
+  "rdKey",
+  "tbKey",
+  "adKey",
+  "pmKey",
+  "dlKey",
+  "aiSearchKey",
+  "aiGroqKey",
+] as const;
 
 const APPLIED_KEY = "abadiosa.managed.applied.v1";
 const PAYLOAD_KEY = "abadiosa.managed.payload.v1";
@@ -38,6 +60,7 @@ const VAULTKEY_KEY = "abadiosa.managed.vaultkey.v1"; // admin device only
 export async function exportInstalledAddons(
   authKey: string | null,
   debridKeys: DebridKeySet,
+  allSettings?: Record<string, unknown>,
 ): Promise<ManagedPayload> {
   const [account, installed] = await Promise.all([
     authKey ? userAddons(authKey).catch(() => [] as Addon[]) : Promise.resolve([] as Addon[]),
@@ -58,7 +81,12 @@ export async function exportInstalledAddons(
   const addons = withKeys
     .filter((a) => a.transportUrl)
     .map((a) => ({ id: a.manifest?.id ?? a.transportUrl, transportUrl: a.transportUrl }));
-  return { addons, stremioAuthKey: authKey ?? undefined };
+  const sharedKeys: Record<string, string> = {};
+  for (const field of SHARED_KEY_FIELDS) {
+    const value = allSettings?.[field];
+    if (typeof value === "string" && value.trim()) sharedKeys[field] = value.trim();
+  }
+  return { addons, stremioAuthKey: authKey ?? undefined, sharedKeys };
 }
 
 // Production side: remember the decrypted config for later launches, install the
@@ -141,6 +169,12 @@ export function managedActive(): boolean {
 // is never locked.
 export function addonsLocked(): boolean {
   return !IS_ADMIN && managedActive();
+}
+
+// The household keys are the admin's to manage, so a managed device shows them
+// as provided rather than as editable fields.
+export function sharedKeysLocked(): boolean {
+  return !IS_ADMIN && managedActive() && !!loadPayload()?.sharedKeys;
 }
 
 // The admin keeps the vault key on their device so they can wrap it for new codes

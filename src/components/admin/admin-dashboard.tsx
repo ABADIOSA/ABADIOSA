@@ -241,13 +241,17 @@ function ManagedAccessTool() {
   const exportAddons = async () => {
     setBusy(true);
     try {
-      const payload = await exportInstalledAddons(authKey, {
-        rdKey: settings.rdKey,
-        tbKey: settings.tbKey,
-        adKey: settings.adKey,
-        pmKey: settings.pmKey,
-        dlKey: settings.dlKey,
-      });
+      const payload = await exportInstalledAddons(
+        authKey,
+        {
+          rdKey: settings.rdKey,
+          tbKey: settings.tbKey,
+          adKey: settings.adKey,
+          pmKey: settings.pmKey,
+          dlKey: settings.dlKey,
+        },
+        settings as unknown as Record<string, unknown>,
+      );
       const key = await makeVaultKey();
       const vault = await encryptConfig(payload, key);
       saveAdminVaultKey(keyToB64(key));
