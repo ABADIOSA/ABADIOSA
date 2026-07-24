@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { APP_VERSION, CHANNEL } from "@/lib/build-info";
 import { clearErrors, readErrors, type LoggedError } from "@/lib/admin/error-log";
 import { reportingEnabled } from "@/lib/admin/report";
+import { useT } from "@/lib/i18n";
 import { sha256Hex } from "@/lib/access/gate";
 import { exportInstalledAddons, loadAdminVaultKey, saveAdminVaultKey } from "@/lib/access/managed";
 import { useAuth } from "@/lib/auth";
@@ -22,6 +23,7 @@ import {
 // diagnostics) so it works with no backend; when a report endpoint is wired it
 // also confirms that crash reporting is live.
 export function AdminDashboard({ onClose }: { onClose: () => void }) {
+  const t = useT();
   const [errors, setErrors] = useState<LoggedError[]>(() => readErrors());
   const [storage, setStorage] = useState<string>("…");
 
@@ -57,13 +59,21 @@ export function AdminDashboard({ onClose }: { onClose: () => void }) {
       (navigator as unknown as { standalone?: boolean }).standalone === true);
 
   const health: Array<{ label: string; value: string; ok?: boolean }> = [
-    { label: "Channel", value: CHANNEL },
-    { label: "Version", value: APP_VERSION },
-    { label: "Crash reporting", value: reportingEnabled() ? "on" : "off", ok: reportingEnabled() },
-    { label: "Network", value: navigator.onLine ? "online" : "offline", ok: navigator.onLine },
-    { label: "Installed (PWA)", value: standalone ? "yes" : "browser" },
-    { label: "Storage used", value: storage },
-    { label: "Errors logged", value: String(errors.length), ok: errors.length === 0 },
+    { label: t("Channel"), value: CHANNEL },
+    { label: t("Version"), value: APP_VERSION },
+    {
+      label: t("Crash reporting"),
+      value: reportingEnabled() ? t("on") : t("off"),
+      ok: reportingEnabled(),
+    },
+    {
+      label: t("Network"),
+      value: navigator.onLine ? t("online") : t("offline"),
+      ok: navigator.onLine,
+    },
+    { label: t("Installed (PWA)"), value: standalone ? t("yes") : t("browser") },
+    { label: t("Storage used"), value: storage },
+    { label: t("Errors logged"), value: String(errors.length), ok: errors.length === 0 },
   ];
 
   const copyDiagnostics = () => {
@@ -96,7 +106,7 @@ export function AdminDashboard({ onClose }: { onClose: () => void }) {
           <span className="rounded-md bg-accent/15 px-2 py-0.5 text-[11px] font-bold uppercase tracking-[0.18em] text-accent ring-1 ring-accent/30">
             Admin
           </span>
-          <h1 className="text-[17px] font-semibold text-ink">Control room</h1>
+          <h1 className="text-[17px] font-semibold text-ink">{t("Control room")}</h1>
         </div>
         <div className="flex items-center gap-1.5">
           <button
@@ -104,11 +114,11 @@ export function AdminDashboard({ onClose }: { onClose: () => void }) {
             className="flex h-9 items-center gap-1.5 rounded-full bg-elevated px-3.5 text-[12.5px] font-semibold text-ink-muted ring-1 ring-edge-soft transition-colors hover:text-ink"
           >
             <Copy size={14} />
-            Copy
+            {t("Copy")}
           </button>
           <button
             onClick={onClose}
-            aria-label="Close"
+            aria-label={t("common.close")}
             className="flex h-9 w-9 items-center justify-center rounded-full text-ink-subtle transition-colors hover:bg-elevated hover:text-ink"
           >
             <X size={18} />
@@ -120,7 +130,7 @@ export function AdminDashboard({ onClose }: { onClose: () => void }) {
         <div className="mx-auto flex w-full max-w-2xl flex-col gap-6">
           <section>
             <h2 className="mb-2.5 text-[12px] font-semibold uppercase tracking-[0.18em] text-ink-subtle">
-              Health
+              {t("Health")}
             </h2>
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
               {health.map((h) => (
@@ -148,7 +158,7 @@ export function AdminDashboard({ onClose }: { onClose: () => void }) {
           <section>
             <div className="mb-2.5 flex items-center justify-between">
               <h2 className="text-[12px] font-semibold uppercase tracking-[0.18em] text-ink-subtle">
-                Recent errors
+                {t("Recent errors")}
               </h2>
               {errors.length > 0 && (
                 <button
@@ -159,13 +169,13 @@ export function AdminDashboard({ onClose }: { onClose: () => void }) {
                   className="flex items-center gap-1.5 text-[12px] font-semibold text-ink-subtle transition-colors hover:text-danger"
                 >
                   <Trash2 size={13} />
-                  Clear
+                  {t("Clear")}
                 </button>
               )}
             </div>
             {errors.length === 0 ? (
               <div className="rounded-2xl border border-dashed border-edge-soft/60 px-5 py-10 text-center text-[13.5px] text-ink-muted">
-                No errors captured on this device. 🎉
+                {t("No errors captured on this device.")} 🎉
               </div>
             ) : (
               <ul className="flex flex-col gap-2">
@@ -217,6 +227,7 @@ function newCode(): string {
 // deployed, each person's code both lets them in AND installs your addons so they
 // can actually watch.
 function ManagedAccessTool() {
+  const t = useT();
   const { authKey } = useAuth();
   const { settings } = useSettings();
   const [draft, setDraft] = useState<Draft>(() => loadDraft());
@@ -311,12 +322,12 @@ function ManagedAccessTool() {
     <section>
       <h2 className="mb-2.5 flex items-center gap-1.5 text-[12px] font-semibold uppercase tracking-[0.18em] text-ink-subtle">
         <KeyRound size={13} />
-        Managed access
+        {t("Managed access")}
       </h2>
       <div className="flex flex-col gap-3 rounded-2xl border border-edge-soft/60 bg-elevated/40 p-4">
         <div>
           <p className="mb-1.5 text-[12.5px] font-semibold text-ink">
-            1. Link your Stremio account
+            {t("1. Link your Stremio account")}
           </p>
           <button
             onClick={() => void exportAddons()}
@@ -324,39 +335,42 @@ function ManagedAccessTool() {
             className="flex h-10 items-center gap-2 rounded-xl bg-ink px-4 text-[13.5px] font-semibold text-canvas disabled:opacity-50"
           >
             <PackagePlus size={15} />
-            {draft.vault ? "Re-link account" : "Link my account"}
+            {draft.vault ? t("Re-link account") : t("Link my account")}
           </button>
           <p className="mt-1.5 text-[11.5px] leading-relaxed text-ink-subtle">
-            Everyone reads your addons live from your Stremio account, so adding or removing an
-            addon reaches them automatically — no new codes, no redeploy. Only re-link if you change
-            Stremio account or debrid keys (that resets existing codes).
+            {t(
+              "Everyone reads your addons live from your Stremio account, so adding or removing an addon reaches them automatically. Only re-link if you change Stremio account or debrid keys, which resets existing codes.",
+            )}
           </p>
           {addonCount !== null && (
             <p className="mt-1.5 text-[12px] text-ink-muted">
               {addonCount === 0
-                ? "No addons found — add your streaming addons first."
-                : `Linked, with a ${addonCount}-addon fallback snapshot. Codes were reset — mint them again below.`}
+                ? t("No addons found — add your streaming addons first.")
+                : t(
+                    "Linked, with a {n}-addon fallback snapshot. Codes were reset — create them again below.",
+                    { n: addonCount },
+                  )}
             </p>
           )}
         </div>
 
         <div className="border-t border-edge-soft/40 pt-3">
-          <p className="mb-1.5 text-[12.5px] font-semibold text-ink">2. Create an account</p>
+          <p className="mb-1.5 text-[12.5px] font-semibold text-ink">{t("2. Create an account")}</p>
           <div className="flex gap-2">
             <input
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="Person's name"
+              placeholder={t("Person's name")}
               disabled={!hasVault}
               className="h-10 flex-1 rounded-xl border border-edge-soft bg-canvas/60 px-3.5 text-[14px] text-ink outline-none focus:border-accent/60 disabled:opacity-50"
             />
             <input
               value={expiryDays}
               onChange={(e) => setExpiryDays(e.target.value.replace(/\D/g, ""))}
-              placeholder="days"
+              placeholder={t("days")}
               inputMode="numeric"
               disabled={!hasVault}
-              title="Leave empty for a permanent account"
+              title={t("Leave empty for a permanent account")}
               className="h-10 w-20 rounded-xl border border-edge-soft bg-canvas/60 px-3 text-center text-[14px] text-ink outline-none focus:border-accent/60 disabled:opacity-50"
             />
             <button
@@ -364,19 +378,21 @@ function ManagedAccessTool() {
               disabled={!hasVault || busy}
               className="h-10 shrink-0 rounded-xl bg-ink px-4 text-[13.5px] font-semibold text-canvas disabled:opacity-50"
             >
-              Add
+              {t("Add")}
             </button>
           </div>
           <p className="mt-1.5 text-[11.5px] text-ink-subtle">
-            Leave “days” empty for a permanent account, or enter a number for a temporary one.
+            {t(
+              "Leave “days” empty for a permanent account, or enter a number for a temporary one.",
+            )}
           </p>
           {!hasVault && (
-            <p className="mt-1.5 text-[12px] text-ink-subtle">Link your account first.</p>
+            <p className="mt-1.5 text-[12px] text-ink-subtle">{t("Link your account first.")}</p>
           )}
           {lastCode && (
             <div className="mt-2.5">
               <CopyField
-                label={`Code for ${lastCode.name} (give to them)`}
+                label={t("Code for {name} — give it to them", { name: lastCode.name })}
                 value={lastCode.code}
                 mono
               />
@@ -387,7 +403,7 @@ function ManagedAccessTool() {
         {draft.slots.length > 0 && (
           <div className="border-t border-edge-soft/40 pt-3">
             <p className="mb-2 text-[12.5px] font-semibold text-ink">
-              Accounts — {draft.slots.length}
+              {t("Accounts")} — {draft.slots.length}
             </p>
             <ul className="flex flex-col gap-1.5">
               {draft.slots.map((s) => (
@@ -405,12 +421,12 @@ function ManagedAccessTool() {
 
         {draft.vault && (
           <div className="border-t border-edge-soft/40 pt-3">
-            <p className="mb-1.5 text-[12.5px] font-semibold text-ink">3. Deploy</p>
-            <CopyField label="public/managed.json → this" value={managedJson} />
+            <p className="mb-1.5 text-[12.5px] font-semibold text-ink">{t("3. Deploy")}</p>
+            <CopyField label={t("public/managed.json → this")} value={managedJson} />
             <p className="mt-1.5 text-[11.5px] leading-relaxed text-ink-subtle">
-              Commit this as <code>public/managed.json</code> on the <code>source</code> branch and
-              deploy. Only needed when you add, edit or remove an account — addon changes flow
-              automatically.
+              {t(
+                "Send this to your developer, or commit it as public/managed.json on the source branch. Only needed when you add, edit or remove an account — addon changes flow automatically.",
+              )}
             </p>
           </div>
         )}
@@ -432,6 +448,7 @@ function SlotRow({
   onExpiry: (days: number | null) => void;
   onDelete: () => void;
 }) {
+  const t = useT();
   const [editing, setEditing] = useState(false);
   const [draftName, setDraftName] = useState(slot.name);
   const [days, setDays] = useState("");
@@ -475,11 +492,15 @@ function SlotRow({
                 : "bg-emerald-400/12 text-emerald-300"
           }`}
         >
-          {expired ? "expired" : daysLeft !== null ? `${daysLeft}d left` : "permanent"}
+          {expired
+            ? t("expired")
+            : daysLeft !== null
+              ? t("{n}d left", { n: daysLeft })
+              : t("permanent")}
         </span>
         <button
           onClick={onDelete}
-          aria-label={`Delete ${slot.name}`}
+          aria-label={t("Delete {name}", { name: slot.name })}
           className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-ink-subtle transition-colors hover:bg-danger/10 hover:text-danger"
         >
           <Trash2 size={14} />
@@ -489,7 +510,7 @@ function SlotRow({
         <input
           value={days}
           onChange={(e) => setDays(e.target.value.replace(/\D/g, ""))}
-          placeholder="days"
+          placeholder={t("days")}
           inputMode="numeric"
           className="h-8 w-16 rounded-lg border border-edge-soft bg-canvas/60 px-2 text-center text-[12.5px] text-ink outline-none focus:border-accent/60"
         />
@@ -503,14 +524,14 @@ function SlotRow({
           }}
           className="h-8 rounded-lg bg-elevated px-2.5 text-[12px] font-semibold text-ink-muted ring-1 ring-edge-soft transition-colors hover:text-ink"
         >
-          Set expiry
+          {t("Set expiry")}
         </button>
         {slot.exp != null && (
           <button
             onClick={() => onExpiry(null)}
             className="h-8 rounded-lg px-2.5 text-[12px] font-semibold text-ink-subtle transition-colors hover:text-ink"
           >
-            Make permanent
+            {t("Make permanent")}
           </button>
         )}
       </div>
