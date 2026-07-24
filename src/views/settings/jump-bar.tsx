@@ -31,7 +31,8 @@ export function SettingsJumpBar({
       if (title) next.push({ id: s.id, title });
     }
     setItems((prev) =>
-      prev.length === next.length && prev.every((p, i) => p.id === next[i].id && p.title === next[i].title)
+      prev.length === next.length &&
+      prev.every((p, i) => p.id === next[i].id && p.title === next[i].title)
         ? prev
         : next,
     );
@@ -152,7 +153,10 @@ export function SettingsJumpBar({
   };
 
   return (
-    <div className="pointer-events-none fixed bottom-5 left-[calc(50%+144px)] z-30 flex -translate-x-1/2 justify-center px-4 rtl:left-[calc(50%-144px)]">
+    <div
+      data-harbor-jump-bar
+      className="pointer-events-none fixed bottom-5 left-[calc(50%+144px)] z-30 flex -translate-x-1/2 justify-center px-4 rtl:left-[calc(50%-144px)]"
+    >
       <div
         ref={railRef}
         onPointerDown={onPointerDown}

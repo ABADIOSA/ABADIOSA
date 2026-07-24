@@ -2721,3 +2721,42 @@ iframe {
     padding-inline: 40px;
   }
 }
+
+/* Addon detail: the 220px logo plus a fixed horizontal header crushed the title
+   and description into a sliver on phones. Scale the logo with the viewport and
+   let the header stack (see the flex-col/lg:flex-row in addon-detail). */
+[data-harbor-addon-logo] {
+  width: clamp(96px, 34vw, 220px);
+}
+@media (max-width: 819px) {
+  [data-harbor-addon-detail] {
+    padding-bottom: calc(72px + env(safe-area-inset-bottom));
+  }
+}
+
+/* Settings on phones: the top bar is transparent, so scrolled content showed
+   through it under the status bar, and the section jump bar is positioned for a
+   288px sidebar that phones don't have — it landed off-centre and clipped.
+   Give the bar a real backdrop and re-centre the pill above the tab bar. */
+@media (max-width: 819px) {
+  header[data-harbor-topbar]::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--color-canvas);
+    opacity: 0.92;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 0;
+  }
+  [data-harbor-jump-bar] {
+    left: 50% !important;
+    right: auto !important;
+    bottom: calc(76px + env(safe-area-inset-bottom)) !important;
+    max-width: 100vw;
+    padding-inline: 12px;
+  }
+  [data-harbor-jump-bar] > * {
+    max-width: calc(100vw - 24px) !important;
+  }
+}
