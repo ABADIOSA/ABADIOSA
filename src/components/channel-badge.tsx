@@ -18,9 +18,11 @@ export function ChannelBadge() {
         type="button"
         onClick={() => setOpen(true)}
         aria-label="Open admin control room"
-        className="fixed bottom-2 start-2 z-[80] select-none rounded-full bg-black/55 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-accent ring-1 ring-accent/40 backdrop-blur-sm transition-transform active:scale-95"
+        // Sits above the mobile bottom nav rather than on top of it, so it never
+        // covers a tab. Opacity keeps it out of the way until it is tapped.
+        className="fixed start-2 z-[80] select-none rounded-full bg-black/55 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-accent opacity-70 ring-1 ring-accent/40 backdrop-blur-sm transition-transform active:scale-95"
         style={{
-          marginBottom: "env(safe-area-inset-bottom)",
+          bottom: "calc(64px + env(safe-area-inset-bottom))",
           marginInlineStart: "env(safe-area-inset-left)",
         }}
       >

@@ -68,7 +68,24 @@ export async function exportInstalledAddons(
 // rest.
 export async function applyManaged(payload: ManagedPayload): Promise<void> {
   savePayload(payload);
-  await Promise.allSettled(payload.addons.map((a) => installAddon(a.id, a.transportUrl)));
+  // installAddon fetches each manifest, and a slow or temporarily unreachable
+  // addon would otherwise be dropped from the device silently. Retry the ones
+  // that fail once before giving up, so the installed set matches the admin's.
+  const failed = (
+    await Promise.all(
+      payload.addons.map(async (a) => {
+        try {
+          await installAddon(a.id, a.transportUrl);
+          return null;
+        } catch {
+          return a;
+        }
+      }),
+    )
+  ).filter((a): a is AddonEntry => a !== null);
+  if (failed.length > 0) {
+    await Promise.allSettled(failed.map((a) => installAddon(a.id, a.transportUrl)));
+  }
   try {
     localStorage.setItem(APPLIED_KEY, String(Date.now()));
   } catch {

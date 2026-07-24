@@ -3,6 +3,7 @@ import { LogIn } from "lucide-react";
 import stremioWordmark from "@/assets/stremio-wordmark.png";
 import { AuthModal } from "@/components/auth-modal";
 import { ContinueCard } from "@/components/continue-card";
+import { managedActive } from "@/lib/access/managed";
 import { Row } from "@/components/row";
 import { useT } from "@/lib/i18n";
 import { type LibraryItem } from "@/lib/stremio";
@@ -59,7 +60,9 @@ export function CWSection({ signedIn, items, watchedSet, onDismiss }: Props) {
     <div className="flex flex-col gap-4">
       <h3 className="text-[17px] font-medium tracking-tight text-ink">{t("Continue Watching")}</h3>
       <div className="flex items-center justify-center rounded-2xl border border-dashed border-edge px-6 py-14 text-center">
-        {signedIn ? (
+        {signedIn || managedActive() ? (
+          // On a managed device the addons come from the admin's account, so a
+          // Stremio sign-in prompt would only confuse the person using it.
           <p className="text-[15.5px] leading-relaxed text-ink-muted">
             {t("Nothing in progress yet. Press Play on something.")}
           </p>

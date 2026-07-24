@@ -2640,3 +2640,84 @@ html[data-theme-card="crunch"][dir="rtl"] .harbor-profile-dropdown {
     gap: 2.75rem;
   }
 }
+
+/* ============================================================================
+   Responsive foundation — phone, tablet (iPad) and laptop
+   ----------------------------------------------------------------------------
+   Harbor's layout was authored desktop/TV-first with fixed pixel padding, so
+   every new screen drifted out of the viewport on smaller displays and had to be
+   patched one at a time. These rules fix the classes of problem globally, so
+   individual views inherit correct behaviour instead of each needing a fix.
+   ========================================================================== */
+
+/* 1. Nothing may push the page sideways. Wide content (tables, rails, code)
+      scrolls inside its own container, never the document. */
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* 2. Media and embeds never exceed their column. */
+img,
+video,
+canvas,
+svg,
+iframe {
+  max-width: 100%;
+}
+
+/* 3. Latin text (overviews, titles) inside the Arabic RTL shell was inheriting
+      the RTL alignment, which threw the trailing full stop to the wrong side and
+      made paragraphs look scrambled. Let the browser pick direction per block
+      from the text itself. */
+[data-harbor-auto-dir],
+[data-harbor-detail-body] p,
+[data-harbor-hero-content] p {
+  unicode-bidi: plaintext;
+  text-align: start;
+}
+
+/* 4. Phones: keep content clear of the fixed bottom tab bar, and give every
+      full-bleed section the same comfortable gutter. */
+@media (max-width: 819px) {
+  [data-harbor-content],
+  [data-harbor-page] {
+    padding-bottom: calc(72px + env(safe-area-inset-bottom));
+  }
+  [data-harbor-detail-backdrop] {
+    height: 56vh;
+    min-height: 360px;
+  }
+  /* Action rows (Play / Add to list / awards) stacked badly and overlapped on
+     narrow screens; let them wrap instead of colliding. */
+  [data-harbor-detail-hero] > div > div:last-child {
+    flex-wrap: wrap;
+    gap: 0.625rem;
+  }
+}
+
+/* 5. Tablets (iPad portrait and split view): too wide for phone chrome, too
+      narrow for the full desktop rhythm. Scale the gutters and hero down rather
+      than jumping straight to desktop values. */
+@media (min-width: 820px) and (max-width: 1180px) {
+  [data-harbor-detail-hero],
+  [data-harbor-detail-body] {
+    padding-inline: 32px;
+  }
+  [data-harbor-detail-backdrop] {
+    height: 66vh;
+    min-height: 520px;
+  }
+  [data-harbor-settings-content] {
+    padding-inline: 32px;
+  }
+}
+
+/* 6. Laptops: cap the reading measure so 13" screens don't get edge-to-edge
+      text while large monitors keep the cinematic layout. */
+@media (min-width: 1181px) and (max-width: 1600px) {
+  [data-harbor-detail-body] {
+    padding-inline: 40px;
+  }
+}
