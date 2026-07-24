@@ -7,6 +7,7 @@ import { SettingsActiveContext, type SectionId } from "./settings/shared";
 import type { DebridKey } from "./settings/streaming-sources-panel";
 import { BackToTop } from "@/components/back-to-top";
 import { resetOmdbBudget } from "@/lib/providers/omdb";
+import { managedActive } from "@/lib/access/managed";
 import { useSettings } from "@/lib/settings";
 import { useView } from "@/lib/view";
 import { useT } from "@/lib/i18n";
@@ -179,6 +180,14 @@ export function Settings() {
   const t = useT();
   const { settings, update } = useSettings();
   const [tmdbDraft, setTmdbDraft] = useState(settings.tmdbKey);
+
+  // On a managed (family) device the Stremio account is the admin's, so hide
+  // that section entirely — nothing there is theirs to change. The tracker
+  // sections (Trakt, Letterboxd, Simkl, AniList, MAL) stay: each person links
+  // their own account, and those tokens live on their device alone.
+  const visibleSections = (Object.keys(SECTION_META) as SectionId[]).filter(
+    (id) => !(id === "account" && managedActive()),
+  );
   const [omdbDraft, setOmdbDraft] = useState(settings.omdbKey);
   const [rpdbDraft, setRpdbDraft] = useState(settings.rpdbKey);
   const [fanartDraft, setFanartDraft] = useState(settings.fanartKey);
@@ -302,7 +311,7 @@ export function Settings() {
               className="flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden min-[820px]:hidden"
               dir="auto"
             >
-              {(Object.keys(SECTION_META) as SectionId[]).map((id) => (
+              {visibleSections.map((id) => (
                 <button
                   key={id}
                   onClick={() => handleNav(id)}
@@ -318,7 +327,7 @@ export function Settings() {
             </div>
             {!(active === "relay" && relayMode !== "panel") && (
               <header className="flex flex-col gap-2">
-                <h1 className="font-display text-[44px] font-medium leading-[1.05] tracking-tight text-ink">
+                <h1 className="font-display text-[30px] font-medium leading-[1.1] tracking-tight text-ink sm:text-[38px] lg:text-[44px] lg:leading-[1.05]">
                   {t(SECTION_META[active].label)}
                 </h1>
                 <p className="text-[15px] text-ink-muted">{t(SECTION_META[active].sub)}</p>
@@ -328,7 +337,7 @@ export function Settings() {
             <Suspense fallback={<SettingsPanelFallback />}>
               {active === "basics" && <BasicsPanel />}
 
-              {active === "account" && <AccountStub />}
+              {active === "account" && !managedActive() && <AccountStub />}
 
               {active === "library" && (
                 <LibraryPanel
