@@ -9,11 +9,29 @@ import { StremioStep } from "@/components/onboarding/stremio-step";
 import { SubtitlesStep } from "@/components/onboarding/subtitles-step";
 import { TmdbStep } from "@/components/onboarding/tmdb-step";
 import { WelcomeStep } from "@/components/onboarding/welcome-step";
+import { managedActive } from "@/lib/access/managed";
 import { useT } from "@/lib/i18n";
 import { useOnboarding } from "@/lib/onboarding";
 
-type StepId = "splash" | "welcome" | "layout" | "tmdb" | "stremio" | "streaming" | "subtitles" | "done";
-const STEPS: StepId[] = ["splash", "welcome", "layout", "tmdb", "stremio", "streaming", "subtitles", "done"];
+type StepId =
+  | "splash"
+  | "welcome"
+  | "layout"
+  | "tmdb"
+  | "stremio"
+  | "streaming"
+  | "subtitles"
+  | "done";
+const STEPS: StepId[] = [
+  "splash",
+  "welcome",
+  "layout",
+  "tmdb",
+  "stremio",
+  "streaming",
+  "subtitles",
+  "done",
+];
 
 export function OnboardingModal() {
   const { onboarded, finishOnboarding } = useOnboarding();
@@ -28,7 +46,9 @@ export function OnboardingModal() {
     };
   }, [onboarded]);
 
-  if (onboarded) return null;
+  // Managed (family) devices never see the wizard — WelcomeNotice applies the
+  // defaults and explains them in one screen instead.
+  if (onboarded || managedActive()) return null;
 
   const step = STEPS[stepIdx];
   const isSplash = step === "splash";
@@ -46,7 +66,7 @@ export function OnboardingModal() {
       }`}
     >
       <div
-        className={`relative flex w-[min(92vw,580px)] flex-col overflow-hidden rounded-[28px] border border-edge-soft bg-elevated/95 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.6)] ${
+        className={`relative flex max-h-[min(88dvh,760px)] w-[min(92vw,580px)] flex-col overflow-hidden rounded-[28px] border border-edge-soft bg-elevated/95 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.6)] ${
           closing ? "scale-[0.97] opacity-0 transition-all duration-300" : "animate-modal-in"
         }`}
       >
@@ -64,7 +84,7 @@ export function OnboardingModal() {
           <SplashStep onAdvance={next} />
         ) : (
           <>
-            <div className="flex min-h-[440px] flex-col justify-center px-12 py-10">
+            <div className="flex min-h-0 flex-1 flex-col justify-center overflow-y-auto px-6 py-8 sm:min-h-[440px] sm:px-12 sm:py-10">
               <div key={step} className="animate-step-in">
                 {step === "welcome" && <WelcomeStep />}
                 {step === "layout" && <LayoutStep />}
@@ -83,7 +103,10 @@ export function OnboardingModal() {
                 onJump={(i) => setStepIdx(i + 1)}
               />
               <div className="flex items-center gap-2.5">
-                {(step === "tmdb" || step === "stremio" || step === "streaming" || step === "subtitles") && (
+                {(step === "tmdb" ||
+                  step === "stremio" ||
+                  step === "streaming" ||
+                  step === "subtitles") && (
                   <button
                     key={`skip-${step}`}
                     onClick={next}

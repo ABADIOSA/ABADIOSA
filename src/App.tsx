@@ -29,6 +29,7 @@ import { ErrorView } from "@/components/error-view";
 import { HarborErrorBoundary } from "@/components/error-boundary";
 import { ChannelBadge } from "@/components/channel-badge";
 import { AccessGate } from "@/components/access/access-gate";
+import { WelcomeNotice } from "@/components/welcome-notice";
 import { ContextMenu } from "@/components/context-menu";
 import { WatchLocalModal } from "@/components/player/watch-local-modal";
 import { LocalEpisodesModal } from "@/components/player/local-episodes-modal";
@@ -345,6 +346,7 @@ export function App({ onReady }: { onReady?: () => void }) {
                                                   <UpdateRoot />
                                                   <ChannelBadge />
                                                   <AccessGate />
+                                                  <WelcomeNotice />
                                                 </HarborErrorBoundary>
                                                 <ErrorView />
                                                 <DevErrorTrigger />
