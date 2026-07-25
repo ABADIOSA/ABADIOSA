@@ -454,7 +454,7 @@
       "nationality": "Portugal",
       "nationalityAr": "البرتغال",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/por.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Francisco_Trinc%C3%A3o_USMNT_v_Portugal_Mar_31_2026-55_%28cropped%29.jpg/330px-Francisco_Trinc%C3%A3o_USMNT_v_Portugal_Mar_31_2026-55_%28cropped%29.jpg"
+      "photo": ""
     },
     {
       "id": "283331",
@@ -594,5 +594,5 @@
       "photo": ""
     }
   ],
-  "updatedAt": "2026-07-25T16:04:42.713877+00:00"
+  "updatedAt": "2026-07-25T19:04:36.282706+00:00"
 }
