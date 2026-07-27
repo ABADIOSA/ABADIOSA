@@ -90,7 +90,7 @@
       "nationality": "Türkiye",
       "nationalityAr": "تركيا",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/tur.png",
-      "photo": ""
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Merih_Demiral_2026.jpg/330px-Merih_Demiral_2026.jpg"
     },
     {
       "id": "307639",
@@ -246,7 +246,7 @@
       "nationality": "Saudi Arabia",
       "nationalityAr": "السعودية",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
-      "photo": ""
+      "photo": "https://upload.wikimedia.org/wikipedia/en/6/6e/Al-Hussein_SC_%28Irbid%29_-_2025_logo.png"
     },
     {
       "id": "410897",
@@ -272,7 +272,7 @@
       "nationality": "France",
       "nationalityAr": "فرنسا",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
-      "photo": ""
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Enzo_millot.jpg/330px-Enzo_millot.jpg"
     },
     {
       "id": "306692",
@@ -493,7 +493,7 @@
       "nationality": "Brazil",
       "nationalityAr": "البرازيل",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/bra.png",
-      "photo": ""
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Ricardo_Mathias_in_2024.png/330px-Ricardo_Mathias_in_2024.png"
     },
     {
       "id": "371797",
@@ -594,5 +594,5 @@
       "photo": ""
     }
   ],
-  "updatedAt": "2026-07-27T02:33:48.917635+00:00"
+  "updatedAt": "2026-07-27T06:27:43.141394+00:00"
 }
