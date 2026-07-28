@@ -532,7 +532,7 @@
       "nationality": "Saudi Arabia",
       "nationalityAr": "السعودية",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/%D9%81%D8%B1%D8%A7%D8%B3.png/330px-%D9%81%D8%B1%D8%A7%D8%B3.png"
+      "photo": ""
     },
     {
       "id": "403859",
@@ -594,5 +594,5 @@
       "photo": ""
     }
   ],
-  "updatedAt": "2026-07-28T08:29:03.650407+00:00"
+  "updatedAt": "2026-07-28T11:16:01.828634+00:00"
 }
