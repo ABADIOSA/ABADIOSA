@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-29T11:21:24.808235+00:00",
+  "updatedAt": "2026-07-29T13:59:24.823462+00:00",
   "source": "google-news-rss",
   "items": [
     {
@@ -21,16 +21,16 @@
       "date": "2026-07-28T20:02:10+00:00"
     },
     {
-      "title": "يايسله لا يريده.. أول عرض محلي يصل نجم الأهلي السعودي",
-      "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE9Bb3BPdERiUkNadHVJb1A5N0JvMlYxVlEtMllQNmhvNU9zRE11WEUtaVZ0eS1Kd084QldjVjJSY3ZET0lrVUJwWlBJZHQ5SFFY?oc=5",
-      "source": "إرم نيوز",
-      "date": "2026-07-28T08:22:59+00:00"
-    },
-    {
       "title": "مصادر: الأهلي يوافق على انتقال الزبيدي ومدني لـ«الخلود»",
       "link": "https://news.google.com/rss/articles/CBMixgRBVV95cUxNX053LXluVWZWeHJXNzJrM1lNTDdsTmRuazhWMmFYQ1RPOHRKU3VrY2NlbXItVUkzWllPNlRhSlVHMDNBd2w4clNIZXM3UlNDUHMwTzlvVzAydXZrX3U5T005eEh3YkhtRTNvRTIwcXJQVDl1cWxxb2d2eFJYYldtZGdrQ3pHdHd5cEhGc0k2OXJXV0llajlpcmJCbGthQjVYazRoT2NPRlo1eFhXa1JqWkxWLWFpb3c4NVdiYU1WbXAwTkIyQ1dQZEpQekhlb09XVVdCOFlya05kWFQ2NlFiNU9VX1NtTXQwcXRNVzNCckROdnZxd2RqLWFPLVNoY29yaU85M3hSZ1hsQ2J4U01tNkdCNGw5ZnRvNmhuSUFYV1N5MTI4azI4ZnRmeTBXRmFyN1dtdFBwMTNRdTJFcUw5NERCejFKT3BCcGtJM2Myd0ZlOTN0VVZ5dUJ2MGlCaF90bVNpNXdJOTdIUURmTTQycl91cGRYWVZlakttLVZxcnI4YW5OUXI3bXZ5eF9Ibmc0UEdfV2poOTAyamFoSGNLZGZLd2t5UkE3c1ZhV1B3SThlQU41UE1SSlZPZGQ1Qk9HMGgzS2dTYnRzaWs1VFQ3bVRFS05rZS1tcGFiTFNoNWhPWGdvWV9lMHdodVZhOFJ0MUwwM3YxZDNXZFFwRWdMa3RVQmg2d2RLOWNrTWwwbTRzU2d0TjdscUJxdC1jSUhRSFcyR1FHRDl2eTl4SWlEMFBEOUdjOXR3MzVMN3pUWTktWlRvQXc?oc=5",
       "source": "الشرق الأوسط",
       "date": "2026-07-28T23:45:45+00:00"
+    },
+    {
+      "title": "يايسله لا يريده.. أول عرض محلي يصل نجم الأهلي السعودي",
+      "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE9Bb3BPdERiUkNadHVJb1A5N0JvMlYxVlEtMllQNmhvNU9zRE11WEUtaVZ0eS1Kd084QldjVjJSY3ZET0lrVUJwWlBJZHQ5SFFY?oc=5",
+      "source": "إرم نيوز",
+      "date": "2026-07-28T08:22:59+00:00"
     },
     {
       "title": "أخبار الأهلي اليوم | أسطورة الراقي في قائمة خالد الغامدي .. انفراجة بأزمة يايسله وشرط الاتفاق لبيع راضي العتيبي!",
@@ -45,10 +45,10 @@
       "date": "2026-07-29T01:11:01+00:00"
     },
     {
-      "title": "الهدوء يسبق الحسم.. يايسله يثير ذعر جماهير الأهلي السعودي",
-      "link": "https://news.google.com/rss/articles/CBMivgRBVV95cUxNWjdZRTg2S3p5cElSWlc3Y0Q3RkJTN0FOT1lsMUt6TlE0U0dNNEhGLVpwNG1CLWxvejBpVFUyb3NUVmRaemFMVjE5OGg2M0FEN3gzb0JvaWpIbjlna0FhXzg5MTVhSExFMlZxb05vMnZxTTM5TVJ1U3UxVW41SHB0UVVrVEpuZ05GelZaZ2RVVEVYZFIwNlp1OHJYM0lOZ0k5NDJpX0d2eDdvaUFaRUlkempwVU1kdzFuNG5jUmtXS1doRnI1dmp4NFVUY1FTeWYwOG1MM3N5NnRQa2Ixd1RBcUpLR0tSUHFhNW9aX0w0eF9CbUd2VmVRQ0xjZ3VIRGVEaEFLNjdRNk9iUXJuLWR4eENnVU1pZnMxRlNEUGFuQjIxOUZuX045RVBfWEFjeVRwUVQ2bXNZSGpSZXZ2OFV5VF9wY29vVGlUeGF5ajV6aHJ1UFNxbERZc05rYTdiQ3diV2h5bE51OTBMd24zZnE0anZIYWJ2Tm85dmVKWkt1V0ctWmx4bWV3NS11YlhlSm82Sl9JTm9oUFctTzlaMlBnbXpIRGZ4eGN5R0FrOUdhdGh3Zy1NYVV3MlRpT0VxaXhBbzRybG90ZUpBbWNwUjZGOGpNeENhUU9INnh6N0dHZGdaM0tNZ29OQXBkUkQ1b0pWTEl6b1ROaHZTTEdha0ZTM1l1UjNRLXBfRUJPN2JlaHJQRjRVeDNKX2tvZzFjTnlGa0g1dzJYVHN4UG9Ua093ZlY5ZGFSSElIMGJxN2V3?oc=5",
+      "title": "جدول مباريات وترتيب الأهلي في دوري روشن السعودي 2026-2027",
+      "link": "https://news.google.com/rss/articles/CBMikARBVV95cUxOVDh2QmhsbXFOaEhzS2czOC1fYVR5dUItSEp5TmVES3kwa19GajlJQ2MzalN1YWxhSlQ2eXZpZ1VJTFpZRmJ5OHZYT182ZFF5VUQyTW1tYTE1OFQtNEFRSTU1dmlmMEFzTFcxaGkwLVpPTmhUb3ZyRThNOTNCMHB2akdGV2trbmZDcENSR2NOY29TYjhuNFFiakFRVktEa01uUnV0ekNlRERnWnFpblNCSjFOeTJlM3ZTQWVGeWRIVkY2TWUwcnA5SWo3allVWkxrdUZwNDB1bS1NTFVQOGlEby0tWjUzaGFpWGNsS01BdGhWU1lPdjJacGFCSG5sd3QwZW5aV21vSWZib3drYXpRNVB1MnBDZkhaOHhZYmg2SWdUUDNjdlZSc2ktcTlXb3VoOW5MMkZHMWlWeWU2NEItcUR2enE4Y3VOMUhMUTJibGpqNUNORnBZeVYyR0FlOHhWakhEbEd2NUNyWmFFZVFlMHBzMmluczBJaG10LWhOQnprdnZDTjZlMi04eHpCdzI0a1ZpRmY1a2NaT2Z3VENoS0M2WWpvelBBZG1UT2tkSFlZTWlCYzlxNmpweUVrR0RIaFM0Tm5JbGgxYzJLR05UbkJlNjRaUWd4LVdPc1FpWi1FQUVIQ2VWVmtBdFhONHhDZ29OaGowWW8ycWlZTkN0V2szd3dmd19fV2dadk9Yd0o?oc=5",
       "source": "Kooora",
-      "date": "2026-07-27T15:47:14+00:00"
+      "date": "2026-07-29T11:56:32+00:00"
     },
     {
       "title": "رسميًا.. فيفا يُكلف طاقمًا مصريًا بإدارة مباراة الأهلي وأوكلاند في كأس إنتركونتيننتال",
@@ -75,16 +75,22 @@
       "date": "2026-07-27T15:37:37+00:00"
     },
     {
+      "title": "ملخص وأهداف مباراة الأهلي السعودي وفولهام الإنجليزي الودية (فيديو)",
+      "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE9TbDk3NURWS3ZPY1gtRWFkZzZYYnRvSzg0UHByMk1yWXk2OUZMWkNkYVpmVlFaOEt4WjN5aEdNZ1h2Ym9CZkJVU3pOMmJwS1RV?oc=5",
+      "source": "إرم نيوز",
+      "date": "2026-07-28T21:23:11+00:00"
+    },
+    {
       "title": "\"البحر الأحمر العالمية\" تزيد تسهيلات من \"الأهلي السعودي\" بـ115%",
       "link": "https://news.google.com/rss/articles/CBMi-gNBVV95cUxOVV9rQklNd3F2T0Q4Zktwdk4xY2lXT3dKak5helFGbC1lSVFZaHc2WWNhMEVRR3NsLUFsUVdZa19xdEZUcHljRDAtWVpVTFV0RjQzVnZfbF9SX0I0MkNmV3d5QV9ablVsVUl2SnJYRTBBazVvbnY3dUpQTmZWamVzVHRQTXBxYWVnSlUtUi1CYzd6MWJjQVpIOVNJNUd0d3ozY0gwN2dYN3dqb0EtVlluVnh6TmpIYWZQN19Ic3NvUlpxWkQwcVNnaFd6YTB0blhiUEFlMnhPY29JZnZBRjZ2Z01BWmR3a043by1pSGpCeGNkUEZfYlNpZ2s3dnVzOG52VjR4Q0lBY01ZcmVNWm9ZMmZNajkzWEZ1MER3cHo4QWg3OGpRZWphT0k0NHQ3T3B5LU16QkNteFl1ZmRmODRXZ3Znakc3SXN5b2x4d2ZIOHNKY1UzblJuS09nTjNyNFRQVTZsaFkzb3duYU9jWjBmVnQwUU0wQTRlQ2tJTEwtc3JqNW1EUHR0NXRwNHJicEhDcWxBQzhSN09WdUNGUlJ2S19RYzBsWDhEUXU0QkNxWDcyVDltcTVRYUozelVkWXhYclBMYzFrSEtTM3U4T3lPUU9zbEw0X19NTkQwMTVVd0lTWHl1Z3NzZzhxT0MzN2lsMlA4UEp6c2piUQ?oc=5",
       "source": "الاقتصادية",
       "date": "2026-07-28T13:53:26+00:00"
     },
     {
-      "title": "ملخص وأهداف مباراة الأهلي السعودي وفولهام الإنجليزي الودية (فيديو)",
-      "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE9TbDk3NURWS3ZPY1gtRWFkZzZYYnRvSzg0UHByMk1yWXk2OUZMWkNkYVpmVlFaOEt4WjN5aEdNZ1h2Ym9CZkJVU3pOMmJwS1RV?oc=5",
-      "source": "إرم نيوز",
-      "date": "2026-07-28T21:23:11+00:00"
+      "title": "شركة الأهلي السعودي توافق على استقالة رئيس النادي",
+      "link": "https://news.google.com/rss/articles/CBMiSkFVX3lxTE9HV05vUlQ2Qm1zdXYwZElON0RkZTdSVDUtTGVEejFKdW5uOXJveWhuR0pDVnlrNWZGMHhoclRDal81NElveXdNYnpn0gFPQVVfeXFMT01oMS0zWXA5S0xMM294a1N1RXNBT2l5cjZ6V0RGNHMxRlE5SHVfdm5GY0pUWThTckRVZDd3blN3aDJwWERxeFBURzJtT043dw?oc=5",
+      "source": "بطولات",
+      "date": "2026-07-29T13:15:14+00:00"
     },
     {
       "title": "الاهلي السعودي يختتم معسكر البرتغال بالتعادل مع فولهام",
@@ -105,22 +111,16 @@
       "date": "2026-07-23T12:11:00+00:00"
     },
     {
-      "title": "بث مباشر: لحظة بلحظة مباراة الأهلي السعودي وفولهام الودية 2026",
-      "link": "https://news.google.com/rss/articles/CBMi7wNBVV95cUxQY09XcmJnR3h0VW5ZZ1d2bV9oaWtsUWxicTZUTFBHVXh4ZW9BT2pSX2RselpmY3QwTy16bm85OV9mV1VENXFCcVBKS3J5MVc5Q0FLMy1UWEt3NXlBeDB6WG5HX3FhS0RXOXE3Ym5uN1lJcVVJaW9oa1FucnZLeko4UEN5cm1CbHBiYjF2MTdUSERHUUtYSDhYTVFxSXdQOTF3R2RLSzBKSTV1LVRFbUpNc2c5OTBJbGZPTGpTRnR1Ry1CTG9GdklmS0lDUFZhb1JJS0doRG4zQUFFWlBUV3lkRTM0V0NRcWg0UzRwUm4wRkNNUzFLMUZOQjlxLU1sRElCYUhLQVFSM25pR0dkTjlENXJqcGlQY1BDQlRkS2hIY2hvdmt4OXBLdUJpMm5ydkpzV2VPSkVnV2JnRlFqOFZiUGVQcWt2LXJPaEN0aHVXSmVOS1ZRaWczRGpSSGF1V2VmZjdnWnRCUDhmTElLUlZHV0c3NHRxdmJ0amgxSG05WHJfY0hMbmZlLXJXaUgxSVgxbkpzT25EaTVuaU5ObEpSUllVeHlPUnd6SEZaWmZJdFR6STh2VzNGWXFmemFDbHBFY2RlVlFETnl6WG10SnFHTVU1aWRTQTgybF9Ud1dXWVBpXzFYUE5aVUt2TVBjbkE?oc=5",
-      "source": "اخبارك نت",
-      "date": "2026-07-28T19:33:27+00:00"
-    },
-    {
-      "title": "فيفا: أمين عمر لإدارة مواجهة الأهلي السعودي وأوكلاند في كأس الإنتركونتيننتال",
-      "link": "https://news.google.com/rss/articles/CBMi8ARBVV95cUxPc0w5a09CYzYyUGhKMHo2ZnlBR3g4OXZnSGxfbnh1NjM0SW1FSnM5RnQ1N2dZaDZKYTJEeWJzZDN6eVJhWXA2SUZ4RGN1SXZnRUNacmpyaGE4czJoMGQ0VFJCZm1qUDBqM0Nhc0lUOTQzSDNyTmpERnRaZkR4elM4RmZfaXZkbFJCNFUtYnpIRnNsYldOMlhFNm1TUlpSdDUyUWt5M3RsWWNoUlJyT2ZlV3NEb0h0Sm5RYVVVU0YwaUdHaHl0VVJLTDREUlZwZm5Hc3V3UFVLbVRyRzdhaEVycGMxNWt1Qy0zRGdUQ0VnU2hHZUljY0FpRjVWeUIzdldZMEtxM0JWc1c4bmNRMTJKTXVHdS1mdGM1SzJpcExDQ1d4d3I2d2E0SENMM1FYVmZWc0c0TFViTXdUc0RlbmhEcm5ob29ndTVSNjJjY3Zkck1iQ2NGMzY1eE1xeWljQjRxYzFrbDlYQzYxUmR1TUx1cDJKNmliS3JBd0pWVXZCblJyMXctek56S1BvUm94cU9xYnIxZ1Jxejhiby0taXQxeW1rQmJJVnQyQ2R0YzBHNUMyaEFoMVNOR1pMbE5mSlNXWl84VGFyTVFMTktPUVM3Q0lOY1hIdkVfTHJmVEd4T1dJUmFZa1ROd3lUOWoyM2VwZ0Vybm42bFNBNk84bVNiZXFxMDQ2ZkliUjViOGRIdHdPYUFQNVJkNFoxZVptVTNfbkVDSEpWdFl3b19ObXM5S29qM0VGR1Q1NTBRZzVFZV9TOGs5Nnc5cDJSS1hoaEd6aUJnYXMwVl80YjltRnpqRWhxWS1ZeDNvN0t5enU4YzM?oc=5",
-      "source": "الهيئة الوطنية للإعلام",
-      "date": "2026-07-28T21:27:00+00:00"
-    },
-    {
       "title": "بقيادة أمين عمر.. طاقم مصري يتولى مباراة الأهلي السعودي وأوكلاند سيتي بالإنتركونتيننتال",
       "link": "https://news.google.com/rss/articles/CBMiwwVBVV95cUxNY1ExaE81aWFGMC14T2xoZnR4V3p6T3QzSUhhcC0xZlhRRHBhemV0MDhLNVl2NlJkYU1PcnYzU2VoYnFIcHdfY1VzVXJXS216S2E1S0FZTFRxVnNTMWN2ZWRvVWFVY29fLUN2YW81WERvODdjSVRHR3dvdXNISktHdVBOVHhnd0o1WGF3a2JiY0t1d3lJc3FCMWh0NkJ1TndlRmVwQTA3Y0laMTFvZnB4NnZ1VjJldDYzb0Z5RzJ1aDEyTU5IYzVKMTVVOE5mNld6RHMyb3Fuc3FoUW1WUjR1ZWxRLUNBeFNmSW9iWmNIU1pTMGZoc2ZUTEI4VmhzODQ0UmhKWDI3YVFvV2NJTm5nSkJMdVlEWFFRR0RtYVhLTXF1Z3BiUXZWQlhlSnFYUFRoSHhrVUpnallxbzFMVy1SejJmRWpyNVdua1NMTHZGT0dydzJpWGtsbEl3bjh0cUdDY2tEaWg1ZDdSOS1YWlBJeGJtYTNELU1CekdRd1k5SnBDbENOMFdTSzk3UVhxTjJTckV0end5OTJ2RFNsYUVibXNDNWhUSkVaVkNGSzFxVUI5MTdMekppTnllSE44SWMwSHVEbXBGdTN4RnZxalJDNkc5OG5jQUM5RHlfOWxYOGhYQkZjNjBka3VFOWxHTDVuVVFqZ1MtTkJ6a05WWmZ5RVdhQjAySGRlbW1HVzFwTFUweDJxVWlZS055ZGVKa1pYX2lnOEdyVThGRE9WbzNHSWRzdmV2WDVtYlpXYWhXWHZaeGxQU3NkQ0RXX3BjN3FOLWxZdHc3VFRWYWRldmVGMHBwUHdsdWN5bjRMY0VLUjdGY1RYS00ySXVEQWJZXzhXQTZndWNwdm9tQnpzd181cTNLN2tyZlctVElXb1dVQ0lmMmNhcnQ4SmxISGhYLU53ZU5EQVBPX0tWUDFpVENCLTVyNNIByAVBVV95cUxOSk9uRFBUc195ZXphcTRReS1Ednk1eGhOeElTZWNyOF9DTlBSUjJkdlFGV3dGTk1CWks3R0M2elNaQXc1WGVySDQwY0I4cm82eGkwbGp6Q0d2TklBVGxUc05RM1gtZ0VQZ09JVDhRWWdqRW9qdGJBRTF0WXlNc2tRV2dnSVVsY3JXU1V6Zi1yWWNWaEdiQ2ppVU5QdW1rb0NxLU1lVWtNUW5uUERhN3BEMXIxTHhxdWFhTGNMN2RWU2haeGRZREFkb0VMM0MtNzFRRWdqLWdnWjRBUGwxWndDTTBXRkhBZEdSYi0wVGFWWEhDRFAxbmZBbjhxcXlpclNCV2xiNk9JeWZMQS1UQUM2bVdsLTJhcDFjSVZJTEFTeDIxODBwazV5UHhyWmh6ZXZoSjhQZ0drSVlFR3pCZDlxLXF4MWtjQ1o4S25qeXpTMldORm9jOERialNDMUNNSkJHM0xBem9INXktS3pGUHNjRXRlVlc0cGNVWGM5UDdObWFLbG5DRE05b0pvRzZnOXhZQ096dXdSb0FTNHc2WDdmbXcwVTRzRzItTVVhUVR0bHo5bV9OcHIxYUxFZ2hqUlZGYlZONzk3YWlUMFNYQnJXNzNLaDZPNDdrNDhrOWdLcGVXdTVmSFhjSi1BM0lLcE9HUmROLTdqWnVvZWZvNjhNbVBXSjJkdXZCRzRob1JwbHJFeXdIcGlHX0FXYkhrWkJyX2hUQzBMWUZLSlFsc3dIVm56M2YxOXBFLVYtcGFZam0tS1B3ZG1yd0tKWGpyRmlyRWhYX1gzMFRSYWFFWUhmeEd3cHZoXzl1Rmd0UDloeG90UHI4TTRmRWlFa1VFS1JNWjFMZmtIYm1wMTRSLWRyM3psakk3QndWaTl4VlhDZWJfcDlsdC1ueEhETkY2dHFrZzd1Z0FQell4MVZxZ0Z6SDJlWHNPLWRP?oc=5",
       "source": "يلاكورة",
       "date": "2026-07-27T11:00:00+00:00"
+    },
+    {
+      "title": "برسالة مؤثرة.. خالد الغامدي يعلن رحيله عن رئاسة الأهلي السعودي",
+      "link": "https://news.google.com/rss/articles/CBMi7wRBVV95cUxORk5fcFI2WjJpLWxpMHVRdEF1bmZ5N3lGN1RMLWxUUjdsOFg4MUhoM3NONUZTQTc3Z0xWQjlOT05QOVh2aFRmQjhYWlNqRU1UeUdGeWhYYTBqYmFZb3pMUkY2Y0pHT0dzQVlzanBYMDBFcmNHWTFmakxTN3dhbjJvWVhjWXJtZzhjVzFTTVlyOTc4QmF0TnZfOUJUR2dza0ItQ2dJUjZPT3lRQVdWaTJxYUNjbmQ2YkNPeXFiYUJMc2c3blZxbUp2R0pHUkE1bUEyVmRfRlhWT25ab1dUWFdOMkJlcXUtbTBrclZWb0VlTTZZZUdSZnNtRThqNi1TR1gyejVNc2hZR0plUzB3d3J6MmoycndMQnEtVVlDcWtsLWRhOVBQNmEzTjlRcmRNTkFhYll5NjcxU3V1cXZDZ3pJM3NqY0toYnZ3YUYtZW9PSkJGTlpkR2JFSUZobWd3T3ctMnI2X3BpSFppeXp0NTF1WmlJbjF1ODVtLTIwVjVuNlplX2VMOTlBM0JOcFJEQng2QllWcDJKXy1CYUdTTXpLQ3Y3VUVIWWYzcjdfZU01WGg5WHRDc2RjSXMwQmJEQXVaRUJCaFA0dXFCQW5hTTdfX2lDNG9OMG1tSGlHRW9oY0F4YUcxWFhBTmV0N0tiR3paMG4zV3JJUmlEU0Z4VG1ZVmdiN2pzTkltM0M5WnYwZUJYRTNiU3ZQYjZkXzFZUGNYUGtwTER3VmtIVWxlOHJNTlBsX04xbllSLUMzejFUQlUyMWxBMzJuc0FSaTcyOU1kUW1LVzZlS2hYNEtvWE96WXhNc01td0FqS2dpcmdpVQ?oc=5",
+      "source": "Kooora",
+      "date": "2026-07-25T21:21:13+00:00"
     }
   ]
 }
