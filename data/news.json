@@ -1,84 +1,12 @@
 {
-  "updatedAt": "2026-07-31T13:53:50.764816+00:00",
+  "updatedAt": "2026-07-31T16:41:41.923953+00:00",
   "source": "google-news-rss",
   "items": [
     {
-      "title": "صدمة في الشارع الرياضي.. الألماني ماتياس يايسله يغادر الأهلي رسمياً عقب قيادته لإنجازات تاريخية",
-      "link": "https://news.google.com/rss/articles/CBMiR0FVX3lxTE5KN2lmZWxlTWJCd2dIZ2xpaWwxRVFYcXdWOXlSNWQ5Y0FfVWZjN1hXNzFjOUVZaTdsMm14OFBNRmtqSXg2Nk1B?oc=5",
-      "source": "صحيفة سبق الإلكترونية",
-      "date": "2026-07-30T12:16:20+00:00"
-    },
-    {
-      "title": "بعد الرئيس ويايسله.. استقالة جديدة تهز أركان الأهلي السعودي",
-      "link": "https://news.google.com/rss/articles/CBMi3gRBVV95cUxPOEFXdXppc3FBUXowNVVZaEY4R090VXhmSWFBYU0xQkhpMm9zWXZlNW5TTFV2Y2trcUZ5V3FZWHBPZ1RjYXNlZjUyVWU2bk5QVG94bThTZVNYck9lVEhpVnlyNFJzb3RNVDI5aEJHV3VEU1FVNDh0UHRUZmF4OUFoS2QtbTYyQ1U0UGVfNHE2UHJKbEhWbjRfYlgzSmxoV0tYVmRNUk5QeVgtdXg2TWZJbjlBZllJWjJFZ3lycEExUnpFUGdEUmh2c3UxXzN3V2JXSlp1NnBZMllFaEVhVHpJdHJPVUxvUnB0RW80ejZCUjhrdmszeUFhaktNNU9tSFA4SURWdHBUSmE2dHJUQXljOFhvN0dNX2ZDTm5rUjZLVkFpcG1RZG5oU1dRQnJ6bmQ4cFhmT0l3ekFpVjVmNmY4VjNoQXpFZFpQc2piYjE2d2ljYXlhdkpFSzNPd1ZEVDR4SEZwSERmYTRkQlg4al9zMTU4Rm5heVJqeDctaElMeEtLdkN2UFNJanNkSkd0ZjNwd3Q1ckVyWkI0NVFHX214cXVCQjBPcHlDbTJzcVhWNVA5LVNLa3YtZmF5amd3SHp1cDlPZ241LUFaYldqNUg4UDl6eC1ncFl4YjRVQnVUVVRhbHhCb3pYOVVrUFdFWF9nVFRkdS1PLW5fZVJPMzBXM0RxUElRdEZrWU5SSGt4NTJXMjFRa3BsdWNuZmpnbEVnWWJVbllsMEsxOU1uWllLUXpzWHhjeTJxZFZjQVNnRTBTWnFqNExob1dLS1VJY2pPMXMtZEtQN1Jxd3ZMRVE?oc=5",
-      "source": "Kooora",
-      "date": "2026-07-30T17:09:36+00:00"
-    },
-    {
-      "title": "الأهلي السعودي يستهدف التعاقد مع نجم فرانكفورت الألماني",
-      "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE5tYTg0VmZIVWRKNWlwaTl5RDdreURJWEI5TmFJRXRYVjhsb05TSTV3aXlMQ180MDVUdnVuY0ZhOUZCUGhYMWU4RXpRVXRFNmxJ?oc=5",
+      "title": "المنقذ.. من المدرب الوطني الذي يقود تدريبات الأهلي السعودي؟",
+      "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTFBDZ1pQR19OVEdrUlg1bE5sNlJFc2VmSkx6V0R3RGdYLUMtcy1yeHdvNDR0UURva1p5Ulp4blNvTU5HeFhCZ1hhdzlkdTdtSVhh?oc=5",
       "source": "إرم نيوز",
-      "date": "2026-07-31T12:29:53+00:00"
-    },
-    {
-      "title": "محمد الدغريري يكتب.. الأهلي ضريبة النجاح",
-      "link": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE1kaklQa0Q2SHNrSWZpcDlhLUp3NWhSS1JIczJIang5OHliRkJLd3djUzJNT0Ffb0pEc3lpR1V5M0RXX2NpamYyVVpmWHRkUlJrMDRmaGNKYW0?oc=5",
-      "source": "صحيفة سبورت السعودية",
-      "date": "2026-07-30T22:27:00+00:00"
-    },
-    {
-      "title": "الأهلي يختتم معسكر البرتغال بالتعادل مع فولهام",
-      "link": "https://news.google.com/rss/articles/CBMingNBVV95cUxOVnlPN2tiNHY0T0RqUTVRWWt4NlJua05ETWp6b08zTHJ4T09KN3BwdGhkOFE0NWdtclBqekhnTVdFajJnOHNwREhfajZQakxiQTNuREljZjkwbzdTbkpsdXV2Z3p1WDJReGFDNUpKV3VOdTQ0eWZrVWxyMGVXbTdoTEtEWlVaRzk5enZ3bGZjQzItUFZFZVV0UTVKNC1QUkdoOUh6dVlCdk03cGdndnZPLXJfN1RDbDgxdEZLaWloWTkyMXJsUWVDVVNJNzFrQThvN0FZd2duN3VGUGFfcW5lZ1poUlpNWVFxWEYyX0lrZE8tUmhZOUc2d1I4S2R3WjFZT0RCTnR1SXNsdlpfdUhjZ0thWTJmdkhhMzRKMTNrRGJiVEFOM3M5ZEh5VXRjVXBjUjhpVGUzclNUVzNIc0lENmNqY0VDYUxjYXpxNGlra0NGaEZtVFZwUVVqT0lXRFpISVZmTUpEazBEOE9Xd0pBcWt1eHdzQktzYmFkZnlGREM2cGJWMHRtUmNHTFJmWE43VWY0NWphVDFSX3RrbGfSAaMDQVVfeXFMTlo1M0V1VlJESHI5Z0o0LThCanItUVZxcXM1OVRPSmN4U0xFWkV0V0lfQ1NKZmdadzd5QjczZ25ycDZ4YU1fS0U4SldOUEw0c1dDNTUwb1had1lUVkY4Nk5HT1Fwb3hHTmZtVk1wNDI3MWJEaEs0Wnh2ZTgtRnpiTTVKMjdLaDNtWjAtUDc0WUtSV1AzcjVyQnZQYnl5R3l4NEUzSFk1eTA4SXMxUDNDR2FLdUJTTUNOSUpqdFl1MXpTRVRzZHpYeHpleXYzekNuNTl1Ul9Yd3o0eVZXcUJGN0JadTdMMndhYjFLX1J5VUVaNWZDVVdxdlN5enlNMGR6MzNETW1nNWdWUXNESjNJQVZ4VDJ2bE9sYXN6MGJfcjgyR1NGOTkxQkZBeHVCUGpNejZWRjlsejI5Q19IZ1NzNUVzY09CYlBPbmNwU2k0M0IwaU9JYkFVakVZZVpEeTNmMktMWjE4emMyOUNaNFVYMVpPcUhXMWhuX3Q2MXBkaVNxSzNPT2pOMi1PQlBTbHg0a251RFY1dDliUlE4eFZsd3BpTXM?oc=5",
-      "source": "العربية",
-      "date": "2026-07-28T20:36:00+00:00"
-    },
-    {
-      "title": "الأهلي يتعادل مع فولهام وديّاً",
-      "link": "https://news.google.com/rss/articles/CBMiqgNBVV95cUxPbjVvb0lhQi1pemRxN09FRGNhR1JoUFVVb0VxWTJXVG03TTc5cVJuMG16OEpEVHBONWIwdElscjFJMVMyd2I0dlJKQVBobDk5VEgtbU9tWl9iVUNCWDBocVhZY0lodXJBM0dFdTRaQlB2QW93aGFhaG8tUTcyMnpWMDExSFNNRzIwM3BhQ1otX2V1TXlTUmJWcmk1SkphNWE1TFNhVEJIZTkxdVl1Skp4NXozc1Y1NTJ5YTB2ODIwNXp5YlNzbm1jMkdSdW5EdWtXSlBnc2s4amRxU3cxeTF5QkN4M0ktUThsUk00M21kcHYzdkxqYmJzcVYzdEJMQ0ZxelZVNzU0VGU0OTJmXzVBU0c1a21lTDhuLVpZS193bU9kcGV5dlNLdU1Oc2pxZENiMXF3dG5OQzRZNlNhMUgxYXhHN2xOR2EyUVJFZjVOT1VBeXpIR0lpTlpfSTEydFIzMFlTRTU2S295MTIzb0xSN2ZhX3psTW1MOEFEV25LZlVpa0hwaWdIS2E4a0V0TFBJZXViQ2R0Uzl4QzBueDhEMk8zSGlnaXRkb1E?oc=5",
-      "source": "الشرق الأوسط",
-      "date": "2026-07-28T20:02:10+00:00"
-    },
-    {
-      "title": "بث مباشر.. مشاهدة مباراة الأهلي وفولهام الودية الآن مجانًا",
-      "link": "https://news.google.com/rss/articles/CBMi-wFBVV95cUxOVF9rOW85Qm5kNEt5SDRtWE5sdmpkZXJhNjZlZ0JSbUJTUUoxX1JnQllNek42Mkh6V1AyT2p6bmxSdDhZMG0yR202ZUNqLVRCcW8wZEtXUW9ndnRndDBtVWtRV1lRMHdNTnh2RU9JOHpWS2kzYkFwaThZMld5SFlzQkJNa24td3VqanNzRmpRanJ3RTJvMHFLanZPZFVpanFTOFFvdk94VzNFRzVlcWtFd3ZfN0FQMXNxVlhsVTUwTXJLcTRUYWFzTXRpa1RFVkcza2xVMEtBakUwOVkxd2RJNGM5UnZTQlZzbWE4Wl90ZXVDMEVhUExTSVltcw?oc=5",
-      "source": "365Scores",
-      "date": "2026-07-28T16:52:18+00:00"
-    },
-    {
-      "title": "حتى 2030.. الأهلي السعودي يقترب من تجديد عقد نجم الفريق",
-      "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE5ia3dnenNZdnFvcWoxdEoyRjVoSHFfNHVXcVhxOTZhaTd5X2RMcFVFMDM0d2pZM0g1TTgwNVVPRzFRcmVUSGdHSm5zWGh5U0xi?oc=5",
-      "source": "إرم نيوز",
-      "date": "2026-07-29T19:34:01+00:00"
-    },
-    {
-      "title": "أول مرشح لخلافة خالد العيسى في رئاسة الأهلي السعودي",
-      "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTFBnVHpGSzh4bDg0UXBWU1BvU1NnMllUMFdxMTc5M1ZQZTA3QVlsVkVWZXdaLTlEUHJpRzYteEwxeTdWZkprVFo0cmd4Z09xc2Nk?oc=5",
-      "source": "إرم نيوز",
-      "date": "2026-07-29T22:14:02+00:00"
-    },
-    {
-      "title": "خاص winwin.. هل يتولى يوليان ناغلسمان تدريب الأهلي السعودي؟",
-      "link": "https://news.google.com/rss/articles/CBMi3wNBVV95cUxPckRRSVBGUDFPMV9pQVAzc2Fya0pKZGhPTi1HanpCTnZ0emRFc1Vodno2R2RqUmdVRkN2ejIwY2M0WW1NQmVpd0psak9FVkx0OW9zX1FUZGhYQVMwNXBES1BtU2R2eWJwUGhwUHBlcjd0d0xoV2lfcjVPQ3R6QnllS24zMFFvdFdwRE53VmhUbTBPdUFMSk05ajBVc2VWaFdGRWJ6QktEN0JxTDNEMWVlU2Q1M19Fb3plck9BNF9ZdVlPQ1piaDRxN0E3c3FSVXhJN1RQUjdXS3ZHZFNndWRzMmFjeldLRjMzMEgwYURrTnZmeks4R0tEd0E2dkdQM2hJd25XOTA4Ry1zU0RHbzZ1dWxrYzZ2dW9qWFVUZDI4Z3kwZkotZFJUWGVuWG95MHhiZ0s2ajdSSzhfY2RrUVM2Y0JnNTdEaDB0OTYtQVMydG1fcHl2cVdTdEhMQmFzOXdON1lHdmw5NVpRTW9BQ0NEMzBoamxIbzY4TFc4bFdnNEJEWDR4LXBsQVRyRWVHaTdiX2dJdGMtWUVXSF9zZWxVMXlRNVZwRUExdGxpSUVvX1JPQzBHbmdaa3Q3UkYxNXJCTk5ydXpfRERJZnBRMnBESm1qcVpadDNIQktrYi0zYw?oc=5",
-      "source": "winwin.com",
-      "date": "2026-07-30T15:16:22+00:00"
-    },
-    {
-      "title": "\"أرنه سلوت\" يرفض تدريب الأهلي السعودي مفضلاً الانتظار أوروبياً",
-      "link": "https://news.google.com/rss/articles/CBMiR0FVX3lxTE5HeWZoZFB3MHJpSW9zSkM2VjFaRXd1ckpEaG9JRVNDUnNEeXBlY19ralNMU0RJN3Vrd1NoeFJfTWlydHRiX3Vz?oc=5",
-      "source": "صحيفة سبق الإلكترونية",
-      "date": "2026-07-31T07:35:47+00:00"
-    },
-    {
-      "title": "عاجل .. قرار من يايسله بعد عودة لاعبي الأهلي من أوروبا",
-      "link": "https://news.google.com/rss/articles/CBMi0gRBVV95cUxQX2hJdGtpZWo1NXpKaElfYUwxYVVBU04xYWFIVmQzQkVCY2FmODZUcHFsRW1hSEVRYzBqaHZmcGhJV2dBWU55UllDYVpJemlaRUhkR2Y2V1UwNHNXdUU4Z0RwZDMxbzJ6QVhmcjEzRjZROGtKZDF6dENkUi1jMjZPbnRydC1tUlBoMlhfbFV0TWdxUl9HNWxHNmtKdUkyQjhBeGo4eGd1N3l1R3gzdXRuQUZ2OHdoaVpzYjhQUUxEZXFjV2FrTmlNYi1YLVdpcDQ2ZzhERUZnaVE0ZWx3TzFVdnV2QlBCSTJ5bnNGYURRQ0FDT0YwckhnU3Z0b3A1RTJELUNEN2JLUEc4LUozdE43NkV4ZGJ1OGRKTVBwd1dCajlEWnFTclpUNGF6VGdtX0dGcTF6SXBkNVZRRVROb05uUVF6Uks5cUI1NTI0ZHRDRUhiRm9FazdBY2U1a3R0Mk1BTkJBd0JCWWlwOWdYNWxOc2ZLa3pzdWwwa01tR1BSVmh0MlJJVkYyRHpxQnlqUjZ1d1RuWWlJVGVzN1RQLVdKdW9XUzQ2Zk54SGtCZU1YT0FZalh0bXRudWxDNUVoOGdsaFVSTUw2cy1FMTN3YjNvUDNzd2NuczZSQkxoa05kdGE1ZUFVYl9FR0hMXzdMN05EaW11ZnpPRjBmZEdEQjNwQ2ZiRTdmeU45dVhpY2hFOVRVQk9FZk5lRjAwSmNEUUZKRzd0NWhDRnRVbC1yVUpPX05jdFFCWkwtcGhrMzhPWFc0ckh1ZkotNDZQZllCY0NZU3fSAVNBVV95cUxONWdjQ0E2OG5Id05Ec21WdmlpMFVOckV0cTZrUEFMcHZiM1g5T3RheW1NM0tJRWdMMjN1N3BFem5PRUw5ME1MVk5fRDhhT3JlV1IxRQ?oc=5",
-      "source": "alyaum",
-      "date": "2026-07-29T18:35:00+00:00"
-    },
-    {
-      "title": "أرنه سلوت يرفض تدريب الأهلي السعودي ويتمسك بالعودة إلى أوروبا",
-      "link": "https://news.google.com/rss/articles/CBMi_gNBVV95cUxNTWx5YU4tYllvTWZPUDFzZDdIZHVmWlcyMnhDczRNMXFqSllYTzczZ01paTB4MDdaTkNlNXA4OWM5dC1vdXlEOUZicVBPMTYtOFFsanVPbFRweU12N3J2UDJHS0hnSndKbXNhNUhmQUZKN2UtSVJEWXBEWkR2TTdXUFA0Y0tSTWVuTnlZaHJ5TnU5eTZDOTROM2daRk5sX0ROWi1rZG92bDZlWkM3M1VtM1FOZ1hRZW9mWTdHNDdIaGhfS1k0Tms0RWNac3g0c1ZRLXlWYlhtMElNR29fOUNGUXVKZkhMS2U2NlhmNS1RTDhtamFNQ1NTbGlJdnY5WUhoSXFFTndIZnowc0dSbEd0OUxtMXBUMkNLVjJnRkdYVUM1aHdGQlNhWUFEVk9OMkJCd1FnaGJtdnV0N2NHTFNZZnlid0xkR0s4YnQzQnhZR0RaRDhRaFJGRkFoSWxDT01zOE9IUEZVSWxrNGVTSGlTcmczVGJ2anUzdi1PNXlMN016TzBrUmRRRDdqckwzWTVRVDlXNVRIVXdnRVRGM2hjVDZEb0tDSlpwUzVQUUZFYjVrWlFndkFfWERTR0M3VXByUURFNW94a0stTFZkNTlkVEJab2VaX3VTYnVnazY1S0oxWjRPckVua01JXzJ1Q2U0eXVURGtXWm1qNDdwVHc?oc=5",
-      "source": "صحيفة الحدث",
-      "date": "2026-07-31T13:22:17+00:00"
+      "date": "2026-07-31T08:49:53+00:00"
     },
     {
       "title": "لا رئيس لا مدرب لا قادة.. هل انتهى موسم الأهلي السعودي قبل أن يبدأ؟",
@@ -87,16 +15,88 @@
       "date": "2026-07-31T08:23:12+00:00"
     },
     {
+      "title": "من هو أحمد الشنقيطي رئيس النادي الأهلي السعودي المنتظر؟",
+      "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE5ZbE9EV1RjWmVrc2lxbktsYUI4SFZwNzllNzloX3pPb2FjQnlIU0Vkb1VwOTdlQU9qcVp0aFVlU0Q1ZkZSUkJBVzJRWUx1bDNK?oc=5",
+      "source": "إرم نيوز",
+      "date": "2026-07-30T04:54:03+00:00"
+    },
+    {
+      "title": "محمد الدغريري يكتب.. الأهلي ضريبة النجاح",
+      "link": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE1kaklQa0Q2SHNrSWZpcDlhLUp3NWhSS1JIczJIang5OHliRkJLd3djUzJNT0Ffb0pEc3lpR1V5M0RXX2NpamYyVVpmWHRkUlJrMDRmaGNKYW0?oc=5",
+      "source": "صحيفة سبورت السعودية",
+      "date": "2026-07-30T22:27:00+00:00"
+    },
+    {
+      "title": "الأهلي يتعادل مع فولهام وديّاً",
+      "link": "https://news.google.com/rss/articles/CBMiqgNBVV95cUxPbjVvb0lhQi1pemRxN09FRGNhR1JoUFVVb0VxWTJXVG03TTc5cVJuMG16OEpEVHBONWIwdElscjFJMVMyd2I0dlJKQVBobDk5VEgtbU9tWl9iVUNCWDBocVhZY0lodXJBM0dFdTRaQlB2QW93aGFhaG8tUTcyMnpWMDExSFNNRzIwM3BhQ1otX2V1TXlTUmJWcmk1SkphNWE1TFNhVEJIZTkxdVl1Skp4NXozc1Y1NTJ5YTB2ODIwNXp5YlNzbm1jMkdSdW5EdWtXSlBnc2s4amRxU3cxeTF5QkN4M0ktUThsUk00M21kcHYzdkxqYmJzcVYzdEJMQ0ZxelZVNzU0VGU0OTJmXzVBU0c1a21lTDhuLVpZS193bU9kcGV5dlNLdU1Oc2pxZENiMXF3dG5OQzRZNlNhMUgxYXhHN2xOR2EyUVJFZjVOT1VBeXpIR0lpTlpfSTEydFIzMFlTRTU2S295MTIzb0xSN2ZhX3psTW1MOEFEV25LZlVpa0hwaWdIS2E4a0V0TFBJZXViQ2R0Uzl4QzBueDhEMk8zSGlnaXRkb1E?oc=5",
+      "source": "الشرق الأوسط",
+      "date": "2026-07-28T20:02:10+00:00"
+    },
+    {
+      "title": "الأهلي يختتم معسكر البرتغال بالتعادل مع فولهام",
+      "link": "https://news.google.com/rss/articles/CBMingNBVV95cUxOVnlPN2tiNHY0T0RqUTVRWWt4NlJua05ETWp6b08zTHJ4T09KN3BwdGhkOFE0NWdtclBqekhnTVdFajJnOHNwREhfajZQakxiQTNuREljZjkwbzdTbkpsdXV2Z3p1WDJReGFDNUpKV3VOdTQ0eWZrVWxyMGVXbTdoTEtEWlVaRzk5enZ3bGZjQzItUFZFZVV0UTVKNC1QUkdoOUh6dVlCdk03cGdndnZPLXJfN1RDbDgxdEZLaWloWTkyMXJsUWVDVVNJNzFrQThvN0FZd2duN3VGUGFfcW5lZ1poUlpNWVFxWEYyX0lrZE8tUmhZOUc2d1I4S2R3WjFZT0RCTnR1SXNsdlpfdUhjZ0thWTJmdkhhMzRKMTNrRGJiVEFOM3M5ZEh5VXRjVXBjUjhpVGUzclNUVzNIc0lENmNqY0VDYUxjYXpxNGlra0NGaEZtVFZwUVVqT0lXRFpISVZmTUpEazBEOE9Xd0pBcWt1eHdzQktzYmFkZnlGREM2cGJWMHRtUmNHTFJmWE43VWY0NWphVDFSX3RrbGfSAaMDQVVfeXFMTlo1M0V1VlJESHI5Z0o0LThCanItUVZxcXM1OVRPSmN4U0xFWkV0V0lfQ1NKZmdadzd5QjczZ25ycDZ4YU1fS0U4SldOUEw0c1dDNTUwb1had1lUVkY4Nk5HT1Fwb3hHTmZtVk1wNDI3MWJEaEs0Wnh2ZTgtRnpiTTVKMjdLaDNtWjAtUDc0WUtSV1AzcjVyQnZQYnl5R3l4NEUzSFk1eTA4SXMxUDNDR2FLdUJTTUNOSUpqdFl1MXpTRVRzZHpYeHpleXYzekNuNTl1Ul9Yd3o0eVZXcUJGN0JadTdMMndhYjFLX1J5VUVaNWZDVVdxdlN5enlNMGR6MzNETW1nNWdWUXNESjNJQVZ4VDJ2bE9sYXN6MGJfcjgyR1NGOTkxQkZBeHVCUGpNejZWRjlsejI5Q19IZ1NzNUVzY09CYlBPbmNwU2k0M0IwaU9JYkFVakVZZVpEeTNmMktMWjE4emMyOUNaNFVYMVpPcUhXMWhuX3Q2MXBkaVNxSzNPT2pOMi1PQlBTbHg0a251RFY1dDliUlE4eFZsd3BpTXM?oc=5",
+      "source": "العربية",
+      "date": "2026-07-28T20:36:00+00:00"
+    },
+    {
+      "title": "بث مباشر.. مشاهدة مباراة الأهلي وفولهام الودية الآن مجانًا",
+      "link": "https://news.google.com/rss/articles/CBMi-wFBVV95cUxOVF9rOW85Qm5kNEt5SDRtWE5sdmpkZXJhNjZlZ0JSbUJTUUoxX1JnQllNek42Mkh6V1AyT2p6bmxSdDhZMG0yR202ZUNqLVRCcW8wZEtXUW9ndnRndDBtVWtRV1lRMHdNTnh2RU9JOHpWS2kzYkFwaThZMld5SFlzQkJNa24td3VqanNzRmpRanJ3RTJvMHFLanZPZFVpanFTOFFvdk94VzNFRzVlcWtFd3ZfN0FQMXNxVlhsVTUwTXJLcTRUYWFzTXRpa1RFVkcza2xVMEtBakUwOVkxd2RJNGM5UnZTQlZzbWE4Wl90ZXVDMEVhUExTSVltcw?oc=5",
+      "source": "365Scores",
+      "date": "2026-07-28T16:52:18+00:00"
+    },
+    {
+      "title": "الأهلي السعودي يستهدف التعاقد مع نجم فرانكفورت الألماني",
+      "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE5tYTg0VmZIVWRKNWlwaTl5RDdreURJWEI5TmFJRXRYVjhsb05TSTV3aXlMQ180MDVUdnVuY0ZhOUZCUGhYMWU4RXpRVXRFNmxJ?oc=5",
+      "source": "إرم نيوز",
+      "date": "2026-07-31T12:29:53+00:00"
+    },
+    {
+      "title": "خاص winwin.. هل يتولى يوليان ناغلسمان تدريب الأهلي السعودي؟",
+      "link": "https://news.google.com/rss/articles/CBMi3wNBVV95cUxPckRRSVBGUDFPMV9pQVAzc2Fya0pKZGhPTi1HanpCTnZ0emRFc1Vodno2R2RqUmdVRkN2ejIwY2M0WW1NQmVpd0psak9FVkx0OW9zX1FUZGhYQVMwNXBES1BtU2R2eWJwUGhwUHBlcjd0d0xoV2lfcjVPQ3R6QnllS24zMFFvdFdwRE53VmhUbTBPdUFMSk05ajBVc2VWaFdGRWJ6QktEN0JxTDNEMWVlU2Q1M19Fb3plck9BNF9ZdVlPQ1piaDRxN0E3c3FSVXhJN1RQUjdXS3ZHZFNndWRzMmFjeldLRjMzMEgwYURrTnZmeks4R0tEd0E2dkdQM2hJd25XOTA4Ry1zU0RHbzZ1dWxrYzZ2dW9qWFVUZDI4Z3kwZkotZFJUWGVuWG95MHhiZ0s2ajdSSzhfY2RrUVM2Y0JnNTdEaDB0OTYtQVMydG1fcHl2cVdTdEhMQmFzOXdON1lHdmw5NVpRTW9BQ0NEMzBoamxIbzY4TFc4bFdnNEJEWDR4LXBsQVRyRWVHaTdiX2dJdGMtWUVXSF9zZWxVMXlRNVZwRUExdGxpSUVvX1JPQzBHbmdaa3Q3UkYxNXJCTk5ydXpfRERJZnBRMnBESm1qcVpadDNIQktrYi0zYw?oc=5",
+      "source": "winwin.com",
+      "date": "2026-07-30T15:16:22+00:00"
+    },
+    {
+      "title": "بعد الرئيس ويايسله.. استقالة جديدة تهز أركان الأهلي السعودي",
+      "link": "https://news.google.com/rss/articles/CBMi3gRBVV95cUxPOEFXdXppc3FBUXowNVVZaEY4R090VXhmSWFBYU0xQkhpMm9zWXZlNW5TTFV2Y2trcUZ5V3FZWHBPZ1RjYXNlZjUyVWU2bk5QVG94bThTZVNYck9lVEhpVnlyNFJzb3RNVDI5aEJHV3VEU1FVNDh0UHRUZmF4OUFoS2QtbTYyQ1U0UGVfNHE2UHJKbEhWbjRfYlgzSmxoV0tYVmRNUk5QeVgtdXg2TWZJbjlBZllJWjJFZ3lycEExUnpFUGdEUmh2c3UxXzN3V2JXSlp1NnBZMllFaEVhVHpJdHJPVUxvUnB0RW80ejZCUjhrdmszeUFhaktNNU9tSFA4SURWdHBUSmE2dHJUQXljOFhvN0dNX2ZDTm5rUjZLVkFpcG1RZG5oU1dRQnJ6bmQ4cFhmT0l3ekFpVjVmNmY4VjNoQXpFZFpQc2piYjE2d2ljYXlhdkpFSzNPd1ZEVDR4SEZwSERmYTRkQlg4al9zMTU4Rm5heVJqeDctaElMeEtLdkN2UFNJanNkSkd0ZjNwd3Q1ckVyWkI0NVFHX214cXVCQjBPcHlDbTJzcVhWNVA5LVNLa3YtZmF5amd3SHp1cDlPZ241LUFaYldqNUg4UDl6eC1ncFl4YjRVQnVUVVRhbHhCb3pYOVVrUFdFWF9nVFRkdS1PLW5fZVJPMzBXM0RxUElRdEZrWU5SSGt4NTJXMjFRa3BsdWNuZmpnbEVnWWJVbllsMEsxOU1uWllLUXpzWHhjeTJxZFZjQVNnRTBTWnFqNExob1dLS1VJY2pPMXMtZEtQN1Jxd3ZMRVE?oc=5",
+      "source": "Kooora",
+      "date": "2026-07-30T17:09:36+00:00"
+    },
+    {
+      "title": "\"أرنه سلوت\" يرفض تدريب الأهلي السعودي مفضلاً الانتظار أوروبياً",
+      "link": "https://news.google.com/rss/articles/CBMiR0FVX3lxTE5HeWZoZFB3MHJpSW9zSkM2VjFaRXd1ckpEaG9JRVNDUnNEeXBlY19ralNMU0RJN3Vrd1NoeFJfTWlydHRiX3Vz?oc=5",
+      "source": "صحيفة سبق الإلكترونية",
+      "date": "2026-07-31T07:35:47+00:00"
+    },
+    {
+      "title": "انفراجة.. رد نونو سانتو على خلافة ماتياس يايسله في الأهلي السعودي",
+      "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE5oZmhPay1CcWo3TGx6VU1SZXpHV25vZEdZSWFLN0dqWFhPMVFMbllWalAzdFFKSlRKRWw0THpkT0ZRTXgzb0dCZlBVT01tSEJY?oc=5",
+      "source": "إرم نيوز",
+      "date": "2026-07-31T14:50:41+00:00"
+    },
+    {
+      "title": "أرنه سلوت يرفض تدريب الأهلي السعودي ويتمسك بالعودة إلى أوروبا",
+      "link": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE1CVTBjc283c0ROandxWWxJYXhLdEoxZ25VR2xIcENTY3JaY0xWUExueHZIcENRUnM4YXRoZ01oOXF4VHA1dWZoUW84OHpxdw?oc=5",
+      "source": "alwathaq.com",
+      "date": "2026-07-31T14:15:00+00:00"
+    },
+    {
       "title": "يايسله يستقيل من الأهلي السعودي .. ومفاوضات مع بيريرا البرتغالي",
       "link": "https://news.google.com/rss/articles/CBMipgRBVV95cUxPSXdPZ3FodWh1T3JKckJGWWJISTk1QktyWHlWbm44Mlc3OENzcm1qYUlhc2pBeHByQ0FVMlVSVkFJUmdwS2Faenh2M0VIaHVOelBUQzh4ZDFUam54YnRrbHUwZFRaT1RwY1E4dWhyMUZhMzRuU05TZE1yajJIVVRuNGxveVA0RThwWXZzeEU0TjVva1IxaE9FOFM4bExuOU1URlZlVUVITEpkSHJENXphZklGMGpZd0MyNXc2VEFSbGhXTTI2elZBNkhOcE1CcWo3WUY5T2VWWEVVNHNjVWN5aUo5ODRhbFc1T3kzeWhVeDI0QVlIOVl2ZTFHdDNrMjM1NU5jQUtUNE9UYldTYjF1Z3lBbXBDdTBqM2FhcXRhc3hDNlgtNXdMdERhVk1wMmZJVXdaSnpIVWhyS01VcWdlbUdxNGlJNUtVZW82LWVFRDloY3lUcl91bGlGSmw2VENuTWxtN1RWV0hFRno5WDNURmpIMFJqeWxZSDJzNVZmN0ljZzVtNnNKR2FrM3Nka180bThXNndkMnk0YWJVdGk5bnd1VWNIUndDbG1sTU1ocDJTZHQyYnlWaFR4OVktalZSejlnQU15VS1uVy1TaHBnLXBxNUdnYURJdnpHYVpvUEJETTVSVDJFTFB1dl9IQ2FZYUNWWXRQc2xqSlBydlpvaU4yZ05TLWQ0WnBLcWFRR0pSZ0w4QzR1UmNNanRKaDJjNG42bjZR?oc=5",
       "source": "الاقتصادية",
       "date": "2026-07-30T15:13:48+00:00"
     },
     {
-      "title": "سلوت يبتعد عن الاهلي السعودي ويترقب العودة لأوروبا",
-      "link": "https://news.google.com/rss/articles/CBMiowNBVV95cUxOSUxMZ0xQODcwOXBGeHg5QVUwV0tYWHlsdG50UGJnVWxWNkROVVhrb2pReE9PVmVhZTZmM1BoTVl1bTlrVENYT3ZVQWo3QVJZcVJwbTlEQUpvTmQxVENRQ05nZ1AwSmVVNzhtWnpoWkxHa2JXQTZtMnE2OFhxbVlWZWsxNEdvdWs3UFpMYUlHdFVYRnJveVE5LWZIY0lNeTVFSXhCWmVkQ01faGR1Tk5vSWl1anRncXhrZURpWDFzcWtPWmhSNFA5ckROb3M3YXBwRFR6VkZrODVqUFREMFBEV2U2UVI1UXJDWEJKSml5LWVTcFNPU3U2OXZ3Ql9uUDhhMlZraGtNeEM5VHZDdzFrSHVqUDYyeGd1T2pSTk5VZUZCcUljb3VIMDMzT3dmbVIyM29qUDByekdhcU5yQlplRkNsVXktUDhwbFV1LW15VFRWcTB5QzU1eUM3V2MyenNLWDhzcEVEV1pSZHRDVi1sQmpTWmhxY09vQ3E0S0pWNU5jQlFCZmQ4SGdKdmFNTFUzVnA0YS1OUm9XMm1pTmJScHNncw?oc=5",
-      "source": "Elsport",
-      "date": "2026-07-31T06:04:32+00:00"
+      "title": "آرني سلوت يحسم موقفه من عرض الأهلي السعودي لخلافة يايسله",
+      "link": "https://news.google.com/rss/articles/CBMi4ANBVV95cUxNeEtHUGt1V25jZkUxZHVNUnJjYnd2a2V4MVVpOXFPQXRxRmJ1RU04eTVPQ1BpbzVTZ0hSZ0NiRWdDMWIxUlU4ekI2bXJIT1lVU211ckdTOWF3RHNmcDZVNEF0MG8xUWxRU21UQ0FNWi0wSTd2NTBua00zN3FTcl9jSE5tTXBDMkxzVExyMjRnak5JV1pkYUtyRExOZXZiUG81eWwtOWVaUmhBYk04eG5iVVk3MGhIUm0yRzdnOFgtQU5sVkZEQlctcHN1VHZZMmwydUItSnI1LUcxb0tEQ0tJcXh3d1lqSnZUdzYxYmxHZ2FxeVJFNkdCeTNpU1JfMWttN2JxNTRSUFhUMFJieFIybkFkVXFqWGVRbmV4QktoVTk5ZVJBaWtUSkRPTTBFLUZPWXdsVWhkaGVvU0NzY1FXTnl3Ul9CRWlBZHpwTHZseEc3eVdxVlZlY0d0QkV4bm9oRkxaQ1ZPbm9OeGJUN0tJNVRyeHJJRkdrOVZ3RnNmOEw4SXZ4bHlBb0haVGFNQjNHdWZ1XzdlYVZjQ0VNZE9vd0puS1ZpT3hJRXhCWllFNHkwdzRVUkpqa0JtM0w2YWhKX0lrVWZvczB4Rng3WU5wby1jNjJGWUZRaWZKanNnbDU?oc=5",
+      "source": "آخر خبر",
+      "date": "2026-07-31T09:58:53+00:00"
+    },
+    {
+      "title": "سلوت مرشح لتدريب الأهلي السعودي",
+      "link": "https://news.google.com/rss/articles/CBMiwgJBVV95cUxPdHRMS0NHQzNmUWV4WGhzNHRmdllJaUhPSjVrdFJ2bnBwMVVrc0oyelluZTdGQ2pMZVB0TlFlRXUzcXAydkxnNGRjWGNVQ05yaUZ6cnV5aUJUMHFGbUYxN2hGMjVYRkFwb21TcGVTb1VtZExOOTQ0VWpQSUwyOXJzT1RRdWZVYVN0QlpsU3RibzZQOTV1Zkk0MDNuaGJ2emNUTlNOZUZiWXFsU1RnTmpmaEVEWFdnYXI2QS1PTVJYNlFrLXVBbjA0RXhtdUNnUlRhYjFlVV9kT1RGaTg4VjZNSVktRC1EZ0JoZFN0WkNHVHNaSlRBZmZNa2N0blJDM0haYlNjZGZhdDk1ZG9IWmRxZmRtMXZDd3c3UUhWeS1TYkFNSHZrenpaV2hnTW1ucUh0S2NoanlIRGN2bkwxM3dpNlpB0gHHAkFVX3lxTE85VUVTeHNrSXBramYzQVdlVVBXaDVTYk15NGV0dC1xb0hCUC1jVnpZakk5R0FIZ2lKdEVFeDFIUjBwdTRSaldSUnF0SzZOQ3c3M19CQTJCc3BxR0l3ZE81QVdqcjdqcUs3VEdaNWxqbzl0elBvRWlzdnRYb09QVV9KMW5DZjFKZXk1ZW1ib2lUWldUa2lZUmZ0VXdMR3hScExtbnRsUUJjVlRYYVVkd3NRck5HQ285cl82VkJpc2Ryd3pHNm00T1ZPSWp2emNPazFtNmprZVdfWFZLMUJzNUVsS1htZDdDSlFGWUNoLV9SeVBQYVA5Ynlyc1dpNFptWE9pLWd2ZEd4bk5uRURtZzZueldjSy1ZRkpHZGFPRGZrbjlELTdsY0xack5JRGZ2UkthQjIzdUc4ekptSE5sS3RmVEI5aVZ5cw?oc=5",
+      "source": "يلاكورة",
+      "date": "2026-07-30T12:13:00+00:00"
     },
     {
       "title": "آرني سلوت على طاولة الأهلي السعودي لخلافة يايسله المتجه إلى نيوكاسل",
@@ -105,22 +105,22 @@
       "date": "2026-07-31T01:01:44+00:00"
     },
     {
-      "title": "سلوت مرشح لتدريب الأهلي السعودي خلفًا ليايسله",
-      "link": "https://news.google.com/rss/articles/CBMingNBVV95cUxOaXFmYVQ2X1VvWDVDeG9SbVdEalJJMHFjUWxXOUJGbVNfVWpGNlBXRFNKU3dJbDg1X0xSWEdRa3NURFh6ekl4cENuLURLX0hTMkNTeHBXMnRXaWNYemIxb1ZmenMzM1ZiMGo1b3hBT00yZExfNXJLalVIVGxVNy13YTJseGtGOWpFcUpMMllsMC15V09xOTE5b3RaU3h5RjdEdXYtd1ltRFVuOGRUZzFRSndSX0JtZmU4X2l4YXRqN2xFcy1MdkpMMXhvblBmSVIzaGwzcUQ5eDNLbWZUV09odm40al8zQVVrZkxSdnJ3VzNVUHVUbGhJaklqNzJGS21IQ2NscVRDbTBqSW9lWE1xdHk4RmJNeUpQU3ZUY3hnTUloLVVHWW1JUVV2ck1wdUItWjVyMEFiWU9DYmJPbGQxcGxUQ0ZHdFN1Z1haWUtpRWl0TWlWRkZFNS1fVjBPSl91VW5YS2Q1Zi1SUWZ2bEVWSXNDTGwxSmVsNW5IYVQta19ub3E2YlljNTZjQVlGaFhURE9RWnZxT1diZk53NUHSAaMDQVVfeXFMUHZTUGFlMlh5TXhxYVduRFZjU194eTNITUYydTd1ZEV2aGdjcE1ERnExUEZSSU8zWXR3aHVUeGs2bWtZM0t2X0xvV0Y0Wk9LU2J5R2FKaHA5RENpZzBhelJEcnNxSUdZMERjS2JsckoxdDNNVHJEZHA2SDNiQUxHX2hNaXhIWWljQV9Fc3Fob3BEZE9WdjRvcEdHUVE4LW5JOW5RcVMwUlhLb2x1ckNWc01ESE45aDdVRlBJSk9WVGRiOTNXXzhKUjdydmtUbGIwY1hvUlNzYVBjajRVWmV6YlhXaWs2T2ItTjRqS2taS3Q3UzZhQXhjU2o1aDVEQW9CMS1xQ3RiQUpvZHFuSTM5LVFHaXlRLUhuX3J4QVNQcThLazNMY2lXTDNoLVR6NExpQzREY0N3Q0JLNUY2bmdKcUNwSHFUcjNrckl3bkpOUTE4ZnY3WGg4ek9HclliQnUtdm5yaGlPZHR6V0xfNEtULTFFZ2lJV29BYmdUTGJ6dnh2b3dIZ1piYmdQaXo4WGlRajlJY0l2SnJtUlk4MUstTkt0eXM?oc=5",
-      "source": "يلاكورة",
-      "date": "2026-07-30T15:17:00+00:00"
+      "title": "سلوت يبتعد عن الاهلي السعودي ويترقب العودة لأوروبا",
+      "link": "https://news.google.com/rss/articles/CBMiowNBVV95cUxOSUxMZ0xQODcwOXBGeHg5QVUwV0tYWHlsdG50UGJnVWxWNkROVVhrb2pReE9PVmVhZTZmM1BoTVl1bTlrVENYT3ZVQWo3QVJZcVJwbTlEQUpvTmQxVENRQ05nZ1AwSmVVNzhtWnpoWkxHa2JXQTZtMnE2OFhxbVlWZWsxNEdvdWs3UFpMYUlHdFVYRnJveVE5LWZIY0lNeTVFSXhCWmVkQ01faGR1Tk5vSWl1anRncXhrZURpWDFzcWtPWmhSNFA5ckROb3M3YXBwRFR6VkZrODVqUFREMFBEV2U2UVI1UXJDWEJKSml5LWVTcFNPU3U2OXZ3Ql9uUDhhMlZraGtNeEM5VHZDdzFrSHVqUDYyeGd1T2pSTk5VZUZCcUljb3VIMDMzT3dmbVIyM29qUDByekdhcU5yQlplRkNsVXktUDhwbFV1LW15VFRWcTB5QzU1eUM3V2MyenNLWDhzcEVEV1pSZHRDVi1sQmpTWmhxY09vQ3E0S0pWNU5jQlFCZmQ4SGdKdmFNTFUzVnA0YS1OUm9XMm1pTmJScHNncw?oc=5",
+      "source": "Elsport",
+      "date": "2026-07-31T06:04:32+00:00"
     },
     {
-      "title": "آرني سلوت يحسم موقفه من عرض الأهلي السعودي لخلافة يايسله",
-      "link": "https://news.google.com/rss/articles/CBMi4ANBVV95cUxNeEtHUGt1V25jZkUxZHVNUnJjYnd2a2V4MVVpOXFPQXRxRmJ1RU04eTVPQ1BpbzVTZ0hSZ0NiRWdDMWIxUlU4ekI2bXJIT1lVU211ckdTOWF3RHNmcDZVNEF0MG8xUWxRU21UQ0FNWi0wSTd2NTBua00zN3FTcl9jSE5tTXBDMkxzVExyMjRnak5JV1pkYUtyRExOZXZiUG81eWwtOWVaUmhBYk04eG5iVVk3MGhIUm0yRzdnOFgtQU5sVkZEQlctcHN1VHZZMmwydUItSnI1LUcxb0tEQ0tJcXh3d1lqSnZUdzYxYmxHZ2FxeVJFNkdCeTNpU1JfMWttN2JxNTRSUFhUMFJieFIybkFkVXFqWGVRbmV4QktoVTk5ZVJBaWtUSkRPTTBFLUZPWXdsVWhkaGVvU0NzY1FXTnl3Ul9CRWlBZHpwTHZseEc3eVdxVlZlY0d0QkV4bm9oRkxaQ1ZPbm9OeGJUN0tJNVRyeHJJRkdrOVZ3RnNmOEw4SXZ4bHlBb0haVGFNQjNHdWZ1XzdlYVZjQ0VNZE9vd0puS1ZpT3hJRXhCWllFNHkwdzRVUkpqa0JtM0w2YWhKX0lrVWZvczB4Rng3WU5wby1jNjJGWUZRaWZKanNnbDU?oc=5",
-      "source": "آخر خبر",
-      "date": "2026-07-31T08:58:19+00:00"
+      "title": "نيوكاسل يبلغ الأهلي السعودي بصفقة يايسله",
+      "link": "https://news.google.com/rss/articles/CBMi2ANBVV95cUxNYTVzdGtfTVgtdklRalRXcDNSYnRlMlFGTU1FWFpUdDNvNUlpclVLSnUzTWl6M0xYbnhIeG1VMzBPTDFMbF9jMXBzX3ladTc4STJVc2NRN0Y2VU1LWGhBZWk0YWQ2WnZyQmZIZ3ZoMkZET2RTYzJSZnBFd1MxbFhDV2pKcnFPN0M5TlVHZlFyUkJtbVJ6SFF3aVhzcFhKSFctajBweUFER0t5Q1V1WnZSb2hLS0dMSjZXMmo2V1pqMkE5TENBcU5uU25pZTJBTFBGSl9TQU54aWxXZEJXOVEwOGg3MkdxVDFqamg2dzBjS2pjRThYMjIya2tiY2M1QXNubXBCTV9wWVVfWFoyOFhqLTFQZDh5b1E4VVF5VlFqRGpLRm91Nl9EM2RGR01Ob1dVd1E1b2hjdktKTVo1NDhEeWpOWTV3STF1UTJZT1RUaUVrc2ZVdTBsWmtSUVo0cC1abWJWM2o3S0VvNk1WZ0EydHpXbHNTUGNZME1HOHQ3cmhtVkdMX2RzcVFSRUlRbXR3b0ljUzFrTmN3dGVhUXdGMjRfTVUyb3VsTjROYzgyY0gyRXZ5ejRqTWlZTzZ4TDlETnNZTWxJX3lhcG81M0RMc3dFQlRLcmpv?oc=5",
+      "source": "Kooora",
+      "date": "2026-07-30T21:37:20+00:00"
     },
     {
-      "title": "المنقذ.. من المدرب الوطني الذي يقود تدريبات الأهلي السعودي؟",
-      "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTFBDZ1pQR19OVEdrUlg1bE5sNlJFc2VmSkx6V0R3RGdYLUMtcy1yeHdvNDR0UURva1p5Ulp4blNvTU5HeFhCZ1hhdzlkdTdtSVhh?oc=5",
-      "source": "إرم نيوز",
-      "date": "2026-07-31T08:49:53+00:00"
+      "title": "أرني سلوت يحسم موقفه من خلافة يايسله في الأهلي السعودي",
+      "link": "https://news.google.com/rss/articles/CBMitgRBVV95cUxQWU80UU1MUUlxUEpTNzhzdDdsS2NReFVuQUdmV0VxSzBObEdGVVJodFBXTUpURUVLQURwWG5ZMFBYVDVESHFrZHdkcjhKZTlaanJJWHBRSVBfdlBOaE5ZN2NtMldZdVZscG5rTzhqeFRfeFIyZDBPbFMwc0RrcVF5MXlkc0F1dE9YQkhGc09yYkNlb2FWRWg3aVVkQXMyZk9BcV9OWXNoMFgxR2k2ZmNrc211WmtGRmhxaXhFRzI5a1JJR3dWekhpMzJIUFcxUmN1NnBvR2thaUtwQmJMckFmckEzWF9qWmw1dU1aZzc4aDZIY2N3MFE4UllwZnlETzZyMFYwX29XNC1qMEdVSnN3bU5qNksta0d6ZVVXYVBESmRPVEFKdVRYN3FKbmhvRkZjYTdqbGZtejB6VW5ZczN3NWRRWGtZQzEtVzVvVy1JajhScXM5dEJ1T2E5Yk1TeWNiSWVYTmFteW5fLWIzWUNEVVp6eDVUZ1gyVkMxN1NTVEtpMEJLNDBERWhmRHZza3dpMGZtcFpNdkxHWTUwR24tSEJjLV9HZ0RieHB2djM0U1lORGJwQkhpdFl1ZEhxeGs4UWVFY1pBSWM2a2VTemlfRXJnVXVCSXMtSjg1ejFjUHhWaFF4U3RrNHRDaWhGeEtTYzIwVHppVF9lZkNXMFY3R0pQWk53VFJHUVphaTRrRnB3RnRFUnBUazlTaVVXMjkxME9WUXRybEJwRlRVUmVXcG1CZHBNUQ?oc=5",
+      "source": "Kooora",
+      "date": "2026-07-30T20:30:50+00:00"
     }
   ]
 }
