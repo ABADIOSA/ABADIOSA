@@ -220,7 +220,7 @@
       "nationality": "Saudi Arabia",
       "nationalityAr": "السعودية",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/en/thumb/4/45/Al_Ahli_Saudi_FC_logo.svg/330px-Al_Ahli_Saudi_FC_logo.svg.png"
+      "photo": ""
     },
     {
       "id": "410714",
@@ -246,7 +246,7 @@
       "nationality": "Saudi Arabia",
       "nationalityAr": "السعودية",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/en/6/6e/Al-Hussein_SC_%28Irbid%29_-_2025_logo.png"
+      "photo": ""
     },
     {
       "id": "410897",
@@ -272,7 +272,7 @@
       "nationality": "France",
       "nationalityAr": "فرنسا",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Enzo_millot.jpg/330px-Enzo_millot.jpg"
+      "photo": ""
     },
     {
       "id": "306692",
@@ -376,7 +376,7 @@
       "nationality": "Saudi Arabia",
       "nationalityAr": "السعودية",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
-      "photo": ""
+      "photo": "https://upload.wikimedia.org/wikipedia/en/thumb/4/45/Al_Ahli_Saudi_FC_logo.svg/330px-Al_Ahli_Saudi_FC_logo.svg.png"
     },
     {
       "id": "410718",
@@ -389,7 +389,7 @@
       "nationality": "Nigeria",
       "nationalityAr": "نيجيريا",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/nga.png",
-      "photo": ""
+      "photo": "https://upload.wikimedia.org/wikipedia/en/thumb/4/45/Al_Ahli_Saudi_FC_logo.svg/330px-Al_Ahli_Saudi_FC_logo.svg.png"
     },
     {
       "id": "411753",
@@ -441,7 +441,7 @@
       "nationality": "Brazil",
       "nationalityAr": "البرازيل",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/bra.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Galeno.jpg/330px-Galeno.jpg"
+      "photo": ""
     },
     {
       "id": "274159",
@@ -454,7 +454,7 @@
       "nationality": "Portugal",
       "nationalityAr": "البرتغال",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/por.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Francisco_Trinc%C3%A3o_USMNT_v_Portugal_Mar_31_2026-55_%28cropped%29.jpg/330px-Francisco_Trinc%C3%A3o_USMNT_v_Portugal_Mar_31_2026-55_%28cropped%29.jpg"
+      "photo": ""
     },
     {
       "id": "283331",
@@ -467,7 +467,7 @@
       "nationality": "Saudi Arabia",
       "nationalityAr": "السعودية",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Firas_Al-Buraikan_2026.jpg/330px-Firas_Al-Buraikan_2026.jpg"
+      "photo": ""
     },
     {
       "id": "334379",
@@ -480,7 +480,7 @@
       "nationality": "Brazil",
       "nationalityAr": "البرازيل",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/bra.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Matheus_Gon%C3%A7alves_2026.png/330px-Matheus_Gon%C3%A7alves_2026.png"
+      "photo": ""
     },
     {
       "id": "361364",
@@ -571,7 +571,7 @@
       "nationality": "Chad",
       "nationalityAr": "تشاد",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/cha.png",
-      "photo": ""
+      "photo": "https://upload.wikimedia.org/wikipedia/en/thumb/4/45/Al_Ahli_Saudi_FC_logo.svg/330px-Al_Ahli_Saudi_FC_logo.svg.png"
     },
     {
       "name": "Mishal Al-Mutairi",
@@ -581,7 +581,7 @@
       "nationalityAr": "السعودية",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
       "id": "manual-Mishal Al-Mutairi",
-      "photo": ""
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Al_Hilal_SFC_Logo.svg/330px-Al_Hilal_SFC_Logo.svg.png"
     },
     {
       "name": "Abubakar Sidi Kinteh",
@@ -594,5 +594,5 @@
       "photo": ""
     }
   ],
-  "updatedAt": "2026-08-02T19:05:49.499683+00:00"
+  "updatedAt": "2026-08-02T21:54:01.445742+00:00"
 }
