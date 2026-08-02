@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-08-02T05:54:09.488971+00:00",
+  "updatedAt": "2026-08-02T08:14:34.813878+00:00",
   "source": "google-news-rss",
   "items": [
     {
       "title": "4 عقبات خطيرة.. سيناريو مرعب ينتظر خليفة يايسله في الأهلي السعودي",
       "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE5yNlF5R2ZJNk10ZDdsdHVPSm9ZeTZhU0FvYWRHc1drd2VBNTVrRmNRYWdRMXRwUGxZNTVUVzgxclM2eUxuSE8zYTZPQWdXcmx3?oc=5",
-      "source": "eremnews.com",
+      "source": "إرم نيوز",
       "date": "2026-08-01T08:36:25+00:00"
     },
     {
@@ -13,6 +13,12 @@
       "link": "https://news.google.com/rss/articles/CBMingRBVV95cUxPemwyaTZzRDRuckpnN2Z6TzlqM2tpLUdmRFpiWGVHRkMtNzlRTUQzSDJWSEFNcjBVWWVfc1V5dm55eXRaTl95NnNJZzRzOVdlT0tNSDlYQWxkRnJzYzF5VlM1eEpqUWJGZ1ItSE8wczF3RC1WMkZBZ2dVc2hLWGZZaXQtS2NxMHJZQ1gwRDlUMlFVSE40a1BhdHhYSnhvRDJBUVEzcXdvUFFyZHpFUXR3TG9mVFhPZjVQUW9mVU1RaE4tOXl5d2UtN1lHaVVaT0EzaVJMbTV1NzZ2MThXbHZ2alJjQVJxcENmNDJLalJlZ19VUHUzOXprbHZIanh5YjlIR1FaQlR6bzVCcXhlMFhmQkxvNFZQZnM0QXlueGlFemhGV25hRHY4b0Z1alBjOXhlMkk3WEJGTWRUWUEtMjB0cTRRalN6VGQyaGdQaWZqM1NUc0gwMFdPUldpTjRhRV9SUlludWswdjVtY0tnS0lzOUNJVlVyRE84M1VjeUFZcjVBbFVUckpqQW5XdmdaS0hlaGhxMjVQUV80S3lKSFVDUnhsaFhXMWVBME9Wc1NjelppQ3lXQVFnZllVQjRHUVBUSm1xcHNob3d0RHhBYlc4X3lrS1pvLWJHU2Ita2VlelJaNlpEbWFlRUNueDUyZEZ1S1RPY1Q1a1JRUFBINUZNZHA5UEtreUxlVzIwenp2WDEtS3dLOXRndk14V2hKUQ?oc=5",
       "source": "Kooora",
       "date": "2026-08-01T22:45:25+00:00"
+    },
+    {
+      "title": "بعد عرضه عليه.. لماذا رفض الهلال ضم نجم الأهلي السعودي؟",
+      "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE5pajRQM3AxU2Jab3BOSkhOSVJXLWNXVDRqak9aZk5qWExMa1FkeGxQZjVDSUdrc01yQW8yTlNZeDAxZUlUSkllVFlBRWJqT2xH?oc=5",
+      "source": "إرم نيوز",
+      "date": "2026-08-02T08:13:12+00:00"
     },
     {
       "title": "الأهلي السعودي يحسم صفقة هجومية",
@@ -23,7 +29,7 @@
     {
       "title": "نجم الهلال يقترب من الأهلي السعودي",
       "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTFBtb0xsbWM2dEpZMkpJUnRDTWZnTEU0QW1JNWJybEt6cUhIeS1MUEFmc1BkRE9TZGo4Sm5hQUJFVmZNSlRhVWNxWjZDTDNvSmJf?oc=5",
-      "source": "eremnews.com",
+      "source": "إرم نيوز",
       "date": "2026-07-31T21:05:52+00:00"
     },
     {
@@ -45,9 +51,15 @@
       "date": "2026-07-31T17:22:28+00:00"
     },
     {
+      "title": "الاتفاق يوافق على رحيل نجمه إلى الأهلي السعودي",
+      "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE1NVFpKeVVUbjVyZDhnQ1hhdFcyUHpDNHd3anZFVGhyOE1oSHo2QlQzTHhLRG5UejVEZzljNnBRRko2LU13RnhtUWxEdWlMYkM2?oc=5",
+      "source": "إرم نيوز",
+      "date": "2026-08-02T08:01:34+00:00"
+    },
+    {
       "title": "الأهلي السعودي يستهدف التعاقد مع نجم فرانكفورت الألماني",
       "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE5tYTg0VmZIVWRKNWlwaTl5RDdreURJWEI5TmFJRXRYVjhsb05TSTV3aXlMQ180MDVUdnVuY0ZhOUZCUGhYMWU4RXpRVXRFNmxJ?oc=5",
-      "source": "eremnews.com",
+      "source": "إرم نيوز",
       "date": "2026-07-31T12:29:53+00:00"
     },
     {
@@ -63,18 +75,6 @@
       "date": "2026-07-30T15:16:22+00:00"
     },
     {
-      "title": "مارسيلينو يقترب من الأهلي",
-      "link": "https://news.google.com/rss/articles/CBMiqgNBVV95cUxOSzQ3Si1pYnR4Z2ZVMS00ZjQ3VXNKbTV1bGEzc3dkVUhzLVczU0xwWXVKMXFZckROaDNrbXJKeWtfTUxXbDBvOFl1NEYtOFV5MnRiM2FVVTdEQUVZdlViaG1MbVlZV21oWEdYd05nbFNoUlVhbFY2Nmc0OEQwdG9fNmdQUW9hZ09seHZGb1VWd01JQVZCSTdfd0d6eEcyLVp2MHpLbEY0b1pWUXB5SWhqZ1RpdVdqLTZIVXRDeXRpb2JJUFZiQXBBYlF4OVltRGFPOENneUl5Q3dhR1FvXzlCUUZKb0otSUktRjFzYV9Lb0hrcEJNNFY3ZUFTbDJBaENKelhQaENIYkRfTHhBYTRWRjdoNXhqYnoxbHZJMFhIdUJOMm5CTF9uWFBMUEp3NnVFWXZJUDVYNHpNNjJDYnQxekg0TWlPOFhRc2ZlOUlya2djdWxwUzdCN0tidHBIc0duc1pDTC02OGtaNTdfOEd5cmpQMkE4RmN0RHJKNU5nSmdpZ1NZQ3pGNTN4ZUUzVEpMcEw2Z0NwRGxPMEJCSE90RzktWU4zM1h4Z1HSAVNBVV95cUxOUTRlN1Jwd29WR292VV9KSlllUXhNVjVUTnJ4MWl6OFRHNy1haHRBaWQ3aEdtQ01kT3V0c21lMXY2M2N2VUdpV2JpemI5eWM1bXZTTQ?oc=5",
-      "source": "alyaum",
-      "date": "2026-08-01T18:35:00+00:00"
-    },
-    {
-      "title": "\"والدته كانت تبكي بجواره\" .. رئيس الأهلي السابق: يايسله أراد البقاء وهذا ما دفعه للرحيل",
-      "link": "https://news.google.com/rss/articles/CBMivwRBVV95cUxNcHRDM2pEN3pTRjhpWVhBaHJKTzhlU2hDS0VmYWt6N0NNaVVpTko2MzdNa09WUjRBcnZZY1QzOFhNLVdBdy1zUVFMb2VVLTdQdW91dGQwRFBqM05KbDRxWmFYRWR5ZGZxYi1ucXU2dEdaVWpMTkg5WTZsRXpla3hiaXlQSUVzMldpYU1RR3I0cnhhUUhUVlpTdGJnNzY5cmpOOER6UTlDN081aVpPTmhuLXQ3UzVrU3RnRTBRQ3BOWldfOUloRUQ1YXV5c09hYmdXM2ZUTzVNOFBnMS1PNGd1alZUaUhRVU83THR4WDV0clJWZlRJRlBOYXBlR0xIOHREWlg1MXc0aW1rZEhSNW9ybG1ybVNyaEFqYzlWdGZJTFNHMldHaVB0V3VOSmROOHRiX3FicWNuV0RBeDNpQkU5ekZ3XzNtLUhILVl6VzVkVWNEa2lscU5wbVB4Sk9nVlFCLWdOVzJMY0IwRU5uZkZUazk0T0QwMXdiaHI3X3AwZGJ3a3lha1JNM0FIT01aQnRubmVVbnNLSmljSU9RWGhScEh3MDlXV2h5cjJxV0c4ZjZvTUhrZE9UUTc5UkRiS21Ba2ZTa1B1LUxBbEdQY21HTEdvT04xRzNrdldXQU9HZWlFWEhERHRNdmZITTZwTkNCVmJiRUlKOFJHOEFyM2hvR0R5S29nNlJKMUx2cXQzYkJXaWFLV1FURXdoWTF3SjV6MEpVU291Z2haMFU4c2stenlsQWdPb3NYMVpWekVVWQ?oc=5",
-      "source": "Goal.com",
-      "date": "2026-07-31T07:44:38+00:00"
-    },
-    {
       "title": "الأهلي السعودي يدخل سباق التعاقد مع باهويا جناح فرانكفورت",
       "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE9CS2dtVVVkV3daVXFMbW9COS1CdjdoTE5sX1oxNmJKbEdoYXJhQXpseGFIMFY2bElZRTdNUTg4MVhRLWZhWlRSQmZNbUdoRXFB?oc=5",
       "source": "alsaudi.news",
@@ -87,28 +87,10 @@
       "date": "2026-07-30T15:13:48+00:00"
     },
     {
-      "title": "أرنه سلوت يرفض تدريب الأهلي السعودي ويتمسك بالعودة إلى أوروبا",
-      "link": "https://news.google.com/rss/articles/CBMi_gNBVV95cUxNTWx5YU4tYllvTWZPUDFzZDdIZHVmWlcyMnhDczRNMXFqSllYTzczZ01paTB4MDdaTkNlNXA4OWM5dC1vdXlEOUZicVBPMTYtOFFsanVPbFRweU12N3J2UDJHS0hnSndKbXNhNUhmQUZKN2UtSVJEWXBEWkR2TTdXUFA0Y0tSTWVuTnlZaHJ5TnU5eTZDOTROM2daRk5sX0ROWi1rZG92bDZlWkM3M1VtM1FOZ1hRZW9mWTdHNDdIaGhfS1k0Tms0RWNac3g0c1ZRLXlWYlhtMElNR29fOUNGUXVKZkhMS2U2NlhmNS1RTDhtamFNQ1NTbGlJdnY5WUhoSXFFTndIZnowc0dSbEd0OUxtMXBUMkNLVjJnRkdYVUM1aHdGQlNhWUFEVk9OMkJCd1FnaGJtdnV0N2NHTFNZZnlid0xkR0s4YnQzQnhZR0RaRDhRaFJGRkFoSWxDT01zOE9IUEZVSWxrNGVTSGlTcmczVGJ2anUzdi1PNXlMN016TzBrUmRRRDdqckwzWTVRVDlXNVRIVXdnRVRGM2hjVDZEb0tDSlpwUzVQUUZFYjVrWlFndkFfWERTR0M3VXByUURFNW94a0stTFZkNTlkVEJab2VaX3VTYnVnazY1S0oxWjRPckVua01JXzJ1Q2U0eXVURGtXWm1qNDdwVHc?oc=5",
-      "source": "صحيفة الحدث",
-      "date": "2026-07-31T13:22:17+00:00"
-    },
-    {
-      "title": "المدرب الأقرب لقيادة الأهلي السعودي خلفًا لماتياس يايسله",
-      "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE5hUWdObzlpZnBIS2IwbC1UcV9XME5PTERYa3A2RThhTTFOZkZYaDlib2ZoYTV1THpyN3Vqb05wUzFncktzRUxmcGhBclZUVTBm?oc=5",
-      "source": "eremnews.com",
-      "date": "2026-08-01T10:16:28+00:00"
-    },
-    {
       "title": "يايسله يدفع 11 مليوناً تعويضاً.. الإسباني مارسيلينو يقود الأهلي",
       "link": "https://news.google.com/rss/articles/CBMizwJBVV95cUxPT2N2VnlxSGFSNWhwd19XZDV6aUltSlM4RHp2SjdrTlM0YkwzT0ZoOW9OdEFOaGV2VXBjdjNFWHItLTFaMkpoU2VLeVppSFhYZnMwZzZqb1pGZGtQNG1SR0xTSjhqVTRGVDBlclowRm5LdDNQY1prRTN3a00wTXhnTjU5RnBMMGRpOUZQaF9NWHJva09IazJvZU5udk1Rb1ZRQ01ZTW5vaEk3VHhhVEhTdzJkNzVLOXNkS0M2eHdWaUlycEU0M09IRE1LLUxJeDJrelY0azVDYllzSHVia193RFhYdkJGUXlHdHJmRkMyRTVza1FkM29uWlU3SUVWY2Vjd1VNMTM3RVF3NV9vOGJjT3F2TE44cVgydjktMUFKMjduQ2NXOEM4bjdiblVhS25DcVhVbUI1cnVaVWI3VXdjLV8xQVR1TEFkUDQtOUQ4OA?oc=5",
-      "source": "albiladdaily.com",
+      "source": "جريدة البلاد السعودية",
       "date": "2026-08-01T23:24:40+00:00"
-    },
-    {
-      "title": "جارسيا على أعتاب تدريب الأهلي السعودي",
-      "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNNV9JT3pJUmowVTc4Nm04V1BmNmZWR2taY25SbEtRSjV4X0libGYxMWFPamJaRWRQTGZhRmFaRk1PaGFkRk9wRVRpOTdBdDh6MHBhXzh4LTh0WnptQzRtLTdTTUFoN0toU2RReG0xWUt0R2ZiZGVLTWFOZ190OUhaWUFDOTZsRUp2bFZzY21YSDBBYUZHNkJ5ZWFKOGJoenBra1VZcmdFNA?oc=5",
-      "source": "بوابة الشروق",
-      "date": "2026-08-01T11:50:09+00:00"
     },
     {
       "title": "برعاية مارسيلينو.. سجال صحفي أوروبي على شرف الأهلي السعودي",
@@ -121,6 +103,24 @@
       "link": "https://news.google.com/rss/articles/CBMi-gNBVV95cUxOVV9rQklNd3F2T0Q4Zktwdk4xY2lXT3dKak5helFGbC1lSVFZaHc2WWNhMEVRR3NsLUFsUVdZa19xdEZUcHljRDAtWVpVTFV0RjQzVnZfbF9SX0I0MkNmV3d5QV9ablVsVUl2SnJYRTBBazVvbnY3dUpQTmZWamVzVHRQTXBxYWVnSlUtUi1CYzd6MWJjQVpIOVNJNUd0d3ozY0gwN2dYN3dqb0EtVlluVnh6TmpIYWZQN19Ic3NvUlpxWkQwcVNnaFd6YTB0blhiUEFlMnhPY29JZnZBRjZ2Z01BWmR3a043by1pSGpCeGNkUEZfYlNpZ2s3dnVzOG52VjR4Q0lBY01ZcmVNWm9ZMmZNajkzWEZ1MER3cHo4QWg3OGpRZWphT0k0NHQ3T3B5LU16QkNteFl1ZmRmODRXZ3Znakc3SXN5b2x4d2ZIOHNKY1UzblJuS09nTjNyNFRQVTZsaFkzb3duYU9jWjBmVnQwUU0wQTRlQ2tJTEwtc3JqNW1EUHR0NXRwNHJicEhDcWxBQzhSN09WdUNGUlJ2S19RYzBsWDhEUXU0QkNxWDcyVDltcTVRYUozelVkWXhYclBMYzFrSEtTM3U4T3lPUU9zbEw0X19NTkQwMTVVd0lTWHl1Z3NzZzhxT0MzN2lsMlA4UEp6c2piUQ?oc=5",
       "source": "الاقتصادية",
       "date": "2026-07-28T13:53:26+00:00"
+    },
+    {
+      "title": "لا رئيس لا مدرب لا قادة.. هل انتهى موسم الأهلي السعودي قبل أن يبدأ؟",
+      "link": "https://news.google.com/rss/articles/CBMijAVBVV95cUxQUU9qZlRxVE1HN2lTQU9FQlFYN3pvaDNuWmNSOGFNLVpXdTFSNUc1ZDNzZEEtLWhKUWk4c2E2NVFoSGZFcDBGNzhXTTlxUUR1bTFjai1iYmpxRFJ4ekV2c3dDVXptUUJPU3ktQlRsUDBoR2xDaUwxUG9qcVdvMFR6YWZBN01MUUM4Y0VqcFg1SFlacktSS0xKQTlURS0tbTNwbFBZWTNZMkNmYkQ2MTk2MmpzdHpwT1NWb2FDVGFISGlNV2hnMDhvU1dVQ2M1LUk0cHl5bVVXOVpRam9LbC01OVBhcFZxZ0NvNUU4cUVqVjFMNWNFdExRTUlsbDJfcmFFN3JxRkRHcjFidGd2ZWpPWkJYeUNTeHVkdS1pbkRNaWRLMVFDYjRobDhBdjhhekhReTFndHdTbEdCWXl4R0ZtSWlZSmMxbDlDUUFJblFnX1A4TDBEUHFDWjgyblBhN1hmMzI3YWxWRm81OGdXeDhHWTJHVnRleE43ck5yazBjTWwxY3piZElnZ0lTYVJidFNyUzZsOE4wUURUczAxRVpJOUpGbDZjX3IwdV9wR3ZzT3BTbWZlc09FQXR2cFU4ME0yZVVxb3NINGsxOTZUdG92M0lFNGtKM3dZMUFIQUlCNHFaVlJXVlRNbVF3ZF9yc2ZvMVFfMGpKZkI1SDdkY0w2bXVpV3YxRTJqWkJkbzdMLW15dnNGb25oZDNLanpxTXRuSHJoYjVVcG5tUTEzUDc2ZDQ0MXc0cXBMYUx6NEk3ME5hcTAxOF9RVmFtX2g2aXNVc01ETHNjNVEzWGlaWEVNZXB5Vk0xVzRsYzhvaHFiSm5WLW9EYWFvVmIwcEVzUEs2dUc4emNpczFXLVpB?oc=5",
+      "source": "Kooora",
+      "date": "2026-07-31T08:23:12+00:00"
+    },
+    {
+      "title": "المدرب الأقرب لقيادة الأهلي السعودي خلفًا لماتياس يايسله",
+      "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE5hUWdObzlpZnBIS2IwbC1UcV9XME5PTERYa3A2RThhTTFOZkZYaDlib2ZoYTV1THpyN3Vqb05wUzFncktzRUxmcGhBclZUVTBm?oc=5",
+      "source": "إرم نيوز",
+      "date": "2026-08-01T10:16:28+00:00"
+    },
+    {
+      "title": "سلوت مرشح لتدريب الأهلي السعودي",
+      "link": "https://news.google.com/rss/articles/CBMiwgJBVV95cUxPdHRMS0NHQzNmUWV4WGhzNHRmdllJaUhPSjVrdFJ2bnBwMVVrc0oyelluZTdGQ2pMZVB0TlFlRXUzcXAydkxnNGRjWGNVQ05yaUZ6cnV5aUJUMHFGbUYxN2hGMjVYRkFwb21TcGVTb1VtZExOOTQ0VWpQSUwyOXJzT1RRdWZVYVN0QlpsU3RibzZQOTV1Zkk0MDNuaGJ2emNUTlNOZUZiWXFsU1RnTmpmaEVEWFdnYXI2QS1PTVJYNlFrLXVBbjA0RXhtdUNnUlRhYjFlVV9kT1RGaTg4VjZNSVktRC1EZ0JoZFN0WkNHVHNaSlRBZmZNa2N0blJDM0haYlNjZGZhdDk1ZG9IWmRxZmRtMXZDd3c3UUhWeS1TYkFNSHZrenpaV2hnTW1ucUh0S2NoanlIRGN2bkwxM3dpNlpB0gHHAkFVX3lxTE85VUVTeHNrSXBramYzQVdlVVBXaDVTYk15NGV0dC1xb0hCUC1jVnpZakk5R0FIZ2lKdEVFeDFIUjBwdTRSaldSUnF0SzZOQ3c3M19CQTJCc3BxR0l3ZE81QVdqcjdqcUs3VEdaNWxqbzl0elBvRWlzdnRYb09QVV9KMW5DZjFKZXk1ZW1ib2lUWldUa2lZUmZ0VXdMR3hScExtbnRsUUJjVlRYYVVkd3NRck5HQ285cl82VkJpc2Ryd3pHNm00T1ZPSWp2emNPazFtNmprZVdfWFZLMUJzNUVsS1htZDdDSlFGWUNoLV9SeVBQYVA5Ynlyc1dpNFptWE9pLWd2ZEd4bk5uRURtZzZueldjSy1ZRkpHZGFPRGZrbjlELTdsY0xack5JRGZ2UkthQjIzdUc4ekptSE5sS3RmVEI5aVZ5cw?oc=5",
+      "source": "يلاكورة",
+      "date": "2026-07-30T12:13:00+00:00"
     }
   ]
 }
