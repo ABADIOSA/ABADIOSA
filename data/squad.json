@@ -428,7 +428,7 @@
       "nationality": "England",
       "nationalityAr": "إنجلترا",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/eng.png",
-      "photo": ""
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Ivan_Toney_England_v_Ghana_23_June_2026-051.jpg/330px-Ivan_Toney_England_v_Ghana_23_June_2026-051.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
     },
     {
       "id": "259732",
@@ -558,7 +558,7 @@
       "nationality": "Saudi Arabia",
       "nationalityAr": "السعودية",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Slogan_of_the_Houthi_Movement.svg/330px-Slogan_of_the_Houthi_Movement.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+      "photo": ""
     },
     {
       "id": "418705",
@@ -571,7 +571,7 @@
       "nationality": "Chad",
       "nationalityAr": "تشاد",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/cha.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/en/thumb/4/45/Al_Ahli_Saudi_FC_logo.svg/330px-Al_Ahli_Saudi_FC_logo.svg.png"
+      "photo": ""
     },
     {
       "name": "Mishal Al-Mutairi",
@@ -594,5 +594,5 @@
       "photo": ""
     }
   ],
-  "updatedAt": "2026-08-05T11:19:02.815239+00:00"
+  "updatedAt": "2026-08-05T14:00:03.303410+00:00"
 }
