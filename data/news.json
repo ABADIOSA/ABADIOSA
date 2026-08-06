@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-06T02:07:35.316298+00:00",
+  "updatedAt": "2026-08-06T05:43:52.870869+00:00",
   "source": "google-news-rss",
   "items": [
     {
@@ -7,6 +7,18 @@
       "link": "https://news.google.com/rss/articles/CBMiigJBVV95cUxNVUtXYkRqRGgxV1c2NjQ1Z2hOQVJKd0MtaW1BZHRONFVpaFh4Qi1ZMjZUdTlSZlNlZWhjX0FFVkplaHhPaFpXMW9LRlU0N3pKbmxUakxWazh4S3QyNk1nb09MdjlpSFp1dW9lM2hrLUUtQ2ZNcGszbHJ1WWN0U2xZVS1yV1dDSjFCYVlfUk1ISW1LS3FvNG5QYTd4Tm0xZ3hPcUZscFpvZVJvcHFfVEpnQUZaLUlTbEQtU0oxYmV6M1AzNnFZUlczVTBOMXpJeUZQdXcybkpQc1NsRE5xNzNYUEZSaVhENmkxY1N5SkxvRHpCOEtwVG5OZFhraXBSWkRibXpEZkdXVWxKQQ?oc=5",
       "source": "صحيفة الرياضية",
       "date": "2026-08-04T16:15:14+00:00"
+    },
+    {
+      "title": "قبل انطلاق منافسات الدوري السعودي.. الأهلي يسقط وديا أمام الاتفاق (فيديو)",
+      "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTFA0VG8xWlA1Q0JFTGNQRF9pM0FhRkhGSE1CN2lXeU50RmVGeUVQbHBnMVRSNndkM3V6ZDgxS0FTSHBiRXJ3cFVqTW84RDJUSUN4?oc=5",
+      "source": "إرم نيوز",
+      "date": "2026-08-05T20:34:15+00:00"
+    },
+    {
+      "title": "تحضيرات الدوري السعودي: بالثلاثة… الاتفاق يكسب الأهلي",
+      "link": "https://news.google.com/rss/articles/CBMi0ARBVV95cUxPNUVMRTk3ODZ5MzA3Z2UzQXRZVnJ1Y0Q2QTZUWkt5Q2NNemt5Z1BpZGs3VkVFM3E2VURhSGEzcmNLbmROb1NETmNnMXE3NU1WRzN4QkpORVZZTDVINExRUHYzWEplQmgzZkU4a0xQaUZQQ1dPb0wyZWVHaDhwcE5idXdhZDVzVXFJY3kzMGNfNjNoYktac29paHVuRGZodWRRMFhoTlRZMGlEOHFLeXpZWWprZktYdVR0aUZSZ1JXTjhIUFdETU0ya3VoRlFaNUtSSjhZNVFiR0xWRTNEMkhzam1lMkNyYkhLQkg0c3VqZXVhNTBjR2JXM3o1dVZ6aVhBcXFXY0I1S1pSQkdwVE40VE9FbTdXZnhEcWd1YzNGZnhWSUJ6U3JiNGN2aFl0VWVvcGJVdXAwUlF6eVRiVjFxcEwtbktEdkt4eWljRWQxTXloMDdkaklsa0RXNG5HRjNMTEMyQ2ZSZnZZSnFNb19PM1plb3lablh3VzRZSUZCWFJGLUwtS2c5bk05a3lmWFRycV9fVGE2SC1FR09Ib2x3bUpMMXRjUlZKMDZrT0JfUXAwN2UtQWRzdk9YTFd3VG12RWpIbDM1eWpTcWVkWUp2SmtLWWZHaGVSRnRBXzhJNW1xRzJ5dVlZQVV5akRjV0NHaUpUUG1FQTRVNGNsNG1KbXFkaGlrbkV6elBBbjczSk5fWGt2TEw2Tmh4WC1US0N2S3JzTzBvSWhGd2gtZHVXWTZ4VmZ6WTNJaFl2MVUwQmFpMzFhU2wtNDJwQzdQQlU0?oc=5",
+      "source": "aawsat.com",
+      "date": "2026-08-05T18:51:40+00:00"
     },
     {
       "title": "ضربة كبيرة.. إيبانيز يصدم الأهلي السعودي",
@@ -27,15 +39,9 @@
       "date": "2026-08-04T18:14:00+00:00"
     },
     {
-      "title": "تحضيرات الدوري السعودي: بالثلاثة… الاتفاق يكسب الأهلي",
-      "link": "https://news.google.com/rss/articles/CBMi0ARBVV95cUxPNUVMRTk3ODZ5MzA3Z2UzQXRZVnJ1Y0Q2QTZUWkt5Q2NNemt5Z1BpZGs3VkVFM3E2VURhSGEzcmNLbmROb1NETmNnMXE3NU1WRzN4QkpORVZZTDVINExRUHYzWEplQmgzZkU4a0xQaUZQQ1dPb0wyZWVHaDhwcE5idXdhZDVzVXFJY3kzMGNfNjNoYktac29paHVuRGZodWRRMFhoTlRZMGlEOHFLeXpZWWprZktYdVR0aUZSZ1JXTjhIUFdETU0ya3VoRlFaNUtSSjhZNVFiR0xWRTNEMkhzam1lMkNyYkhLQkg0c3VqZXVhNTBjR2JXM3o1dVZ6aVhBcXFXY0I1S1pSQkdwVE40VE9FbTdXZnhEcWd1YzNGZnhWSUJ6U3JiNGN2aFl0VWVvcGJVdXAwUlF6eVRiVjFxcEwtbktEdkt4eWljRWQxTXloMDdkaklsa0RXNG5HRjNMTEMyQ2ZSZnZZSnFNb19PM1plb3lablh3VzRZSUZCWFJGLUwtS2c5bk05a3lmWFRycV9fVGE2SC1FR09Ib2x3bUpMMXRjUlZKMDZrT0JfUXAwN2UtQWRzdk9YTFd3VG12RWpIbDM1eWpTcWVkWUp2SmtLWWZHaGVSRnRBXzhJNW1xRzJ5dVlZQVV5akRjV0NHaUpUUG1FQTRVNGNsNG1KbXFkaGlrbkV6elBBbjczSk5fWGt2TEw2Tmh4WC1US0N2S3JzTzBvSWhGd2gtZHVXWTZ4VmZ6WTNJaFl2MVUwQmFpMzFhU2wtNDJwQzdQQlU0?oc=5",
-      "source": "الشرق الأوسط",
-      "date": "2026-08-05T18:51:40+00:00"
-    },
-    {
       "title": "مشاهدة مباراة الهلال السعودي والأهلي القطري الودية.. الموعد والقنوات الناقلة",
       "link": "https://news.google.com/rss/articles/CBMi3AVBVV95cUxQREY5aHJBMXB3VjduWlhfQnN3VjZhYk1oemxsQkZCQ0tDbG1tSC11TDlpTUVqVWhRbURTOGtjbmZRRkY3c24xdnVhUEdqXy1jcjQwU1ppTU5JRTZHQnFMV2gxN2FNSFFBZUl4MnRVUXNjQ2F3MEVIZnJoV0dnbWNNdHJUSDliUUlVeTkzTnZIN05UdFd6MUJiS2g0bk9ybVM1MDJWRDg0bFpnQlFnb0hBcE9VazFJQU1jb1FXVlF5eDhJd0VWWHBMcDR5d3prcmNtenNJaHBLNU5reEFsODB3MG5Ka2daMWRETDZyTkVERy1sUWhUczdFQ3JQYUUtZV9pNFdkTXNCSnoxekFqenFKU20yaUtmZnFVRWRBRHZITlZvNF9YQnpMQ1RKdkVxWG5kem81dFNjNDdyS3Y5T2k5eDEwd1lLVzc3X29pYXUzX2VnamdSeFJ4WFI3Zi1HS1ptUGV3b0UxZW1lWTgyVnoyQWU3RU5MTk02MjF4VXJBODZMLWxoOThJNWg0VTQxaG1nWWdZWUNEOEFOWGtETlRfaEFYU2dXTzZwb0JjNTBHYVZQMTNEUDd6aVUzRTlSYUo4YVI2Zjg4VDM0OVJERjFlT1I3aGJEbTRsOUViUTRaMGNHd0FwcEVmd1dCV3kyeHRHX3hWbEZBRDdQVmg5TElRb0JtSzhlZzF6X2Z2YWpHS0RETWtGaFJteEdWRzNjeFlNX185eVd3ZHY1TlVJdzEtaS1vRVp1VFdBTUF5RWNOU3l0WkJCTW9IY21jTkJJQlAtR0o5MlZOSW1GU2h2Wk9LTUNVSDY5M3VxZlcxMHRXM2dOMkIzamFEVXR6SG5ZbE1TQlFkendla3A4TXVQTzRTUGRFN0lXV1drWkJXLUlBMFZzS3JkS1FxSUxGclg3TUVOSlo2WWU4R05EQ1IxTHJ1Y29XNlI5T1FZYWMxRVE2T1oyZW9hN2VJV05RaE4?oc=5",
-      "source": "صحيفة الخليج",
+      "source": "alkhaleej.ae",
       "date": "2026-08-03T12:48:34+00:00"
     },
     {
@@ -63,9 +69,15 @@
       "date": "2026-08-03T13:32:01+00:00"
     },
     {
+      "title": "26 أغسطس… الأهلي يدشن طريقه نحو نهائي كأس القارات",
+      "link": "https://news.google.com/rss/articles/CBMingRBVV95cUxPcTZQZXd2dDFrSDhxbzlpNUNWbElmbm04RWJOOWZVZ29PbWpnd1hENDl4RmpGeEhvZ2FtUDZjcmNEbWxYU2dkNGpKMVgzWk5aNnRJMUlZSUY2NFJzZnpZR1dyc1VlLUJrYjQ1Rk5SdHd4VWcybXRqSks2UG8wZ0xndml6S3c2Skc1YkhKVkpjSGRyRmJUTmhrb0FVNFAwNVR1Q05sSkdRY2owVWVkOXR2WngzbVJUd3F0cElMaEZSZHl2Umlza213T00tLWdmS2xyNVJ3OEwtZFJpVVU5LWpyeFRJUW1GZE9DZUR5TkVZRzR5V3o1M3FHU1FMeUFuY0c3RFJuNXZxdlZhUXM4QUhYN2hYM1BGb2doR0xfQXBpR19HZlJMdjVUaXVQdVN1c3JWN0FTQ1hmOW5NTFVLYmFKdFQ2YTJrSy1fNEZZYlc0bnd1SEJhZ0czNWNiLW9LR0lVNkwzQ1Q5NnRsRDFKTlYzSFlBa0xpTHJNUlgwd01WanA2N0xtRkR1OUt4Ui0tdkw2WjZkZDFXVHJubFJxTzZRUmxVX3dFRzFiQjcxUWNpcWEtSGo5VTNNSmdndnhqUUs5RHEtU3AtWlVRdFVTQ0t5NHBPaWNOdEliazE2andIVnF3RnVRVnhHUThEZmF3d2xidkJEMzY2cGRJdVlpZ2QtSks2VnJPSFFEcW44QzBZUXBtVTEwTk50M1ZmWG15Zw?oc=5",
+      "source": "aawsat.com",
+      "date": "2026-08-04T12:27:46+00:00"
+    },
+    {
       "title": "رسميا.. يايسله يستقيل من تدريب الأهلي السعودي ويتولى قيادة نيوكاسل الإنجليزي",
       "link": "https://news.google.com/rss/articles/CBMirAJBVV95cUxNaDlvNVkyWTEwTjl4UG5PS0d5Q0UwUS1PNFJVYnd3bE9xN2tlOThwckxPbFM0Q3ZSaEJNcFRGYjNYOFdMZ0lhUXN5dU41Qmo1Tnh6aC1meXdfcmNJdFUtZlpzZkU4MUE5bWp0TGtuQ1E3OXlFUWk3cHdLbmlJQlZmY2kwY0xRWFJNdXJHQkIxOHZPQWpRODJvd0xPTHllX0JYR1Y3RXVTVGtuYll2cEphdENqWVZ5WTg0Y0ttN2tVVk0wTnJzY3NQN0dGQ05Db2ZMbHpTSEVtZkVuSk5IWWQ1SFFKRW1PR0NrQ0VfNUF0SUZLU0VSOVBSUi1sck4zVEloeG1MVm4ydUdxQ2xJSjM4NXNLUzQ0aC1NcVkxNlVnLXoxTVNYT0lKYjRTWFXSAawCQVVfeXFMTWg5bzVZMlkxME45eFBuT0tHeUNFMFEtTzRSVWJ3d2xPcTdrZTk4cHJMT2xTNEN2UmhCTXBURmIzWDhXTGdJYVFzeXVONUJqNU54emgtZnl3X3JjSXRVLWZac2ZFODFBOW1qdExrbkNRNzl5RVFpN3B3S25pSUJWZmNpMGNMUVhSTXVyR0JCMTh2T0FqUTgyb3dMT0x5ZV9CWEdWN0V1U1RrbmJZdnBKYXRDallWeVk4NGNLbTdrVVZNME5yc2NzUDdHRkNOQ29mTGx6U0hFbWZFbkpOSFlkNUhRSkVtT0dDa0NFXzVBdElGS1NFUjlQUlItbHJOM1RJaHhtTFZuMnVHcUNsSUozODVzS1M0NGgtTXFZMTZVZy16MU1TWE9JSmI0U1hV?oc=5",
-      "source": "aljazeera.net",
+      "source": "الجزيرة نت",
       "date": "2026-08-05T19:37:54+00:00"
     },
     {
@@ -75,15 +87,15 @@
       "date": "2026-08-06T00:41:06+00:00"
     },
     {
-      "title": "انتقال يايسله إلى نيوكاسل ينهي مسيرته مع الأهلي السعودي - middle-east-online.com",
-      "link": "https://news.google.com/rss/articles/CBMizgNBVV95cUxQcmxYcVRTNmRjZ0lJNDJkaFNwQTIxZ3NENkV6NFo5QmYzMF9hNnpGeVl1S2J0dFFrdDhyTnF5ci1UMmtFeW8ySkFsREd4Y0oyd25lVHBJY2hpWHJFbU9lQnpiZUh5T0dKLW5PQy1xd1ZpQXJfWHdkandOaEZRZEcwZnNZNFFXOEdDS0phbDktV0VIUUhWazVQUFRQSk9JTVhhdlZlN2JQWlZramFXZGcwZGpfWmNMdjYxTTcyZTFwZHZfbHRyOTB1NGpQc3ZNMk5EMXlHMUxQdXFwTFlLY2FEM1dzOFlQQ3FzMWtkaE5TdlgxeURraUg4RTcxRUoxN1F4THVZVlJXYzdYZnU4bkFxYVhLeFZSa0llRENyVnd2ZUxrTXd2RzRKcWxwNm5QSW41V1hkVk1BUHFLNFN3U0RoVkJtM1dqa0dMdXNpa3l1NkVZSnhsRGhwcUJvcGI1azhHR1ZtcFBTV1U4Z0d2OHhlclpOMms1bmVXR3RJZVBWaTl4a01vMElIMEM5d1VZS1lSUEh0RzNnVWxTMGhGV3BYVE1ZRk1Zc1FXYW4wQ3dDTm1fUEtISE1vNjJDTkZiSVpPVG8wc2ZWU0Zka0doaHc?oc=5",
-      "source": "middle-east-online.com",
-      "date": "2026-08-05T21:13:48+00:00"
+      "title": "من هو مارينو بوسيتش مدرب الأهلي السعودي الجديد؟",
+      "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTFB4TmJZTklzVXltZFdyQjVfTmlpaVpURzZybXJudkptS0RsNzVCV3RnQXpfM08zcDVOZi12c1FDeENZX2VQclM2d0tJUjYtVmlZ?oc=5",
+      "source": "إرم نيوز",
+      "date": "2026-08-06T04:43:59+00:00"
     },
     {
       "title": "الأهلي السعودي يقبل استقالة مدربه يايسله من أجل قيادة نيوكاسل",
       "link": "https://news.google.com/rss/articles/CBMi8gJBVV95cUxPNG5RckJadVU4TG5DUG9JWGlIWVJVYngycVE0SnZndUdqaV8xdlBEN1h6SWxnZG5oMjU2c0kxZkZmNFkzcTdHTEs2OTZGTVY1UWwxTE9vd2NoNEM4MFhHd0E4QnVZLXRWZnppZVpKc2N3X2pSRENWd3ZRaDhaRXRScGEyT1BDN3p1RGJvd3hVdUI2UGJ4U0ZtdUczOFh4dTRBai1DRXVuamQ4VFFDeFdaQ1ZWQTU0VmVwdjFrcm1PZWg3UlMxRlJGRU9sTlh0bjMzTGN1aVMyamtuR2E4UGpXeFVWMWRYeFV0WTg0WXhjZEdEWkpoMGdHdXcwQTBLeDV3MEtRYlJpUlNMYjQ0a2hUaXVYZk5SN21telh4YWhwOWE0YzBGcThrcXlOSTdYOHpFZzFpeFN5R1VjUldTTWZHTGw2emgwV1BuNTdBU2lzUndPVTdjclJpWG04bGlYNndfVGZ5M3YyaTc4ZmV1NGExZVZB?oc=5",
-      "source": "sawtbeirut.com",
+      "source": "صوت بيروت إنترناشونال",
       "date": "2026-08-05T18:45:32+00:00"
     },
     {
@@ -93,34 +105,22 @@
       "date": "2026-08-05T18:25:08+00:00"
     },
     {
+      "title": "انتقال يايسله إلى نيوكاسل ينهي مسيرته مع الأهلي السعودي - middle-east-online.com",
+      "link": "https://news.google.com/rss/articles/CBMiyANBVV95cUxPMTVGa0pwNnVlSHZqdVhOY0JTeVhUa1o2QXZvWWlvRURzVi1pZEYzaW5NSzV2VGdWb3o0YjZKYmY5eTREYTQ5NVJKZVBCRGRveGNPMlBTcFhlb1BXcHlPcjVZY082NHlUeDFNNGlRTEdEeVR2U2V0cUl6UkVSckZXdEtxZ2JObVZ3eDJKOWplb19tV1o1cGhIbFNsamNyU1p3VTFNV3IzWHgwcGxiWkkyUVp2ZUhSekQtMGkycUxScXdleXp1dkgzRHlZSUdRZnBwbHh2QVplWFM2bFVlTGlBSjhjTklJZDhoWU4wSUtCWUxIWVh2ZTJuNFBtY25nN3AtVTROdTVMQV83TkpNNUZmWDh5Y2VGVVJ1WFZ3SEJWaU9ha1NSREdSYmt5WS0zQWZfRDYxUTg5T1V5QjhwZzk4THR5VlJuWHlOTkdNR1czQUpsSjZ2UFFjZTBEbGxjMjY5anQwV2tyTlJKeU0yT2ZIMzE5VExwQ2pTZ09NcUZmQ21pU1ZQb2E4YnlnOXpaVV9US3M1Qno3Rnp4REF3TGVYaU51bktEdHNqQU0zREFVTG5ieUkwWGNDQ3dMSlg1MGc0NWtsNE1Ic0k?oc=5",
+      "source": "middle-east-online.com",
+      "date": "2026-08-05T21:13:48+00:00"
+    },
+    {
       "title": "الأهلي السعودي يلاحق \"بطل البريميرليج\" .. ويتصدى لمحاولات خطف روجر إيبانيز!",
       "link": "https://news.google.com/rss/articles/CBMiiARBVV95cUxNaGZyZ29EUUVPZnI1bHlZT3hsQ1kxSHdNVWJMRjZyaDBNU1VHVFlXUXd4NGRwal9pVnJMMlBfQWFwQThEZTZ2aFNQMzlRVFZPQjVhUUFzUXA4dFdqYkZkeDBYeE56RHJZOHJjdlQ1Z1F5YnZ4a2JuZUpzY1kxYmFtRXVWLUUweHltNkU2NTVlMjB2d3NObC01ckRIdW81cVRCcWdGaWpBT2xCMFlDT3lQZWFKeDBqWGNrNlNQM3d5WEtIeDRsemI4QzByZTRPZTdRN2xoQ3JPV0xoZzd6ZXFoSUJ1bnVLS0UzR1JjSGFHMVN3UjlmdVF1OGZzdTI0U0RENW02Rm9wMVRVR1RueUYzZFM4ekJzcDhiVXJrNUhGeldDa3AwOXNfOTBoc2drXzRQRkxOcEhkZldMY0U5RDVKREZvRFBUekc0SVZYQS1jRFBnZjVQSjFodU91VUlNbFRUNWhXeUFwWEtvU1ZXSkE4R2JVVEpHM0xjbllGVkpaamhpMFhRV3F0NENObjZLTzlPZ2ZIazBzOXcwS0NueDRPdFpyczdEeG9xUVBNV0U5N3RVdU5nWm5aSDVQdDB6aEFta0J5QlhGeUp4Z3VnMFdadjZ5czZVaS1xeTZlTmhsejdnaXJKbUxoTF9fVWd2bzU4TGtKV1o2NTNhZTViMFBYNU4wTVd1OE8w?oc=5",
       "source": "Goal.com",
       "date": "2026-08-05T13:56:16+00:00"
     },
     {
-      "title": "ماتياس يايسله يودع جماهير الأهلي السعودي برسالة مؤثرة",
-      "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxPOVB1VDczeGFLYlNMQ0dKZzhvSXI2blE0cUNiNWVjWG4waWpIQ1lJVFlGeVJKWnpjLTF4TlFzSVhESlltcUJUNDBLbXhkTHJiOGlwdjN6SWIxTjVOb29aenB1SWV1Y3VmRWR5TE9vMHk2M1paQUFJb0pMbjV4b3gyWW9kcVZiTEV2enhDUUFxYW9KLXgyN29rVVl5U0p0QmFwVEJrRmc0UQ?oc=5",
-      "source": "بوابة الشروق",
-      "date": "2026-08-05T20:54:39+00:00"
-    },
-    {
-      "title": "المدرب الألماني يايسله يغادر الأهلي السعودي ويتعاقد مع نيوكاسل يونايتد",
-      "link": "https://news.google.com/rss/articles/CBMitwdBVV95cUxPcDlqc283U1h0TXJaRkZpOTZaRzlQOVVUdkE2Y3Bya3BFVDVOaGJ3b182MFlEYkNoSDFaYndzWm9xd2dqbXNfdXM4QVVwXzJ6dlhwSTVONXhGMERUaFZSTVdTeC01eldUUVY2YW1aX2NGR3Fhb0hyYTlzWXhRVUI0VDItMEZKNE1tejZmZ3RWWnZlS1VqWXVLS0lXTVZfd1BGN2RjRzNuRFZybUg3amh1aXNUSGNNMlRWWnlqVGg1eEVfOGJmMk4yMUVWR2JTSTIwenc3c3hTajhkaFczNHgwY2N5MTZudUNTRHg5Qk9Mb0pPeGZFVHJDMDRkWEFWaUxRa2NVRHh1TW5DU0pOQ19DRmc0cm9JTHN1dFRvaHZmUmVrNGFQeThGUGV2LVFBTWJTN3EzSTRjU0hDQjk1a1hhaHM3V3NvczZrNDNmVURWNHJ4X2MteTJESHU1LXZOQkNyc01RY0VFSVBaMDV3bjdBdGNYWXdoTXJSNTJpR1BGNUJYSmZXVk1LUUx2WmxyNGdlTlpVcmdLb3VydXJYMktKUTR3dTJrRDFEVnQ1dTZQTzBVczlFNXJnZ2FoaVlJVzRySEE2V052Zm5zVGdpRDJFeWZ6Qkw5bUR1c0dPZ0xYV2FSQ0RRS0xNQzVoVXZMZXRxZ0FzczRVQVkxSWhOS25PT3pzWXZmanZwRVItUGJKX1BpdXpaZzFMYUdLMG4wWjZMVnRzYU9WTDVpTXM2dHdKanM2eXdnaFpfbUFQbmQyazZFUlpOVzFMdm13YkJBT1VndU1qZExtRklEUXRTVW56NFpNV3NsdlhLdlNlQ01zRkxqMV9JanZGMERkSE01UkJ1TkVzWmlmWkZuc3FnVFFjV2stY19pU1NQdHhtLVFLNEZYaUszSm5Yc1JLeTJsSVpDRm9YZm1lYWx2cTRISTRMUExCcURGZ0RpS3dBT2lPT3UzUHhCODFhMElCX3pNaG03dzRGTWlzejVPV3NOVlpPOHBHOVRGRmRpNVUzU3loNFhjaDVRaGZhTGgwSTBPUDRGdVpQdmZyaU5Ta3ZvN24xekFMaGFhdURIVUN3a1pQZmkySFA1aXZxSzc5QlliRlpZbF9fUFZpaFl3ckxMOUY4WUJIQm5xdG84ak1tNFVXaC1YbzdXSV9rUnMyLTljX09VOTVtRG81Wk9rMUNtanRUa2RKRGNZd0FmTndabVdyRjQ2S1pGc1VrNVdEV2VpVGNEYlR1VUQwWGFaWWZPVHQ0X3hjQ1FCT00?oc=5",
-      "source": "beIN SPORTS",
-      "date": "2026-08-05T18:28:00+00:00"
-    },
-    {
-      "title": "الأهلي السعودي يعلن رحيل مدربه يايلسه",
-      "link": "https://news.google.com/rss/articles/CBMiR0FVX3lxTE9GUnhJdWtFUTBzOGR2eVlhU2lGLWdLb3dMZDk3VVZDLW5IbjVsRVRRT3lUaFdHSVRVZnpITV9RZUJjb2lOTjNR?oc=5",
-      "source": "صدى البلد",
-      "date": "2026-08-05T18:54:00+00:00"
-    },
-    {
-      "title": "يايسله يقود نيوكاسل حتى 2030.. مشروع جديد بعد إنجازات الأهلي",
-      "link": "https://news.google.com/rss/articles/CBMiP0FVX3lxTFBzYmlCcUZGeGkzVC1IUjlpTHh3QnV3Vy13U0xSRXNCVUtwUFctNVlyZ3V0bkZtQURiRUtLTk1RRQ?oc=5",
-      "source": "صحيفة الكأس الرياضية",
-      "date": "2026-08-05T19:52:23+00:00"
+      "title": "رسميا.. يايسله يستقيل من تدريب الأهلي السعودي ليتولى قيادة نيوكاسل الإنجليزي",
+      "link": "https://news.google.com/rss/articles/CBMi2wRBVV95cUxPUWZiTXlJUkY2Q1BDblZ3T2xaSUFOblhzQzVsY3lkZUNMUGZBcGV0SlZadUVPdk9sYjZMcEZRUS1kU21FWVhJSHZydkhGS0FmcU9HN3drak00ZWQzbzZFNk4zTl9XRjhuZUVnVGpvSW9rX2NzN1dOWkQybWRESzdlaUNBZnFpanZfd0YtVGJpdkJ6ZGhKeGV6eFVWZ0RWZmVyMkRoVHJMMWVUTTJyTXpESGN4cDZvTUlTQmVNeUlOY3BXekQybnRZQ3JzVDJPaUR6dExBeG5DbTF1NEg5dTR1M3ByRFBmcHRjUVI3M2lCV2FKNlJHdVNZejJROGlEcXhySUVia1Z6c0ozMHJZRnRWU05kZ1F4Y2VFYlRpUkdTQl9sZDdLVWZUXzZIXzAzRTkxVXZDcWFDQ0x0bXBRTnpzX0pfbUFOWGt3TjduT01EQUdrR3FWSkNwSDRjWlNpN19Kbkc0MmloOGlmZVRaSjItM3NFMEFuRzdZSFBFNGZiVlZrMFI0RHp0NU5NSmNTVTgzT1QzR056MzdRUG83ZzAzaVRWN0E3d1NfMG9Oc0RhMmFfVzNnWXNjNHFFZy1lVDljcDRCRVZhWTdHak1JZnVPMDc0Y0l3UGdqT2xRTTBXUEFSeXZsZWN4UnNYTVpMNzlUSVdmX0Z0U0dmOF95dXItYlFQNGQxTkZwNk01ZkVhSUV3b1FYNUk0RnVLR3dvUk5ZeU9tUXBBd2NpRElBNnpETk44Nm9QOTJGODhGVlhEV0xNaWxOVFZJNWozUEFIUW1iN0YyeDE0dFgtMDQ?oc=5",
+      "source": "خبرني",
+      "date": "2026-08-06T00:33:19+00:00"
     }
   ]
 }
