@@ -4,7 +4,7 @@
     {
       "id": "238362",
       "name": "Édouard Mendy",
-      "jersey": "16",
+      "jersey": null,
       "position": "GK",
       "roleAr": "حارس مرمى",
       "age": 34,
@@ -17,7 +17,7 @@
     {
       "id": "307748",
       "name": "Abdulrahman Al-Sanbi",
-      "jersey": "1",
+      "jersey": null,
       "position": "GK",
       "roleAr": "حارس مرمى",
       "age": 25,
@@ -30,7 +30,7 @@
     {
       "id": "367986",
       "name": "Abdullah Abdo",
-      "jersey": "62",
+      "jersey": null,
       "position": "GK",
       "roleAr": "حارس مرمى",
       "age": 24,
@@ -43,7 +43,7 @@
     {
       "id": "409776",
       "name": "Salman Al-Jadani",
-      "jersey": "72",
+      "jersey": null,
       "position": "GK",
       "roleAr": "حارس مرمى",
       "age": 22,
@@ -56,7 +56,7 @@
     {
       "id": "418704",
       "name": "Ali Bakhashwin",
-      "jersey": "22",
+      "jersey": null,
       "position": "GK",
       "roleAr": "حارس مرمى",
       "age": 18,
@@ -64,12 +64,12 @@
       "nationality": "Saudi Arabia",
       "nationalityAr": "السعودية",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
-      "photo": ""
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/FIFA_logo_without_slogan.svg/330px-FIFA_logo_without_slogan.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
     },
     {
       "id": "259835",
       "name": "Roger Ibañez",
-      "jersey": "3",
+      "jersey": null,
       "position": "DF",
       "roleAr": "مدافع",
       "age": 27,
@@ -77,12 +77,12 @@
       "nationality": "Brazil",
       "nationalityAr": "البرازيل",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/bra.png",
-      "photo": ""
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Ibanez_Brazil_V_Morocco_13_June_2026-66.jpg/330px-Ibanez_Brazil_V_Morocco_13_June_2026-66.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
     },
     {
       "id": "267178",
       "name": "Merih Demiral",
-      "jersey": "28",
+      "jersey": null,
       "position": "DF",
       "roleAr": "مدافع",
       "age": 28,
@@ -108,7 +108,7 @@
     {
       "id": "325035",
       "name": "Rayane Hamidou",
-      "jersey": "46",
+      "jersey": null,
       "position": "DF",
       "roleAr": "مدافع",
       "age": 24,
@@ -121,7 +121,7 @@
     {
       "id": "331153",
       "name": "Matteo Dams",
-      "jersey": "32",
+      "jersey": null,
       "position": "DF",
       "roleAr": "مدافع",
       "age": 22,
@@ -134,7 +134,7 @@
     {
       "id": "331920",
       "name": "Ali Majrashi",
-      "jersey": "27",
+      "jersey": null,
       "position": "DF",
       "roleAr": "مدافع",
       "age": 26,
@@ -147,7 +147,7 @@
     {
       "id": "341463",
       "name": "Mohammed Sulaiman",
-      "jersey": "5",
+      "jersey": null,
       "position": "DF",
       "roleAr": "مدافع",
       "age": 22,
@@ -173,7 +173,7 @@
     {
       "id": "367660",
       "name": "Mohammed Yousef",
-      "jersey": "29",
+      "jersey": null,
       "position": "DF",
       "roleAr": "مدافع",
       "age": 23,
@@ -186,7 +186,7 @@
     {
       "id": "384703",
       "name": "Mansour Alnakhli",
-      "jersey": "66",
+      "jersey": null,
       "position": "DF",
       "roleAr": "مدافع",
       "age": 20,
@@ -212,7 +212,7 @@
     {
       "id": "405656",
       "name": "Yazan Madani",
-      "jersey": "60",
+      "jersey": null,
       "position": "DF",
       "roleAr": "مدافع",
       "age": 21,
@@ -225,7 +225,7 @@
     {
       "id": "410714",
       "name": "Yaser Al Fallatah",
-      "jersey": "93",
+      "jersey": null,
       "position": "DF",
       "roleAr": "مدافع",
       "age": 22,
@@ -238,7 +238,7 @@
     {
       "id": "410717",
       "name": "Ahmed Al Refai",
-      "jersey": "51",
+      "jersey": null,
       "position": "DF",
       "roleAr": "مدافع",
       "age": 20,
@@ -246,12 +246,12 @@
       "nationality": "Saudi Arabia",
       "nationalityAr": "السعودية",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
-      "photo": ""
+      "photo": "https://upload.wikimedia.org/wikipedia/en/6/6e/Al-Hussein_SC_%28Irbid%29_-_2025_logo.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
     },
     {
       "id": "410897",
       "name": "Gustavo Alves",
-      "jersey": "4",
+      "jersey": null,
       "position": "DF",
       "roleAr": "مدافع",
       "age": 19,
@@ -264,7 +264,7 @@
     {
       "id": "297158",
       "name": "Enzo Millot",
-      "jersey": "10",
+      "jersey": null,
       "position": "MF",
       "roleAr": "لاعب وسط",
       "age": 24,
@@ -277,7 +277,7 @@
     {
       "id": "306692",
       "name": "Ziyad Al-Johani",
-      "jersey": "30",
+      "jersey": null,
       "position": "MF",
       "roleAr": "لاعب وسط",
       "age": 24,
@@ -316,7 +316,7 @@
     {
       "id": "359165",
       "name": "Valentin Atangana",
-      "jersey": "6",
+      "jersey": null,
       "position": "MF",
       "roleAr": "لاعب وسط",
       "age": 20,
@@ -329,7 +329,7 @@
     {
       "id": "367696",
       "name": "Eid Al Muwallad",
-      "jersey": "14",
+      "jersey": null,
       "position": "MF",
       "roleAr": "لاعب وسط",
       "age": 24,
@@ -368,7 +368,7 @@
     {
       "id": "391948",
       "name": "Ramez Al Attar",
-      "jersey": "87",
+      "jersey": null,
       "position": "MF",
       "roleAr": "لاعب وسط",
       "age": 20,
@@ -381,7 +381,7 @@
     {
       "id": "410718",
       "name": "Ziyad Mallah",
-      "jersey": "40",
+      "jersey": null,
       "position": "MF",
       "roleAr": "لاعب وسط",
       "age": 20,
@@ -394,7 +394,7 @@
     {
       "id": "411753",
       "name": "Ibrahin Montasser Azzam",
-      "jersey": "23",
+      "jersey": null,
       "position": "MF",
       "roleAr": "لاعب وسط",
       "age": 18,
@@ -420,7 +420,7 @@
     {
       "id": "180639",
       "name": "Ivan Toney",
-      "jersey": "17",
+      "jersey": null,
       "position": "FW",
       "roleAr": "مهاجم",
       "age": 30,
@@ -433,7 +433,7 @@
     {
       "id": "259732",
       "name": "Galeno",
-      "jersey": "13",
+      "jersey": null,
       "position": "FW",
       "roleAr": "مهاجم",
       "age": 28,
@@ -459,7 +459,7 @@
     {
       "id": "283331",
       "name": "Feras Al-Brikan",
-      "jersey": "9",
+      "jersey": null,
       "position": "FW",
       "roleAr": "مهاجم",
       "age": 26,
@@ -472,7 +472,7 @@
     {
       "id": "334379",
       "name": "Matheus Gonçalves",
-      "jersey": "20",
+      "jersey": null,
       "position": "FW",
       "roleAr": "مهاجم",
       "age": 20,
@@ -485,7 +485,7 @@
     {
       "id": "361364",
       "name": "Ricardo Mathias",
-      "jersey": "77",
+      "jersey": null,
       "position": "FW",
       "roleAr": "مهاجم",
       "age": 20,
@@ -498,7 +498,7 @@
     {
       "id": "371797",
       "name": "Waheb Saleh",
-      "jersey": "47",
+      "jersey": null,
       "position": "FW",
       "roleAr": "مهاجم",
       "age": 23,
@@ -511,7 +511,7 @@
     {
       "id": "372852",
       "name": "Yaseen Al Zubaidi",
-      "jersey": "26",
+      "jersey": null,
       "position": "FW",
       "roleAr": "مهاجم",
       "age": 23,
@@ -537,7 +537,7 @@
     {
       "id": "403859",
       "name": "Salem Abdullah",
-      "jersey": "49",
+      "jersey": null,
       "position": "FW",
       "roleAr": "مهاجم",
       "age": 18,
@@ -550,7 +550,7 @@
     {
       "id": "410716",
       "name": "Saif Al Salami",
-      "jersey": "96",
+      "jersey": null,
       "position": "FW",
       "roleAr": "مهاجم",
       "age": 20,
@@ -563,7 +563,7 @@
     {
       "id": "418705",
       "name": "Aboubakkar Moussa",
-      "jersey": "98",
+      "jersey": null,
       "position": "FW",
       "roleAr": "مهاجم",
       "age": 21,
@@ -594,5 +594,5 @@
       "photo": ""
     }
   ],
-  "updatedAt": "2026-08-06T13:58:00.177019+00:00"
+  "updatedAt": "2026-08-06T23:57:00.475649+00:00"
 }
