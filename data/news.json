@@ -1,42 +1,18 @@
 {
-  "updatedAt": "2026-08-07T09:57:05.547982+00:00",
+  "updatedAt": "2026-08-07T12:52:59.044565+00:00",
   "source": "google-news-rss",
   "items": [
+    {
+      "title": "قضية واعتداء.. تفاصيل احتجاز إيفان توني ومحاكمته في لندن!",
+      "link": "https://news.google.com/rss/articles/CBMitgRBVV95cUxQZ1RCRDJOVW03OXNTekV0ZE1GNlRycThnM21vQVd2czVEVHpMd2NOMHhPcUN6SVhpY0NzT3lNcGwzeW5iTVRzTFZNQ2hmTGNBbWJVaU5pZUhIVEdEb05pWEFMUV85aTV2RHVoY25NUVpvU3ByMlRNSUJmLWM5Q0VsMTNCZF82Zlh3ckRNVm9YZVQ3ZUZSS2oyV3BvWEpiMVM1QW53SEJ2T3ZmRmh6SU5OUVFWTTgzdXZmaXhrMHVfRFV3UkY2RzlEU09SdUl0eFBZX21YU25FYTF0UHllTEFkdm5tRlAzV2JJQnB4WVVIbEJ3aFRRZzRoT2Q3dlY0djF3b0hBV0d0bzl4bXdBVzA4eVZLaXNVWERRbzl0S0w4U3VGSXdES19Scm5DVURxZEJCWTFDTWVseTZ1MlZDLXU0MHVmbHFOYmV6Q01XcFJUUFZTUmFrWHE0X2J3dzJXdDVNWDdUd3BORFFGR3c5ZHJTc3ZYamY5NUtvQ3pVRlo3WFJvdTB5V2UtbEszdUI0VU51d1czVTRDYjdfWndEbFNhV3MxdEUzSmJ6Y0htZFJZVEZ5UUFUMW9ydXZmd1NKUXhBQWJXdXZEcThVbUprRUFpdUJ1bVBDS2JtU09tYXVucVIzbUozNXdBT1kzdEd0amVuQ3QzSXh3V3lKRWJvSmJQWWJ2RWlzSWY5VHljS2szU0o1by1lNFR2djhjdzNQUFVyYXNFRlUyNUNnMVNBd1FJeG5kV1hCQQ?oc=5",
+      "source": "Kooora",
+      "date": "2026-08-07T11:37:44+00:00"
+    },
     {
       "title": "ضربة كبيرة.. إيبانيز يصدم الأهلي السعودي",
       "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTFBuZVpIUnlxb2JwSlNTdnBIQ1AwMnNEdlFKRE1qM2ZOcUpMVFd1MzE1N2ZiVDJuTkVzTE1nN1kwREtsM2x1dGoxOVI3bndPbkRG?oc=5",
       "source": "إرم نيوز",
       "date": "2026-08-05T14:58:53+00:00"
-    },
-    {
-      "title": "بقرار نهائي.. الأهلي السعودي يحسم مصير ميلوت",
-      "link": "https://news.google.com/rss/articles/CBMi6wNBVV95cUxQVUZaRWVhM1hTODJKMjU5MW1UV2lsdXhnd202N3Q1X1JiQWxGMzVaWEdHcTh1NEdfblVQYkJQNjQ3Tl8wS1ZvcVh3VGc4U05pR1o2dVBHV1BiZ0p4b0F4czdmZzJPaGdtdGNvOFRpM0ZyRVhBNUFFSjdvSGJmeTRjamNOWGszTU50SVhkc0tEcHV3RjlQd0c0RV84Zm55LVdUbmEtaXhRcWh0Vm1pcWV5RzdGNTY1TFdSd2owcUFXTk1ndkU3WHBTSDJIWFRqVVUzcm4taWpRcjdRek1VWS01M1JIUmhVc29FaDM0RDdrVVRWaG5OMkFOd1hGNGtndjFXUXRXMlBldXNzQ0NTcElKRWFPMlFBQ015VTk1UmQ1UDRWRFl6SFFNNm9RR0d2ZExtUm9tQzV2R1Ezc254aDhmbDZvZUZ2bHVnaXI0VjVSVGFYS1ZCNGpfVkVuRzNYWFJVUFZIZlFjdVF0bUczN09UMHBsUHVIRXJYVXRKb1lGOVNYS3hBN3o3Q05MZ1RmN0Z6cEZXM3o1LU5talYzQTUyckVrcThWZ3QxUEZQdnZWUXI3a25POXhRSUkxSXBWckFDUF8wN2FCSlo4eDJKc3JnYmpXQ1d1STdBNDM5aFphT1pVQXhsWUtVMFBzRQ?oc=5",
-      "source": "Kooora",
-      "date": "2026-08-06T18:31:38+00:00"
-    },
-    {
-      "title": "فيديو: بالقهوة السعودي.. بوسيتش يصل إلى جدة لقيادة الأهلي",
-      "link": "https://news.google.com/rss/articles/CBMivgRBVV95cUxOUHdpQU4zQ0FSVFVLVmlEcWtCZEF0dFYybTFLaUo4VS04ZHVjOEt4VFBmdUpWclc0UjRPZ0hqZTBYRXUweWQxVDI3RzRycG0tVmRBblFJSFdqOFlwTGxEUVZrSk0td3hkRlZKc19BcnZVWnIyY05VRXc0WDktVGxIeklWTjFFYzRNcnJnWF82cFdhbWpxdlZJRDE4aUhPeEt1dHpoTFFVekNyd3o4dmxDekZHX0xLOWk1UEd6OEM4Mk1TanVzdVhvVTlKYU1GUC1CZWwyTXFUZkpxSnJZY2MwN1JfeWZSck1CdzdxaGNBdnVkVU9BYlhYajI3dVRKUjBWb3JEc2I5eEV0ZDdHSGxDSDZuZDhjTDRzNTM1RlhhRGZsblFLbGtFZERjWE12VjhhMmE2V1RnLTRxck9ERFdxQ1dvN0JYUm5yMUFScEY0RnJ0N3A4V1NlYVVrcnhxQ3FXbTcyeTNMT2JPMXVlSDRGME04ZFZpX21QU1d3VmsyX04wQXdWX1lmdC1pSFRScllQTkxObU1rblh0VUR5SFFDNnNYblBBS1hkbEN5ZXBJODVWNU1pVnQySDByUmZoWkp2eVVMamFQLWVpNmZTa1BVMWJMNTIyRnNDLV9NQ0J0MVVmdEJBVTd3M1lYRUlLalFrNVJsT0laaWFQMVAtb0QtemdsQ1V0cFZxZHEtZXBvSktTTW9sdDhaX2dmbDZMcG0waEk3andiUDF0R2FpdWlWRGV0ZUJleFdRTndkNWJ3?oc=5",
-      "source": "Kooora",
-      "date": "2026-08-06T16:22:01+00:00"
-    },
-    {
-      "title": "قبل انطلاق منافسات الدوري السعودي.. الأهلي يسقط وديا أمام الاتفاق (فيديو)",
-      "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTFA0VG8xWlA1Q0JFTGNQRF9pM0FhRkhGSE1CN2lXeU50RmVGeUVQbHBnMVRSNndkM3V6ZDgxS0FTSHBiRXJ3cFVqTW84RDJUSUN4?oc=5",
-      "source": "إرم نيوز",
-      "date": "2026-08-05T20:34:15+00:00"
-    },
-    {
-      "title": "الأهلي يغلق تجريبية الاتفاق",
-      "link": "https://news.google.com/rss/articles/CBMiigJBVV95cUxNVUtXYkRqRGgxV1c2NjQ1Z2hOQVJKd0MtaW1BZHRONFVpaFh4Qi1ZMjZUdTlSZlNlZWhjX0FFVkplaHhPaFpXMW9LRlU0N3pKbmxUakxWazh4S3QyNk1nb09MdjlpSFp1dW9lM2hrLUUtQ2ZNcGszbHJ1WWN0U2xZVS1yV1dDSjFCYVlfUk1ISW1LS3FvNG5QYTd4Tm0xZ3hPcUZscFpvZVJvcHFfVEpnQUZaLUlTbEQtU0oxYmV6M1AzNnFZUlczVTBOMXpJeUZQdXcybkpQc1NsRE5xNzNYUEZSaVhENmkxY1N5SkxvRHpCOEtwVG5OZFhraXBSWkRibXpEZkdXVWxKQQ?oc=5",
-      "source": "صحيفة الرياضية",
-      "date": "2026-08-04T16:15:14+00:00"
-    },
-    {
-      "title": "تحضيرات الدوري السعودي: بالثلاثة… الاتفاق يكسب الأهلي",
-      "link": "https://news.google.com/rss/articles/CBMi0ARBVV95cUxPNUVMRTk3ODZ5MzA3Z2UzQXRZVnJ1Y0Q2QTZUWkt5Q2NNemt5Z1BpZGs3VkVFM3E2VURhSGEzcmNLbmROb1NETmNnMXE3NU1WRzN4QkpORVZZTDVINExRUHYzWEplQmgzZkU4a0xQaUZQQ1dPb0wyZWVHaDhwcE5idXdhZDVzVXFJY3kzMGNfNjNoYktac29paHVuRGZodWRRMFhoTlRZMGlEOHFLeXpZWWprZktYdVR0aUZSZ1JXTjhIUFdETU0ya3VoRlFaNUtSSjhZNVFiR0xWRTNEMkhzam1lMkNyYkhLQkg0c3VqZXVhNTBjR2JXM3o1dVZ6aVhBcXFXY0I1S1pSQkdwVE40VE9FbTdXZnhEcWd1YzNGZnhWSUJ6U3JiNGN2aFl0VWVvcGJVdXAwUlF6eVRiVjFxcEwtbktEdkt4eWljRWQxTXloMDdkaklsa0RXNG5HRjNMTEMyQ2ZSZnZZSnFNb19PM1plb3lablh3VzRZSUZCWFJGLUwtS2c5bk05a3lmWFRycV9fVGE2SC1FR09Ib2x3bUpMMXRjUlZKMDZrT0JfUXAwN2UtQWRzdk9YTFd3VG12RWpIbDM1eWpTcWVkWUp2SmtLWWZHaGVSRnRBXzhJNW1xRzJ5dVlZQVV5akRjV0NHaUpUUG1FQTRVNGNsNG1KbXFkaGlrbkV6elBBbjczSk5fWGt2TEw2Tmh4WC1US0N2S3JzTzBvSWhGd2gtZHVXWTZ4VmZ6WTNJaFl2MVUwQmFpMzFhU2wtNDJwQzdQQlU0?oc=5",
-      "source": "aawsat.com",
-      "date": "2026-08-05T18:51:40+00:00"
     },
     {
       "title": "الأهلي يصدر بيانًا رسميًا عن ماتياس يايسله.. ويتحرك لـ\"خطف\" نجم الاتحاد",
@@ -45,34 +21,58 @@
       "date": "2026-08-05T20:19:03+00:00"
     },
     {
+      "title": "بعد ردود الفعل السلبية.. الأهلي السعودي يكشف سر التعاقد مع مارينو بوسيتش",
+      "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTFBUZFBjMFc2Vm13Q0JCM0tiNlBDQjdQMW1sdWc3R09zSjR2RVp4a3ZPWEtZeldxSWJNVF9BRm9aVTlNVDdsak9YM1BLdzRxYllB?oc=5",
+      "source": "إرم نيوز",
+      "date": "2026-08-06T08:04:19+00:00"
+    },
+    {
+      "title": "تحضيرات الدوري السعودي: بالثلاثة… الاتفاق يكسب الأهلي",
+      "link": "https://news.google.com/rss/articles/CBMi0ARBVV95cUxPNUVMRTk3ODZ5MzA3Z2UzQXRZVnJ1Y0Q2QTZUWkt5Q2NNemt5Z1BpZGs3VkVFM3E2VURhSGEzcmNLbmROb1NETmNnMXE3NU1WRzN4QkpORVZZTDVINExRUHYzWEplQmgzZkU4a0xQaUZQQ1dPb0wyZWVHaDhwcE5idXdhZDVzVXFJY3kzMGNfNjNoYktac29paHVuRGZodWRRMFhoTlRZMGlEOHFLeXpZWWprZktYdVR0aUZSZ1JXTjhIUFdETU0ya3VoRlFaNUtSSjhZNVFiR0xWRTNEMkhzam1lMkNyYkhLQkg0c3VqZXVhNTBjR2JXM3o1dVZ6aVhBcXFXY0I1S1pSQkdwVE40VE9FbTdXZnhEcWd1YzNGZnhWSUJ6U3JiNGN2aFl0VWVvcGJVdXAwUlF6eVRiVjFxcEwtbktEdkt4eWljRWQxTXloMDdkaklsa0RXNG5HRjNMTEMyQ2ZSZnZZSnFNb19PM1plb3lablh3VzRZSUZCWFJGLUwtS2c5bk05a3lmWFRycV9fVGE2SC1FR09Ib2x3bUpMMXRjUlZKMDZrT0JfUXAwN2UtQWRzdk9YTFd3VG12RWpIbDM1eWpTcWVkWUp2SmtLWWZHaGVSRnRBXzhJNW1xRzJ5dVlZQVV5akRjV0NHaUpUUG1FQTRVNGNsNG1KbXFkaGlrbkV6elBBbjczSk5fWGt2TEw2Tmh4WC1US0N2S3JzTzBvSWhGd2gtZHVXWTZ4VmZ6WTNJaFl2MVUwQmFpMzFhU2wtNDJwQzdQQlU0?oc=5",
+      "source": "aawsat.com",
+      "date": "2026-08-05T18:51:40+00:00"
+    },
+    {
+      "title": "احتجاز إيفان توني مهاجم الأهلي السعودي فى لندن.. اعرف التفاصيل",
+      "link": "https://news.google.com/rss/articles/CBMi_ANBVV95cUxNaGZLVFl0bUJnN1NKY2pXdGVvRl91bkRZejdpeWV5WEM2aVFlOEl0anJCeHc0bl9iaHlMM1FQUXFKS0g3N2wycC1la0I0djVtU2ZFQ21BX011ejF4UFZpYjlxbkl6UzBZLXdtbTBLUERsTHhmVGY5YnM3YjN1ek4wam9UTE9PMXhJVnZwZEpVaEQ4ZGhGUnI4ZGlmMjh0bTFwMzIwQXlxWEktdE51UEZ5clpmRVNBSHNUQmhHVGJ3Y2pWM0hma1JHVXBvNWFBZ3VReWVuN1BiQWs4Um13c2poWXVVOWhqLVdVRmF5bEw5NjFYb29Ha2NZN0RiSk0xeUZZOUpqdE9qTmxEUDFJQ2hjOFQwNVl4ejB4azJLQWJyVjZ5MkhlSDA1cXBjd3p2ZDVoMWdQWU5NVDM4V0UxRkZYa19IN00tQkNraDlCcEZvdzZUVkZGaC1BZTlxZzA1bDFLdDZ3OFJ2MVV0TGNwV085NjByWTFua3ozOC1TWFNmSk9PNm9uS3dZd3duOU9oOEN2LXJ6all5QTctSUIyVVBCWjE2TnJ3NXUyOTF3N3c3cllEUWhUNkdBMW5KLVlUQnM0VGdrUEgySHJTd3lGT1d4d1VjZzE2c1ZjdVRzMmU3Y1dXNEE2R1VJc3p3S1cwd2NPTFQ2eDhiaHdHclcy0gH3A0FVX3lxTE96RjE2M1FmZkwtUW1sRngza2I0NFhjNTQ1NmJXNWtjblBKTS1ZVTRqaWYtZTJBUFFvM2JQOUh3bW0tYTNwRWdjbTFmODduNWNWblVHN0hqbHkwelduZkpmeE5GcG04ZGNnU2lPa3k1c0FDUnU1UFVqSWh4YTgtVlRmWGRGN0U4VjdpSGNKdWZpWWhKMGl2WThKb3ZwWWRsUkF4bjlRclJSYnNkQW40TGxTb210djZuZnR1bHZNZFc4WUJIaWZTbzBXSmU2RTV1Wmg5aWJmUEZlR3JvU3hZcG9HX1dGZzB1THdieXdhRXBTSnpPYWFWbV9UdWtZeFZZUjRjMW1zQzVGRkdOS1NmRHFKRzNKaGpYbmRQRGFUWjRJMDdNSGEtdV9mbTM2ckFYeDhpUHRMaXRhVmhXSlMxa29icWtNbjNvT21heVFTSzFfaTNQYlF2Wk82Q2lsc3hGX05XLWV0U0FXRHJkZ2Nmek5aZkMzLU8wTUlCdXJvcmFlcWMyVEw0UW1GdElTUlpuNVM5Z2dudzNHRUpGYWJwMWtaN2hLaHJaWElQQmI0WnpGV1pXcU40YzZlLXhYRm1uckVfU1d2V04yNGd2LUk4UExNU0I3MVk0R2g2aE1BQTZoYm50VUdxSmdsMkwxRWZZMHFWYktmMG1R?oc=5",
+      "source": "اليوم السابع",
+      "date": "2026-08-07T11:25:00+00:00"
+    },
+    {
       "title": "سيدفع شرطاً جزائياً للنادي.. أهلي جدة يوافق على استقالة يايسله",
       "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxPN3d2Nkl0UWp3V0cxblVJMjBhODFCc0R2NDVrWkVOZktaSnpWLW5ZYUhGRlpNbFFXM3hldFZVVkNKdW9yVmQ1TndkX0YyUmxwbXlMRjhXcWJtTVhaRjJkYmhPdUJuY1Q0ZlBSN1BYa1R4ejBXaUpydDRTOC0zSEZVVjhVWDR2Q1pGMkRLbThWQUozYk3SAZ4BQVVfeXFMTWlINzlQZk5IUS1JSHpabFZPZkxBVHVkU1AyWFgwZGFvSEE4akZrMERiM2w4V0ptNUU4SlRlMl92bk9VTHBoR0twRWs3clJtN3ZBZE1PeExMYzA2UnZWMG5XSW9INDNpMFFVSXlOelp2dXk5d1AzUWRWaE1HeW8wZDBKTTE2ckRuUmVqZEd0SkNhOC1weG9yOERnaGo5dFE?oc=5",
       "source": "CNN Arabic",
       "date": "2026-08-05T19:07:21+00:00"
     },
     {
-      "title": "11 مليوناً لم تغيّر قراره.. «فيرنر» يرفض الأهلي",
-      "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE8yYk5kbmZWVGQxTEhyYVFaSm1DWjU4VjZlQkxVcGxRY1M5MExWaTk3bkgzYkZoUUoyaHpLX0hHLTBGQUlhaGxJYXMzeWxzSTVfMUc4aUNB0gFUQVVfeXFMT2xZN2luU1Q0bUFFNVNyTXJhT1laNU9pQndUTFlKWVU3aXhTZld3OWFlM29rdnRvd0sxM0FncHBmajJrODBEbEpWSFI2RFF6ZjluVlFk?oc=5",
-      "source": "عكاظ",
-      "date": "2026-08-04T16:14:00+00:00"
-    },
-    {
       "title": "عاجل .. وجه جديد في تدريبات الأهلي",
       "link": "https://news.google.com/rss/articles/CBMizANBVV95cUxQelBEbnU3WGVpeTNkUEhjYW92eXdTZ2JrTVZobDhKMzdiTlhGd3FsY1o1VlNIbGZueG93R042dGozM2dydGU0ZW1YZ29SSG0zNXVOQ3NEZDJQMGk4MFRJR3E3Z0FkLXY2UlVMa1hRS0NBVlA5MWFBa1VFUzMxbTVpUzdQaW9jZGhJVXo2bGkwcmUxZVBxRkxyQTNILWRHTHB5MWZMNVFXZDFvQVR5amczTnd6MWFsWlllc0ZMaldaR3pWaDRhSTZHd3BfaXVBM0NqbEN3RHp3bXdtRHhLeUdxdTJHN1p3Rkh5dU9VLVdkRC1PU0Y0SEhPM2NWLWhVTF9TSzExbW9NVkIyRXNTeEFxWWxhY1NuQUtKS3FMWDFxTnNvMS16OWZJUGFMOTVTaW1aY3JCSzJNamlUZmU5eGJxMVlJMFBBeTJjOC1jeXptWnc5X0ttM190N1otbXd1QlFMR2UzWUdoYmFqSEQtcjhlWEpHNy1EeHVWeENVejh6MHh2QVlXeVpEekpzVlp2VkRkQW5XMlVlczV0c3JTaXVDNnc5THdDS0hJNG1JRl8wUV9uRWdzZ0RheTdrZHhDRzR3UzhUNV9NTzA3VHpt0gFTQVVfeXFMTUtyaDhuZmszMy1uMDFlX0o3a1gtWnR1akllUDNPMmNBckxZOHVGTVVkUjVaYzZlYTBtbDhWWTRGcm9XMFNabHAxS3FKc2Fndl9vczQ?oc=5",
-      "source": "alyaum",
+      "source": "alyaum.com",
       "date": "2026-08-04T18:14:00+00:00"
     },
     {
-      "title": "ماتياس يايسله يودع جماهير الأهلي السعودي برسالة مؤثرة",
-      "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxPOVB1VDczeGFLYlNMQ0dKZzhvSXI2blE0cUNiNWVjWG4waWpIQ1lJVFlGeVJKWnpjLTF4TlFzSVhESlltcUJUNDBLbXhkTHJiOGlwdjN6SWIxTjVOb29aenB1SWV1Y3VmRWR5TE9vMHk2M1paQUFJb0pMbjV4b3gyWW9kcVZiTEV2enhDUUFxYW9KLXgyN29rVVl5U0p0QmFwVEJrRmc0UQ?oc=5",
-      "source": "بوابة الشروق",
-      "date": "2026-08-05T20:54:39+00:00"
+      "title": "الأهلي السعودي يعلن تعيين مارينو بوسيتش مدربا للفريق",
+      "link": "https://news.google.com/rss/articles/CBMiwwNBVV95cUxQZXU0djl5N21TLWVQMDQ0anlsdGF5MkFwZDA0Wm5KYTNpT2Jlalk2aEFCTjR4UkloZ3ktdG9peWRSVV81ejhKOUd1aXlMX1FhUjRLSjg5ZTJOV3hXbC1KQjREdU4xREVVemFBcGpmYk5oQUhST1Y5Z3dnMDkyT2F4S0xMVlJoMy0wdTZzVi1xSTNCbUFjZWt1RTVBTGJmVDlDdG81TmY2anRRTG9ZT0xLdnkwMlVyLWZZaldjdnU3NWtBNEc4UHBfMm5ma0NUTndfdlBWR05FWHJuamFZLUNrWnJDd0diRE9nMzlWU05aZTJsSU95bGVUUHgybEZZZDBYNTRqLWM1UUQtSzh3a29hcndrdWlwa09WSVdmU3ZKVmtzbTFLNTdMRTBSV1EtcDh6c0tFTDJtYnJkdEpfVjd5b0VXbTRyWWpjVUdnclhJRHhBT2xYLWZkaWZLYUQzVlFMQWR4MlprSGtVRW1TV1hnOHpqRWlsekJEcVBIS2NTcjhrTkJSYk10ODh3MTRILVREZnAtY3c1SDFOSjRNanlSRzg5RzRIeUxPdDl5RHF5SHRlaVRwY3NMNm5VMWJpRXpEb2dZ0gHIA0FVX3lxTE5Ra2k5ZHpYbzZLTkY5SVpsQ096MkdBWG0ybWhtNWRPaGVpSHFfRHhQdkJ1Wkl5c0JfMUoxZG5fTklPVTA4WE9iZ0RheTZPUE4yQ0FvRWJfcUxyY1ZFMW5RQUpFYmwzNUwxSXA1Nmk5VW1VS2Zhdnl6ekx5UEd0REdfUzVZc1pSMzg4MG5LWFFEc01MRTM2NUM3SzVMSDRRTzRyRk10bTdQeTBHcEM0RTVUdnRGUVZVQVA3OHJQUWFTOF8yNzV3QWpWbmp4NWVhSndwbnVOa2IyVUVqZ2lyOWE5THV5cmJXdUFsYjVRYkxieFFxeHR4cThZREwyQkROSi04VVV3bW9iVXJrck5WZlNKWl9UUUY1UWxyQVhINTVvem0wU1Zfc3MzMURUclcwV3dZRGpvRzV5cmJGcDFpd2tRMHFMd09mN2xheHJEWnExeUlSS1FqejNOSXdNWl9sdUdiUlYtMzRZZUk3MkNfMzU5ZE1Kd3VkLUg3LUJvTkZjZW1hSDNkVTRIZTZMR19acDFlRTIybWhZS3diYk8tMVJyNno1WjZWaGhLQkEyeFNQVlViQkVBeDkySnVwM0Q3WW40U2xwWWo0Mw?oc=5",
+      "source": "filgoal.com",
+      "date": "2026-08-06T08:15:00+00:00"
     },
     {
-      "title": "رسميا.. يايسله يستقيل من تدريب الأهلي السعودي ليتولى قيادة نيوكاسل الإنجليزي",
-      "link": "https://news.google.com/rss/articles/CBMi2wRBVV95cUxPUWZiTXlJUkY2Q1BDblZ3T2xaSUFOblhzQzVsY3lkZUNMUGZBcGV0SlZadUVPdk9sYjZMcEZRUS1kU21FWVhJSHZydkhGS0FmcU9HN3drak00ZWQzbzZFNk4zTl9XRjhuZUVnVGpvSW9rX2NzN1dOWkQybWRESzdlaUNBZnFpanZfd0YtVGJpdkJ6ZGhKeGV6eFVWZ0RWZmVyMkRoVHJMMWVUTTJyTXpESGN4cDZvTUlTQmVNeUlOY3BXekQybnRZQ3JzVDJPaUR6dExBeG5DbTF1NEg5dTR1M3ByRFBmcHRjUVI3M2lCV2FKNlJHdVNZejJROGlEcXhySUVia1Z6c0ozMHJZRnRWU05kZ1F4Y2VFYlRpUkdTQl9sZDdLVWZUXzZIXzAzRTkxVXZDcWFDQ0x0bXBRTnpzX0pfbUFOWGt3TjduT01EQUdrR3FWSkNwSDRjWlNpN19Kbkc0MmloOGlmZVRaSjItM3NFMEFuRzdZSFBFNGZiVlZrMFI0RHp0NU5NSmNTVTgzT1QzR056MzdRUG83ZzAzaVRWN0E3d1NfMG9Oc0RhMmFfVzNnWXNjNHFFZy1lVDljcDRCRVZhWTdHak1JZnVPMDc0Y0l3UGdqT2xRTTBXUEFSeXZsZWN4UnNYTVpMNzlUSVdmX0Z0U0dmOF95dXItYlFQNGQxTkZwNk01ZkVhSUV3b1FYNUk0RnVLR3dvUk5ZeU9tUXBBd2NpRElBNnpETk44Nm9QOTJGODhGVlhEV0xNaWxOVFZJNWozUEFIUW1iN0YyeDE0dFgtMDQ?oc=5",
-      "source": "خبرني",
-      "date": "2026-08-06T00:33:19+00:00"
+      "title": "الأهلي يغلق تجريبية الاتفاق",
+      "link": "https://news.google.com/rss/articles/CBMiigJBVV95cUxNVUtXYkRqRGgxV1c2NjQ1Z2hOQVJKd0MtaW1BZHRONFVpaFh4Qi1ZMjZUdTlSZlNlZWhjX0FFVkplaHhPaFpXMW9LRlU0N3pKbmxUakxWazh4S3QyNk1nb09MdjlpSFp1dW9lM2hrLUUtQ2ZNcGszbHJ1WWN0U2xZVS1yV1dDSjFCYVlfUk1ISW1LS3FvNG5QYTd4Tm0xZ3hPcUZscFpvZVJvcHFfVEpnQUZaLUlTbEQtU0oxYmV6M1AzNnFZUlczVTBOMXpJeUZQdXcybkpQc1NsRE5xNzNYUEZSaVhENmkxY1N5SkxvRHpCOEtwVG5OZFhraXBSWkRibXpEZkdXVWxKQQ?oc=5",
+      "source": "صحيفة الرياضية",
+      "date": "2026-08-04T16:15:14+00:00"
+    },
+    {
+      "title": "كيفية شراء تذاكر الأهلي السعودي لموسم 2026/27: أسعار الدوري السعودي للمحترفين، المباريات المقبلة والمزيد",
+      "link": "https://news.google.com/rss/articles/CBMiuwZBVV95cUxPSllzRGdTOUR1eGJ6YzE0MTAtanBWLWR5TEU5RnE5VGtKNkEySXFfQ1BLSjZhLXdHMzBsVDZEeWdjYTNBU3dwT1ZtaDNNQWNoZjMzaEZkdktReVBpUHV6WGxBaG9Cd1V6Q2swYnJzOEdHS0pSRUJleUI5cjZiN0F1Uko3RFppeWlLcWdaOEcySE5tTVlHVzAwbTQtOF9QaWIxR0pEcGhfWmQ0OU5XZlBGSjBuYzBLaDVZd3dCZVIwb3JhLU1iZ3dTSHZYY2g2UkhRd21Hc19xazljbVpSSmNaSW05ZWpXcDZzVVJhRFNhTjNxQkxJMW5rcmdRTUx0cGZMWmlhSVkydGQtbXBZMU5EVXFrWldwZjg1NWFVSkhfTVZXWUgyWHZhNm5UZGJkeG0yUlVzdXZUV0VEQ3lQZU5CMlp3U0gwSjROS3kxNmktTGNGZjBBNTU5TmlraGVIRmpWMl92R0VKZm1vaW81Um5jZlFtVHUtUVpIWXhfLS03eW1aYmFjekN0QVotNk5YS0Zhc2hScFhkaHlXWTNuWHJ2WlRMYlZFMFFZYlVvbWhyMFJvYng3UFNnbzd0d0pkakE4eVZNR0ZHWElDbXpSMzRkbkQyTVZReW9uWEtRX3NSa2JNaWxzQVdaMnBJMzFrYTZGWjRhbkYyanNuY28teWtCMHR1UFdoUFB2SHcwUmNRWFB3ZnNxb0FrQU1US0NpVFMxTm9QM2pnNzZaRGdQVkk1SFFkeWM5ZDZjdXhsYmpKMW42N1ZBaGMwdGRWZS1ubmZJOW5rR3doeUd2VU95OGZpNFAzSDJTNWx1aXVwOWJIUVRvTFZHRnlWWUVoZWVhRGdPTlNad2V6dnEzMWZuMkR2d0lJazdTSThEOWJ2bUhKaHVieDBzZGtySi1lYVY1TERsUGcwc1NwazhjVlREU2ZNckY3cEhmdlJpazA2R0JMc0NPUUtQRHl6YWk3Mzl3aDltN2RmRVY1dk02eFhmci1NY1VwTnVVcy1TZjhlZ1FOYzItaHZqMlotMGFJQ0t0eHYtVV9lTzJUNlFzemVaVVVVZlFDaVhhUkNxUGMyM1BrNkhkV2tZNUduc0xiVQ?oc=5",
+      "source": "Goal.com",
+      "date": "2026-08-07T11:37:37+00:00"
+    },
+    {
+      "title": "توني مهاجم الأهلي السعودي يواجه اتهاما بالاعتداء في ملهى ليلي بلندن",
+      "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxQLWNPVXZKWFlCeWhaRzdQTzNSX2VneXJOeUZBdFEza21lNjNtZVA4ZjV5MGxUYVJKTkZPMUJZcHc3UGZ6XzlrR1VwLTB6TzFqb1NnbXhERi1MN2xoZmUxV3J3Wm9yWHhqaFdzcmtHOHl5U3RocXZXMnRxQncxbDRYUmlORDgwQQ?oc=5",
+      "source": "Reuters",
+      "date": "2026-08-07T10:07:18+00:00"
     },
     {
       "title": "توجه غير معلن.. تطور خطير في الأهلي السعودي بسبب يايسله",
@@ -81,46 +81,46 @@
       "date": "2026-08-07T08:04:26+00:00"
     },
     {
-      "title": "كيفية شراء تذاكر الأهلي السعودي لموسم 2026/27: أسعار الدوري السعودي للمحترفين، المباريات المقبلة والمزيد",
-      "link": "https://news.google.com/rss/articles/CBMiuwZBVV95cUxPSllzRGdTOUR1eGJ6YzE0MTAtanBWLWR5TEU5RnE5VGtKNkEySXFfQ1BLSjZhLXdHMzBsVDZEeWdjYTNBU3dwT1ZtaDNNQWNoZjMzaEZkdktReVBpUHV6WGxBaG9Cd1V6Q2swYnJzOEdHS0pSRUJleUI5cjZiN0F1Uko3RFppeWlLcWdaOEcySE5tTVlHVzAwbTQtOF9QaWIxR0pEcGhfWmQ0OU5XZlBGSjBuYzBLaDVZd3dCZVIwb3JhLU1iZ3dTSHZYY2g2UkhRd21Hc19xazljbVpSSmNaSW05ZWpXcDZzVVJhRFNhTjNxQkxJMW5rcmdRTUx0cGZMWmlhSVkydGQtbXBZMU5EVXFrWldwZjg1NWFVSkhfTVZXWUgyWHZhNm5UZGJkeG0yUlVzdXZUV0VEQ3lQZU5CMlp3U0gwSjROS3kxNmktTGNGZjBBNTU5TmlraGVIRmpWMl92R0VKZm1vaW81Um5jZlFtVHUtUVpIWXhfLS03eW1aYmFjekN0QVotNk5YS0Zhc2hScFhkaHlXWTNuWHJ2WlRMYlZFMFFZYlVvbWhyMFJvYng3UFNnbzd0d0pkakE4eVZNR0ZHWElDbXpSMzRkbkQyTVZReW9uWEtRX3NSa2JNaWxzQVdaMnBJMzFrYTZGWjRhbkYyanNuY28teWtCMHR1UFdoUFB2SHcwUmNRWFB3ZnNxb0FrQU1US0NpVFMxTm9QM2pnNzZaRGdQVkk1SFFkeWM5ZDZjdXhsYmpKMW42N1ZBaGMwdGRWZS1ubmZJOW5rR3doeUd2VU95OGZpNFAzSDJTNWx1aXVwOWJIUVRvTFZHRnlWWUVoZWVhRGdPTlNad2V6dnEzMWZuMkR2d0lJazdTSThEOWJ2bUhKaHVieDBzZGtySi1lYVY1TERsUGcwc1NwazhjVlREU2ZNckY3cEhmdlJpazA2R0JMc0NPUUtQRHl6YWk3Mzl3aDltN2RmRVY1dk02eFhmci1NY1VwTnVVcy1TZjhlZ1FOYzItaHZqMlotMGFJQ0t0eHYtVV9lTzJUNlFzemVaVVVVZlFDaVhhUkNxUGMyM1BrNkhkV2tZNUduc0xiVQ?oc=5",
-      "source": "Goal.com",
-      "date": "2026-08-07T08:45:47+00:00"
-    },
-    {
       "title": "الأهلي السعودي يعلن مدربه الجديد بعد رحيل يايسله",
       "link": "https://news.google.com/rss/articles/CBMixgJBVV95cUxPRDhPVHZNY0pTQ3RjNnhfY3ZiVTBLQm5CbWZUVW96RmtTdGZRQV8xRnpaYTFhUldidExFX0ZkNDRKV21uV19Tc1JCR2lkSDk0cFJ6X3M5X1VHenJBeUY1UFhJLUNKZlZIRlRKRGppdmFMYlltRFV4ZUtjeUUtbkpnNk5odEFHUlBSejVFcWJKM09lc09lUm5KbTgzQ1RNX3loSGcwSTVoTGloYmtYTGNtazZXdzJmWC1vNERKTDlycHJUZHdVdV9NbldzTkE3WUo4ZU5jZEs3Vm9IcTFQaVFzcEV5cEFRSHd1M3otZWtYUGh3dXZZblNJOUNKOU40TE40a1hXZGNidUFyM09lVW5kNzJadWtEa1ZNYjRSS0lic3lpZ3Y5MFkyQlQydGU0d3QzMTFSQ3NQaUkxTWdkVHJDVXJlY3RHQdIBxgJBVV95cUxPRDhPVHZNY0pTQ3RjNnhfY3ZiVTBLQm5CbWZUVW96RmtTdGZRQV8xRnpaYTFhUldidExFX0ZkNDRKV21uV19Tc1JCR2lkSDk0cFJ6X3M5X1VHenJBeUY1UFhJLUNKZlZIRlRKRGppdmFMYlltRFV4ZUtjeUUtbkpnNk5odEFHUlBSejVFcWJKM09lc09lUm5KbTgzQ1RNX3loSGcwSTVoTGloYmtYTGNtazZXdzJmWC1vNERKTDlycHJUZHdVdV9NbldzTkE3WUo4ZU5jZEs3Vm9IcTFQaVFzcEV5cEFRSHd1M3otZWtYUGh3dXZZblNJOUNKOU40TE40a1hXZGNidUFyM09lVW5kNzJadWtEa1ZNYjRSS0lic3lpZ3Y5MFkyQlQydGU0d3QzMTFSQ3NQaUkxTWdkVHJDVXJlY3RHQQ?oc=5",
       "source": "الجزيرة نت",
       "date": "2026-08-06T07:24:36+00:00"
     },
     {
-      "title": "بوسيتش يتولى تدريب الأهلي السعودي",
+      "title": "بقرار نهائي.. الأهلي السعودي يحسم مصير ميلوت",
+      "link": "https://news.google.com/rss/articles/CBMi6wNBVV95cUxQVUZaRWVhM1hTODJKMjU5MW1UV2lsdXhnd202N3Q1X1JiQWxGMzVaWEdHcTh1NEdfblVQYkJQNjQ3Tl8wS1ZvcVh3VGc4U05pR1o2dVBHV1BiZ0p4b0F4czdmZzJPaGdtdGNvOFRpM0ZyRVhBNUFFSjdvSGJmeTRjamNOWGszTU50SVhkc0tEcHV3RjlQd0c0RV84Zm55LVdUbmEtaXhRcWh0Vm1pcWV5RzdGNTY1TFdSd2owcUFXTk1ndkU3WHBTSDJIWFRqVVUzcm4taWpRcjdRek1VWS01M1JIUmhVc29FaDM0RDdrVVRWaG5OMkFOd1hGNGtndjFXUXRXMlBldXNzQ0NTcElKRWFPMlFBQ015VTk1UmQ1UDRWRFl6SFFNNm9RR0d2ZExtUm9tQzV2R1Ezc254aDhmbDZvZUZ2bHVnaXI0VjVSVGFYS1ZCNGpfVkVuRzNYWFJVUFZIZlFjdVF0bUczN09UMHBsUHVIRXJYVXRKb1lGOVNYS3hBN3o3Q05MZ1RmN0Z6cEZXM3o1LU5talYzQTUyckVrcThWZ3QxUEZQdnZWUXI3a25POXhRSUkxSXBWckFDUF8wN2FCSlo4eDJKc3JnYmpXQ1d1STdBNDM5aFphT1pVQXhsWUtVMFBzRQ?oc=5",
+      "source": "Kooora",
+      "date": "2026-08-06T18:31:38+00:00"
+    },
+    {
+      "title": "بوسيتش يتولى تدريب الأهلي السعودي - the-afc.com",
       "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQT2VRZnZTdWFfbS1nQTN4SDF6VzlmQ0pGdGw3V2s0bjFkWTNYMDdaU1RRRnJfZ0VDR3pzX1M2SHNJWlROR0pDazVHa3diN3oxblVxUFhEMmpzbm1ZUVFmRFpJelNfM0FSNTFGUU4yZG5yOEFNbWgwVnpXYW9RbVlOVVFPMDIxbm1HTnNVd0lBdm4zS29sOVBuT2tKQjdzOHplMGc?oc=5",
-      "source": "AFC website",
+      "source": "the-afc.com",
       "date": "2026-08-06T12:10:51+00:00"
+    },
+    {
+      "title": "توني مهاجم الأهلي السعودي يواجه اتهاما بالاعتداء في ملهى ليلي بلندن",
+      "link": "https://news.google.com/rss/articles/CBMisARBVV95cUxQa09WSlhTb2owOTBrUEJtMnJtNTlnZTlvN3drZmpOMF9zclhkaTloVzEwSV9ZMUFJVWg0TlRPNE9kdGtsVjhhZzdERkxqR3h3MXV4cjdneWN4RW51N2R2d3BHZ3hFenM4R2drZVBmY0U5Y01rbmVCWUJHeWRmU0RQNXAySXpmVnBLMlNfLUpaenNNVWY2QnVHUFc4UzRXYXN0MVZ2ZGdGUExYUWN6S3FwNk9fRVpGTFVHeEVzcjFqYkVVTlpzUFlwcXBRSXRXWEtEY2l3eFVla3p1ZUtQUzNtbWxkMXg4WWNtQ04tZHBvakd1aFJNQWlObGNfbHRsSzM4enBiSElnRG4ySHF0ckcwV2lVU0RDem5jYXBBMEhZV1FCTXdxem9zakM1NjBnMTJwTXE3NnN2akoxSm9FRmllUHVRS1lxUEdsU1NRb0lTXzJBQzR5ZU4wV1JmdE5jdER2VnZRY1daZE1WMW9wVER5S0R5dTBqQmJOUmc0cXJwNHlLNTRKTVRjNEdBWE5ENUtiSXp5eTlqRGxDZzVQbkpIZjdnMjJjc3o3LU5vVXBhRTctWGhnZG5qODZSazhtYm15X2RWZTJhQ3pzSGt4SnRMVTNxUVlGNlotaS12c2U5N0FpUm11ZUNIRE5KV3dQeGRzZ3E2Uk93bEJnaEFHZXp0T3lLekFacGdaN1Z4Q1VBRUtONG9OWkotZjVFQy1yLXpEOWdTdEZUQlB5VkNWbEMwcw?oc=5",
+      "source": "الهيئة الوطنية للإعلام",
+      "date": "2026-08-07T11:27:29+00:00"
+    },
+    {
+      "title": "اتهام توني مهاجم الأهلي السعودي بالاعتداء في ملهى ليلي بلندن",
+      "link": "https://news.google.com/rss/articles/CBMixgJBVV95cUxQSE5MSFZETFRfWGtIZHQ3d2NnRWpfNWpzTnhVb3M4MzZ3NVFVLVhNcEZpSGQ1Ml9lUWMwbXEtWjBhdlM5SHdkaGlSZkIzcEZueTdNcVR6N3laemxHRW1JU0lXQkxtVm52bGI1YW1fYkVyUFlJWUJ4aW1pYUQwRGRfN0F6dWRlQ1VYdUNORlNZNWFYTUFKTUdzSWJ5cjh5RXVNNWFKY2RzYXNTcEdseFVXNUVYMHJ3cE81SWVrYmdLRl94MXI5M2hZYURMNk9RRk9XMEpUWUJQYXlRcFpuc1RBUGhNMVJMZ2VMOU13ZmF4ZFhoUk9oT3N2ZzlRSzZPM2xrRTlUOEY2OVlWanVQWnFESXh4N1RKTkpaNlNjS1Y4QV9sUkl4dXItSkZZeTZfUGlFaXY3T0MtSGpxWC1RY2wta3dMemJjUQ?oc=5",
+      "source": "القدس العربي",
+      "date": "2026-08-07T11:25:14+00:00"
+    },
+    {
+      "title": "مهاجم الأهلي السعودي يواجه أزمة قانونية في لندن",
+      "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE8tMVFlZDVva1FUdmFWZXhLWGpkazRBbWhEcE5RNHVCZUJzUmVUUDhFREpEXy1vdDlmRmVRUW1WZGg5UXJOMXVzRHRfdzNjejBhcG1HUmEtRnJqY1lFejVn0gFjQVVfeXFMUGdBY1AxallBek90S2JwVTU0T1NGYWY1TU5uc1dtRHNnUkRTcDNBMGNLSFp1WlFNZ3hROWRwOHBpX3F5X1hKdWdISGllbWdaaTM1Y3VUTnIybldaU21zWnhWRDRR?oc=5",
+      "source": "المصري اليوم",
+      "date": "2026-08-07T11:39:00+00:00"
     },
     {
       "title": "البنك الأهلي السعودي: مراجعة المؤشرات المستهدفة لعام 2026",
       "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTE5kbG1vdGRzZFhaQ3N4eG9tVUhHcmxqRU8yVFpSWjhyWTg5MEhyc2Vhb2syUjRPOU1kR2t6XzZUbE9sUUFGZUZxMFlPXzFGQXpWOUk0WUpuekRLUjBoRThtRUFmazh3RjBmNVE?oc=5",
       "source": "ارقام",
       "date": "2026-08-06T13:05:07+00:00"
-    },
-    {
-      "title": "\"الأهلي السعودي\" يناقش نتائجه المالية مع المستثمرين والمحللين الأربعاء المقبل",
-      "link": "https://news.google.com/rss/articles/CBMi7wRBVV95cUxOMlFPcmpvTG1MRlE3Z0lGZjA1bEl4MWpJLTlfeHBmZk5WaWhtSlE5QmRmRElaZTluMk5YVzRWZ0tjM1VXNXZPaDFnanhET0pwN0xQcndUOWUzYjJhWEllMzh6dkZuME1NSElaRHFYN0l3eF9zYXdTb3VHZzVuWlg5SThhU0tRUU1hNEVHcmhjVTM0QTh4cE4xbTRpUWdxUXkzdUd2RGx2a3JpUzZlOXhFY2pHazhsbjRQbmNoNG9zbXF4UWQzWWhnOHY1dGVMMjl1a1lTSVpnTG1aaXlPdnE5UG95Nms0NzNmbGFXUWV6dGhHc2VrWVZvUG04ZWlYd0RYSzlTYl9aZVdhT1d5cUZrWGZNVnpIVFhncVRvUDlaNUNfcHQydkprYzlURzJyUm43UUhTSTU5SEJ5Y3lDejZwMDdzZ05NeWNnYmFEc2s1Y2d3N0VuRzJQUE1XR0p2cXpBMW1wOVg4Uy00aUNyTG0zWlQyUTBidkRaaE84dWwtSGFPdEs5eFVYeUlhbFV3ZWdBYzRKeXNNUFZwRUZkcDRuVVFqcXpoeEhad1ZsT1Fob2x4aTVIem1OX0dPSnFNZ2x6eDc5MnJKdTl5ZlVaTnpzX0M3V3pfa01rWFJtZ0NhUHBkM1lVNGgtSXFpdG5ZZzdHS1RRakJTMFJJRDlfc3VvR1hqeDRncC1oS203MnZqVmNZbUNKdllxUEdfeUpwWkRscmY2RFEtcWg1M1BvQjNQSVpvRXlzYjBTNnd3U29QOVdRSHNPdDFjVzdoR216VUtBbGtGNm5sbG5mZFZiS2JTZ2w4TkZQeWJXUTZERHVLaw?oc=5",
-      "source": "معلومات مباشر",
-      "date": "2026-08-03T12:48:04+00:00"
-    },
-    {
-      "title": "الأهلي السعودي يتعاقد مع مارينو بوسيتش حتى 2028 - annahar-news.com",
-      "link": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE9sc0JfVEc4ejkxdTFYMG9JeGQzV28tM0tFSmJuUWlzMWhMWmEyNmpTVkoxcUJjdzJGMXZCY2VKUHZqeUt6bFN3STcyQ05nQXlPNWZRbQ?oc=5",
-      "source": "annahar-news.com",
-      "date": "2026-08-06T07:02:24+00:00"
-    },
-    {
-      "title": "يايسله مدربا لنيوكاسل بعد استقالته من الأهلي السعودي",
-      "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTE92V3lQcGdGajRQLWwtcERHemZEWm5HMER4cXlxYmUxcEg3YUpDVFVKc05hNTZIV0QxSmZhdlpvd3p1N1JOSTh2S3llYkpiQVJvSzJodnVPNnZCaWZUWHliR1pNbHgzbzdWcjZIdW1oZEkxMjcwUlZyaGlrWVk?oc=5",
-      "source": "Reuters",
-      "date": "2026-08-05T20:15:31+00:00"
     }
   ]
 }
