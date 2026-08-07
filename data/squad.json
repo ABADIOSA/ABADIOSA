@@ -142,7 +142,7 @@
       "nationality": "Saudi Arabia",
       "nationalityAr": "السعودية",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
-      "photo": ""
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Ali_Majrashi%2C_2025_CONCACAF_Gold_Cup_%28cropped%29.jpg/330px-Ali_Majrashi%2C_2025_CONCACAF_Gold_Cup_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
     },
     {
       "id": "341463",
@@ -285,7 +285,7 @@
       "nationality": "Saudi Arabia",
       "nationalityAr": "السعودية",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Ziyad_Al-Johani.jpg/330px-Ziyad_Al-Johani.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+      "photo": ""
     },
     {
       "id": "307806",
@@ -493,7 +493,7 @@
       "nationality": "Brazil",
       "nationalityAr": "البرازيل",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/bra.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Ricardo_Mathias_in_2024.png/330px-Ricardo_Mathias_in_2024.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+      "photo": ""
     },
     {
       "id": "371797",
@@ -503,19 +503,6 @@
       "roleAr": "مهاجم",
       "age": 23,
       "height": "5' 7\"",
-      "nationality": "Saudi Arabia",
-      "nationalityAr": "السعودية",
-      "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
-      "photo": ""
-    },
-    {
-      "id": "372852",
-      "name": "Yaseen Al Zubaidi",
-      "jersey": null,
-      "position": "FW",
-      "roleAr": "مهاجم",
-      "age": 23,
-      "height": "5' 9\"",
       "nationality": "Saudi Arabia",
       "nationalityAr": "السعودية",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
@@ -558,7 +545,7 @@
       "nationality": "Saudi Arabia",
       "nationalityAr": "السعودية",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
-      "photo": ""
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Slogan_of_the_Houthi_Movement.svg/330px-Slogan_of_the_Houthi_Movement.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
     },
     {
       "id": "418705",
@@ -571,7 +558,7 @@
       "nationality": "Chad",
       "nationalityAr": "تشاد",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/cha.png",
-      "photo": ""
+      "photo": "https://upload.wikimedia.org/wikipedia/en/thumb/4/45/Al_Ahli_Saudi_FC_logo.svg/330px-Al_Ahli_Saudi_FC_logo.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
     },
     {
       "name": "Mishal Al-Mutairi",
@@ -581,7 +568,7 @@
       "nationalityAr": "السعودية",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
       "id": "manual-Mishal Al-Mutairi",
-      "photo": ""
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Al_Hilal_SFC_Logo.svg/330px-Al_Hilal_SFC_Logo.svg.png"
     },
     {
       "name": "Abubakar Sidi Kinteh",
@@ -594,5 +581,5 @@
       "photo": ""
     }
   ],
-  "updatedAt": "2026-08-07T15:54:25.751234+00:00"
+  "updatedAt": "2026-08-07T18:51:07.605150+00:00"
 }
