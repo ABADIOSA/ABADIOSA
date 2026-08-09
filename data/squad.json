@@ -428,7 +428,7 @@
       "nationality": "England",
       "nationalityAr": "إنجلترا",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/eng.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Ivan_Toney_England_v_Ghana_23_June_2026-051.jpg/330px-Ivan_Toney_England_v_Ghana_23_June_2026-051.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+      "photo": ""
     },
     {
       "id": "259732",
@@ -558,7 +558,7 @@
       "nationality": "Saudi Arabia",
       "nationalityAr": "السعودية",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
-      "photo": ""
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Slogan_of_the_Houthi_Movement.svg/330px-Slogan_of_the_Houthi_Movement.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
     },
     {
       "id": "418705",
@@ -581,7 +581,7 @@
       "nationalityAr": "السعودية",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
       "id": "manual-Mishal Al-Mutairi",
-      "photo": ""
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Al_Hilal_SFC_Logo.svg/330px-Al_Hilal_SFC_Logo.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
     },
     {
       "name": "Abubakar Sidi Kinteh",
@@ -594,5 +594,5 @@
       "photo": ""
     }
   ],
-  "updatedAt": "2026-08-09T06:51:03.077319+00:00"
+  "updatedAt": "2026-08-09T09:37:03.816032+00:00"
 }
