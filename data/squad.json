@@ -77,7 +77,7 @@
       "nationality": "Brazil",
       "nationalityAr": "البرازيل",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/bra.png",
-      "photo": ""
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Ibanez_Brazil_V_Morocco_13_June_2026-66.jpg/330px-Ibanez_Brazil_V_Morocco_13_June_2026-66.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
     },
     {
       "id": "267178",
@@ -298,7 +298,7 @@
       "nationality": "Armenia",
       "nationalityAr": "Armenia",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/arm.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Eduard_Spertsyan_YantsImages_-_Asatur_Yesayants_633_%28cropped%29.jpg/330px-Eduard_Spertsyan_YantsImages_-_Asatur_Yesayants_633_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+      "photo": ""
     },
     {
       "id": "357059",
@@ -376,7 +376,7 @@
       "nationality": "Saudi Arabia",
       "nationalityAr": "السعودية",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
-      "photo": ""
+      "photo": "https://upload.wikimedia.org/wikipedia/en/thumb/4/45/Al_Ahli_Saudi_FC_logo.svg/330px-Al_Ahli_Saudi_FC_logo.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
     },
     {
       "id": "410718",
@@ -389,7 +389,7 @@
       "nationality": "Nigeria",
       "nationalityAr": "نيجيريا",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/nga.png",
-      "photo": ""
+      "photo": "https://upload.wikimedia.org/wikipedia/en/thumb/4/45/Al_Ahli_Saudi_FC_logo.svg/330px-Al_Ahli_Saudi_FC_logo.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
     },
     {
       "id": "411753",
@@ -519,7 +519,7 @@
       "nationality": "Saudi Arabia",
       "nationalityAr": "السعودية",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/%D9%81%D8%B1%D8%A7%D8%B3.png/330px-%D9%81%D8%B1%D8%A7%D8%B3.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+      "photo": ""
     },
     {
       "id": "403859",
@@ -545,7 +545,7 @@
       "nationality": "Saudi Arabia",
       "nationalityAr": "السعودية",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Slogan_of_the_Houthi_Movement.svg/330px-Slogan_of_the_Houthi_Movement.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+      "photo": ""
     },
     {
       "id": "418705",
@@ -558,7 +558,7 @@
       "nationality": "Chad",
       "nationalityAr": "تشاد",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/cha.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/en/thumb/4/45/Al_Ahli_Saudi_FC_logo.svg/330px-Al_Ahli_Saudi_FC_logo.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+      "photo": ""
     },
     {
       "name": "Mishal Al-Mutairi",
@@ -581,5 +581,5 @@
       "photo": ""
     }
   ],
-  "updatedAt": "2026-08-09T01:21:07.962728+00:00"
+  "updatedAt": "2026-08-09T04:17:01.983366+00:00"
 }
