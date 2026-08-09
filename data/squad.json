@@ -77,7 +77,7 @@
       "nationality": "Brazil",
       "nationalityAr": "البرازيل",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/bra.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Ibanez_Brazil_V_Morocco_13_June_2026-66.jpg/330px-Ibanez_Brazil_V_Morocco_13_June_2026-66.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+      "photo": ""
     },
     {
       "id": "267178",
@@ -493,7 +493,7 @@
       "nationality": "Brazil",
       "nationalityAr": "البرازيل",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/bra.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Ricardo_Mathias_in_2024.png/330px-Ricardo_Mathias_in_2024.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+      "photo": ""
     },
     {
       "id": "371797",
@@ -581,5 +581,5 @@
       "photo": ""
     }
   ],
-  "updatedAt": "2026-08-08T21:27:16.155328+00:00"
+  "updatedAt": "2026-08-09T01:21:07.962728+00:00"
 }
