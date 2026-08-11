@@ -64,7 +64,7 @@
       "nationality": "Saudi Arabia",
       "nationalityAr": "السعودية",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/en/thumb/4/45/Al_Ahli_Saudi_FC_logo.svg/330px-Al_Ahli_Saudi_FC_logo.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/FIFA_logo_without_slogan.svg/330px-FIFA_logo_without_slogan.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
     },
     {
       "id": "259835",
@@ -311,7 +311,7 @@
       "nationality": "France",
       "nationalityAr": "فرنسا",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Atangana_asse_sr.png/330px-Atangana_asse_sr.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+      "photo": ""
     },
     {
       "id": "367696",
@@ -415,7 +415,7 @@
       "nationality": "England",
       "nationalityAr": "إنجلترا",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/eng.png",
-      "photo": ""
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Ivan_Toney_England_v_Ghana_23_June_2026-051.jpg/330px-Ivan_Toney_England_v_Ghana_23_June_2026-051.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
     },
     {
       "id": "259732",
@@ -428,7 +428,7 @@
       "nationality": "Brazil",
       "nationalityAr": "البرازيل",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/bra.png",
-      "photo": ""
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Galeno.jpg/330px-Galeno.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
     },
     {
       "id": "274159",
@@ -441,7 +441,7 @@
       "nationality": "Portugal",
       "nationalityAr": "البرتغال",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/por.png",
-      "photo": ""
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Francisco_Trinc%C3%A3o_USMNT_v_Portugal_Mar_31_2026-55_%28cropped%29.jpg/330px-Francisco_Trinc%C3%A3o_USMNT_v_Portugal_Mar_31_2026-55_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
     },
     {
       "id": "283331",
@@ -545,7 +545,7 @@
       "nationality": "Saudi Arabia",
       "nationalityAr": "السعودية",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Slogan_of_the_Houthi_Movement.svg/330px-Slogan_of_the_Houthi_Movement.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+      "photo": ""
     },
     {
       "id": "418705",
@@ -558,7 +558,7 @@
       "nationality": "Chad",
       "nationalityAr": "تشاد",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/cha.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/en/thumb/4/45/Al_Ahli_Saudi_FC_logo.svg/330px-Al_Ahli_Saudi_FC_logo.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+      "photo": ""
     },
     {
       "name": "Mishal Al-Mutairi",
@@ -568,7 +568,7 @@
       "nationalityAr": "السعودية",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
       "id": "manual-Mishal Al-Mutairi",
-      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Al_Hilal_SFC_Logo.svg/330px-Al_Hilal_SFC_Logo.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+      "photo": ""
     },
     {
       "name": "Abubakar Sidi Kinteh",
@@ -581,5 +581,5 @@
       "photo": ""
     }
   ],
-  "updatedAt": "2026-08-11T12:56:03.294580+00:00"
+  "updatedAt": "2026-08-11T15:58:58.504414+00:00"
 }
