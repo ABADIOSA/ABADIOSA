@@ -64,7 +64,7 @@
       "nationality": "Saudi Arabia",
       "nationalityAr": "السعودية",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/en/thumb/4/45/Al_Ahli_Saudi_FC_logo.svg/330px-Al_Ahli_Saudi_FC_logo.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+      "photo": ""
     },
     {
       "id": "259835",
@@ -259,7 +259,7 @@
       "nationality": "France",
       "nationalityAr": "فرنسا",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Enzo_millot.jpg/330px-Enzo_millot.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+      "photo": ""
     },
     {
       "id": "306692",
@@ -568,5 +568,5 @@
       "photo": ""
     }
   ],
-  "updatedAt": "2026-08-12T04:46:48.843157+00:00"
+  "updatedAt": "2026-08-12T07:19:49.118190+00:00"
 }
