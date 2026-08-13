@@ -3,27 +3,6 @@
   "live": [],
   "upcoming": [
     {
-      "id": "401900408",
-      "date": "2026-08-13T18:00Z",
-      "competition": "دوري روشن السعودي",
-      "state": "pre",
-      "statusText": "Scheduled",
-      "clock": "0'",
-      "venue": "Al-Awwal Park",
-      "home": {
-        "name": "Al Diriyah",
-        "nameAr": "الدرعية",
-        "logo": "",
-        "score": "0"
-      },
-      "away": {
-        "name": "Al Ahli",
-        "nameAr": "الأهلي",
-        "logo": "https://upload.wikimedia.org/wikipedia/ar/thumb/3/3e/Al-Ahli_SFC_%282025%29.svg/langar-330px-Al-Ahli_SFC_%282025%29.svg.png",
-        "score": "0"
-      }
-    },
-    {
       "id": "401900393",
       "date": "2026-08-22T18:00Z",
       "competition": "دوري روشن السعودي",
@@ -253,253 +232,42 @@
         "logo": "https://upload.wikimedia.org/wikipedia/ar/thumb/3/3e/Al-Ahli_SFC_%282025%29.svg/langar-330px-Al-Ahli_SFC_%282025%29.svg.png",
         "score": "0"
       }
-    }
-  ],
-  "results": [],
-  "archive": [
-    {
-      "id": "756209",
-      "date": "2026-05-20T18:00Z",
-      "competition": "دوري روشن السعودي",
-      "state": "post",
-      "statusText": "FT",
-      "clock": "90'+2'",
-      "venue": "Prince Mohammed Bin Fahd Stadium",
-      "home": {
-        "name": "Al Khaleej",
-        "nameAr": "الخليج",
-        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/21829.png",
-        "score": "1"
-      },
-      "away": {
-        "name": "Al Ahli",
-        "nameAr": "الأهلي",
-        "logo": "https://upload.wikimedia.org/wikipedia/ar/thumb/3/3e/Al-Ahli_SFC_%282025%29.svg/langar-330px-Al-Ahli_SFC_%282025%29.svg.png",
-        "score": "4"
-      }
     },
     {
-      "id": "756199",
-      "date": "2026-05-16T18:00Z",
+      "id": "401900876",
+      "date": "2026-11-05T20:00Z",
       "competition": "دوري روشن السعودي",
-      "state": "post",
-      "statusText": "FT",
-      "clock": "90'+2'",
-      "venue": "King Abdullah Sports City",
+      "state": "pre",
+      "statusText": "TBD",
+      "clock": "0'",
+      "venue": "",
       "home": {
         "name": "Al Ahli",
         "nameAr": "الأهلي",
         "logo": "https://upload.wikimedia.org/wikipedia/ar/thumb/3/3e/Al-Ahli_SFC_%282025%29.svg/langar-330px-Al-Ahli_SFC_%282025%29.svg.png",
-        "score": "3"
-      },
-      "away": {
-        "name": "Al Kholood",
-        "nameAr": "الخلود",
-        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/22028.png",
         "score": "0"
-      }
-    },
-    {
-      "id": "756186",
-      "date": "2026-05-11T18:00Z",
-      "competition": "دوري روشن السعودي",
-      "state": "post",
-      "statusText": "FT",
-      "clock": "90'+10'",
-      "venue": "Al Taawon Club Stadium",
-      "home": {
+      },
+      "away": {
         "name": "Al Taawoun",
         "nameAr": "التعاون",
         "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/18459.png",
-        "score": "1"
-      },
-      "away": {
-        "name": "Al Ahli",
-        "nameAr": "الأهلي",
-        "logo": "https://upload.wikimedia.org/wikipedia/ar/thumb/3/3e/Al-Ahli_SFC_%282025%29.svg/langar-330px-Al-Ahli_SFC_%282025%29.svg.png",
-        "score": "2"
-      }
-    },
-    {
-      "id": "756155",
-      "date": "2026-05-06T18:00Z",
-      "competition": "دوري روشن السعودي",
-      "state": "post",
-      "statusText": "FT",
-      "clock": "90'+5'",
-      "venue": "Prince Abdullah Al-Faisal Stadium",
-      "home": {
-        "name": "Al Ahli",
-        "nameAr": "الأهلي",
-        "logo": "https://upload.wikimedia.org/wikipedia/ar/thumb/3/3e/Al-Ahli_SFC_%282025%29.svg/langar-330px-Al-Ahli_SFC_%282025%29.svg.png",
-        "score": "3"
-      },
-      "away": {
-        "name": "Al Fateh",
-        "nameAr": "الفتح",
-        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/13033.png",
-        "score": "1"
-      }
-    },
-    {
-      "id": "756175",
-      "date": "2026-05-03T18:00Z",
-      "competition": "دوري روشن السعودي",
-      "state": "post",
-      "statusText": "FT",
-      "clock": "90'+2'",
-      "venue": "Prince Abdullah Al-Faisal Stadium",
-      "home": {
-        "name": "Al Ahli",
-        "nameAr": "الأهلي",
-        "logo": "https://upload.wikimedia.org/wikipedia/ar/thumb/3/3e/Al-Ahli_SFC_%282025%29.svg/langar-330px-Al-Ahli_SFC_%282025%29.svg.png",
-        "score": "4"
-      },
-      "away": {
-        "name": "Al Okhdood",
-        "nameAr": "الأخدود",
-        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/21966.png",
         "score": "0"
       }
-    },
+    }
+  ],
+  "results": [
     {
-      "id": "756173",
-      "date": "2026-04-29T18:00Z",
+      "id": "401900408",
+      "date": "2026-08-13T18:00Z",
       "competition": "دوري روشن السعودي",
       "state": "post",
       "statusText": "FT",
-      "clock": "90'+13'",
+      "clock": "90'+6'",
       "venue": "Al-Awwal Park",
       "home": {
-        "name": "Al Nassr",
-        "nameAr": "النصر",
-        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/817.png",
-        "score": "2"
-      },
-      "away": {
-        "name": "Al Ahli",
-        "nameAr": "الأهلي",
-        "logo": "https://upload.wikimedia.org/wikipedia/ar/thumb/3/3e/Al-Ahli_SFC_%282025%29.svg/langar-330px-Al-Ahli_SFC_%282025%29.svg.png",
-        "score": "0"
-      }
-    },
-    {
-      "id": "756156",
-      "date": "2026-04-08T15:55Z",
-      "competition": "دوري روشن السعودي",
-      "state": "post",
-      "statusText": "FT",
-      "clock": "90'+12'",
-      "venue": "Al Majma'a Sport City Stadium",
-      "home": {
-        "name": "Al Fayha",
-        "nameAr": "الفيحاء",
-        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/21827.png",
-        "score": "1"
-      },
-      "away": {
-        "name": "Al Ahli",
-        "nameAr": "الأهلي",
-        "logo": "https://upload.wikimedia.org/wikipedia/ar/thumb/3/3e/Al-Ahli_SFC_%282025%29.svg/langar-330px-Al-Ahli_SFC_%282025%29.svg.png",
-        "score": "1"
-      }
-    },
-    {
-      "id": "756139",
-      "date": "2026-04-04T16:15Z",
-      "competition": "دوري روشن السعودي",
-      "state": "post",
-      "statusText": "FT",
-      "clock": "90'+4'",
-      "venue": "King Abdullah Sports City",
-      "home": {
-        "name": "Al Ahli",
-        "nameAr": "الأهلي",
-        "logo": "https://upload.wikimedia.org/wikipedia/ar/thumb/3/3e/Al-Ahli_SFC_%282025%29.svg/langar-330px-Al-Ahli_SFC_%282025%29.svg.png",
-        "score": "3"
-      },
-      "away": {
-        "name": "Damac",
-        "nameAr": "ضمك",
-        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/21828.png",
-        "score": "0"
-      }
-    },
-    {
-      "id": "756136",
-      "date": "2026-03-13T19:00Z",
-      "competition": "دوري روشن السعودي",
-      "state": "post",
-      "statusText": "FT",
-      "clock": "90'+12'",
-      "venue": "Prince Mohammed Bin Fahd Stadium",
-      "home": {
-        "name": "Al Qadsiah",
-        "nameAr": "القادسية",
-        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/22022.png",
-        "score": "3"
-      },
-      "away": {
-        "name": "Al Ahli",
-        "nameAr": "الأهلي",
-        "logo": "https://upload.wikimedia.org/wikipedia/ar/thumb/3/3e/Al-Ahli_SFC_%282025%29.svg/langar-330px-Al-Ahli_SFC_%282025%29.svg.png",
-        "score": "2"
-      }
-    },
-    {
-      "id": "756121",
-      "date": "2026-03-06T19:00Z",
-      "competition": "دوري روشن السعودي",
-      "state": "post",
-      "statusText": "FT",
-      "clock": "90'+7'",
-      "venue": "King Abdullah Sports City",
-      "home": {
-        "name": "Al Ahli",
-        "nameAr": "الأهلي",
-        "logo": "https://upload.wikimedia.org/wikipedia/ar/thumb/3/3e/Al-Ahli_SFC_%282025%29.svg/langar-330px-Al-Ahli_SFC_%282025%29.svg.png",
-        "score": "3"
-      },
-      "away": {
-        "name": "Al Ittihad",
-        "nameAr": "الاتحاد",
-        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2276.png",
-        "score": "1"
-      }
-    },
-    {
-      "id": "756112",
-      "date": "2026-02-26T19:00Z",
-      "competition": "دوري روشن السعودي",
-      "state": "post",
-      "statusText": "FT",
-      "clock": "90'+7'",
-      "venue": "Prince Faisal bin Fahd Stadium",
-      "home": {
-        "name": "Al Riyadh",
-        "nameAr": "الرياض",
-        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/21965.png",
-        "score": "0"
-      },
-      "away": {
-        "name": "Al Ahli",
-        "nameAr": "الأهلي",
-        "logo": "https://upload.wikimedia.org/wikipedia/ar/thumb/3/3e/Al-Ahli_SFC_%282025%29.svg/langar-330px-Al-Ahli_SFC_%282025%29.svg.png",
-        "score": "1"
-      }
-    },
-    {
-      "id": "755992",
-      "date": "2026-02-23T19:00Z",
-      "competition": "دوري روشن السعودي",
-      "state": "post",
-      "statusText": "FT",
-      "clock": "90'+11'",
-      "venue": "Prince Sultan bin Abdulaziz Sports City Stadium",
-      "home": {
-        "name": "Damac",
-        "nameAr": "ضمك",
-        "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/21828.png",
+        "name": "Al Diriyah",
+        "nameAr": "الدرعية",
+        "logo": "",
         "score": "0"
       },
       "away": {
@@ -510,6 +278,7 @@
       }
     }
   ],
-  "archiveLabel": "نتائج الموسم الماضي",
-  "updatedAt": "2026-08-13T19:02:02.865756+00:00"
+  "archive": [],
+  "archiveLabel": "",
+  "updatedAt": "2026-08-13T21:45:53.485511+00:00"
 }

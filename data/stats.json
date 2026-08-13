@@ -1,69 +1,37 @@
 {
   "source": "espn-summaries",
-  "matchesAnalyzed": 34,
+  "matchesAnalyzed": 1,
   "scorers": [
     {
-      "name": "Ivan Toney",
-      "value": 22
-    },
-    {
-      "name": "Feras Al-Brikan",
-      "value": 5
-    },
-    {
-      "name": "Valentin Atangana",
-      "value": 5
-    },
-    {
-      "name": "Franck Kessié",
-      "value": 5
-    },
-    {
-      "name": "Riyad Mahrez",
-      "value": 4
-    },
-    {
-      "name": "Rayane Hamidou",
-      "value": 3
-    },
-    {
-      "name": "Enzo Millot",
-      "value": 3
-    },
-    {
-      "name": "Matheus Gonçalves",
-      "value": 2
+      "name": "Eduard Spertsyan",
+      "value": 1
     }
   ],
   "assists": [],
   "cards": [
     {
-      "name": "Enzo Millot",
-      "value": 9
-    },
-    {
-      "name": "Ziyad Al-Johani",
-      "value": 8
-    },
-    {
-      "name": "Ali Majrashi",
-      "value": 8
+      "name": "Zakaria Al Hawsawi",
+      "value": 1
     },
     {
       "name": "Valentin Atangana",
-      "value": 7
+      "value": 1
     },
     {
-      "name": "Roger Ibañez",
-      "value": 6
+      "name": "Rayane Hamidou",
+      "value": 1
+    },
+    {
+      "name": "Naif Masoud",
+      "value": 1
     }
   ],
   "team": {
-    "goalsFor": 71,
-    "goalsAgainst": 25,
-    "avgShots": 12.9,
-    "avgCorners": 5.6,
-    "avgPossession": 50.0
+    "goalsFor": 1,
+    "goalsAgainst": 0,
+    "avgShots": 15.0,
+    "avgCorners": 4.0,
+    "avgPossession": 42.5
   },
-  "updatedAt": "2026-08-13T19:02:10.675996+00:00"
+  "updatedAt": "2026-08-13T21:45:53.675659+00:00"
 }
