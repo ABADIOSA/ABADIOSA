@@ -270,6 +270,7 @@ h1, h2, h3, .display { font-family: var(--display); letter-spacing: 0; }
 .coach-info .label { font-size: 12px; color: #ffe9a8; font-weight: 700; }
 .coach-info .name { font-size: 21px; font-weight: 900; font-family: var(--display); }
 .coach-info .nat { font-size: 13px; color: #bfe6d3; }
+.coach-note { font-size: 12.5px; color: #cfe8dc; margin-top: 6px; line-height: 1.6; }
 
 /* نافذة اللاعب */
 .modal { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; }
@@ -329,6 +330,20 @@ h1, h2, h3, .display { font-family: var(--display); letter-spacing: 0; }
 [data-theme="dark"] .match-score.loss { background: #3a1a1a; color: #ff9d9d; }
 [data-theme="dark"] .match-score.draw { background: #33301a; color: #e6d48a; }
 .match-date { font-size: 12px; color: var(--muted); margin-top: 6px; }
+
+/* مباراة اليوم والمباشر */
+.match-card.today { border-color: var(--gold); border-width: 2px; }
+.today-tag { background: var(--gold); color: #3a2e00; padding: 1px 9px; border-radius: 999px; font-size: 11px; font-weight: 900; }
+.live-banner {
+  background: linear-gradient(120deg, #8c1c1c, #b62b2b); color: #fff;
+  border-radius: var(--radius); padding: 16px 20px; margin-top: 18px; box-shadow: var(--shadow);
+}
+.live-banner .match-row .t { color: #fff; }
+.live-banner .match-date { color: #ffd9d9; }
+.live-dot { font-weight: 900; font-size: 13px; animation: pulse 1.4s infinite; display: inline-block; }
+@keyframes pulse { 50% { opacity: .45; } }
+@media (prefers-reduced-motion: reduce) { .live-dot { animation: none; } }
+.match-score.live { background: #fff; color: #b62b2b; }
 
 /* شريط الفورم */
 .form-strip { display: flex; gap: 5px; align-items: center; }
@@ -560,12 +575,25 @@ h1, h2, h3, .display { font-family: var(--display); letter-spacing: 0; }
   background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
   overflow: hidden; box-shadow: var(--shadow); display: flex; flex-direction: column; transition: .2s;
 }
-.store-card:hover { transform: translateY(-4px); }
-.store-img { height: 150px; display: flex; align-items: center; justify-content: center; font-size: 56px; background: linear-gradient(150deg, var(--bg-alt), var(--bg)); }
-.store-body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
-.store-body h3 { font-size: 15px; font-weight: 800; font-family: var(--body); }
-.store-body .desc { font-size: 12.5px; color: var(--muted); flex: 1; }
-.store-foot { display: flex; align-items: center; justify-content: space-between; margin-top: 6px; }
+.store-card { color: inherit; }
+.store-card:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(0,60,35,.2); }
+.store-img {
+  height: 210px; display: flex; align-items: center; justify-content: center; font-size: 56px;
+  background: #fff; position: relative; overflow: hidden;
+}
+[data-theme="dark"] .store-img { background: #f4f7f5; }
+.store-img img { width: 100%; height: 100%; object-fit: contain; padding: 8px; }
+.store-fallback { font-size: 56px; }
+.store-badge {
+  position: absolute; top: 10px; inset-inline-start: 10px; font-size: 11px; font-weight: 900;
+  padding: 3px 10px; border-radius: 999px;
+}
+.store-badge.sale { background: var(--gold); color: #3a2e00; }
+.store-badge.out { background: #c34; color: #fff; }
+.store-body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.store-body h3 { font-size: 14.5px; font-weight: 800; font-family: var(--body); line-height: 1.5; flex: 1; }
+.store-foot { display: flex; align-items: center; justify-content: space-between; margin-top: 6px; gap: 8px; }
+.price .old { color: var(--muted); font-size: 12px; font-weight: 600; margin-inline-start: 6px; }
 .price { font-weight: 900; color: var(--green); font-family: var(--display); font-size: 18px; }
 [data-theme="dark"] .price { color: #7fe0b0; }
 .price small { font-weight: 600; color: var(--muted); font-size: 12px; }

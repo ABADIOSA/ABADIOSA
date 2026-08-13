@@ -9,14 +9,21 @@ import json
 import time
 import urllib.parse
 import urllib.request
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 TEAM_ID = "8346"  # الأهلي السعودي في ESPN
+TEAM_NAME = "Al Ahli"
 LEAGUE = "ksa.1"  # دوري روشن السعودي
 BASE = f"https://site.api.espn.com/apis/site/v2/sports/soccer/{LEAGUE}"
 STANDINGS_URL = f"https://site.api.espn.com/apis/v2/sports/soccer/{LEAGUE}/standings"
+SCOREBOARD = f"{BASE}/scoreboard"
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
+
+# متجر النادي الرسمي (منصة سلة)
+STORE_ID = "1594883879"
+STORE_API = "https://api.salla.dev/store/v1/products?per_page=40"
+STORE_URL = "https://store.alahlifc.sa/ar"
 
 # الشعار الجديد للنادي (هوية 2025) — شعار ESPN قديم
 NEW_CREST = "https://upload.wikimedia.org/wikipedia/ar/thumb/3/3e/Al-Ahli_SFC_%282025%29.svg/langar-330px-Al-Ahli_SFC_%282025%29.svg.png"
@@ -24,6 +31,10 @@ NEW_CREST = "https://upload.wikimedia.org/wikipedia/ar/thumb/3/3e/Al-Ahli_SFC_%2
 # أسماء أندية دوري روشن بالعربية
 AR_TEAMS = {
     "Al Ahli": "الأهلي",
+    "Abha": "أبها",
+    "Al Diriyah": "الدرعية",
+    "Al-Faisaly": "الفيصلي",
+    "Al Faisaly": "الفيصلي",
     "Al Ettifaq": "الاتفاق",
     "Al Fateh": "الفتح",
     "Al Fayha": "الفيحاء",
@@ -85,22 +96,49 @@ def team_logo(name: str, fallback: str) -> str:
 _photo_cache: dict = {}
 
 
+FOOT_WORDS = ("footballer", "football", "soccer", "goalkeeper", "winger",
+              "midfielder", "defender", "forward", "striker", "manager", "coach")
+
+
+def photo_ok(url: str) -> bool:
+    """التأكد أن رابط الصورة يعمل فعلًا قبل اعتماده."""
+    if not url:
+        return False
+    try:
+        req = urllib.request.Request(url, method="HEAD", headers={"User-Agent": "AhliFanSite/1.0"})
+        with urllib.request.urlopen(req, timeout=15) as res:
+            return res.status == 200 and "image" in res.headers.get("Content-Type", "")
+    except Exception:
+        return False
+
+
 def wiki_photo(name: str, hint: str = "footballer") -> str:
-    """جلب صورة اللاعب من ويكيبيديا (بحث ثم ملخص الصفحة)."""
+    """صورة اللاعب من ويكيبيديا: نبحث بعدة صيغ، ونتحقق أن الصفحة رياضية والصورة تعمل."""
     if name in _photo_cache:
         return _photo_cache[name]
+
     photo = ""
-    time.sleep(0.3)  # احترام حدود معدل الطلبات في ويكيبيديا
-    try:
-        q = urllib.parse.quote(f"{name} {hint}")
-        s = get(f"https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch={q}&format=json&srlimit=1")
-        hits = s.get("query", {}).get("search", [])
-        if hits:
-            title = urllib.parse.quote(hits[0]["title"].replace(" ", "_"))
-            summary = get(f"https://en.wikipedia.org/api/rest_v1/page/summary/{title}")
-            photo = (summary.get("thumbnail") or {}).get("source", "")
-    except Exception:
-        photo = ""
+    queries = [f"{name} {hint}", f"{name} Al Ahli", name]
+    for q in queries:
+        if photo:
+            break
+        time.sleep(0.25)  # احترام حدود معدل الطلبات
+        try:
+            enc = urllib.parse.quote(q)
+            s = get(f"https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch={enc}&format=json&srlimit=3")
+            for hit in s.get("query", {}).get("search", [])[:3]:
+                title = urllib.parse.quote(hit["title"].replace(" ", "_"))
+                summary = get(f"https://en.wikipedia.org/api/rest_v1/page/summary/{title}")
+                blurb = f"{summary.get('description', '')} {summary.get('extract', '')}".lower()
+                if not any(w in blurb for w in FOOT_WORDS):
+                    continue  # صفحة لشخص آخر يحمل الاسم نفسه
+                candidate = (summary.get("thumbnail") or {}).get("source", "")
+                if photo_ok(candidate):
+                    photo = candidate
+                    break
+        except Exception:
+            continue
+
     _photo_cache[name] = photo
     return photo
 
@@ -131,12 +169,23 @@ def update_team() -> None:
         "logo": NEW_CREST,
         "record": (team.get("record", {}).get("items") or [{}])[0].get("summary", ""),
         "standingSummary": team.get("standingSummary", ""),
-        "coach": {
-            "name": "ماتياس يايسله",
-            "nationality": "ألمانيا",
-            "photo": wiki_photo("Matthias Jaissle", "football manager"),
-        },
+        "staff": load_staff(),
     })
+
+
+def load_staff() -> list:
+    """الجهاز الفني من players.json مع جلب صور الأعضاء تلقائيًا."""
+    try:
+        meta = json.loads((DATA_DIR / "players.json").read_text(encoding="utf-8"))
+    except Exception:
+        return []
+    staff = []
+    for member in meta.get("staff", []):
+        m = dict(member)
+        if not m.get("photo") and m.get("wiki"):
+            m["photo"] = wiki_photo(m["wiki"], "football manager")
+        staff.append(m)
+    return staff
 
 
 def update_squad() -> None:
@@ -175,54 +224,109 @@ def update_squad() -> None:
     write("squad.json", {"source": "espn+manual", "players": players})
 
 
-def fetch_schedule_events() -> list:
-    """أحداث الجدول: الموسم الحالي، وإن كان فارغًا (لم ينطلق بعد) نرجع للموسم المكتمل."""
-    events = (get(f"{BASE}/teams/{TEAM_ID}/schedule").get("events") or [])
-    if events:
-        return events
-    year = datetime.now(timezone.utc).year
-    for season in (year - 1, year - 2):
-        try:
-            events = (get(f"{BASE}/teams/{TEAM_ID}/schedule?season={season}").get("events") or [])
-        except Exception:
-            events = []
-        if events:
-            print(f"الموسم الحالي لم ينطلق بعد — عرض أرشيف موسم {season}.")
-            return events
-    return []
+def competition_ar(name: str) -> str:
+    if not name or "Saudi Pro League" in name:
+        return "دوري روشن السعودي"
+    if "King" in name and "Cup" in name:
+        return "كأس خادم الحرمين الشريفين"
+    if "Champions" in name and "Elite" in name:
+        return "دوري أبطال آسيا للنخبة"
+    if "Super" in name:
+        return "كأس السوبر السعودي"
+    return name
+
+
+def scoreboard_events(start: datetime, end: datetime) -> list:
+    """مباريات الدوري في نطاق زمني — تعمل حتى قبل انطلاق الموسم رسميًا."""
+    rng = f"{start.strftime('%Y%m%d')}-{end.strftime('%Y%m%d')}"
+    try:
+        data = get(f"{SCOREBOARD}?dates={rng}&limit=500")
+    except Exception as exc:
+        print(f"تعذّر جلب السكوربورد {rng}: {exc}")
+        return []
+    out = []
+    for e in data.get("events") or []:
+        comp = (e.get("competitions") or [{}])[0]
+        names = [(c.get("team") or {}).get("displayName") for c in comp.get("competitors") or []]
+        if TEAM_NAME in names:
+            out.append(e)
+    return out
+
+
+def parse_event(e: dict) -> dict:
+    comp = (e.get("competitions") or [{}])[0]
+    status = comp.get("status") or {}
+    stype = status.get("type") or {}
+    match = {
+        "id": e.get("id"),
+        "date": e.get("date"),
+        "competition": competition_ar((e.get("league") or comp.get("league") or {}).get("name", "")),
+        "state": stype.get("state", ""),           # pre / in / post
+        "statusText": stype.get("shortDetail", ""),
+        "clock": status.get("displayClock", ""),
+        "venue": (comp.get("venue") or {}).get("fullName", ""),
+    }
+    for c in comp.get("competitors") or []:
+        team = c.get("team") or {}
+        name = team.get("displayName", "")
+        score = c.get("score")
+        match["home" if c.get("homeAway") == "home" else "away"] = {
+            "name": name,
+            "nameAr": ar_team(name),
+            "logo": team_logo(name, (team.get("logos") or [{}])[0].get("href", "") or team.get("logo", "")),
+            "score": score.get("displayValue", "") if isinstance(score, dict) else str(score or ""),
+        }
+    return match
 
 
 def update_matches() -> None:
-    upcoming, results = [], []
-    finished_ids = []
-    for e in fetch_schedule_events():
-        comp = e["competitions"][0]
-        state = comp.get("status", {}).get("type", {}).get("state", "")
-        if state == "post" and e.get("id"):
-            finished_ids.append(e["id"])
-        comp_name = (e.get("league") or {}).get("name") or ""
-        if "Saudi Pro League" in comp_name or not comp_name:
-            comp_name = "دوري روشن السعودي"
-        elif "King" in comp_name and "Cup" in comp_name:
-            comp_name = "كأس خادم الحرمين الشريفين"
-        match = {"date": e.get("date"), "competition": comp_name}
-        for c in comp.get("competitors") or []:
-            team = c.get("team") or {}
-            side = {
-                "name": team.get("displayName", ""),
-                "nameAr": ar_team(team.get("displayName", "")),
-                "logo": team_logo(team.get("displayName", ""), (team.get("logos") or [{}])[0].get("href", "") or team.get("logo", "")),
-                "score": (c.get("score") or {}).get("displayValue", "") if isinstance(c.get("score"), dict) else str(c.get("score") or ""),
-                "winner": c.get("winner"),
-            }
-            match["home" if c.get("homeAway") == "home" else "away"] = side
-        if "home" not in match or "away" not in match:
+    now = datetime.now(timezone.utc)
+    events = scoreboard_events(now - timedelta(days=60), now + timedelta(days=150))
+    upcoming, results, live = [], [], []
+
+    for e in events:
+        m = parse_event(e)
+        if "home" not in m or "away" not in m:
             continue
-        (results if state == "post" else upcoming).append(match)
+        if m["state"] == "post":
+            results.append(m)
+        elif m["state"] == "in":
+            live.append(m)
+        else:
+            upcoming.append(m)
+
+    # أرشيف الموسم المكتمل حين لا توجد نتائج بعد في الموسم الجديد
+    archive = []
+    if not results:
+        for season in (now.year - 1, now.year - 2):
+            try:
+                evs = get(f"{BASE}/teams/{TEAM_ID}/schedule?season={season}").get("events") or []
+            except Exception:
+                evs = []
+            if evs:
+                for e in evs:
+                    m = parse_event(e)
+                    if "home" in m and "away" in m and m["state"] == "post":
+                        archive.append(m)
+                if archive:
+                    print(f"لا نتائج في الموسم الجديد — أرشيف موسم {season}: {len(archive)} مباراة.")
+                    break
+
     upcoming.sort(key=lambda m: m["date"] or "")
     results.sort(key=lambda m: m["date"] or "", reverse=True)
-    write("matches_auto.json", {"source": "espn", "upcoming": upcoming[:10], "results": results[:10]})
-    update_season_stats(finished_ids, results)
+    archive.sort(key=lambda m: m["date"] or "", reverse=True)
+
+    write("matches_auto.json", {
+        "source": "espn-scoreboard",
+        "live": live,
+        "upcoming": upcoming[:12],
+        "results": results[:12],
+        "archive": archive[:12],
+        "archiveLabel": "نتائج الموسم الماضي" if archive else "",
+    })
+    # الإحصائيات تُحسب من مباريات انتهت (الموسم الحالي أو الأرشيف)
+    source = results or archive
+    update_season_stats([m["id"] for m in source if m.get("id")], source)
 
 
 def update_season_stats(event_ids: list, results: list) -> None:
@@ -286,12 +390,10 @@ def update_season_stats(event_ids: list, results: list) -> None:
     })
 
 
-def update_standings() -> None:
-    d = get(STANDINGS_URL)
-    children = d.get("children") or []
+def parse_standings(payload: dict) -> tuple:
+    children = payload.get("children") or []
     if not children:
-        print("لا يوجد جدول ترتيب متاح حاليًا.")
-        return
+        return "", []
     entries = []
     for entry in children[0]["standings"]["entries"]:
         team = entry["team"]
@@ -307,18 +409,113 @@ def update_standings() -> None:
             "goalDiff": stats.get("pointDifferential", ""),
             "points": stats.get("points", ""),
         })
-    entries.sort(key=lambda x: int(x["points"] or 0), reverse=True)
-    season = (d.get("season") or {})
-    write("standings.json", {
-        "source": "espn",
-        "seasonName": season.get("displayName", "") if isinstance(season, dict) else "",
-        "entries": entries,
+    entries.sort(key=lambda x: (-int(x["points"] or 0), x["teamAr"]))
+    season = payload.get("season") or {}
+    return (season.get("displayName", "") if isinstance(season, dict) else ""), entries
+
+
+def update_standings() -> None:
+    name, entries = parse_standings(get(STANDINGS_URL))
+    played = sum(int(e["played"] or 0) for e in entries)
+
+    # الموسم لم ينطلق: الجدول كله أصفار — نعرض ترتيب الموسم الماضي بوضوح
+    if entries and played == 0:
+        year = datetime.now(timezone.utc).year
+        for season in (year - 1, year - 2):
+            try:
+                prev_name, prev_entries = parse_standings(get(f"{STANDINGS_URL}?season={season}"))
+            except Exception:
+                continue
+            if prev_entries and sum(int(e["played"] or 0) for e in prev_entries) > 0:
+                print(f"الموسم الجديد لم ينطلق — عرض ترتيب {prev_name}.")
+                write("standings.json", {
+                    "source": "espn",
+                    "seasonName": prev_name,
+                    "isFinal": True,
+                    "entries": prev_entries,
+                })
+                return
+
+    write("standings.json", {"source": "espn", "seasonName": name, "isFinal": False, "entries": entries})
+
+
+def update_store() -> None:
+    """منتجات المتجر الرسمي (منصة سلة) بالصور والأسعار وروابط الشراء."""
+    req = urllib.request.Request(
+        STORE_API,
+        headers={"User-Agent": "AhliFanSite/1.0", "Store-Identifier": STORE_ID},
+    )
+    with urllib.request.urlopen(req, timeout=30) as res:
+        data = json.load(res)
+    if not data.get("success"):
+        raise RuntimeError("واجهة المتجر لم تستجب")
+
+    products, seen = [], set()
+    for p in data.get("data", []):
+        name = (p.get("name") or "").strip()
+        if not name or name in seen:
+            continue  # المتجر يكرر بعض المنتجات بمقاسات مختلفة
+        seen.add(name)
+        price = p.get("price")
+        price = price.get("amount") if isinstance(price, dict) else price
+        sale = p.get("sale_price")
+        sale = sale.get("amount") if isinstance(sale, dict) else sale
+        image = p.get("image") or {}
+        products.append({
+            "name": name,
+            "nameAr": store_name_ar(name),
+            "price": sale or price,
+            "oldPrice": price if sale else None,
+            "image": image.get("url", "") if isinstance(image, dict) else "",
+            "url": p.get("url") or STORE_URL,
+            "onSale": bool(sale),
+            "outOfStock": bool(p.get("is_out_of_stock")),
+        })
+
+    write("store.json", {
+        "source": "salla-official-store",
+        "officialStoreUrl": STORE_URL,
+        "products": products[:24],
     })
+
+
+# الترتيب مهم: العبارات الأطول أولًا كي لا تُقطّعها الكلمات المفردة
+STORE_WORDS = [
+    ("Away Shirt", "القميص الاحتياطي"), ("Home Shirt", "القميص الأساسي"),
+    ("Third Shirt", "القميص الثالث"),
+    ("Pre Match Away Jersey", "قميص ما قبل المباراة الاحتياطي"),
+    ("Pre Match Home Jersey", "قميص ما قبل المباراة الأساسي"),
+    ("Home Replica Short", "شورت الطقم الأساسي"),
+    ("Away Shorts - Replica", "شورت الطقم الاحتياطي"),
+    ("Away Shorts", "شورت الطقم الاحتياطي"),
+    ("Home Shorts", "شورت الطقم الأساسي"),
+    ("Asia Champion", "بطل آسيا"), ("Asia is Green", "آسيا خضراء"),
+    ("Goalkeeper", "حارس المرمى"),
+    ("Pre-Match", "ما قبل المباراة"), ("Pre Match", "ما قبل المباراة"),
+    ("Sleeveless Top", "قطعة علوية بلا أكمام"), ("1/4 Zip Top", "قطعة علوية بسحّاب"),
+    ("Training", "تدريب"), ("Travel", "سفر"),
+    ("Shorts", "شورت"), ("Short", "شورت"), ("Pants", "بنطال"),
+    ("Jacket", "جاكيت"), ("Hoodie", "هودي"), ("Polo", "بولو"),
+    ("Jersey", "قميص"), ("Shirt", "قميص"), ("Tee", "تيشيرت"), ("Top", "قطعة علوية"),
+    ("Replica", "نسخة الجماهير"), ("Logo", "بالشعار"),
+    ("Men's", "رجالي"), ("Women's", "نسائي"), ("Kids", "أطفال"),
+    ("Graphic", "مطبوع"), ("Scarf", "شماغ"), ("Cap", "كاب"), ("Socks", "جوارب"),
+    ("Away", "الاحتياطي"), ("Home", "الأساسي"), ("Third", "الثالث"),
+]
+
+
+def store_name_ar(name: str) -> str:
+    """ترجمة مبسطة لاسم المنتج مع الإبقاء على رقم الموسم."""
+    out = name.replace("Al Ahly's", "الأهلي").replace("Al Ahli", "الأهلي").replace("Al Ahly", "الأهلي")
+    for en, ar in STORE_WORDS:
+        out = out.replace(en, ar)
+    out = out.replace(" - ", " ")
+    return " ".join(out.split())
 
 
 def main() -> None:
     DATA_DIR.mkdir(parents=True, exist_ok=True)
-    for step in (update_team, update_squad, update_matches, update_standings):
+    for step in (update_team, update_squad, update_matches, update_standings, update_store):
         try:
             step()
         except Exception as exc:  # خطوة فاشلة لا تُسقط البقية — نبقي الملف القديم

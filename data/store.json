@@ -1,16 +1,127 @@
 {
-  "note": "منتجات المتجر — عدّل الأسعار والمنتجات من هنا. الشراء الفعلي يتم عبر المتجر الرسمي للنادي.",
-  "officialStoreUrl": "https://www.alahlifc.sa",
+  "source": "salla-official-store",
+  "officialStoreUrl": "https://store.alahlifc.sa/ar",
   "products": [
-    { "name": "القميص الأساسي 2025/26", "emoji": "👕", "price": 349, "badge": "جديد", "desc": "القميص الأخضر الأساسي للموسم الجديد بشعار بطل آسيا." },
-    { "name": "القميص الاحتياطي 2025/26", "emoji": "🤍", "price": 349, "badge": "جديد", "desc": "القميص الأبيض الاحتياطي بتصميم عصري أنيق." },
-    { "name": "قميص الحارس", "emoji": "🧤", "price": 299, "badge": "", "desc": "قميص حراسة المرمى الرسمي للموسم الحالي." },
-    { "name": "قميص بطل آسيا — نسخة تذكارية", "emoji": "🏆", "price": 449, "badge": "إصدار محدود", "desc": "نسخة خاصة احتفالًا بالتتويج بدوري أبطال آسيا للنخبة 2025." },
-    { "name": "شماغ أهلاوي", "emoji": "🧣", "price": 129, "badge": "", "desc": "شماغ بألوان النادي لمدرجات القلعة الخضراء." },
-    { "name": "جاكيت التدريب", "emoji": "🧥", "price": 279, "badge": "", "desc": "جاكيت التدريب الرسمي الذي يرتديه الجهاز الفني واللاعبون." },
-    { "name": "كرة النادي الرسمية", "emoji": "⚽", "price": 149, "badge": "", "desc": "كرة بشعار النادي الأهلي وألوانه الرسمية." },
-    { "name": "علم النادي الكبير", "emoji": "🚩", "price": 89, "badge": "", "desc": "علم كبير للمدرجات بشعار الراقي." },
-    { "name": "كوب قهوة أهلاوي", "emoji": "☕", "price": 59, "badge": "", "desc": "ابدأ صباحك بقهوة خضراء ملكية." },
-    { "name": "طقم أطفال 2025/26", "emoji": "🧒", "price": 249, "badge": "", "desc": "طقم كامل للصغار: قميص وشورت وجوارب." }
-  ]
+    {
+      "name": "Al Ahly's 2026/27 Away Shirt - Replica",
+      "nameAr": "الأهلي 2026/27 القميص الاحتياطي نسخة الجماهير",
+      "price": 399,
+      "oldPrice": null,
+      "image": "https://cdn.salla.sa/XeBvRy/2a2fdf6f-f8dd-400b-b139-1d3d68abb94b-333.33333333333x500-CcV12pBZq4XdazSzkjCSeqzeEhAsx6HTomJQCe0Y.jpg",
+      "url": "https://store.alahlifc.sa/en/al-ahly-s-202627-away-shirt-replica/p25384153",
+      "onSale": false,
+      "outOfStock": false
+    },
+    {
+      "name": "Al Ahly's 26/27 Away Shorts - Replica",
+      "nameAr": "الأهلي 26/27 شورت الطقم الاحتياطي",
+      "price": 199,
+      "oldPrice": null,
+      "image": "https://cdn.files.salla.network/products/1594883879/bc1fac52-81d8-4cde-93eb-364fa9824617-original.webp",
+      "url": "https://store.alahlifc.sa/en/al-ahly-s-2627-away-shorts-replica/p484336899",
+      "onSale": false,
+      "outOfStock": false
+    },
+    {
+      "name": "Al Ahli 26/27 Pre Match Away Jersey",
+      "nameAr": "الأهلي 26/27 قميص ما قبل المباراة الاحتياطي",
+      "price": 259,
+      "oldPrice": null,
+      "image": "https://cdn.files.salla.network/products/1594883879/4ad0bad7-4504-4899-b307-faf0059f7cfa-original.webp",
+      "url": "https://store.alahlifc.sa/en/al-ahli-2627-pre-match-away-jersey/p2072369670",
+      "onSale": false,
+      "outOfStock": false
+    },
+    {
+      "name": "Al Ahli 26/27 Home Replica Short",
+      "nameAr": "الأهلي 26/27 شورت الطقم الأساسي",
+      "price": 199,
+      "oldPrice": null,
+      "image": "https://cdn.salla.sa/XeBvRy/163e0076-2ebe-4fca-a1dd-01abe9751e11-333.33333333333x500-P9y4Dw7iBfMMmRa0ZWQbgG7tmhF5LIKpMujuwbyT.jpg",
+      "url": "https://store.alahlifc.sa/en/al-ahli-2627-home-replica-short/p1897146113",
+      "onSale": false,
+      "outOfStock": false
+    },
+    {
+      "name": "Al Ahli 26/27 Pre Match Home Jersey",
+      "nameAr": "الأهلي 26/27 قميص ما قبل المباراة الأساسي",
+      "price": 259,
+      "oldPrice": null,
+      "image": "https://cdn.files.salla.network/products/1594883879/542ca9ee-fe51-43ae-8be8-d1079f33bbbb-original.webp",
+      "url": "https://store.alahlifc.sa/en/al-ahli-2627-pre-match-home-jersey/p1432549639",
+      "onSale": false,
+      "outOfStock": false
+    },
+    {
+      "name": "Al Ahli Training Graphic Men's Jersey",
+      "nameAr": "الأهلي تدريب مطبوع رجالي قميص",
+      "price": 299,
+      "oldPrice": null,
+      "image": "https://cdn.files.salla.network/products/1594883879/8f88fdc8-c644-4417-95df-ca49acff9ee0-original.webp",
+      "url": "https://store.alahlifc.sa/en/al-ahli-training-graphic-men-s-jersey/p699972357",
+      "onSale": false,
+      "outOfStock": false
+    },
+    {
+      "name": "Al Ahli Training Jersey",
+      "nameAr": "الأهلي تدريب قميص",
+      "price": 219,
+      "oldPrice": null,
+      "image": "https://cdn.files.salla.network/products/1594883879/119b152d-ba36-493d-9a72-bf3783b94d29-original.webp",
+      "url": "https://store.alahlifc.sa/en/al-ahli-training-jersey/p1607703556",
+      "onSale": false,
+      "outOfStock": false
+    },
+    {
+      "name": "Al Ahli Training Polo",
+      "nameAr": "الأهلي تدريب بولو",
+      "price": 259,
+      "oldPrice": null,
+      "image": "https://cdn.files.salla.network/products/1594883879/c467e4bc-4f2e-4689-a4b8-e2cff27f502a-original.webp",
+      "url": "https://store.alahlifc.sa/en/al-ahli-training-polo/p807951930",
+      "onSale": false,
+      "outOfStock": false
+    },
+    {
+      "name": "Al Ahli Pre-Match Jacket",
+      "nameAr": "الأهلي ما قبل المباراة جاكيت",
+      "price": 429,
+      "oldPrice": null,
+      "image": "https://cdn.files.salla.network/products/1594883879/dbd023a9-8545-4ea1-b273-74185b003b4f-original.webp",
+      "url": "https://store.alahlifc.sa/en/al-ahli-pre-match-jacket/p342233144",
+      "onSale": false,
+      "outOfStock": false
+    },
+    {
+      "name": "Al Ahli Training Sleeveless Top",
+      "nameAr": "الأهلي تدريب قطعة علوية بلا أكمام",
+      "price": 189,
+      "oldPrice": null,
+      "image": "https://cdn.files.salla.network/products/1594883879/b3950d17-3a93-4198-b463-4e5456ab0ee0-original.webp",
+      "url": "https://store.alahlifc.sa/en/al-ahli-training-sleeveless-top/p1757205054",
+      "onSale": false,
+      "outOfStock": false
+    },
+    {
+      "name": "Al Ahli Training 1/4 Zip Top",
+      "nameAr": "الأهلي تدريب قطعة علوية بسحّاب",
+      "price": 299,
+      "oldPrice": null,
+      "image": "https://cdn.files.salla.network/products/1594883879/becfc635-ba7f-4ba1-8d78-39e619061ad6-original.webp",
+      "url": "https://store.alahlifc.sa/en/al-ahli-training-14-zip-top/p1292538940",
+      "onSale": false,
+      "outOfStock": false
+    },
+    {
+      "name": "Al Ahli Travel Shorts",
+      "nameAr": "الأهلي سفر شورت",
+      "price": 259,
+      "oldPrice": null,
+      "image": "https://cdn.files.salla.network/products/1594883879/2461956a-b06c-4091-a51d-11b29439350b-original.webp",
+      "url": "https://store.alahlifc.sa/en/al-ahli-travel-shorts/p1467627313",
+      "onSale": false,
+      "outOfStock": false
+    }
+  ],
+  "updatedAt": "2026-08-13T15:34:31.940231+00:00"
 }

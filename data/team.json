@@ -5,10 +5,18 @@
   "logo": "https://upload.wikimedia.org/wikipedia/ar/thumb/3/3e/Al-Ahli_SFC_%282025%29.svg/langar-330px-Al-Ahli_SFC_%282025%29.svg.png",
   "record": "0-0-0",
   "standingSummary": "2nd in Saudi Pro League",
-  "coach": {
-    "name": "ماتياس يايسله",
-    "nationality": "ألمانيا",
-    "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/FC_Salzburg_vs._AC_Mailand_%28UEFA_Championsleague_2022-09-06%29_15.jpg/330px-FC_Salzburg_vs._AC_Mailand_%28UEFA_Championsleague_2022-09-06%29_15.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
-  },
-  "updatedAt": "2026-08-13T14:52:15.899078+00:00"
+  "staff": [
+    {
+      "name": "مارينو بوسيتش",
+      "wiki": "Marino Pušić",
+      "role": "المدير الفني",
+      "nationality": "هولندا / كرواتيا",
+      "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ned.png",
+      "since": "أغسطس 2026",
+      "contract": "حتى يونيو 2028",
+      "note": "مواليد موستار 1971، يحمل الجنسيتين الهولندية والكرواتية. قاد شاختار دونيتسك للقب الدوري الأوكراني 2023/24 ولقبَي كأس أوكرانيا، وسبق له تدريب الجزيرة الإماراتي. خلف ماتياس يايسله الذي رحل لتدريب نيوكاسل يونايتد.",
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/%D0%9C%D0%B0%D1%80%D1%96%D0%BD%D0%BE_%D0%9F%D1%83%D1%88%D0%B8%D1%87._%D0%A3%D0%9F%D0%9B._%C2%AB%D0%A8%D0%B0%D1%85%D1%82%D0%B0%D1%80%C2%BB_%E2%80%94_%C2%AB%D0%9A%D0%B0%D1%80%D0%BF%D0%B0%D1%82%D0%B8%C2%BB_%E2%80%94_5-2_%E2%80%94_7646_%28cropped%29.jpg/330px-%D0%9C%D0%B0%D1%80%D1%96%D0%BD%D0%BE_%D0%9F%D1%83%D1%88%D0%B8%D1%87._%D0%A3%D0%9F%D0%9B._%C2%AB%D0%A8%D0%B0%D1%85%D1%82%D0%B0%D1%80%C2%BB_%E2%80%94_%C2%AB%D0%9A%D0%B0%D1%80%D0%BF%D0%B0%D1%82%D0%B8%C2%BB_%E2%80%94_5-2_%E2%80%94_7646_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+    }
+  ],
+  "updatedAt": "2026-08-13T15:30:33.153594+00:00"
 }

@@ -93,11 +93,17 @@
     finally { clearTimeout(timer); }
   }
 
+  // كل المواعيد بتوقيت السعودية وبالتقويم الميلادي مهما كان جهاز الزائر
+  const KSA = { timeZone: "Asia/Riyadh" };
+  const AR_CAL = "ar-SA-u-ca-gregory-nu-latn";
+
   function formatDate(d) {
     if (!d) return "";
     const date = new Date(d);
     if (isNaN(date)) return d;
-    return date.toLocaleDateString("ar-SA", { year: "numeric", month: "long", day: "numeric" });
+    return date.toLocaleDateString(AR_CAL, {
+      ...KSA, weekday: "long", year: "numeric", month: "long", day: "numeric",
+    });
   }
 
   function timeAgo(d) {
@@ -226,7 +232,7 @@
   const modalCard = $("#playerModalCard");
   let allPlayers = [];
   let seasonStats = null;
-  const clubData = { coach: null, departed: [] };
+  const clubData = { coach: null, staff: [], departed: [] };
 
   const STAT_KEYS_OUT = ["السرعة", "التسديد", "التمرير", "المراوغة", "الدفاع", "القوة البدنية"];
   const STAT_KEYS_GK = ["الانعكاسات", "التمركز", "الشجاعة", "اللعب بالقدم", "الكرات العالية", "ركلات الجزاء"];
@@ -245,17 +251,23 @@
   const playerGoals = (p) =>
     (seasonStats?.scorers || []).find((s) => s.name === p.name)?.value || 0;
 
-  function renderCoach(coach) {
-    if (!coach || !coach.name) return;
-    $("#coachCard").innerHTML = `
+  function renderStaff(staff, note) {
+    if (!staff || !staff.length) return;
+    $("#staffCards").innerHTML =
+      staff
+        .map(
+          (s) => `
       <div class="coach-card">
-        ${coach.photo ? `<img class="coach-photo" src="${escapeHTML(coach.photo)}" alt="${escapeHTML(coach.name)}" onerror="this.remove()">` : ""}
+        ${s.photo ? `<img class="coach-photo" src="${escapeHTML(s.photo)}" alt="${escapeHTML(s.name)}" onerror="this.remove()">` : ""}
         <div class="coach-info">
-          <div class="label">المدير الفني</div>
-          <div class="name">${escapeHTML(coach.name)}</div>
-          <div class="nat">🇩🇪 ${escapeHTML(coach.nationality || "")}</div>
+          <div class="label">${escapeHTML(s.role || "الجهاز الفني")}${s.since ? ` · منذ ${escapeHTML(s.since)}` : ""}</div>
+          <div class="name">${escapeHTML(s.name)}</div>
+          <div class="nat">${s.flag ? `<img src="${escapeHTML(s.flag)}" alt="" style="width:18px;height:18px;border-radius:50%;vertical-align:middle;margin-inline-end:4px" onerror="this.remove()">` : ""}${escapeHTML(s.nationality || "")}${s.contract ? ` · عقد ${escapeHTML(s.contract)}` : ""}</div>
+          ${s.note ? `<div class="coach-note">${escapeHTML(s.note)}</div>` : ""}
         </div>
-      </div>`;
+      </div>`
+        )
+        .join("") + (note ? `<p class="section-sub" style="margin-top:10px">ℹ️ ${escapeHTML(note)}</p>` : "");
   }
 
   async function loadPlayers() {
@@ -269,8 +281,9 @@
       seasonStats = stats;
       const overlay = meta.overlay || {};
       clubData.departed = meta.departed || [];
-      clubData.coach = { ...(meta.coach || {}), ...(team.coach || {}) };
-      renderCoach(clubData.coach);
+      clubData.staff = team.staff && team.staff.length ? team.staff : meta.staff || [];
+      clubData.coach = clubData.staff[0] || null;
+      renderStaff(clubData.staff, meta.staffNote);
       const departedSet = new Set(clubData.departed);
       allPlayers = (squad.players || [])
         .filter((p) => !departedSet.has(p.name))
@@ -445,7 +458,10 @@
         .join("");
     };
     $("#scorersList").innerHTML = listHTML(seasonStats.scorers, "");
-    $("#assistsList").innerHTML = listHTML(seasonStats.assists, "");
+    // ESPN لا يوفّر صناع الأهداف لهذا الدوري — نعرض الإنذارات (بيانات حقيقية) بدلها
+    const second = (seasonStats.assists || []).length ? seasonStats.assists : seasonStats.cards || [];
+    $("#secondListTitle").textContent = (seasonStats.assists || []).length ? "🅰️ صناع الأهداف" : "🟨 الإنذارات";
+    $("#secondList").innerHTML = listHTML(second, "");
 
     // أرقام سريعة في الواجهة
     $("#heroQuick").innerHTML = `
@@ -603,28 +619,73 @@
     return a > b ? "win" : a < b ? "loss" : "draw";
   }
 
-  let matchesData = { upcoming: [], results: [] };
+  let matchesData = { live: [], upcoming: [], results: [], archive: [] };
+  let storeData = { products: [] };
+
+  function timeHM(d) {
+    const date = new Date(d);
+    if (isNaN(date)) return "";
+    return date.toLocaleTimeString(AR_CAL, { ...KSA, hour: "2-digit", minute: "2-digit" }) + " (بتوقيت السعودية)";
+  }
+
+  const AR_VENUES = {
+    "Al-Awwal Park": "ملعب الأول بارك — الرياض",
+    "King Abdullah Sports City": "ملعب الإنماء (الجوهرة المشعة) — جدة",
+    "King Abdullah Sports City Stadium": "ملعب الإنماء (الجوهرة المشعة) — جدة",
+    "Prince Faisal bin Fahd Stadium": "ملعب الأمير فيصل بن فهد — الرياض",
+    "Al-Hazm Club Stadium": "ملعب نادي الحزم — الرس",
+    "Al-Shabab Club Stadium": "ملعب نادي الشباب — الرياض",
+    "Prince Sultan bin Abdulaziz Sports City Stadium": "ملعب الأمير سلطان بن عبدالعزيز — أبها",
+    "King Fahd Sports City": "ملعب الملك فهد — الرياض",
+    "Prince Mohamed bin Fahd Stadium": "ملعب الأمير محمد بن فهد — الدمام",
+    "Prince Abdullah al-Faisal Stadium": "ملعب الأمير عبدالله الفيصل — جدة",
+    "King Saud University Stadium": "ملعب جامعة الملك سعود — الرياض",
+  };
+  const arVenue = (v) => (v ? AR_VENUES[v] || v : "");
 
   function renderMatches(data) {
     matchesData = data;
     const upcoming = $("#upcomingList"), results = $("#resultsList");
 
+    // شريط المباراة المباشرة
+    const liveList = data.live || [];
+    $("#liveBanner").innerHTML = liveList.length
+      ? liveList
+          .map(
+            (m) => `
+      <div class="live-banner">
+        <span class="live-dot">● مباشر ${escapeHTML(m.clock || m.statusText || "")}</span>
+        <div class="match-row">${teamHTML(m.home, false)}
+          <span class="match-score live">${escapeHTML(m.home.score)} - ${escapeHTML(m.away.score)}</span>
+          ${teamHTML(m.away, true)}</div>
+        <div class="match-date">${escapeHTML(m.competition)}${m.venue ? " · 📍 " + escapeHTML(arVenue(m.venue)) : ""}</div>
+      </div>`
+          )
+          .join("")
+      : "";
+
     upcoming.innerHTML =
       (data.upcoming || [])
         .slice(0, 6)
-        .map(
-          (m) => `
-      <div class="match-card">
-        <div class="match-comp">${escapeHTML(m.competition)}</div>
+        .map((m, i) => {
+          const today = new Date(m.date).toDateString() === new Date().toDateString();
+          return `
+      <div class="match-card ${today ? "today" : ""}">
+        <div class="match-comp">${escapeHTML(m.competition)}${today ? ' <span class="today-tag">اليوم 🔥</span>' : ""}</div>
         <div class="match-row">${teamHTML(m.home, false)}<span class="match-score">VS</span>${teamHTML(m.away, true)}</div>
-        <div class="match-date">🗓️ ${formatDate(m.date)}</div>
-      </div>`
-        )
+        <div class="match-date">🗓️ ${formatDate(m.date)} · ⏰ ${timeHM(m.date)}${m.venue ? " · 📍 " + escapeHTML(arVenue(m.venue)) : ""}</div>
+      </div>`;
+        })
         .join("") ||
-      '<div class="match-card">لا توجد مباريات مجدولة حاليًا — تُضاف تلقائيًا فور اعتماد جدول الموسم الجديد 📋</div>';
+      '<div class="match-card">لا توجد مباريات مجدولة حاليًا — تُضاف تلقائيًا فور اعتماد الجدول 📋</div>';
+
+    // نتائج الموسم الحالي، وإلا أرشيف الموسم الماضي بوسم واضح
+    const shown = (data.results || []).length ? data.results : data.archive || [];
+    const isArchive = !(data.results || []).length && (data.archive || []).length;
+    $("#resultsTitle").textContent = isArchive ? "نتائج الموسم الماضي" : "آخر النتائج";
 
     results.innerHTML =
-      (data.results || [])
+      shown
         .slice(0, 6)
         .map(
           (m) => `
@@ -639,7 +700,7 @@
         .join("") || '<div class="match-card">لا توجد نتائج مسجلة.</div>';
 
     // شريط الفورم (آخر 5)
-    const form = (data.results || []).slice(0, 5).reverse();
+    const form = shown.slice(0, 5).reverse();
     $("#formStrip").innerHTML = form.length
       ? `<span style="font-size:12px;color:var(--muted);font-weight:700">آخر 5:</span>` +
         form
@@ -655,6 +716,21 @@
 
   function renderNextMatchCard(data) {
     const card = $("#nextMatchCard");
+
+    // مباراة جارية الآن تتصدر البطاقة
+    const now = (data.live || [])[0];
+    if (now) {
+      card.innerHTML = `
+        <div class="nm-title">🔴 مباشر الآن — ${escapeHTML(now.competition)}</div>
+        <div class="nm-teams">
+          <div class="nm-team">${now.home.logo ? `<img class="logo" src="${escapeHTML(now.home.logo)}" alt="" onerror="this.remove()">` : '<div class="logo">⚽</div>'}<div class="name">${escapeHTML(now.home.nameAr)}</div></div>
+          <span class="nm-vs">${escapeHTML(now.home.score)} - ${escapeHTML(now.away.score)}</span>
+          <div class="nm-team">${now.away.logo ? `<img class="logo" src="${escapeHTML(now.away.logo)}" alt="" onerror="this.remove()">` : '<div class="logo">⚽</div>'}<div class="name">${escapeHTML(now.away.nameAr)}</div></div>
+        </div>
+        <div class="nm-meta">⏱️ ${escapeHTML(now.clock || now.statusText || "جارية")}${now.venue ? " · 📍 " + escapeHTML(arVenue(now.venue)) : ""}</div>`;
+      return;
+    }
+
     const next = (data.upcoming || []).find((m) => m.date && new Date(m.date) > new Date());
 
     if (!next) {
@@ -680,7 +756,7 @@
         <div class="nm-team">${logoOr(next.away)}<div class="name">${escapeHTML(next.away.nameAr || next.away.name)}</div></div>
       </div>
       <div class="nm-countdown" id="countdown"></div>
-      <div class="nm-meta">🗓️ ${formatDate(next.date)}</div>`;
+      <div class="nm-meta">🗓️ ${formatDate(next.date)} · ⏰ ${timeHM(next.date)}${next.venue ? "<br>📍 " + escapeHTML(arVenue(next.venue)) : ""}</div>`;
 
     const cd = $("#countdown");
     (function tick() {
@@ -698,7 +774,9 @@
   }
 
   const AR_TEAMS = {
-    "Al Ahli": "الأهلي", "Al Ettifaq": "الاتفاق", "Al Fateh": "الفتح", "Al Fayha": "الفيحاء",
+    "Al Ahli": "الأهلي", "Abha": "أبها", "Al Diriyah": "الدرعية",
+    "Al-Faisaly": "الفيصلي", "Al Faisaly": "الفيصلي",
+    "Al Ettifaq": "الاتفاق", "Al Fateh": "الفتح", "Al Fayha": "الفيحاء",
     "Al Hazem": "الحزم", "Al Hilal": "الهلال", "Al Ittihad": "الاتحاد", "Al Khaleej": "الخليج",
     "Al Kholood": "الخلود", "Al Najma": "النجمة", "Al Nassr": "النصر", "Al Okhdood": "الأخدود",
     "Al Qadsiah": "القادسية", "Al Riyadh": "الرياض", "Al Shabab": "الشباب", "Al Taawoun": "التعاون",
@@ -718,38 +796,73 @@
     };
   }
 
+  function ymd(d) {
+    return d.toISOString().slice(0, 10).replace(/-/g, "");
+  }
+
+  // نقطة scoreboard تعمل حتى قبل انطلاق الموسم، وتعطي النتيجة أثناء المباراة
   async function fetchLiveMatches() {
-    const res = await fetchWithTimeout(`${ESPN}/teams/${AHLI_ID}/schedule`);
-    if (!res.ok) throw new Error("espn schedule");
+    const now = new Date();
+    const from = new Date(now.getTime() - 60 * 86400000);
+    const to = new Date(now.getTime() + 150 * 86400000);
+    const res = await fetchWithTimeout(`${ESPN}/scoreboard?dates=${ymd(from)}-${ymd(to)}&limit=500`, 12000);
+    if (!res.ok) throw new Error("espn scoreboard");
     const d = await res.json();
-    if (!(d.events || []).length) throw new Error("empty season");
-    const upcoming = [], results = [];
-    for (const e of d.events) {
+    const live = [], upcoming = [], results = [];
+
+    for (const e of d.events || []) {
       const comp = e.competitions?.[0];
       if (!comp) continue;
-      const state = comp.status?.type?.state || "";
-      let compName = e.league?.name || "";
+      const sides = (comp.competitors || []).map((c) => c.team?.displayName);
+      if (!sides.includes("Al Ahli")) continue;
+
+      const status = comp.status || {};
+      const state = status.type?.state || "";
+      let compName = (e.league?.name || comp.league?.name || "");
       if (!compName || compName.includes("Saudi Pro League")) compName = "دوري روشن السعودي";
       else if (compName.includes("King") && compName.includes("Cup")) compName = "كأس خادم الحرمين الشريفين";
-      const match = { date: e.date, competition: compName };
+      else if (compName.includes("Champions") && compName.includes("Elite")) compName = "دوري أبطال آسيا للنخبة";
+
+      const match = {
+        date: e.date,
+        competition: compName,
+        state,
+        statusText: status.type?.shortDetail || "",
+        clock: status.displayClock || "",
+        venue: comp.venue?.fullName || "",
+      };
       for (const c of comp.competitors || []) match[c.homeAway === "home" ? "home" : "away"] = espnSide(c);
       if (!match.home || !match.away) continue;
-      (state === "post" ? results : upcoming).push(match);
+      (state === "post" ? results : state === "in" ? live : upcoming).push(match);
     }
     upcoming.sort((a, b) => new Date(a.date) - new Date(b.date));
     results.sort((a, b) => new Date(b.date) - new Date(a.date));
-    return { upcoming, results };
+    return { live, upcoming, results };
   }
 
   async function loadMatches() {
-    try { renderMatches(await loadJSON("data/matches_auto.json")); }
-    catch (_) { renderMatches({ upcoming: [], results: [] }); }
+    let stored = { live: [], upcoming: [], results: [], archive: [] };
+    try {
+      stored = await loadJSON("data/matches_auto.json");
+      renderMatches(stored);
+    } catch (_) { renderMatches(stored); }
+
     try {
       const live = await fetchLiveMatches();
-      // لا نستبدل الأرشيف بموسم فارغ
-      if (live.upcoming.length || live.results.length) renderMatches(live);
+      if (live.upcoming.length || live.results.length || live.live.length) {
+        // نحتفظ بأرشيف الموسم الماضي المخزَّن حين لا توجد نتائج بعد
+        renderMatches({ ...live, archive: stored.archive || [] });
+      }
     } catch (_) { /* نكتفي بالمخزن */ }
   }
+
+  // أثناء المباراة: تحديث النتيجة كل دقيقة
+  setInterval(() => {
+    const soon = (matchesData.upcoming || []).some(
+      (m) => Math.abs(new Date(m.date) - new Date()) < 3 * 3600000
+    );
+    if ((matchesData.live || []).length || soon) loadMatches();
+  }, 60 * 1000);
 
   /* ================= الترتيب ================= */
   let standingsData = [];
@@ -761,7 +874,11 @@
       tbody.innerHTML = '<tr><td colspan="8">جدول الترتيب غير متاح حاليًا — يظهر تلقائيًا مع انطلاق الموسم.</td></tr>';
       return;
     }
-    $("#standingsSeason").textContent = data.seasonName ? `موسم ${data.seasonName} — يتحدث تلقائيًا` : "يتحدث تلقائيًا";
+    $("#standingsSeason").textContent = data.isFinal
+      ? `📌 الترتيب النهائي لموسم ${escapeHTML(String(data.seasonName).replace("Saudi Pro League","دوري روشن"))} — يتبدّل لجدول الموسم الجديد فور انطلاقه`
+      : data.seasonName
+      ? `موسم ${escapeHTML(String(data.seasonName).replace("Saudi Pro League","دوري روشن"))} — يتحدث تلقائيًا`
+      : "يتحدث تلقائيًا";
     tbody.innerHTML = data.entries
       .map(
         (e, i) => `
@@ -798,10 +915,15 @@
   }
 
   async function loadStandings() {
-    try { renderStandings(await loadJSON("data/standings.json")); }
-    catch (_) { renderStandings({ entries: [] }); }
-    try { renderStandings(await fetchLiveStandings()); }
-    catch (_) { /* المخزن يكفي */ }
+    let stored = { entries: [] };
+    try { stored = await loadJSON("data/standings.json"); renderStandings(stored); }
+    catch (_) { renderStandings(stored); }
+    try {
+      const live = await fetchLiveStandings();
+      // جدول الموسم الجديد كله أصفار قبل انطلاقه — نبقي الترتيب النهائي المخزَّن
+      const played = live.entries.reduce((s, e) => s + (parseInt(e.played, 10) || 0), 0);
+      if (played > 0) renderStandings({ ...live, isFinal: false });
+    } catch (_) { /* المخزن يكفي */ }
   }
 
   /* ================= خزانة البطولات ================= */
@@ -1300,10 +1422,17 @@
       return "اذكر لاعبَين لأقارن بينهما، مثل: «قارن توني وترينكاو» ⚖️";
     }
 
-    if (has(text, "قادم", "متي المباراه", "متى", "موعد", "جدول")) {
+    if (has(text, "قادم", "متي المباراه", "متى", "موعد", "جدول", "مباشر", "اليوم")) {
+      const now = (matchesData.live || [])[0];
+      if (now) {
+        return `🔴 <strong>مباشر الآن!</strong> ${escapeHTML(now.home.nameAr)} <strong>${escapeHTML(now.home.score)} - ${escapeHTML(now.away.score)}</strong> ${escapeHTML(now.away.nameAr)}<br>⏱️ ${escapeHTML(now.clock || now.statusText || "")}`;
+      }
       const next = (matchesData.upcoming || []).find((m) => m.date && new Date(m.date) > new Date());
-      if (next) return `المباراة القادمة: <strong>${escapeHTML(next.home.nameAr)} × ${escapeHTML(next.away.nameAr)}</strong><br>🗓️ ${formatDate(next.date)} — ${escapeHTML(next.competition)}`;
-      return "لا توجد مباريات مجدولة حاليًا — نحن في فترة التوقف الصيفي، وسيظهر الجدول تلقائيًا فور اعتماده 📋";
+      if (next) {
+        const today = new Date(next.date).toDateString() === new Date().toDateString();
+        return `${today ? "🔥 <strong>المباراة اليوم!</strong><br>" : "المباراة القادمة: "}<strong>${escapeHTML(next.home.nameAr)} × ${escapeHTML(next.away.nameAr)}</strong><br>🗓️ ${formatDate(next.date)} · ⏰ ${timeHM(next.date)}<br>🏆 ${escapeHTML(next.competition)}${next.venue ? `<br>📍 ${escapeHTML(arVenue(next.venue))}` : ""}`;
+      }
+      return "لا توجد مباريات مجدولة حاليًا — سيظهر الجدول تلقائيًا فور اعتماده 📋";
     }
 
     if (has(text, "نتيجه", "نتائج", "اخر مباراه", "خسر", "فاز")) {
@@ -1339,9 +1468,20 @@
       return "آخر الأخبار:<br>" + top.map((n) => `📰 <a href="${escapeHTML(n.link)}" target="_blank" rel="noopener">${escapeHTML(n.title)}</a>`).join("<br>");
     }
 
-    if (has(text, "مدرب", "يايسله", "جهاز فني")) {
-      const c = clubData.coach || {};
-      return `المدير الفني: <strong>${escapeHTML(c.name || "ماتياس يايسله")}</strong> 🇩🇪 — قاد الملكي للقب الآسيوي نسختين متتاليتين 2025 و2026 🏆🏆`;
+    if (has(text, "مدرب", "يايسله", "بوسيتش", "جهاز فني", "مدير فني")) {
+      const c = clubData.coach;
+      if (!c) return "بيانات الجهاز الفني غير متاحة حاليًا.";
+      if (has(text, "يايسله")) {
+        return `ماتياس يايسله رحل عن الأهلي في أغسطس 2026 لتدريب نيوكاسل يونايتد 🏴 — بعدما قاد الملكي للقب الآسيوي نسختين متتاليتين 2025 و2026 🏆🏆<br>خلفه الآن: <strong>${escapeHTML(c.name)}</strong>.`;
+      }
+      return `المدير الفني الحالي: <strong>${escapeHTML(c.name)}</strong> (${escapeHTML(c.nationality || "")})${c.since ? ` — منذ ${escapeHTML(c.since)}` : ""}${c.contract ? ` بعقد ${escapeHTML(c.contract)}` : ""}<br><small>${escapeHTML(c.note || "")}</small>`;
+    }
+
+    if (has(text, "متجر", "قميص", "شراء", "اشتري", "سعر", "منتج")) {
+      const ps = (storeData.products || []).slice(0, 4);
+      if (!ps.length) return "منتجات المتجر غير متاحة حاليًا — جرّب قسم المتجر بالأسفل.";
+      return "🛍️ من المتجر الرسمي:<br>" +
+        ps.map((p) => `• <a href="${escapeHTML(p.url)}" target="_blank" rel="noopener">${escapeHTML(p.nameAr || p.name)}</a> — <strong>${p.price}</strong> ر.س`).join("<br>");
     }
 
     if (has(text, "بطوله", "بطولات", "القاب", "لقب", "توثيق", "انجاز")) {
@@ -1412,23 +1552,38 @@
 
   /* ================= المتجر ================= */
   function renderStore(data) {
-    $("#storeGrid").innerHTML = data.products
-      .map(
-        (p) => `
-      <div class="store-card">
-        <div class="store-img">${p.emoji}</div>
+    const products = data.products || [];
+    if (!products.length) {
+      $("#storeGrid").innerHTML = '<div class="loader">تعذّر تحميل منتجات المتجر حاليًا.</div>';
+      return;
+    }
+    $("#storeGrid").innerHTML = products
+      .map((p) => {
+        const name = p.nameAr || p.name;
+        const link = p.url || data.officialStoreUrl;
+        return `
+      <a class="store-card" href="${escapeHTML(link)}" target="_blank" rel="noopener">
+        <div class="store-img">
+          ${p.image
+            ? `<img src="${escapeHTML(p.image)}" alt="${escapeHTML(name)}" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('span'),{textContent:'👕',className:'store-fallback'}))">`
+            : '<span class="store-fallback">👕</span>'}
+          ${p.onSale ? '<span class="store-badge sale">تخفيض 🔥</span>' : ""}
+          ${p.outOfStock ? '<span class="store-badge out">نفدت الكمية</span>' : ""}
+        </div>
         <div class="store-body">
-          ${p.badge ? `<span class="badge-new">${escapeHTML(p.badge)}</span>` : ""}
-          <h3>${escapeHTML(p.name)}</h3>
-          <p class="desc">${escapeHTML(p.desc)}</p>
+          <h3>${escapeHTML(name)}</h3>
           <div class="store-foot">
-            <span class="price">${p.price} <small>ر.س</small></span>
-            <a class="btn btn-small" href="${escapeHTML(data.officialStoreUrl)}" target="_blank" rel="noopener">اطلبه ↗</a>
+            <span class="price">
+              ${p.price} <small>ر.س</small>
+              ${p.oldPrice ? `<s class="old">${p.oldPrice}</s>` : ""}
+            </span>
+            <span class="btn btn-small">اطلبه ↗</span>
           </div>
         </div>
-      </div>`
-      )
+      </a>`;
+      })
       .join("");
+    $("#storeNote").innerHTML = `منتجات حقيقية من <a href="${escapeHTML(data.officialStoreUrl)}" target="_blank" rel="noopener">المتجر الرسمي للنادي ↗</a> — الأسعار والتوفر يتحدثان تلقائيًا.`;
   }
 
   /* ================= الإقلاع ================= */
@@ -1438,7 +1593,9 @@
   loadStandings();
   renderTrophies();
   renderPoll();
-  loadJSON("data/store.json").then(renderStore).catch(() => {});
+  loadJSON("data/store.json")
+    .then((d) => { storeData = d; renderStore(d); })
+    .catch(() => renderStore({ products: [] }));
 
   if ("serviceWorker" in navigator) {
     addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
