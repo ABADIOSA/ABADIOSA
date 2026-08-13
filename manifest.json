@@ -1,0 +1,32 @@
+{
+  "name": "الأهلي السعودي | القلعة الخضراء",
+  "short_name": "الأهلي",
+  "description": "موقع جماهيري متكامل للنادي الأهلي السعودي: الأخبار، الفريق، الإحصائيات، الألعاب، ومساعد ذكي",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "lang": "ar",
+  "dir": "rtl",
+  "background_color": "#00331d",
+  "theme_color": "#00331d",
+  "icons": [
+    {
+      "src": "https://upload.wikimedia.org/wikipedia/ar/thumb/3/3e/Al-Ahli_SFC_%282025%29.svg/langar-192px-Al-Ahli_SFC_%282025%29.svg.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://upload.wikimedia.org/wikipedia/ar/thumb/3/3e/Al-Ahli_SFC_%282025%29.svg/langar-512px-Al-Ahli_SFC_%282025%29.svg.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    { "name": "الأخبار", "url": "./index.html#news" },
+    { "name": "الفريق الأول", "url": "./index.html#team" },
+    { "name": "الألعاب", "url": "./index.html#games" }
+  ]
+}

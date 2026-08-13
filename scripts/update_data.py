@@ -175,12 +175,31 @@ def update_squad() -> None:
     write("squad.json", {"source": "espn+manual", "players": players})
 
 
+def fetch_schedule_events() -> list:
+    """أحداث الجدول: الموسم الحالي، وإن كان فارغًا (لم ينطلق بعد) نرجع للموسم المكتمل."""
+    events = (get(f"{BASE}/teams/{TEAM_ID}/schedule").get("events") or [])
+    if events:
+        return events
+    year = datetime.now(timezone.utc).year
+    for season in (year - 1, year - 2):
+        try:
+            events = (get(f"{BASE}/teams/{TEAM_ID}/schedule?season={season}").get("events") or [])
+        except Exception:
+            events = []
+        if events:
+            print(f"الموسم الحالي لم ينطلق بعد — عرض أرشيف موسم {season}.")
+            return events
+    return []
+
+
 def update_matches() -> None:
-    d = get(f"{BASE}/teams/{TEAM_ID}/schedule")
     upcoming, results = [], []
-    for e in d.get("events") or []:
+    finished_ids = []
+    for e in fetch_schedule_events():
         comp = e["competitions"][0]
         state = comp.get("status", {}).get("type", {}).get("state", "")
+        if state == "post" and e.get("id"):
+            finished_ids.append(e["id"])
         comp_name = (e.get("league") or {}).get("name") or ""
         if "Saudi Pro League" in comp_name or not comp_name:
             comp_name = "دوري روشن السعودي"
@@ -203,6 +222,68 @@ def update_matches() -> None:
     upcoming.sort(key=lambda m: m["date"] or "")
     results.sort(key=lambda m: m["date"] or "", reverse=True)
     write("matches_auto.json", {"source": "espn", "upcoming": upcoming[:10], "results": results[:10]})
+    update_season_stats(finished_ids, results)
+
+
+def update_season_stats(event_ids: list, results: list) -> None:
+    """حساب الهدافين وصانعي الفارق وإحصائيات الموسم من ملخصات المباريات."""
+    goals, assists, cards = {}, {}, {}
+    shots_total = corners = possession_sum = matches_counted = 0
+
+    for eid in event_ids[:40]:
+        try:
+            s = get(f"{BASE}/summary?event={eid}")
+        except Exception:
+            continue
+        for ev in s.get("keyEvents") or []:
+            if (ev.get("team") or {}).get("id") != TEAM_ID:
+                continue
+            kind = (ev.get("type") or {}).get("type", "")
+            parts = ev.get("participants") or []
+            names = [(p.get("athlete") or {}).get("displayName") for p in parts]
+            names = [n for n in names if n]
+            if kind == "goal" and names:
+                goals[names[0]] = goals.get(names[0], 0) + 1
+                if len(names) > 1:
+                    assists[names[1]] = assists.get(names[1], 0) + 1
+            elif kind in ("yellow-card", "red-card") and names:
+                cards[names[0]] = cards.get(names[0], 0) + 1
+        # إحصائيات الفريق في المباراة
+        for t in (s.get("boxscore") or {}).get("teams") or []:
+            if (t.get("team") or {}).get("id") != TEAM_ID:
+                continue
+            stats = {x.get("name"): x.get("displayValue", "") for x in (t.get("statistics") or [])}
+            try:
+                shots_total += int(stats.get("totalShots") or 0)
+                corners += int(stats.get("wonCorners") or 0)
+                possession_sum += float((stats.get("possessionPct") or "0").replace("%", ""))
+                matches_counted += 1
+            except ValueError:
+                pass
+        time.sleep(0.15)
+
+    def top(counter: dict, limit: int = 8) -> list:
+        return [{"name": k, "value": v} for k, v in sorted(counter.items(), key=lambda x: -x[1])[:limit]]
+
+    scored = sum(int(m["home"]["score"] or 0) if m["home"]["name"] == "Al Ahli" else int(m["away"]["score"] or 0)
+                 for m in results if m["home"]["score"].isdigit() and m["away"]["score"].isdigit())
+    conceded = sum(int(m["away"]["score"] or 0) if m["home"]["name"] == "Al Ahli" else int(m["home"]["score"] or 0)
+                   for m in results if m["home"]["score"].isdigit() and m["away"]["score"].isdigit())
+
+    write("stats.json", {
+        "source": "espn-summaries",
+        "matchesAnalyzed": len(event_ids[:40]),
+        "scorers": top(goals),
+        "assists": top(assists),
+        "cards": top(cards, 5),
+        "team": {
+            "goalsFor": scored,
+            "goalsAgainst": conceded,
+            "avgShots": round(shots_total / matches_counted, 1) if matches_counted else 0,
+            "avgCorners": round(corners / matches_counted, 1) if matches_counted else 0,
+            "avgPossession": round(possession_sum / matches_counted, 1) if matches_counted else 0,
+        },
+    })
 
 
 def update_standings() -> None:

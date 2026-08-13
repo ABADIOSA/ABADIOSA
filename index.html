@@ -3,15 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="موقع جماهيري يهتم بكل أخبار النادي الأهلي السعودي: الأخبار، الفريق الأول، المباريات، الترتيب، الألعاب، والمتجر — يتحدث تلقائيًا أول بأول.">
-  <title>الأهلي السعودي | الملكي — الأخبار والفريق والمتجر</title>
+  <meta name="description" content="موقع جماهيري متكامل للنادي الأهلي السعودي: أخبار لحظية، الفريق الأول بالصور، المباريات، الترتيب، الإحصائيات والهدافون، ألعاب تفاعلية، ومساعد ذكي — يتحدث تلقائيًا أول بأول.">
+  <meta name="theme-color" content="#00331d">
+  <title>الأهلي السعودي | القلعة الخضراء</title>
   <link rel="icon" href="https://upload.wikimedia.org/wikipedia/ar/thumb/3/3e/Al-Ahli_SFC_%282025%29.svg/langar-330px-Al-Ahli_SFC_%282025%29.svg.png">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="https://upload.wikimedia.org/wikipedia/ar/thumb/3/3e/Al-Ahli_SFC_%282025%29.svg/langar-330px-Al-Ahli_SFC_%282025%29.svg.png">
+  <link rel="preload" href="fonts/ahli-font.woff" as="font" type="font/woff" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
+  <div class="progress-bar" id="progressBar"></div>
 
   <!-- شريط علوي -->
   <header class="topbar">
@@ -24,16 +30,27 @@
         </span>
       </a>
       <nav class="mainnav" id="mainnav">
-        <a href="#home"      class="nav-link active" data-nav="home">الرئيسية</a>
         <a href="#news"      class="nav-link" data-nav="news">الأخبار</a>
         <a href="#team"      class="nav-link" data-nav="team">الفريق</a>
+        <a href="#lineup"    class="nav-link" data-nav="lineup">التشكيلة</a>
+        <a href="#stats"     class="nav-link" data-nav="stats">الإحصائيات</a>
         <a href="#matches"   class="nav-link" data-nav="matches">المباريات</a>
         <a href="#standings" class="nav-link" data-nav="standings">الترتيب</a>
+        <a href="#trophies"  class="nav-link" data-nav="trophies">البطولات</a>
         <a href="#games"     class="nav-link" data-nav="games">الألعاب</a>
         <a href="#store"     class="nav-link" data-nav="store">المتجر</a>
-        <a href="#about"     class="nav-link" data-nav="about">عن النادي</a>
       </nav>
-      <button class="nav-toggle" id="navToggle" aria-label="القائمة">☰</button>
+      <div class="top-actions">
+        <div class="search-wrap">
+          <button class="icon-btn" id="searchBtn" aria-label="بحث">🔍</button>
+          <div class="search-panel" id="searchPanel" hidden>
+            <input type="text" id="searchInput" placeholder="ابحث عن لاعب، فريق، خبر…" autocomplete="off">
+            <div class="search-results" id="searchResults"></div>
+          </div>
+        </div>
+        <button class="icon-btn" id="themeBtn" aria-label="الوضع الليلي">🌙</button>
+        <button class="icon-btn nav-toggle" id="navToggle" aria-label="القائمة">☰</button>
+      </div>
     </div>
   </header>
 
@@ -41,13 +58,14 @@
   <section class="hero" id="home">
     <div class="container hero-inner">
       <div class="hero-text">
-        <span class="hero-badge">🏆 بطل دوري أبطال آسيا للنخبة 2025 و2026 — نسختان متتاليتان</span>
+        <span class="hero-badge">🏆 بطل دوري أبطال آسيا للنخبة 2025 و2026</span>
         <h1>القلعة <span class="accent">الخضراء</span></h1>
-        <p>كل ما يخص النادي الأهلي السعودي في مكان واحد: أخبار لحظية، التشكيلة الحقيقية للفريق، نتائج المباريات وترتيب الدوري محدثة تلقائيًا من مصادر موثوقة، ألعاب واختبارات تفاعلية، ومتجر النادي.</p>
+        <p>كل ما يخص النادي الأهلي السعودي في مكان واحد: أخبار لحظية، التشكيلة الحقيقية بالصور، الإحصائيات والهدافون، جدول الترتيب، ألعاب تفاعلية، ومساعد ذكي يجيبك عن كل شيء.</p>
         <div class="hero-actions">
           <a href="#news" class="btn btn-primary" data-nav="news">آخر الأخبار</a>
           <a href="#games" class="btn btn-ghost" data-nav="games">جرّب الألعاب 🎮</a>
         </div>
+        <div class="hero-quick" id="heroQuick"></div>
         <p class="auto-update-note" id="lastUpdated">⟳ البيانات تتحدث تلقائيًا…</p>
       </div>
       <div class="hero-side">
@@ -60,7 +78,7 @@
   <main class="container">
 
     <!-- الأخبار -->
-    <section class="section" id="news">
+    <section class="section reveal" id="news">
       <div class="section-head">
         <h2>📰 آخر الأخبار</h2>
         <button class="btn btn-small" id="refreshNews">تحديث الآن ⟳</button>
@@ -72,7 +90,7 @@
     </section>
 
     <!-- الفريق الأول -->
-    <section class="section" id="team">
+    <section class="section reveal" id="team">
       <div class="section-head">
         <h2>👕 الفريق الأول</h2>
         <div class="filters" id="posFilters">
@@ -83,14 +101,58 @@
           <button class="chip" data-pos="FW">هجوم</button>
         </div>
       </div>
-      <p class="section-sub">التشكيلة الحقيقية محدثة تلقائيًا — اضغط على أي لاعب لعرض خصائصه.</p>
+      <p class="section-sub">التشكيلة الحقيقية بالصور محدثة تلقائيًا — اضغط على أي لاعب لعرض خصائصه.</p>
       <div id="coachCard"></div>
       <div class="players-grid" id="playersGrid"><div class="loader">جارٍ تحميل التشكيلة…</div></div>
     </section>
 
+    <!-- التشكيلة على الملعب + المقارنة -->
+    <section class="section reveal" id="lineup">
+      <div class="section-head">
+        <h2>⚽ التشكيلة على أرض الملعب</h2>
+        <div class="formation-pick" id="formationPick">
+          <button class="chip active" data-formation="4-3-3">4-3-3</button>
+          <button class="chip" data-formation="4-2-3-1">4-2-3-1</button>
+          <button class="chip" data-formation="3-5-2">3-5-2</button>
+        </div>
+      </div>
+      <p class="section-sub">التشكيلة المتوقعة حسب الخطة المختارة — اضغط أي لاعب لتفاصيله.</p>
+      <div class="pitch" id="pitch"></div>
+
+      <h3 class="col-title" style="margin-top:36px">⚖️ قارن بين لاعبين</h3>
+      <div class="compare-box">
+        <div class="compare-selects">
+          <select id="cmpA"></select>
+          <span class="compare-vs">VS</span>
+          <select id="cmpB"></select>
+        </div>
+        <div id="cmpOut"></div>
+      </div>
+    </section>
+
+    <!-- الإحصائيات -->
+    <section class="section reveal" id="stats">
+      <div class="section-head"><h2>📊 إحصائيات الموسم</h2></div>
+      <p class="section-sub" id="statsSub">محسوبة تلقائيًا من ملخصات المباريات الرسمية.</p>
+      <div class="stats-grid" id="statsGrid"></div>
+      <div class="scorers-wrap">
+        <div>
+          <h3 class="col-title">⚽ الهدافون</h3>
+          <div id="scorersList"></div>
+        </div>
+        <div>
+          <h3 class="col-title">🅰️ صناع الأهداف</h3>
+          <div id="assistsList"></div>
+        </div>
+      </div>
+    </section>
+
     <!-- المباريات -->
-    <section class="section" id="matches">
-      <div class="section-head"><h2>📅 المباريات</h2></div>
+    <section class="section reveal" id="matches">
+      <div class="section-head">
+        <h2>📅 المباريات</h2>
+        <div class="form-strip" id="formStrip"></div>
+      </div>
       <p class="section-sub">النتائج والمواعيد محدثة تلقائيًا.</p>
       <div class="matches-cols">
         <div>
@@ -105,7 +167,7 @@
     </section>
 
     <!-- الترتيب -->
-    <section class="section" id="standings">
+    <section class="section reveal" id="standings">
       <div class="section-head"><h2>🏅 ترتيب دوري روشن</h2></div>
       <p class="section-sub" id="standingsSeason"></p>
       <div class="table-wrap">
@@ -118,47 +180,54 @@
       </div>
     </section>
 
+    <!-- خزانة البطولات -->
+    <section class="section reveal" id="trophies">
+      <div class="section-head"><h2>🏆 خزانة البطولات</h2></div>
+      <p class="section-sub">وفق التقرير النهائي للجنة توثيق تاريخ كرة القدم السعودية.</p>
+      <div class="trophy-grid" id="trophyGrid"></div>
+    </section>
+
+    <!-- تصويت الجماهير -->
+    <section class="section reveal" id="poll">
+      <div class="section-head"><h2>🗳️ تصويت الجماهير</h2></div>
+      <div class="poll-box" id="pollBox"></div>
+    </section>
+
     <!-- الألعاب -->
-    <section class="section" id="games">
+    <section class="section reveal" id="games">
       <div class="section-head"><h2>🎮 ألعاب واختبارات</h2></div>
-      <p class="section-sub">اختبر معلوماتك الأهلاوية وتحدَّ أصحابك!</p>
+      <p class="section-sub">اختبر معلوماتك الأهلاوية وتحدَّ أصحابك — نتائجك محفوظة!</p>
       <div class="games-tabs" id="gamesTabs">
         <button class="chip active" data-game="quiz">🧠 اختبار أهلاوي</button>
         <button class="chip" data-game="guess">🕵️ خمّن اللاعب</button>
+        <button class="chip" data-game="penalty">🥅 ركلات الجزاء</button>
         <button class="chip" data-game="memory">🃏 لعبة الذاكرة</button>
       </div>
       <div class="game-area" id="gameArea"></div>
     </section>
 
     <!-- المتجر -->
-    <section class="section" id="store">
+    <section class="section reveal" id="store">
       <div class="section-head"><h2>🛍️ متجر النادي</h2></div>
       <p class="section-sub">تشكيلة من منتجات النادي — الشراء يتم عبر المتجر الرسمي للنادي.</p>
       <div class="store-grid" id="storeGrid"></div>
     </section>
 
     <!-- عن النادي -->
-    <section class="section" id="about">
+    <section class="section reveal" id="about">
       <div class="section-head"><h2>🦅 عن النادي</h2></div>
       <div class="about-grid">
         <div class="about-card">
           <h3>التأسيس</h3>
-          <p>تأسس النادي الأهلي السعودي عام <strong>1937م</strong> في مدينة جدة، وهو أحد أعرق وأكبر الأندية في المملكة العربية السعودية وقارة آسيا، ويُلقّب بـ«الملكي» و«القلعة الخضراء».</p>
+          <p>تأسس النادي الأهلي السعودي عام <strong>1937م</strong> في مدينة جدة، وهو أحد أعرق وأكبر الأندية في المملكة العربية السعودية وقارة آسيا، ويُلقّب بـ«الملكي» و«القلعة الخضراء». شعاره الخالد: <strong>«وعبر الزمان سنمضي معًا»</strong>.</p>
         </div>
         <div class="about-card">
           <h3>الملعب</h3>
-          <p>يخوض الأهلي مبارياته على ملعب <strong>الإنماء (مدينة الملك عبدالله الرياضية — الجوهرة المشعة)</strong> في جدة بسعة تتجاوز 62 ألف متفرج.</p>
+          <p>يخوض الأهلي مبارياته على ملعب <strong>الإنماء (مدينة الملك عبدالله الرياضية — الجوهرة المشعة)</strong> في جدة بسعة تتجاوز 62 ألف متفرج، وعليه تُوّج بلقب آسيا مرتين.</p>
         </div>
-        <div class="about-card honors">
-          <h3>البطولات الرسمية <small style="font-weight:600;color:var(--muted)">(وفق لجنة توثيق تاريخ الكرة السعودية)</small></h3>
-          <ul>
-            <li>🌏 دوري أبطال آسيا للنخبة: <strong>مرتان</strong> (2025، 2026)</li>
-            <li>🏆 الدوري السعودي: <strong>9 مرات</strong></li>
-            <li>🏆 كأس الملك: <strong>8 مرات</strong></li>
-            <li>🏆 كأس ولي العهد: <strong>6 مرات</strong></li>
-            <li>🥇 كأس السوبر السعودي: <strong>2016، 2025</strong></li>
-            <li>📜 الإجمالي: <strong>53 بطولة رسمية</strong> وثّقتها اللجنة في تقريرها النهائي (سبتمبر 2025) + لقب آسيا 2026</li>
-          </ul>
+        <div class="about-card">
+          <h3>الهوية الجديدة</h3>
+          <p>دشّن النادي شعاره وهويته البصرية الجديدة في <strong>يوليو 2025</strong> بمشاركة الجماهير، محافظًا على الأخضر والأبيض وتاريخ التأسيس 1937 — والخط المستخدم في هذا الموقع هو خط النادي الرسمي.</p>
         </div>
       </div>
     </section>
@@ -181,14 +250,14 @@
     <div class="chat-body" id="chatBody"></div>
     <div class="chat-suggest" id="chatSuggest"></div>
     <form class="chat-form" id="chatForm">
-      <input type="text" id="chatInput" placeholder="اسألني عن الأهلي: اللاعبين، الترتيب، المباريات…" autocomplete="off">
+      <input type="text" id="chatInput" placeholder="اسألني عن الأهلي: اللاعبين، الترتيب، الهدافين…" autocomplete="off">
       <button type="submit" class="btn btn-small">إرسال</button>
     </form>
   </div>
 
   <footer class="footer">
     <div class="container footer-inner">
-      <p>موقع جماهيري غير رسمي لمحبي النادي الأهلي السعودي 💚 — البيانات من ESPN وGoogle News وتتحدث تلقائيًا</p>
+      <p>موقع جماهيري غير رسمي لمحبي النادي الأهلي السعودي 💚 — البيانات من ESPN وويكيبيديا وGoogle News وتتحدث تلقائيًا</p>
       <p><a href="https://www.alahlifc.sa" target="_blank" rel="noopener">الموقع الرسمي للنادي ↗</a></p>
     </div>
   </footer>

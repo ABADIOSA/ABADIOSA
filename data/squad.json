@@ -12,7 +12,7 @@
       "nationality": "Senegal",
       "nationalityAr": "السنغال",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/sen.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Edouard_Mendy_France_v_Senegal_16_June_2026-375_%28cropped%29.jpg/330px-Edouard_Mendy_France_v_Senegal_16_June_2026-375_%28cropped%29.jpg"
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Edouard_Mendy_France_v_Senegal_16_June_2026-375_%28cropped%29.jpg/330px-Edouard_Mendy_France_v_Senegal_16_June_2026-375_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
     },
     {
       "id": "307748",
@@ -38,7 +38,7 @@
       "nationality": "Saudi Arabia",
       "nationalityAr": "السعودية",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/en/thumb/e/ee/Saudi_Arabia_national_football_team_logo.svg/330px-Saudi_Arabia_national_football_team_logo.svg.png"
+      "photo": ""
     },
     {
       "id": "409776",
@@ -51,7 +51,7 @@
       "nationality": "Saudi Arabia",
       "nationalityAr": "السعودية",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/en/thumb/4/45/Al_Ahli_Saudi_FC_logo.svg/330px-Al_Ahli_Saudi_FC_logo.svg.png"
+      "photo": "https://upload.wikimedia.org/wikipedia/en/thumb/4/45/Al_Ahli_Saudi_FC_logo.svg/330px-Al_Ahli_Saudi_FC_logo.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
     },
     {
       "id": "418704",
@@ -59,12 +59,12 @@
       "jersey": "22",
       "position": "GK",
       "roleAr": "حارس مرمى",
-      "age": 17,
+      "age": 18,
       "height": null,
       "nationality": "Saudi Arabia",
       "nationalityAr": "السعودية",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/FIFA_logo_without_slogan.svg/330px-FIFA_logo_without_slogan.svg.png"
+      "photo": "https://upload.wikimedia.org/wikipedia/en/thumb/4/45/Al_Ahli_Saudi_FC_logo.svg/330px-Al_Ahli_Saudi_FC_logo.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
     },
     {
       "id": "259835",
@@ -77,7 +77,7 @@
       "nationality": "Brazil",
       "nationalityAr": "البرازيل",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/bra.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Ibanez_Brazil_V_Morocco_13_June_2026-66.jpg/330px-Ibanez_Brazil_V_Morocco_13_June_2026-66.jpg"
+      "photo": ""
     },
     {
       "id": "267178",
@@ -90,7 +90,20 @@
       "nationality": "Türkiye",
       "nationalityAr": "تركيا",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/tur.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Merih_Demiral_2026.jpg/330px-Merih_Demiral_2026.jpg"
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Merih_Demiral_2026.jpg/330px-Merih_Demiral_2026.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+    },
+    {
+      "id": "307639",
+      "name": "Saad Balobaid",
+      "jersey": "31",
+      "position": "DF",
+      "roleAr": "مدافع",
+      "age": 26,
+      "height": "5' 5\"",
+      "nationality": "Saudi Arabia",
+      "nationalityAr": "السعودية",
+      "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
+      "photo": ""
     },
     {
       "id": "325035",
@@ -129,7 +142,7 @@
       "nationality": "Saudi Arabia",
       "nationalityAr": "السعودية",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Ali_Majrashi%2C_2025_CONCACAF_Gold_Cup_%28cropped%29.jpg/330px-Ali_Majrashi%2C_2025_CONCACAF_Gold_Cup_%28cropped%29.jpg"
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Ali_Majrashi%2C_2025_CONCACAF_Gold_Cup_%28cropped%29.jpg/330px-Ali_Majrashi%2C_2025_CONCACAF_Gold_Cup_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
     },
     {
       "id": "341463",
@@ -155,7 +168,7 @@
       "nationality": "Saudi Arabia",
       "nationalityAr": "السعودية",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
-      "photo": ""
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Zakaria_Hawsawi.png/330px-Zakaria_Hawsawi.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
     },
     {
       "id": "367660",
@@ -173,7 +186,7 @@
     {
       "id": "384703",
       "name": "Mansour Alnakhli",
-      "jersey": "66",
+      "jersey": null,
       "position": "DF",
       "roleAr": "مدافع",
       "age": 20,
@@ -184,9 +197,22 @@
       "photo": ""
     },
     {
+      "id": "401339",
+      "name": "Abubacarr Kinteh",
+      "jersey": "24",
+      "position": "DF",
+      "roleAr": "مدافع",
+      "age": 19,
+      "height": null,
+      "nationality": "Gambia",
+      "nationalityAr": "Gambia",
+      "flag": "https://a.espncdn.com/i/teamlogos/countries/500/gam.png",
+      "photo": ""
+    },
+    {
       "id": "405656",
       "name": "Yazan Madani",
-      "jersey": "60",
+      "jersey": "23",
       "position": "DF",
       "roleAr": "مدافع",
       "age": 21,
@@ -194,7 +220,7 @@
       "nationality": "Saudi Arabia",
       "nationalityAr": "السعودية",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
-      "photo": ""
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Jawhara_Stadium.jpg/330px-Jawhara_Stadium.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
     },
     {
       "id": "410714",
@@ -220,20 +246,7 @@
       "nationality": "Saudi Arabia",
       "nationalityAr": "السعودية",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
-      "photo": ""
-    },
-    {
-      "id": "410897",
-      "name": "Gustavo Alves",
-      "jersey": "4",
-      "position": "DF",
-      "roleAr": "مدافع",
-      "age": 19,
-      "height": null,
-      "nationality": "Brazil",
-      "nationalityAr": "البرازيل",
-      "flag": "https://a.espncdn.com/i/teamlogos/countries/500/bra.png",
-      "photo": ""
+      "photo": "https://upload.wikimedia.org/wikipedia/en/6/6e/Al-Hussein_SC_%28Irbid%29_-_2025_logo.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled"
     },
     {
       "id": "297158",
@@ -246,7 +259,7 @@
       "nationality": "France",
       "nationalityAr": "فرنسا",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
-      "photo": ""
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Enzo_millot.jpg/330px-Enzo_millot.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
     },
     {
       "id": "306692",
@@ -256,6 +269,32 @@
       "roleAr": "لاعب وسط",
       "age": 24,
       "height": "5' 11\"",
+      "nationality": "Saudi Arabia",
+      "nationalityAr": "السعودية",
+      "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
+      "photo": ""
+    },
+    {
+      "id": "307806",
+      "name": "Eduard Spertsyan",
+      "jersey": "8",
+      "position": "MF",
+      "roleAr": "لاعب وسط",
+      "age": 26,
+      "height": "5' 10\"",
+      "nationality": "Armenia",
+      "nationalityAr": "Armenia",
+      "flag": "https://a.espncdn.com/i/teamlogos/countries/500/arm.png",
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Eduard_Spertsyan_YantsImages_-_Asatur_Yesayants_633_%28cropped%29.jpg/330px-Eduard_Spertsyan_YantsImages_-_Asatur_Yesayants_633_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+    },
+    {
+      "id": "357059",
+      "name": "Naif Masoud",
+      "jersey": "66",
+      "position": "MF",
+      "roleAr": "لاعب وسط",
+      "age": 25,
+      "height": "5' 10\"",
       "nationality": "Saudi Arabia",
       "nationalityAr": "السعودية",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
@@ -272,7 +311,7 @@
       "nationality": "France",
       "nationalityAr": "فرنسا",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Atangana_asse_sr.png/330px-Atangana_asse_sr.png"
+      "photo": ""
     },
     {
       "id": "367696",
@@ -282,6 +321,32 @@
       "roleAr": "لاعب وسط",
       "age": 24,
       "height": "5' 9\"",
+      "nationality": "Saudi Arabia",
+      "nationalityAr": "السعودية",
+      "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
+      "photo": ""
+    },
+    {
+      "id": "367983",
+      "name": "Meshal Ibrahim Al Mutairi",
+      "jersey": "11",
+      "position": "MF",
+      "roleAr": "لاعب وسط",
+      "age": 27,
+      "height": "5' 7\"",
+      "nationality": "Saudi Arabia",
+      "nationalityAr": "السعودية",
+      "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
+      "photo": ""
+    },
+    {
+      "id": "372858",
+      "name": "Ayman Fallatah",
+      "jersey": "95",
+      "position": "MF",
+      "roleAr": "لاعب وسط",
+      "age": 22,
+      "height": "6' 3\"",
       "nationality": "Saudi Arabia",
       "nationalityAr": "السعودية",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
@@ -298,7 +363,7 @@
       "nationality": "Saudi Arabia",
       "nationalityAr": "السعودية",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/en/thumb/4/45/Al_Ahli_Saudi_FC_logo.svg/330px-Al_Ahli_Saudi_FC_logo.svg.png"
+      "photo": "https://upload.wikimedia.org/wikipedia/en/thumb/4/45/Al_Ahli_Saudi_FC_logo.svg/330px-Al_Ahli_Saudi_FC_logo.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
     },
     {
       "id": "410718",
@@ -311,12 +376,12 @@
       "nationality": "Nigeria",
       "nationalityAr": "نيجيريا",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/nga.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/en/thumb/4/45/Al_Ahli_Saudi_FC_logo.svg/330px-Al_Ahli_Saudi_FC_logo.svg.png"
+      "photo": "https://upload.wikimedia.org/wikipedia/en/thumb/4/45/Al_Ahli_Saudi_FC_logo.svg/330px-Al_Ahli_Saudi_FC_logo.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
     },
     {
       "id": "411753",
       "name": "Ibrahin Montasser Azzam",
-      "jersey": "23",
+      "jersey": null,
       "position": "MF",
       "roleAr": "لاعب وسط",
       "age": 18,
@@ -324,6 +389,19 @@
       "nationality": "Saudi Arabia",
       "nationalityAr": "السعودية",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
+      "photo": ""
+    },
+    {
+      "id": "417935",
+      "name": "Bello Suleiman",
+      "jersey": null,
+      "position": "MF",
+      "roleAr": "لاعب وسط",
+      "age": 20,
+      "height": "6' 1\"",
+      "nationality": "Nigeria",
+      "nationalityAr": "نيجيريا",
+      "flag": "https://a.espncdn.com/i/teamlogos/countries/500/nga.png",
       "photo": ""
     },
     {
@@ -337,7 +415,7 @@
       "nationality": "England",
       "nationalityAr": "إنجلترا",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/eng.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Ivan_Toney_England_v_Ghana_23_June_2026-051.jpg/330px-Ivan_Toney_England_v_Ghana_23_June_2026-051.jpg"
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Ivan_Toney_England_v_Ghana_23_June_2026-051.jpg/330px-Ivan_Toney_England_v_Ghana_23_June_2026-051.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
     },
     {
       "id": "259732",
@@ -350,7 +428,20 @@
       "nationality": "Brazil",
       "nationalityAr": "البرازيل",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/bra.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Galeno.jpg/330px-Galeno.jpg"
+      "photo": ""
+    },
+    {
+      "id": "274159",
+      "name": "Francisco Trincão",
+      "jersey": "7",
+      "position": "FW",
+      "roleAr": "مهاجم",
+      "age": 26,
+      "height": "6' 0\"",
+      "nationality": "Portugal",
+      "nationalityAr": "البرتغال",
+      "flag": "https://a.espncdn.com/i/teamlogos/countries/500/por.png",
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Francisco_Trinc%C3%A3o_USMNT_v_Portugal_Mar_31_2026-55_%28cropped%29.jpg/330px-Francisco_Trinc%C3%A3o_USMNT_v_Portugal_Mar_31_2026-55_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
     },
     {
       "id": "283331",
@@ -359,6 +450,19 @@
       "position": "FW",
       "roleAr": "مهاجم",
       "age": 26,
+      "height": "6' 1\"",
+      "nationality": "Saudi Arabia",
+      "nationalityAr": "السعودية",
+      "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Firas_Al-Buraikan_2026.jpg/330px-Firas_Al-Buraikan_2026.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+    },
+    {
+      "id": "313423",
+      "name": "Abdullah Radif",
+      "jersey": "21",
+      "position": "FW",
+      "roleAr": "مهاجم",
+      "age": 23,
       "height": "6' 1\"",
       "nationality": "Saudi Arabia",
       "nationalityAr": "السعودية",
@@ -376,7 +480,7 @@
       "nationality": "Brazil",
       "nationalityAr": "البرازيل",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/bra.png",
-      "photo": ""
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Matheus_Gon%C3%A7alves_2026.png/330px-Matheus_Gon%C3%A7alves_2026.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
     },
     {
       "id": "361364",
@@ -384,7 +488,7 @@
       "jersey": "77",
       "position": "FW",
       "roleAr": "مهاجم",
-      "age": 19,
+      "age": 20,
       "height": "6' 5\"",
       "nationality": "Brazil",
       "nationalityAr": "البرازيل",
@@ -397,21 +501,8 @@
       "jersey": "47",
       "position": "FW",
       "roleAr": "مهاجم",
-      "age": 23,
+      "age": 24,
       "height": "5' 7\"",
-      "nationality": "Saudi Arabia",
-      "nationalityAr": "السعودية",
-      "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
-      "photo": ""
-    },
-    {
-      "id": "372852",
-      "name": "Yaseen Al Zubaidi",
-      "jersey": "26",
-      "position": "FW",
-      "roleAr": "مهاجم",
-      "age": 23,
-      "height": "5' 9\"",
       "nationality": "Saudi Arabia",
       "nationalityAr": "السعودية",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
@@ -454,29 +545,7 @@
       "nationality": "Chad",
       "nationalityAr": "تشاد",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/cha.png",
-      "photo": ""
-    },
-    {
-      "name": "Francisco Trincão",
-      "position": "FW",
-      "roleAr": "جناح",
-      "age": 26,
-      "nationality": "Portugal",
-      "nationalityAr": "البرتغال",
-      "flag": "https://a.espncdn.com/i/teamlogos/countries/500/por.png",
-      "id": "manual-Francisco Trincão",
-      "photo": ""
-    },
-    {
-      "name": "Eduard Spertsyan",
-      "position": "MF",
-      "roleAr": "صانع ألعاب",
-      "age": 26,
-      "nationality": "Armenia",
-      "nationalityAr": "أرمينيا",
-      "flag": "https://a.espncdn.com/i/teamlogos/countries/500/arm.png",
-      "id": "manual-Eduard Spertsyan",
-      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Eduard_Spertsyan_YantsImages_-_Asatur_Yesayants_633_%28cropped%29.jpg/330px-Eduard_Spertsyan_YantsImages_-_Asatur_Yesayants_633_%28cropped%29.jpg"
+      "photo": "https://upload.wikimedia.org/wikipedia/en/thumb/4/45/Al_Ahli_Saudi_FC_logo.svg/330px-Al_Ahli_Saudi_FC_logo.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
     },
     {
       "name": "Mishal Al-Mutairi",
@@ -486,7 +555,7 @@
       "nationalityAr": "السعودية",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
       "id": "manual-Mishal Al-Mutairi",
-      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Al_Hilal_SFC_Logo.svg/330px-Al_Hilal_SFC_Logo.svg.png"
+      "photo": ""
     },
     {
       "name": "Abubakar Sidi Kinteh",
@@ -499,5 +568,5 @@
       "photo": ""
     }
   ],
-  "updatedAt": "2026-07-19T17:41:03.009645+00:00"
+  "updatedAt": "2026-08-13T14:55:03.699156+00:00"
 }
