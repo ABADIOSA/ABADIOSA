@@ -37,6 +37,17 @@
       "points": "3"
     },
     {
+      "team": "Neom SC",
+      "teamAr": "نيوم",
+      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/130899.png",
+      "played": "1",
+      "wins": "1",
+      "draws": "0",
+      "losses": "0",
+      "goalDiff": "+1",
+      "points": "3"
+    },
+    {
       "team": "Abha",
       "teamAr": "أبها",
       "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/21833.png",
@@ -150,11 +161,11 @@
       "team": "Al Fayha",
       "teamAr": "الفيحاء",
       "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/21827.png",
-      "played": "0",
+      "played": "1",
       "wins": "0",
       "draws": "0",
-      "losses": "0",
-      "goalDiff": "0",
+      "losses": "1",
+      "goalDiff": "-1",
       "points": "0"
     },
     {
@@ -189,18 +200,7 @@
       "losses": "0",
       "goalDiff": "0",
       "points": "0"
-    },
-    {
-      "team": "Neom SC",
-      "teamAr": "نيوم",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/130899.png",
-      "played": "0",
-      "wins": "0",
-      "draws": "0",
-      "losses": "0",
-      "goalDiff": "0",
-      "points": "0"
     }
   ],
-  "updatedAt": "2026-08-14T15:52:04.687470+00:00"
+  "updatedAt": "2026-08-14T18:52:13.687446+00:00"
 }
