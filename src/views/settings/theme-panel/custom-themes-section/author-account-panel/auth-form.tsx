@@ -1,0 +1,172 @@
+import { useState } from "react";
+import { AlertCircle, Check, Loader2, UserRound, X } from "lucide-react";
+import { loginAuthor, recoverAuthor, registerAuthor } from "@/lib/theme-auth";
+import { TextField } from "../field";
+import { PasswordField } from "./password-field";
+import { useUsernameAvailability, type Availability } from "./use-username-availability";
+
+type Mode = "signin" | "register" | "recover";
+
+const MODES: { id: Mode; label: string; action: string }[] = [
+  { id: "signin", label: "Sign in", action: "Sign in" },
+  { id: "register", label: "Create account", action: "Create account" },
+  { id: "recover", label: "Reset", action: "Reset password" },
+];
+
+const USERNAME_RE = /^[a-zA-Z0-9_]{3,24}$/;
+
+export function AuthForm({ onRecovery }: { onRecovery: (code: string) => void }) {
+  const [mode, setMode] = useState<Mode>("signin");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [recoveryCode, setRecoveryCode] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const usernameOk = USERNAME_RE.test(username.trim());
+  const availability = useUsernameAvailability(username, mode === "register");
+  const ready =
+    mode === "signin"
+      ? usernameOk && password.length > 0
+      : mode === "register"
+        ? usernameOk && password.length >= 8 && availability !== "taken"
+        : usernameOk && recoveryCode.trim().length > 0 && newPassword.length >= 8;
+
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!ready || busy) return;
+    setBusy(true);
+    setError(null);
+    try {
+      if (mode === "signin") {
+        await loginAuthor(username.trim(), password);
+      } else if (mode === "register") {
+        const { recoveryCode: code } = await registerAuthor(username.trim(), password);
+        onRecovery(code);
+      } else {
+        const { recoveryCode: code } = await recoverAuthor(username.trim(), recoveryCode.trim(), newPassword);
+        onRecovery(code);
+      }
+    } catch (err) {
+      setError((err as Error).message);
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const active = MODES.find((m) => m.id === mode)!;
+
+  return (
+    <div className="flex flex-col gap-5 rounded-2xl border border-edge-soft bg-surface p-6">
+      <div className="flex items-center gap-3">
+        <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/15 text-accent">
+          <UserRound size={19} strokeWidth={2} />
+        </span>
+        <div className="flex flex-col">
+          <h3 className="text-[16px] font-semibold tracking-tight text-ink">Author account</h3>
+          <p className="text-[12.5px] text-ink-subtle">Publish themes under your name and update them anytime.</p>
+        </div>
+      </div>
+
+      <div className="flex items-center gap-1 rounded-xl border border-edge-soft bg-elevated/40 p-1">
+        {MODES.map((m) => (
+          <button
+            key={m.id}
+            type="button"
+            onClick={() => {
+              setMode(m.id);
+              setError(null);
+            }}
+            className={`h-8 flex-1 rounded-lg text-[12.5px] font-semibold transition-colors ${
+              mode === m.id ? "bg-ink text-canvas" : "text-ink-muted hover:text-ink"
+            }`}
+          >
+            {m.label}
+          </button>
+        ))}
+      </div>
+
+      <form onSubmit={submit} className="flex flex-col gap-4">
+        <div className="flex flex-col gap-1.5">
+          <TextField
+            label="Username"
+            value={username}
+            onChange={setUsername}
+            placeholder="yourname"
+            maxLength={24}
+            hint={mode === "register" && !usernameOk ? "3 to 24 letters, numbers or underscores." : undefined}
+          />
+          {mode === "register" && usernameOk && (
+            <UsernameStatus state={availability} name={username.trim()} />
+          )}
+        </div>
+
+        {mode === "signin" && (
+          <PasswordField label="Password" value={password} onChange={setPassword} placeholder="Your password" />
+        )}
+        {mode === "register" && (
+          <PasswordField label="Password" value={password} onChange={setPassword} placeholder="At least 8 characters" showStrength />
+        )}
+        {mode === "recover" && (
+          <>
+            <TextField
+              label="Recovery code"
+              value={recoveryCode}
+              onChange={setRecoveryCode}
+              placeholder="The code from sign up"
+              maxLength={40}
+            />
+            <PasswordField label="New password" value={newPassword} onChange={setNewPassword} placeholder="At least 8 characters" showStrength />
+          </>
+        )}
+
+        {error && <p className="text-[12.5px] text-danger">{error}</p>}
+        {mode === "register" && !error && (
+          <p className="text-[11.5px] text-ink-subtle">You will get a one-time recovery code right after this.</p>
+        )}
+
+        <button
+          type="submit"
+          disabled={!ready || busy}
+          className="flex h-11 items-center justify-center gap-2 rounded-xl bg-accent text-[14px] font-semibold text-canvas transition-all duration-150 hover:opacity-90 active:scale-[0.99] disabled:opacity-40 disabled:active:scale-100"
+        >
+          {busy && <Loader2 size={16} className="animate-spin" />}
+          {active.action}
+        </button>
+      </form>
+    </div>
+  );
+}
+
+function UsernameStatus({ state, name }: { state: Availability; name: string }) {
+  if (state === "checking") {
+    return (
+      <span className="flex items-center gap-1.5 text-[11.5px] text-ink-subtle">
+        <Loader2 size={12} className="animate-spin" /> Checking availability
+      </span>
+    );
+  }
+  if (state === "available") {
+    return (
+      <span className="flex items-center gap-1.5 text-[11.5px] font-medium text-success">
+        <Check size={12} strokeWidth={2.6} /> {name} is available
+      </span>
+    );
+  }
+  if (state === "taken") {
+    return (
+      <span className="flex items-center gap-1.5 text-[11.5px] font-medium text-danger">
+        <X size={12} strokeWidth={2.6} /> {name} is taken
+      </span>
+    );
+  }
+  if (state === "error") {
+    return (
+      <span className="flex items-center gap-1.5 text-[11.5px] text-ink-subtle">
+        <AlertCircle size={12} strokeWidth={2.2} /> Couldn't check availability
+      </span>
+    );
+  }
+  return null;
+}

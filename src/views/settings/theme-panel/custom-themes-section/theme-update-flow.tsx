@@ -1,0 +1,191 @@
+import { useEffect, useMemo, useState } from "react";
+import { createPortal } from "react-dom";
+import { ArrowLeft, ArrowRight, BookOpen, Loader2, UploadCloud, X } from "lucide-react";
+import { exportThemeJson, getCustomThemes, type CustomTheme } from "@/lib/custom-themes";
+import { optimizeBackgroundForShare } from "../image-utils";
+import { updateTheme, type StoreTheme } from "@/lib/theme-store";
+import { CheatSheet } from "../theme-studio/cheat-sheet";
+import { CoverCropper } from "./theme-upload/cover-cropper";
+import { ListingPreview } from "./theme-upload/listing-preview";
+import { scaleToBlob } from "./theme-upload/upload-utils";
+import { ChangelogStep, PickThemeStep, ShotsStep, STEPS, UpdateStepRail, UpdateSuccessView } from "./theme-update-flow/update-steps";
+
+export function ThemeUpdateFlow({
+  target,
+  onClose,
+  onUpdated,
+}: {
+  target: StoreTheme;
+  onClose: () => void;
+  onUpdated: () => void;
+}) {
+  const localThemes = useMemo(() => getCustomThemes(), []);
+  const [step, setStep] = useState(0);
+  const [theme, setTheme] = useState<CustomTheme | null>(
+    () => localThemes.find((t) => t.name === target.name) ?? localThemes[0] ?? null,
+  );
+  const [coverBlob, setCoverBlob] = useState<Blob | null>(null);
+  const [coverUrl, setCoverUrl] = useState<string | null>(null);
+  const [shots, setShots] = useState<{ blob: Blob; url: string }[]>([]);
+  const [changelog, setChangelog] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [result, setResult] = useState<{ share: string } | null>(null);
+  const [copied, setCopied] = useState(false);
+  const [sheetOpen, setSheetOpen] = useState(false);
+
+  useEffect(() => {
+    if (!coverBlob) return setCoverUrl(null);
+    const u = URL.createObjectURL(coverBlob);
+    setCoverUrl(u);
+    return () => URL.revokeObjectURL(u);
+  }, [coverBlob]);
+
+  const swatch = theme?.swatch ?? target.swatch;
+
+  const addShots = () => {
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = "image/*";
+    input.multiple = true;
+    input.onchange = async () => {
+      const files = Array.from(input.files || []).slice(0, 6 - shots.length);
+      const added = await Promise.all(
+        files.map(async (f) => {
+          const blob = await scaleToBlob(f);
+          return { blob, url: URL.createObjectURL(blob) };
+        }),
+      );
+      setShots((s) => [...s, ...added].slice(0, 6));
+    };
+    input.click();
+  };
+  const removeShot = (i: number) =>
+    setShots((s) => {
+      URL.revokeObjectURL(s[i].url);
+      return s.filter((_, j) => j !== i);
+    });
+
+  const canAdvance = step === 0 ? !!theme : step === 3 ? changelog.trim().length > 0 : true;
+
+  const submit = async () => {
+    if (!theme || !changelog.trim()) return;
+    setSubmitting(true);
+    setError(null);
+    try {
+      const shared: CustomTheme = theme.background?.image
+        ? { ...theme, background: { ...theme.background, image: await optimizeBackgroundForShare(theme.background.image) } }
+        : theme;
+      const json = exportThemeJson(shared);
+      const updated = await updateTheme(target.id, json, coverBlob, shots.map((s) => s.blob), changelog.trim());
+      setResult({ share: updated.share });
+    } catch (e) {
+      setError((e as Error).message);
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  return createPortal(
+    <div className="fixed inset-0 z-[220] flex flex-col bg-canvas" role="dialog" aria-label="Update a theme">
+      <header data-tauri-drag-region className="flex shrink-0 items-center justify-between gap-4 border-b border-edge-soft bg-surface/40 px-10 py-5">
+        <div data-tauri-drag-region className="flex items-center gap-3">
+          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-accent/15 text-accent">
+            <UploadCloud size={18} strokeWidth={2} />
+          </span>
+          <div className="flex flex-col">
+            <h1 className="pointer-events-none text-[20px] font-semibold tracking-tight text-ink">Update {target.name}</h1>
+            <p className="pointer-events-none text-[12.5px] text-ink-subtle">Push a new version. Your published version stays live while the update is reviewed.</p>
+          </div>
+        </div>
+        <button onClick={onClose} aria-label="Close" className="flex h-10 w-10 items-center justify-center rounded-full text-ink-muted transition-colors hover:bg-elevated hover:text-ink">
+          <X size={18} strokeWidth={2.2} />
+        </button>
+      </header>
+
+      {result ? (
+        <UpdateSuccessView
+          share={result.share}
+          copied={copied}
+          onCopy={async () => {
+            try {
+              await navigator.clipboard.writeText(result.share);
+              setCopied(true);
+              setTimeout(() => setCopied(false), 1500);
+            } catch {
+              /* ignore */
+            }
+          }}
+          onDone={onUpdated}
+        />
+      ) : (
+        <div className="min-h-0 flex-1 overflow-hidden">
+          <div className="mx-auto flex h-full max-w-[1100px] flex-col gap-6 px-10 py-8">
+            <UpdateStepRail step={step} />
+            <div className="grid min-h-0 flex-1 gap-10 lg:grid-cols-[1fr_300px]">
+              <div key={step} className="harbor-step min-h-0 overflow-y-auto pe-1 [scrollbar-width:thin]">
+                {step === 0 && <PickThemeStep themes={localThemes} selected={theme} onSelect={setTheme} />}
+                {step === 1 && (
+                  <div className="flex flex-col gap-3">
+                    <p className="text-[14px] text-ink-muted">Optional. Skip this step to keep your current cover.</p>
+                    <CoverCropper onChange={setCoverBlob} />
+                  </div>
+                )}
+                {step === 2 && <ShotsStep shots={shots} onAdd={addShots} onRemove={removeShot} />}
+                {step === 3 && <ChangelogStep value={changelog} onChange={setChangelog} />}
+              </div>
+              <div className="hidden lg:block">
+                <ListingPreview
+                  name={theme?.name ?? target.name}
+                  author={target.author}
+                  blurb={theme?.blurb ?? target.blurb}
+                  swatch={swatch}
+                  coverUrl={coverUrl ?? target.cover}
+                />
+              </div>
+            </div>
+            {error && <p className="text-[13px] text-danger">{error}</p>}
+          </div>
+        </div>
+      )}
+
+      {!result && (
+        <footer className="flex shrink-0 items-center justify-between gap-4 border-t border-edge-soft bg-surface/40 px-10 py-4">
+          <button
+            onClick={() => (step === 0 ? onClose() : setStep((s) => s - 1))}
+            className="flex h-11 items-center gap-2 rounded-xl border border-edge-soft px-4 text-[13.5px] font-medium text-ink-muted transition-colors hover:border-edge hover:text-ink"
+          >
+            <ArrowLeft size={15} className="dir-icon" /> {step === 0 ? "Cancel" : "Back"}
+          </button>
+          <button
+            onClick={() => setSheetOpen(true)}
+            className="flex h-11 items-center gap-2 rounded-xl px-4 text-[13px] font-medium text-ink-subtle transition-colors hover:bg-elevated/60 hover:text-ink"
+          >
+            <BookOpen size={14} strokeWidth={2.1} />
+            API cheat sheet
+          </button>
+          {step < STEPS.length - 1 ? (
+            <button
+              onClick={() => canAdvance && setStep((s) => s + 1)}
+              disabled={!canAdvance}
+              className="flex h-11 items-center gap-2 rounded-xl bg-ink px-6 text-[14px] font-semibold text-canvas transition-opacity hover:opacity-90 disabled:opacity-40"
+            >
+              Continue <ArrowRight size={15} className="dir-icon" />
+            </button>
+          ) : (
+            <button
+              onClick={submit}
+              disabled={submitting || !theme || !changelog.trim()}
+              className="flex h-11 items-center gap-2 rounded-xl bg-accent px-6 text-[14px] font-semibold text-canvas transition-opacity hover:opacity-90 disabled:opacity-40"
+            >
+              {submitting ? <Loader2 size={16} className="animate-spin" /> : <UploadCloud size={16} />}
+              {submitting ? "Submitting…" : "Submit update"}
+            </button>
+          )}
+        </footer>
+      )}
+      {sheetOpen && <CheatSheet onClose={() => setSheetOpen(false)} />}
+    </div>,
+    document.body,
+  );
+}

@@ -1,0 +1,66 @@
+import { Search } from "lucide-react";
+
+export type LibCat = "all" | "Featured" | "Built-in" | "Template" | "Yours";
+
+const CATS: ReadonlyArray<{ id: LibCat; label: string }> = [
+  { id: "all", label: "All" },
+  { id: "Featured", label: "Featured" },
+  { id: "Built-in", label: "Built-in" },
+  { id: "Template", label: "Templates" },
+  { id: "Yours", label: "Yours" },
+];
+
+export function MyLibraryFilters({
+  query,
+  onQuery,
+  cat,
+  onCat,
+  counts,
+  shown,
+  total,
+}: {
+  query: string;
+  onQuery: (v: string) => void;
+  cat: LibCat;
+  onCat: (c: LibCat) => void;
+  counts: Record<string, number>;
+  shown: number;
+  total: number;
+}) {
+  return (
+    <div className="flex flex-wrap items-center gap-2">
+      <div className="flex h-9 items-center gap-2 rounded-full border border-edge-soft bg-elevated/40 px-3.5">
+        <Search size={15} className="text-ink-subtle" />
+        <input
+          value={query}
+          onChange={(e) => onQuery(e.target.value)}
+          placeholder="Search your library"
+          className="w-48 bg-transparent text-[13px] text-ink placeholder:text-ink-subtle focus:outline-none"
+        />
+      </div>
+      {CATS.map((c) => {
+        const count = c.id === "all" ? total : (counts[c.id] ?? 0);
+        if (c.id !== "all" && count === 0) return null;
+        const on = cat === c.id;
+        return (
+          <button
+            key={c.id}
+            type="button"
+            onClick={() => onCat(c.id)}
+            className={`inline-flex h-9 items-center gap-1.5 rounded-full border px-3.5 text-[12.5px] font-semibold transition-colors ${
+              on
+                ? "border-ink bg-ink text-canvas"
+                : "border-edge-soft bg-elevated/40 text-ink-muted hover:border-edge hover:text-ink"
+            }`}
+          >
+            {c.label}
+            <span className={`tabular-nums ${on ? "text-canvas/70" : "text-ink-subtle"}`}>{count}</span>
+          </button>
+        );
+      })}
+      <span className="ms-auto text-[12px] tabular-nums text-ink-subtle">
+        {shown} of {total}
+      </span>
+    </div>
+  );
+}

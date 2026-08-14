@@ -1,0 +1,81 @@
+import { useEffect, useState } from "react";
+
+export const POSTER_RADII = [
+  { value: "sharp", label: "Sharp", px: 0 },
+  { value: "subtle", label: "Subtle", px: 6 },
+  { value: "classic", label: "Classic", px: 12 },
+  { value: "rounded", label: "Rounded", px: 18 },
+  { value: "pill", label: "Pill", px: 28 },
+];
+
+export function radiusKey(px: number): string {
+  return POSTER_RADII.reduce((best, p) => (Math.abs(p.px - px) < Math.abs(best.px - px) ? p : best)).value;
+}
+
+export function PxField({
+  value,
+  min,
+  max,
+  onCommit,
+}: {
+  value: number;
+  min: number;
+  max: number;
+  onCommit: (v: number) => void;
+}) {
+  const [editing, setEditing] = useState(false);
+  const [draft, setDraft] = useState(String(value));
+  useEffect(() => {
+    if (!editing) setDraft(String(value));
+  }, [value, editing]);
+  const commit = () => {
+    const n = Math.max(min, Math.min(max, Math.round(Number(draft) || value)));
+    onCommit(n);
+    setEditing(false);
+  };
+  if (editing) {
+    return (
+      <input
+        type="number"
+        autoFocus
+        value={draft}
+        min={min}
+        max={max}
+        onChange={(e) => setDraft(e.target.value)}
+        onBlur={commit}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") commit();
+          else if (e.key === "Escape") setEditing(false);
+        }}
+        className="w-14 rounded-md border border-ink bg-canvas px-1.5 py-0.5 text-[12px] tabular-nums text-ink outline-none"
+      />
+    );
+  }
+  return (
+    <button
+      type="button"
+      onClick={() => setEditing(true)}
+      title="Click to edit"
+      className="rounded px-1 py-0.5 tabular-nums text-ink-muted transition-colors hover:bg-raised hover:text-ink"
+    >
+      {value}px
+    </button>
+  );
+}
+
+export const POSTER_SIZES = [
+  { value: "compact", label: "Compact", scale: 0.8 },
+  { value: "dense", label: "Dense", scale: 0.9 },
+  { value: "standard", label: "Standard", scale: 1 },
+  { value: "balanced", label: "Balanced", scale: 1.15 },
+  { value: "comfort", label: "Comfort", scale: 1.3 },
+  { value: "large", label: "Large", scale: 1.5 },
+] as const;
+
+export function posterSizeKey(scale: number): string {
+  let best: (typeof POSTER_SIZES)[number] = POSTER_SIZES[0];
+  for (const p of POSTER_SIZES) {
+    if (Math.abs(p.scale - scale) < Math.abs(best.scale - scale)) best = p;
+  }
+  return best.value;
+}

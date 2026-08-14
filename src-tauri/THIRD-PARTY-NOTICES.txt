@@ -1,0 +1,188 @@
+================================================================================
+HARBOR - THIRD-PARTY SOFTWARE NOTICES AND LICENSES
+================================================================================
+
+The Harbor desktop application ("Harbor") is licensed under the MIT License.
+The complete and corresponding source code for Harbor itself is available at
+its public repository:
+
+    https://github.com/harborstremio/harbor
+
+Harbor bundles or links the third-party software components listed below. Each
+component remains the property of its respective authors and is distributed
+under its own license. This document reproduces the required attribution and
+license identification for those components.
+
+Notes on this document:
+  - Version fields are shown as substitution tokens (for example
+    @FFMPEG_VERSION@). Each token is replaced with the exact bundled version at
+    build/release time.
+  - The full text of each component's license accompanies the Harbor
+    distribution and is also available at the Source URL listed for that
+    component.
+  - Components licensed under the GNU General Public License ("GPL") are marked
+    as such and are additionally covered by the WRITTEN OFFER FOR SOURCE at the
+    end of this document.
+
+    Harbor release:      @HARBOR_VERSION@
+    Document generated:  @BUILD_DATE@
+
+
+================================================================================
+SECTION A - GPL-LICENSED BINARIES (see WRITTEN OFFER FOR SOURCE below)
+================================================================================
+
+--------------------------------------------------------------------------------
+FFmpeg  (ffmpeg, ffprobe)
+--------------------------------------------------------------------------------
+  Version:   @FFMPEG_VERSION@
+  License:   GNU General Public License, version 3 (GPLv3)
+             Static build produced with --enable-gpl and --enable-version3.
+             The upstream FFmpeg codebase is "GPLv2 or later"; as built and
+             distributed here the effective license is GPLv3.
+  Source:    https://ffmpeg.org/download.html
+             git: https://git.ffmpeg.org/ffmpeg.git
+  Binary provenance (pre-built binaries distributed with Harbor):
+             Windows:  BtbN FFmpeg-Builds (win64-gpl)
+                       https://github.com/BtbN/FFmpeg-Builds
+             macOS:    OSXExperts static build
+                       https://osxexperts.net/
+             Linux:    John Van Sickle static build
+                       https://johnvansickle.com/ffmpeg/
+  Note:      GPL component. Corresponding Source offered below.
+
+--------------------------------------------------------------------------------
+mpv / libmpv  (mpv.exe, libmpv)
+--------------------------------------------------------------------------------
+  Version:   @MPV_VERSION@
+  License:   GNU General Public License, version 2 or later (GPLv2+).
+             As distributed (linked against GPLv3 components) the effective
+             license of the combined binary is GPLv3.
+  Source:    https://github.com/mpv-player/mpv
+             site: https://mpv.io/
+  Binary provenance (pre-built binaries distributed with Harbor):
+             Windows:  shinchiro mpv-winbuild-cmake / build_libmpv
+                       https://github.com/shinchiro/mpv-winbuild-cmake
+                       binaries: https://sourceforge.net/projects/mpv-player-windows/
+  Note:      GPL component. Corresponding Source offered below.
+
+
+================================================================================
+SECTION B - PERMISSIVELY-LICENSED AND PUBLIC-DOMAIN COMPONENTS
+================================================================================
+
+--------------------------------------------------------------------------------
+yt-dlp
+--------------------------------------------------------------------------------
+  Version:   @YT_DLP_VERSION@
+  License:   The Unlicense (public domain dedication)
+  Source:    https://github.com/yt-dlp/yt-dlp
+
+--------------------------------------------------------------------------------
+librqbit  (rqbit)
+--------------------------------------------------------------------------------
+  Version:   @LIBRQBIT_VERSION@
+  License:   Apache License, Version 2.0
+  Source:    https://github.com/ikatson/rqbit
+
+--------------------------------------------------------------------------------
+hls.js
+--------------------------------------------------------------------------------
+  Version:   @HLS_JS_VERSION@
+  License:   Apache License, Version 2.0
+  Source:    https://github.com/video-dev/hls.js
+
+--------------------------------------------------------------------------------
+mpegts.js
+--------------------------------------------------------------------------------
+  Version:   @MPEGTS_JS_VERSION@
+  License:   Apache License, Version 2.0
+  Source:    https://github.com/xqq/mpegts.js
+
+--------------------------------------------------------------------------------
+@mediapipe/tasks-vision
+--------------------------------------------------------------------------------
+  Version:   @MEDIAPIPE_TASKS_VISION_VERSION@
+  License:   Apache License, Version 2.0
+  Source:    https://github.com/google-ai-edge/mediapipe
+             npm: https://www.npmjs.com/package/@mediapipe/tasks-vision
+
+--------------------------------------------------------------------------------
+onnxruntime-web
+--------------------------------------------------------------------------------
+  Version:   @ONNXRUNTIME_WEB_VERSION@
+  License:   MIT License
+  Source:    https://github.com/microsoft/onnxruntime
+             npm: https://www.npmjs.com/package/onnxruntime-web
+
+--------------------------------------------------------------------------------
+Anime4K (GLSL shaders)
+--------------------------------------------------------------------------------
+  Version:   @ANIME4K_VERSION@
+  License:   MIT License
+  Source:    https://github.com/bloc97/Anime4K
+
+--------------------------------------------------------------------------------
+rust_cast  (vendored)
+--------------------------------------------------------------------------------
+  Version:   @RUST_CAST_VERSION@
+  License:   MIT License
+  Source:    https://github.com/azasypkin/rust-cast
+  Note:      A copy of this crate is vendored into the Harbor source tree.
+
+
+================================================================================
+==                                                                            ==
+==            WRITTEN OFFER FOR SOURCE CODE - GNU GPL v3, SECTION 6           ==
+==                                                                            ==
+================================================================================
+
+The Harbor desktop application is distributed together with the following
+binaries, which are licensed under the GNU General Public License:
+
+    - FFmpeg  (ffmpeg, ffprobe)
+    - mpv     (mpv.exe) and libmpv
+
+In accordance with Section 6 of the GNU General Public License, version 3
+(and, because these components are also available under the terms of the GNU
+General Public License version 2 or later, in accordance with Section 3 of
+GPL version 2), the Harbor project hereby makes the following offer:
+
+    For a period of three (3) years from the date on which you received this
+    copy of Harbor, the Harbor project offers to any third party in possession
+    of this object code a complete, machine-readable copy of the Corresponding
+    Source for the GPL-licensed binaries listed above, under the terms of the
+    applicable GNU General Public License.
+
+    The Corresponding Source will be provided by download at no charge, or, at
+    your option, on a durable physical medium for a charge no greater than our
+    reasonable cost of physically performing the distribution.
+
+    This offer is valid to anyone who receives this information, and remains
+    valid for at least three (3) years.
+
+To request the Corresponding Source, contact:
+
+    <CONTACT: name, email address, and postal mailing address - fill in>
+
+When making a request, please reference "Harbor GPL source request" and state
+the Harbor version (@HARBOR_VERSION@) and your platform (Windows, macOS, or
+Linux) so that we can provide the exact source corresponding to the binaries
+you received.
+
+The unmodified upstream sources for these components are additionally available
+at the Source URLs listed in Section A above, and the specific pre-built
+binaries shipped with Harbor were obtained from:
+
+    FFmpeg (Windows):        https://github.com/BtbN/FFmpeg-Builds
+    FFmpeg (macOS):          https://osxexperts.net/
+    FFmpeg (Linux):          https://johnvansickle.com/ffmpeg/
+    mpv / libmpv (Windows):  https://github.com/shinchiro/mpv-winbuild-cmake
+
+Harbor's own source code (MIT) is available at:
+
+    https://github.com/harborstremio/harbor
+
+================================================================================
+END OF THIRD-PARTY NOTICES
+================================================================================
