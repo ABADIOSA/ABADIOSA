@@ -25,7 +25,7 @@
       "nationality": "Saudi Arabia",
       "nationalityAr": "السعودية",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Jawhara_Stadium.jpg/330px-Jawhara_Stadium.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+      "photo": "https://upload.wikimedia.org/wikipedia/en/thumb/4/45/Al_Ahli_Saudi_FC_logo.svg/330px-Al_Ahli_Saudi_FC_logo.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
     },
     {
       "id": "367986",
@@ -155,7 +155,7 @@
       "nationality": "Saudi Arabia",
       "nationalityAr": "السعودية",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
-      "photo": ""
+      "photo": "https://upload.wikimedia.org/wikipedia/en/thumb/4/45/Al_Ahli_Saudi_FC_logo.svg/330px-Al_Ahli_Saudi_FC_logo.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
     },
     {
       "id": "349151",
@@ -272,7 +272,7 @@
       "nationality": "Saudi Arabia",
       "nationalityAr": "السعودية",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Ziyad_Al-Johani.jpg/330px-Ziyad_Al-Johani.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+      "photo": "https://upload.wikimedia.org/wikipedia/en/thumb/4/45/Al_Ahli_Saudi_FC_logo.svg/330px-Al_Ahli_Saudi_FC_logo.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
     },
     {
       "id": "307806",
@@ -285,7 +285,7 @@
       "nationality": "Armenia",
       "nationalityAr": "Armenia",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/arm.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/en/thumb/4/45/Al_Ahli_Saudi_FC_logo.svg/330px-Al_Ahli_Saudi_FC_logo.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+      "photo": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Eduard_Spertsyan_YantsImages_-_Asatur_Yesayants_633_%28cropped%29.jpg/330px-Eduard_Spertsyan_YantsImages_-_Asatur_Yesayants_633_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
     },
     {
       "id": "357059",
@@ -467,7 +467,7 @@
       "nationality": "Brazil",
       "nationalityAr": "البرازيل",
       "flag": "https://a.espncdn.com/i/teamlogos/countries/500/bra.png",
-      "photo": "https://upload.wikimedia.org/wikipedia/en/thumb/4/45/Al_Ahli_Saudi_FC_logo.svg/330px-Al_Ahli_Saudi_FC_logo.svg.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail"
+      "photo": ""
     },
     {
       "id": "371797",
@@ -542,5 +542,5 @@
       "photo": ""
     }
   ],
-  "updatedAt": "2026-08-14T21:26:04.478395+00:00"
+  "updatedAt": "2026-08-15T01:03:03.602801+00:00"
 }
