@@ -1,0 +1,38 @@
+{
+  "name": "cinema-hall",
+  "productName": "Cinema Hall",
+  "version": "1.0.0",
+  "description": "A cinema-auditorium Stremio client for the big screen — lobby attract loop, trailer reels, pre-show bumpers and a feature presentation.",
+  "author": "ABADIOSA",
+  "license": "MIT",
+  "private": true,
+  "main": "src/main/main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev --windowed",
+    "postinstall": "node scripts/vendor.js",
+    "vendor": "node scripts/vendor.js",
+    "test": "node --test test/*.test.js",
+    "dist": "electron-builder",
+    "dist:win": "electron-builder --win",
+    "dist:mac": "electron-builder --mac",
+    "dist:linux": "electron-builder --linux"
+  },
+  "dependencies": {
+    "hls.js": "^1.6.2"
+  },
+  "devDependencies": {
+    "electron": "^43.0.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.abadiosa.cinemahall",
+    "productName": "Cinema Hall",
+    "directories": { "output": "release", "buildResources": "build" },
+    "files": ["src/**/*", "package.json", "!**/*.map"],
+    "win": { "target": ["nsis", "portable"], "artifactName": "CinemaHall-${version}-${arch}.${ext}" },
+    "nsis": { "oneClick": false, "allowToChangeInstallationDirectory": true, "perMachine": false },
+    "mac": { "target": ["dmg"], "category": "public.app-category.entertainment" },
+    "linux": { "target": ["AppImage", "deb"], "category": "AudioVideo" }
+  }
+}

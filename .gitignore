@@ -1,0 +1,7 @@
+node_modules/
+release/
+dist/
+src/renderer/vendor/*.js
+*.log
+.DS_Store
+test/shots/
