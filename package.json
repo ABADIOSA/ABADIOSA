@@ -65,7 +65,9 @@
       ],
       "category": "AudioVideo",
       "icon": "build/icon.png",
-      "artifactName": "CinemaHall-${version}-${arch}.${ext}"
+      "artifactName": "CinemaHall-${version}-${arch}.${ext}",
+      "maintainer": "ABADIOSA <abadiosa@users.noreply.github.com>",
+      "synopsis": "A cinema-auditorium Stremio client for the big screen"
     },
     "portable": {
       "artifactName": "CinemaHall-Portable-${version}-${arch}.${ext}"
