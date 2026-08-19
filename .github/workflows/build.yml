@@ -1,0 +1,90 @@
+name: Build installers
+
+# Runs on every push to a working branch so a downloadable build is always
+# waiting in the Actions tab, and publishes a proper Release when a version tag
+# is pushed (git tag v1.0.0 && git push origin v1.0.0).
+on:
+  push:
+    branches: ['**']
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: ${{ matrix.label }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            label: Windows
+            target: dist:win
+            artifact: CinemaHall-windows
+            files: release/*.exe
+          - os: macos-latest
+            label: macOS
+            target: dist:mac
+            artifact: CinemaHall-macos
+            files: release/*.dmg
+          - os: ubuntu-latest
+            label: Linux
+            target: dist:linux
+            artifact: CinemaHall-linux
+            files: |
+              release/*.AppImage
+              release/*.deb
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build ${{ matrix.label }} installer
+        run: npm run ${{ matrix.target }}
+        env:
+          # No Apple Developer certificate in CI — build unsigned rather than
+          # failing on a missing identity.
+          CSC_IDENTITY_AUTO_DISCOVERY: false
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact }}
+          path: ${{ matrix.files }}
+          if-no-files-found: error
+          retention-days: 30
+
+  release:
+    name: Publish release
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-multiple: true
+
+      - name: Create the GitHub release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "${GITHUB_REF_NAME}" \
+            --repo "${GITHUB_REPOSITORY}" \
+            --title "Cinema Hall ${GITHUB_REF_NAME}" \
+            --generate-notes \
+            artifacts/*

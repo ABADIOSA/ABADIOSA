@@ -18,6 +18,29 @@ Stremio المفتوح — لكن الفرق أن واجهته ليست واجه
 
 <div dir="rtl">
 
+## التحميل
+
+**نسخة جاهزة (بدون تثبيت أي شيء):** كل دفعة على المستودع تبني المثبّتات تلقائياً.
+افتح تبويب **Actions** ← آخر تشغيل ناجح لـ *Build installers* ← نزّل الملف من قسم **Artifacts**:
+
+| النظام | الملف |
+|---|---|
+| Windows | `CinemaHall-windows` — يحوي مثبّت `Setup` ونسخة `Portable` تشتغل بدون تثبيت |
+| macOS | `CinemaHall-macos` — ملف `.dmg` |
+| Linux | `CinemaHall-linux` — `.AppImage` و `.deb` |
+
+ولإصدار رسمي في صفحة **Releases** بدل الـ Artifacts، ادفع وسم نسخة:
+
+```bash
+git tag v1.0.0
+git push origin v1.0.0
+```
+
+> ملاحظة: النسخ غير موقّعة رقمياً. ويندوز قد يعرض تحذير SmartScreen أول مرة —
+> اضغط *More info* ثم *Run anyway*. وعلى macOS: زر يمين على التطبيق ← *Open*.
+
+**من المصدر:** انظر [التشغيل](#التشغيل) بالأسفل.
+
 ## المميزات
 
 | | |
@@ -115,6 +138,13 @@ before the feature. Nothing on screen suggests a computer.
 | **Arabic & English** | Full RTL/LTR UI, with automatic per-string direction so English titles read correctly inside the Arabic interface. |
 | **Works offline** | A complete demo house — invented titles, procedurally drawn posters — so it looks finished on first launch. |
 
+### Download
+
+Every push builds installers for all three platforms. Grab one from the
+**Actions** tab → latest *Build installers* run → **Artifacts**. Push a `v*` tag
+to publish them as a GitHub Release instead. Builds are unsigned, so Windows
+SmartScreen and macOS Gatekeeper will each want one confirmation on first launch.
+
 ### Run and build
 
 ```bash
@@ -124,6 +154,7 @@ npm run dev                            # windowed + devtools
 npm run dist:win | dist:mac | dist:linux
 npm test                               # 27 unit + contract tests
 node test/visual.js                    # render every screen to test/shots/
+node test/visual.js --docs             # refresh docs/screens
 ```
 
 ### Playback
