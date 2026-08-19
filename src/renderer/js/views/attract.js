@@ -11,11 +11,6 @@
   const { el, clear, bulbs } = CH.ui;
   const t = (k, v) => CH.i18n.t(k, v);
 
-  const YT = (id, { muted }) =>
-    `https://www.youtube-nocookie.com/embed/${encodeURIComponent(id)}` +
-    `?autoplay=1&mute=${muted ? 1 : 0}&controls=0&modestbranding=1&rel=0` +
-    '&playsinline=1&iv_load_policy=3&fs=0&disablekb=1&color=white';
-
   function mount(root, params) {
     const cfg = CH.app.config;
     const programme = CH.app.programme;
@@ -26,7 +21,10 @@
     const pips = el('div.reel-pips');
     root.append(stage, pips);
 
-    const slides = buildSlides(programme, cfg);
+    // Slides need a way to cut themselves short — a trailer that ends early, or
+    // one that will not play at all, should move the reel on immediately.
+    const controls = { next: () => {} };
+    const slides = buildSlides(programme, cfg, controls);
     slides.forEach((s) => stage.appendChild(s.node));
     slides.forEach(() => pips.appendChild(el('i')));
 
@@ -52,6 +50,8 @@
       timer = setTimeout(() => show(index + 1), slide.durationMs || slideMs);
     }
 
+    controls.next = () => show(index + 1);
+
     // Kick off after the first paint so the fade-in reads as a dissolve.
     requestAnimationFrame(() => show(0));
     CH.ui.lights('up');
@@ -76,7 +76,7 @@
 
   /* ------------------------------------------------------------- slides */
 
-  function buildSlides(programme, cfg) {
+  function buildSlides(programme, cfg, controls) {
     const slides = [];
     const nowShowing = programme.nowShowing || [];
     const reel = programme.reel || [];
@@ -87,7 +87,7 @@
     const notices = noticeSlides(cfg);
     const heroes = nowShowing.slice(0, 6).map((session) => heroSlide(session, cfg));
     const trailers = cfg.attractPlayTrailers
-      ? reel.slice(0, 6).map((entry) => trailerSlide(entry, cfg))
+      ? reel.slice(0, 6).map((entry) => trailerSlide(entry, cfg, controls))
       : reel.slice(0, 6).map((entry) => comingSlide(entry.meta, cfg));
 
     const maxLen = Math.max(heroes.length, trailers.length, notices.length);
@@ -188,7 +188,7 @@
   }
 
   /** Coming soon, playing its trailer inline. */
-  function trailerSlide(entry, cfg) {
+  function trailerSlide(entry, cfg, controls) {
     const meta = entry.meta;
     const ytId = (meta.trailers && meta.trailers[0] && meta.trailers[0].ytId) || null;
     if (!ytId) return comingSlide(meta, cfg);
@@ -215,22 +215,47 @@
       caption,
     ]);
 
+    let player = null;
+    let failed = false; // a trailer that would not play is not offered again
+
+    const showArtInstead = () => {
+      clear(frame).appendChild(
+        el('div.slide__bg', {
+          style: {
+            backgroundImage: `url("${meta.background || meta.poster}")`,
+            animation: 'ken-burns 18s ease-out forwards',
+          },
+        })
+      );
+    };
+
     return {
       node,
-      // Give a trailer room to breathe — roughly three ordinary slides.
+      // Give a trailer room to breathe — roughly three ordinary slides. It ends
+      // sooner on its own when the video finishes.
       durationMs: Math.max(45000, (cfg.attractSlideSeconds || 18) * 3000),
       start() {
-        const iframe = el('iframe', {
-          src: YT(ytId, { muted: cfg.attractMuted !== false }),
-          allow: 'autoplay; encrypted-media; picture-in-picture',
-          referrerpolicy: 'no-referrer',
-          frameborder: '0',
-          style: { position: 'absolute', inset: '0', width: '100%', height: '100%', border: '0' },
+        clear(frame);
+        if (failed) {
+          showArtInstead();
+          return;
+        }
+        player = CH.youtube.play(frame, ytId, {
+          muted: cfg.attractMuted !== false,
+          onEnded: () => controls.next(),
+          onError: (info) => {
+            console.warn('trailer unavailable', meta.name, info);
+            failed = true;
+            showArtInstead();
+            // Hold the artwork briefly so the loop does not lurch forward.
+            setTimeout(() => controls.next(), 2500);
+          },
         });
-        clear(frame).appendChild(iframe);
       },
       stop() {
-        clear(frame); // unloading the iframe is the only reliable way to stop playback
+        if (player) player.destroy();
+        player = null;
+        clear(frame);
       },
     };
   }

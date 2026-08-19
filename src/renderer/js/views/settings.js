@@ -61,6 +61,7 @@
     let displays = [];
     let serverState = null;
     let addonList = [];
+    let tvState = null;
 
     const nav = el('nav.settings__nav');
     const pane = el('div.settings__pane');
@@ -95,6 +96,7 @@
 
     function displayPane() {
       const c = cfg();
+      const modeLabels = { auto: t('cinemaAuto'), always: t('cinemaAlways'), off: t('cinemaOff') };
       const currentDisplay =
         c.displayIndex === null || c.displayIndex === undefined
           ? t('optScreenAuto')
@@ -103,13 +105,37 @@
             String(c.displayIndex);
 
       return [
-        field(t('optKiosk'), onOff(c.kiosk), () => save({ kiosk: !c.kiosk }), t('optKioskHint')),
+        field(
+          t('tvStatus'),
+          tvState ? (tvState.tv ? `${t('tvOn')} — ${(tvState.display && tvState.display.label) || ''}` : t('tvOff')) : '…',
+          async () => {
+            tvState = await window.cinema.app.tvStatus();
+            render();
+          },
+          t('tvHint')
+        ),
+        field(
+          t('optCinemaMode'),
+          modeLabels[c.cinemaMode] || c.cinemaMode,
+          async () => {
+            const order = ['auto', 'always', 'off'];
+            const next = order[(order.indexOf(c.cinemaMode) + 1) % order.length];
+            await save({ cinemaMode: next });
+            tvState = await window.cinema.app.tvStatus();
+            render();
+          },
+          t('optCinemaModeHint')
+        ),
+        field(t('optAnnounceTv'), onOff(c.announceTv), () => save({ announceTv: !c.announceTv })),
         field(t('optScreen'), currentDisplay, () => {
           // Cycle: auto → each connected display → auto
           const order = [null, ...displays.map((d) => d.index)];
           const at = order.findIndex((v) => v === (c.displayIndex ?? null));
           const next = order[(at + 1) % order.length];
-          window.cinema.app.useDisplay(next).then(() => save({ displayIndex: next }));
+          window.cinema.app.useDisplay(next).then(async () => {
+            tvState = await window.cinema.app.tvStatus();
+            await save({ displayIndex: next });
+          });
         }, t('optScreenHint')),
         field(t('optOverscan'), `${c.overscanPercent}%`, () => {
           const steps = [0, 1.5, 2.5, 4, 6];
@@ -253,7 +279,7 @@
         field(t('exit'), '⏻', () => window.cinema.app.quit()),
         el('p.muted', {
           style: { fontSize: '0.9rem', marginTop: '1rem' },
-          text: 'F10 — kiosk on/off · Ctrl+Shift+Q — quit',
+          text: 'F10 — cinema mode: auto / always / off · Ctrl+Shift+Q — quit',
         }),
       ];
     }
@@ -277,11 +303,17 @@
     render();
 
     // Fill in the things that need a round trip, then repaint.
-    Promise.all([window.cinema.app.displays(), window.cinema.addons.list(), window.cinema.playback.serverStatus()])
-      .then(([d, a, s]) => {
+    Promise.all([
+      window.cinema.app.displays(),
+      window.cinema.addons.list(),
+      window.cinema.playback.serverStatus(),
+      window.cinema.app.tvStatus(),
+    ])
+      .then(([d, a, s, tv]) => {
         displays = d;
         addonList = a;
         serverState = s;
+        tvState = tv;
         render();
       })
       .catch(() => {});

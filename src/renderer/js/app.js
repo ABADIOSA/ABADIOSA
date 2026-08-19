@@ -12,6 +12,9 @@
     programme: { nowShowing: [], comingSoon: [], reel: [] },
     versions: null,
     captureKeys: false,
+    /** Is the auditorium on a television right now? Set by the main process. */
+    cinema: false,
+    tv: false,
 
     current: null,      // { id, params, node, instance }
     stack: [],
@@ -103,6 +106,8 @@
     clearTimeout(idleTimer);
     const c = app.config;
     if (!c || !c.attractEnabled) return;
+    // The lobby loop belongs on the television, not on a laptop window.
+    if (!app.cinema) return;
     if (app.current && NO_IDLE.has(app.current.id)) return;
     idleTimer = setTimeout(() => {
       if (app.current && NO_IDLE.has(app.current.id)) return;
@@ -185,10 +190,44 @@
 
   /* --------------------------------------------------------------- boot */
 
+  /**
+   * The projection booth tells us when a television appears or goes away, so
+   * plugging one in starts the show and unplugging it hands the desk back.
+   */
+  function onCinemaCommand(payload) {
+    if (!payload || payload.type !== 'cinema-mode') return;
+    const entering = payload.cinema && !app.cinema;
+    const leaving = !payload.cinema && app.cinema;
+    app.cinema = !!payload.cinema;
+    app.tv = !!payload.tv;
+
+    if (payload.announce && payload.tv && entering) toast(CH.i18n.t('tvDetected'), 5000);
+    if (payload.announce && leaving) toast(CH.i18n.t('tvDisconnected'), 5000);
+
+    // Never yank a film off the screen because a cable moved.
+    if (app.current && (app.current.id === 'player' || app.current.id === 'preshow')) return;
+    if (!app.booted) return;
+
+    if (entering) go(app.config.attractEnabled ? 'attract' : 'home', {}, { reset: true });
+    else if (leaving && app.current && app.current.id === 'attract') go('home', {}, { reset: true });
+    resetIdle();
+  }
+
   async function boot() {
     app.config = await window.cinema.config.get();
     applyConfig();
     CH.ui.startClock(() => app.config);
+
+    window.cinema.on('ui:command', onCinemaCommand);
+
+    // Ask once at startup rather than waiting for a change that may never come.
+    try {
+      const status = await window.cinema.app.tvStatus();
+      app.cinema = !!status.cinema;
+      app.tv = !!status.tv;
+    } catch {
+      app.cinema = false;
+    }
 
     const bootNode = document.getElementById('boot');
     if (bootNode) bootNode.querySelector('.boot__text').textContent = CH.i18n.t('booting');
@@ -204,9 +243,10 @@
       setTimeout(() => bootNode.remove(), 700);
     }
 
-    // The house opens on the lobby loop — that is what the television should
-    // show the moment the machine is switched on.
-    await go(app.config.attractEnabled ? 'attract' : 'home', {}, { reset: true });
+    // On a television the house opens on the lobby loop. In a window on the
+    // machine itself it opens on the foyer, where you can actually work.
+    const openOn = app.cinema && app.config.attractEnabled ? 'attract' : 'home';
+    await go(openOn, {}, { reset: true });
     app.booted = true;
   }
 

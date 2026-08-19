@@ -7,6 +7,7 @@
 const path = require('path');
 const { chromium } = require(process.env.PW_PATH || '/opt/node22/lib/node_modules/playwright');
 
+const staticServer = require('../src/main/static-server');
 const { demoCatalog } = require('../src/core/demo');
 const program = require('../src/core/program');
 const { DEFAULTS } = require('../src/core/store');
@@ -17,7 +18,6 @@ const DOCS = process.argv.includes('--docs');
 require('fs').mkdirSync(DOCS ? path.join(__dirname, '..', 'docs', 'screens') : path.join(__dirname, 'shots'), { recursive: true });
 const OUT = DOCS ? path.join(__dirname, '..', 'docs', 'screens') : path.join(__dirname, 'shots');
 const VIEWPORT = DOCS ? { width: 1280, height: 720 } : { width: 1920, height: 1080 };
-const PAGE = `file://${path.join(__dirname, '..', 'src', 'renderer', 'index.html')}`;
 
 function buildProgramme(now) {
   const metas = demoCatalog();
@@ -33,10 +33,25 @@ function buildProgramme(now) {
   };
 }
 
+const failures = [];
+function assertEqual(actual, expected, message) {
+  if (actual === expected) {
+    console.log(`  ok  ${message}`);
+  } else {
+    failures.push(`${message} (got ${JSON.stringify(actual)}, wanted ${JSON.stringify(expected)})`);
+    console.error(`  FAIL ${message} — got ${JSON.stringify(actual)}`);
+  }
+}
+
 async function main() {
   const now = new Date();
   const programme = buildProgramme(now);
   const config = { ...DEFAULTS, hideCursor: false };
+
+  // Serve the renderer exactly as the app does, over loopback — a file:// page
+  // has a null origin, which is what broke YouTube embeds in the first place.
+  const site = await staticServer.serve(path.join(__dirname, '..', 'src', 'renderer'));
+  const PAGE = `${site.url}/index.html`;
 
   const browser = await chromium.launch({ args: ['--autoplay-policy=no-user-gesture-required'] });
   const page = await browser.newPage({ viewport: VIEWPORT, deviceScaleFactor: 1 });
@@ -49,6 +64,7 @@ async function main() {
 
   await page.addInitScript(
     ({ programme, config }) => {
+      let cinemaHandler = null;
       const streams = [
         { name: 'Demo · Direct', title: '1080p WEB-DL · 4.2 GB', url: 'https://example.invalid/feature.mp4', addonName: 'Demo Source' },
         { name: 'Demo · Torrent', title: '2160p BluRay HDR · 18 GB', infoHash: 'a'.repeat(40), fileIdx: 0, addonName: 'Demo Source' },
@@ -69,21 +85,53 @@ async function main() {
         account: { login: async () => ({ addons: 0 }), logout: async () => true },
         app: {
           quit: async () => {},
-          toggleKiosk: async () => true,
-          displays: async () => [{ index: 0, label: 'Built-in', primary: true, width: 1920, height: 1080 }, { index: 1, label: 'LG TV', primary: false, width: 3840, height: 2160 }],
+          cinemaMode: async (mode) => ({ mode: mode || 'auto', cinema: window.__tv, tv: window.__tv }),
+          tvStatus: async () => ({
+            tv: window.__tv,
+            cinema: window.__tv,
+            mode: 'auto',
+            display: { id: 2, label: 'LG TV', width: 3840, height: 2160, external: true },
+            externals: [],
+          }),
+          displays: async () => [
+            { index: 0, label: 'Built-in', primary: true, width: 1920, height: 1080 },
+            { index: 1, label: 'LG TV', primary: false, width: 3840, height: 2160 },
+          ],
           useDisplay: async () => null,
           keepAwake: async () => true,
           openExternal: async () => {},
           version: async () => ({ app: '1.0.0', electron: '43.0.0', platform: 'linux' }),
         },
-        on: () => () => {},
+        on: (channel, handler) => {
+          if (channel === 'ui:command') cinemaHandler = handler;
+          return () => {
+            cinemaHandler = null;
+          };
+        },
+      };
+
+      // Lets the harness act as the projection booth: plug a TV in or pull it out.
+      window.__setTv = (on) => {
+        window.__tv = on;
+        if (cinemaHandler) cinemaHandler({ type: 'cinema-mode', cinema: on, tv: on, announce: true, display: { label: 'LG TV' } });
       };
     },
     { programme, config }
   );
 
+  // Start with a television attached: the show should open on the lobby loop.
+  await page.addInitScript(() => {
+    window.__tv = true;
+  });
+
   await page.goto(PAGE);
   await page.waitForFunction(() => window.CH && window.CH.app && window.CH.app.booted, null, { timeout: 15000 });
+  assertEqual(await page.evaluate(() => window.location.protocol), 'http:', 'renderer must be served over http, not file://');
+
+  // The embed must carry a real origin — this is precisely what "Error 153" was.
+  const embed = await page.evaluate(() => window.CH.youtube.embedUrl('dQw4w9WgXcQ', { muted: true }));
+  assertEqual(embed.includes(`origin=${encodeURIComponent(site.url)}`), true, 'trailer embed must declare the page origin');
+  assertEqual(embed.includes('enablejsapi=1'), true, 'trailer embed must report back so failures can be detected');
 
   const KEEP_FOR_DOCS = new Set(['01-attract-board', '02-attract-hero', '05-home', '07-details', '09-preshow-bumper', '12-preshow-leader', '13-settings-ar']);
   const shot = async (name) => {
@@ -165,15 +213,52 @@ async function main() {
   await page.waitForTimeout(800);
   await shot('15-search');
 
+  /* ---- the point of the app: the TV drives the mode, not a menu ---- */
+
+  await page.evaluate(() => window.CH.app.go('home', {}, { reset: true }));
+  await page.waitForTimeout(600);
+
+  await page.evaluate(() => window.__setTv(false));
+  await page.waitForTimeout(900);
+  assertEqual(await activeView(), 'home', 'unplugging the TV must leave the lobby loop');
+  assertEqual(await page.evaluate(() => window.CH.app.cinema), false, 'cinema mode must be off with no TV');
+  await shot('16-tv-unplugged');
+
+  await page.evaluate(() => window.__setTv(true));
+  await page.waitForTimeout(1200);
+  assertEqual(await activeView(), 'attract', 'connecting a TV must start the lobby loop by itself');
+  assertEqual(await page.evaluate(() => window.CH.app.cinema), true, 'cinema mode must be on with a TV');
+  await shot('17-tv-connected');
+
+  // A show already under way must survive a cable being touched. The pre-show
+  // runs on timers alone, so it exercises the guard without needing real media.
+  await page.evaluate(() =>
+    window.CH.app.go(
+      'preshow',
+      { meta: { name: 'Test Feature', id: 'x', type: 'movie', trailers: [] }, stream: { url: 'about:blank' } },
+      { reset: true }
+    )
+  );
+  await page.waitForTimeout(1500);
+  assertEqual(await activeView(), 'preshow', 'the pre-show should be running');
+  await page.evaluate(() => window.__setTv(false));
+  await page.waitForTimeout(1000);
+  assertEqual(await activeView(), 'preshow', 'a show under way must not be interrupted by a display change');
+
   await browser.close();
+  await site.close();
 
   if (errors.length) {
     console.error('\nPAGE ERRORS:');
     errors.forEach((e) => console.error(' -', e));
-    process.exitCode = 1;
   } else {
     console.log('\nno page errors');
   }
+  if (failures.length) {
+    console.error('\nASSERTION FAILURES:');
+    failures.forEach((f) => console.error(' -', f));
+  }
+  if (errors.length || failures.length) process.exitCode = 1;
 }
 
 main().catch((err) => {

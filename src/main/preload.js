@@ -35,7 +35,8 @@ contextBridge.exposeInMainWorld('cinema', {
   },
   app: {
     quit: () => invoke('app:quit'),
-    toggleKiosk: () => invoke('app:toggleKiosk'),
+    cinemaMode: (mode) => invoke('app:cinemaMode', mode),
+    tvStatus: () => invoke('app:tvStatus'),
     displays: () => invoke('app:displays'),
     useDisplay: (index) => invoke('app:useDisplay', index),
     keepAwake: (on) => invoke('app:keepAwake', on),

@@ -9,7 +9,11 @@ const DEFAULTS = {
   cinemaName: 'CINEMA HALL',
   cinemaNameAr: 'دار العرض',
   // Presentation
-  kiosk: true,
+  //   auto   — cinema mode switches itself on whenever a television is connected
+  //   always — cinema mode regardless of what is plugged in
+  //   off    — an ordinary window
+  cinemaMode: 'auto',
+  announceTv: true, // show a notice on the screen when the TV is picked up
   displayIndex: null, // null = auto (prefer the external screen, i.e. the TV)
   overscanPercent: 2.5, // TVs crop the edges; keep the UI inside the safe area
   hideCursor: true,

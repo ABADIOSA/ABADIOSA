@@ -12,10 +12,6 @@
   const { el, clear, wait, curtain, lights } = CH.ui;
   const t = (k, v) => CH.i18n.t(k, v);
 
-  const YT = (id) =>
-    `https://www.youtube-nocookie.com/embed/${encodeURIComponent(id)}` +
-    '?autoplay=1&mute=0&controls=0&modestbranding=1&rel=0&playsinline=1&iv_load_policy=3&fs=0&disablekb=1';
-
   function mount(root, params) {
     const cfg = CH.app.config;
     root.classList.add('view--plain');
@@ -75,17 +71,21 @@
         [el('p.eyebrow', { text: t('comingSoon') }), el('h2.title-md.display', { text: meta.name })]
       );
       clear(stage).append(frame, label);
-      frame.appendChild(
-        el('iframe', {
-          src: YT(ytId),
-          allow: 'autoplay; encrypted-media',
-          referrerpolicy: 'no-referrer',
-          frameborder: '0',
-          style: { position: 'absolute', inset: '0', width: '100%', height: '100%', border: '0' },
-        })
-      );
+
+      // The beat ends on whichever comes first: the trailer finishing, the
+      // trailer failing to play, the cap, or a key press.
+      const player = CH.youtube.play(frame, ytId, {
+        muted: false,
+        onEnded: () => skipStep && skipStep(),
+        onError: (info) => {
+          console.warn('pre-show trailer unavailable', meta.name, info);
+          if (skipStep) skipStep();
+        },
+      });
+
       // Trailers run about two minutes; the skip key is always there.
       await beat(125000);
+      player.destroy();
       clear(stage);
       await wait(300);
     }

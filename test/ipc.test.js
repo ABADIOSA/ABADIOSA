@@ -11,6 +11,11 @@ const path = require('node:path');
 const root = path.join(__dirname, '..');
 const read = (p) => fs.readFileSync(path.join(root, p), 'utf8');
 
+/** Drop block and line comments so prose cannot trip a code-shape check. */
+function stripComments(source) {
+  return source.replace(/\/\*[\s\S]*?\*\//g, ' ').replace(/(^|[^:'"\\])\/\/.*$/gm, '$1');
+}
+
 const preload = read('src/main/preload.js');
 const main = read('src/main/main.js');
 
@@ -55,7 +60,8 @@ test('the renderer never reaches for Node or Electron directly', () => {
 
   assert.ok(files.length >= 10, 'expected the full view set');
   for (const file of files) {
-    const source = fs.readFileSync(file, 'utf8');
+    // Prose mentions the main process; only real code should be scanned.
+    const source = stripComments(fs.readFileSync(file, 'utf8'));
     const rel = path.relative(root, file);
     assert.doesNotMatch(source, /\brequire\s*\(/, `${rel} must not use require()`);
     assert.doesNotMatch(source, /\bprocess\.|\bmodule\.exports\b/, `${rel} must not touch Node globals`);
