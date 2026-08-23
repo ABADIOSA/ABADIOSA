@@ -33,10 +33,16 @@ Stremio المفتوح — لكن الفرق أن واجهته ليست واجه
 
 ولإصدار رسمي في صفحة **Releases** بدل الـ Artifacts، ادفع وسم نسخة:
 
+من تبويب **Actions** ← *Build installers* ← **Run workflow**، وفعّل خيار
+*Publish a release*. أو ادفع وسم نسخة:
+
 ```bash
-git tag v1.0.0
-git push origin v1.0.0
+git tag v1.1.1
+git push origin v1.1.1
 ```
+
+> هذا المستودع يستضيف أكثر من مشروع، فرقم النسخة يجب ألا يتعارض مع وسم موجود مسبقاً لمشروع آخر —
+> وإلا رُفعت ملفات هذا البرنامج إلى إصدار ذلك المشروع. تحقّق من صفحة **Tags** قبل رفع النسخة.
 
 > ملاحظة: النسخ غير موقّعة رقمياً. ويندوز قد يعرض تحذير SmartScreen أول مرة —
 > اضغط *More info* ثم *Run anyway*. وعلى macOS: زر يمين على التطبيق ← *Open*.
@@ -195,7 +201,9 @@ before the feature. Nothing on screen suggests a computer.
 ### Download
 
 Grab the latest [Release](https://github.com/ABADIOSA/ABADIOSA/releases) — installed from there,
-the app updates itself from then on. Every branch push also builds all three platforms into the
+the app updates itself from then on. (This repository hosts several unrelated projects, so a
+release version must not collide with a tag another project already used, or the installers land
+on that project's release instead of a fresh one.) Every branch push also builds all three platforms into the
 **Actions** tab → **Artifacts**. Builds are unsigned, so Windows SmartScreen and macOS Gatekeeper
 each want one confirmation on first launch.
 

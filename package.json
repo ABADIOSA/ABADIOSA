@@ -1,7 +1,7 @@
 {
   "name": "cinema-hall",
   "productName": "Cinema Hall",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A cinema-auditorium Stremio client for the big screen — starts itself on the television, runs a lobby attract loop and a full pre-show, and plays the feature through mpv.",
   "author": "ABADIOSA",
   "license": "MIT",
@@ -92,6 +92,9 @@
           "**/*"
         ]
       }
-    ]
+    ],
+    "releaseInfo": {
+      "releaseNotes": "Cinema Hall — a cinema-auditorium Stremio client for the television.\n\n- Cinema mode follows the TV: connect one over HDMI or a wireless display and the show moves onto it and starts the lobby loop; unplug it and the app hands the desk back as a window. A film already playing is never interrupted.\n- Films play through mpv when it is installed, so MKV, HEVC, AV1, DTS/TrueHD and ASS subtitles all work, with hardware decoding and HDR. The built-in web player is the fallback.\n- Trailers play again: the renderer is served over a loopback http origin, which the embedded YouTube player requires. Trailers that cannot be embedded fall back to the film's artwork instead of a dead frame.\n- Self-update from GitHub Releases, applied on quit so a running film is never interrupted. The Windows portable build and unsigned macOS builds cannot self-update and say so in Settings.\n\nWindows: CinemaHall-Setup (installs and self-updates) or CinemaHall-Portable (runs with no install). macOS: the .dmg. Linux: the .AppImage or .deb.\nBuilds are unsigned, so Windows SmartScreen and macOS Gatekeeper each want one confirmation on first launch."
+    }
   }
 }
