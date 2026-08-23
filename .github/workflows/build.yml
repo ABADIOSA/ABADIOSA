@@ -20,9 +20,42 @@ permissions:
   contents: write
 
 jobs:
+  # A release must be anchored to a tag that already points at this commit.
+  # Left to itself, electron-builder creates the release without naming a target,
+  # so GitHub anchors the new tag to the repository's DEFAULT branch — which in a
+  # repository holding several projects is somebody else's code. Creating the tag
+  # here first means GitHub reuses it and the release points at what was built.
+  tag:
+    name: Tag the commit
+    if: ${{ inputs.publish }}
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.tag.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create the version tag if it does not exist
+        id: tag
+        run: |
+          set -euo pipefail
+          version="$(node -p "require('./package.json').version")"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+          if git ls-remote --exit-code --tags origin "refs/tags/v$version" >/dev/null 2>&1; then
+            echo "::error::tag v$version already exists — bump the version in package.json"
+            exit 1
+          fi
+
+          git tag -a "v$version" -m "Cinema Hall $version"
+          git push origin "v$version"
+          echo "tagged v$version at $(git rev-parse --short HEAD)"
+
   build:
     name: ${{ matrix.label }}
     runs-on: ${{ matrix.os }}
+    needs: [tag]
+    # `tag` only runs for a manual publish; a plain branch build skips it.
+    if: ${{ always() && (needs.tag.result == 'success' || needs.tag.result == 'skipped') }}
     env:
       PUBLISH: ${{ (startsWith(github.ref, 'refs/tags/v') || inputs.publish) && 'true' || 'false' }}
     strategy:
@@ -49,6 +82,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Fetch the tag the job above just pushed, so the build is anchored
+          # to it rather than to a bare branch head.
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
