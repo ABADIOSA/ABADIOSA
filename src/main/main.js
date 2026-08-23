@@ -14,6 +14,8 @@ const path = require('path');
 
 const { Store } = require('../core/store');
 const { Programme } = require('./programme');
+const { MpvPlayer } = require('./mpv-player');
+const { Updater } = require('./updater');
 const staticServer = require('./static-server');
 const serverBridge = require('../core/server');
 const stremioApi = require('../core/stremio-api');
@@ -26,6 +28,8 @@ const FORCE_WINDOWED = argv.includes('--windowed');
 let win = null;
 let store = null;
 let programme = null;
+let player = null;
+let updater = null;
 let site = null;
 let powerBlockerId = null;
 
@@ -84,6 +88,18 @@ function cinemaActive() {
   if (mode === 'always') return true;
   if (mode === 'off') return false;
   return tvConnected(); // 'auto'
+}
+
+/** Send an out-of-band message to the auditorium. */
+function notifyRenderer(payload) {
+  if (win && !win.isDestroyed()) win.webContents.send('ui:command', payload);
+}
+
+/** The screen a film should open on, with the index mpv needs. */
+function targetDisplayInfo() {
+  const display = targetDisplay();
+  const index = screen.getAllDisplays().findIndex((d) => d.id === display.id);
+  return { index: index < 0 ? 0 : index, bounds: display.bounds, id: display.id };
 }
 
 function describeDisplay(display) {
@@ -146,7 +162,7 @@ function syncPresentation({ force = false } = {}) {
 
   if (changed || force) {
     showState = { cinema, tv };
-    win.webContents.send('ui:command', {
+    notifyRenderer({
       type: 'cinema-mode',
       cinema,
       tv,
@@ -353,6 +369,16 @@ function registerIpc() {
     return true;
   });
 
+  ipcMain.handle('player:status', () => player.status());
+  ipcMain.handle('player:play', (_e, options) => player.play(options || {}));
+  ipcMain.handle('player:command', (_e, args) => player.command(...(args || [])));
+  ipcMain.handle('player:stop', () => player.stop());
+  ipcMain.handle('player:install', () => player.install());
+
+  ipcMain.handle('update:status', () => updater.state);
+  ipcMain.handle('update:check', () => updater.check());
+  ipcMain.handle('update:install', () => updater.install());
+
   ipcMain.handle('app:quit', () => app.quit());
   ipcMain.handle('app:cinemaMode', (_e, mode) => {
     if (mode) store.set({ cinemaMode: mode });
@@ -409,10 +435,27 @@ app.whenReady().then(async () => {
 
   site = await staticServer.serve(path.join(__dirname, '..', 'renderer'));
 
+  player = new MpvPlayer({
+    store,
+    getWindow: () => win,
+    getTargetDisplay: targetDisplayInfo,
+    notify: notifyRenderer,
+    userDataDir: app.getPath('userData'),
+  });
+
+  updater = new Updater({
+    notify: notifyRenderer,
+    isPackaged: app.isPackaged,
+    version: app.getVersion(),
+  });
+
   registerIpc();
   keepAwake(true);
   createWindow();
   watchDisplays();
+
+  // Give the auditorium a moment to open before reaching for the network.
+  setTimeout(() => updater.init(), 4000);
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
@@ -426,5 +469,7 @@ app.on('window-all-closed', () => {
 
 app.on('before-quit', () => {
   keepAwake(false);
+  if (updater) updater.stop();
+  if (player) player.stop();
   if (site) site.close();
 });

@@ -82,6 +82,26 @@ async function main() {
           resolve: async () => ({ kind: 'direct', url: 'https://example.invalid/feature.mp4' }),
           serverStatus: async () => ({ url: 'http://127.0.0.1:11470', online: false }),
         },
+        player: {
+          // window.__mpv decides which engine the harness pretends to have.
+          status: async () => ({
+            preference: 'auto',
+            engine: window.__mpv ? 'mpv' : 'builtin',
+            mpv: window.__mpv ? { available: true, binary: '/usr/bin/mpv', version: '0.37.0' } : { available: false },
+            install: 'winget install mpv',
+            playing: false,
+          }),
+          play: async ({ url }) =>
+            window.__mpv ? { engine: 'mpv', version: '0.37.0' } : { engine: 'builtin', url },
+          command: async () => null,
+          stop: async () => true,
+          install: async () => ({ ok: false, command: 'winget install mpv' }),
+        },
+        update: {
+          status: async () => ({ phase: 'idle', supported: true, version: '1.1.0' }),
+          check: async () => ({ phase: 'current', supported: true, version: '1.1.0' }),
+          install: async () => true,
+        },
         account: { login: async () => ({ addons: 0 }), logout: async () => true },
         app: {
           quit: async () => {},
@@ -110,6 +130,9 @@ async function main() {
         },
       };
 
+      // Lets the harness act as the projection booth: report from the projector.
+      window.__emit = (payload) => cinemaHandler && cinemaHandler(payload);
+
       // Lets the harness act as the projection booth: plug a TV in or pull it out.
       window.__setTv = (on) => {
         window.__tv = on;
@@ -122,6 +145,7 @@ async function main() {
   // Start with a television attached: the show should open on the lobby loop.
   await page.addInitScript(() => {
     window.__tv = true;
+    window.__mpv = false; // the built-in player, until the mpv pass below
   });
 
   await page.goto(PAGE);
@@ -133,7 +157,7 @@ async function main() {
   assertEqual(embed.includes(`origin=${encodeURIComponent(site.url)}`), true, 'trailer embed must declare the page origin');
   assertEqual(embed.includes('enablejsapi=1'), true, 'trailer embed must report back so failures can be detected');
 
-  const KEEP_FOR_DOCS = new Set(['01-attract-board', '02-attract-hero', '05-home', '07-details', '09-preshow-bumper', '12-preshow-leader', '13-settings-ar']);
+  const KEEP_FOR_DOCS = new Set(['01-attract-board', '02-attract-hero', '05-home', '07-details', '09-preshow-bumper', '12-preshow-leader', '13-settings-ar', '19-settings-player']);
   const shot = async (name) => {
     if (DOCS && !KEEP_FOR_DOCS.has(name)) return;
     await page.screenshot({ path: path.join(OUT, `${name}.png`) });
@@ -213,6 +237,13 @@ async function main() {
   await page.waitForTimeout(800);
   await shot('15-search');
 
+  await page.evaluate(() => {
+    window.CH.i18n.set('ar');
+    window.CH.app.go('settings', { tab: 'player' }, { reset: true });
+  });
+  await page.waitForTimeout(1100);
+  await shot('19-settings-player');
+
   /* ---- the point of the app: the TV drives the mode, not a menu ---- */
 
   await page.evaluate(() => window.CH.app.go('home', {}, { reset: true }));
@@ -244,6 +275,41 @@ async function main() {
   await page.evaluate(() => window.__setTv(false));
   await page.waitForTimeout(1000);
   assertEqual(await activeView(), 'preshow', 'a show under way must not be interrupted by a display change');
+
+  /* ---- the projector: mpv takes the film, and hands the room back ---- */
+
+  await page.evaluate(() => {
+    window.__mpv = true;
+    window.CH.app.go(
+      'player',
+      { meta: { name: 'Iron Harvest Road', id: 'x', type: 'movie' }, stream: { url: 'https://example.invalid/f.mkv' } },
+      { reset: true }
+    );
+  });
+  await page.waitForTimeout(1200);
+  assertEqual(await activeView(), 'player', 'the player view stays up while mpv owns the screen');
+  assertEqual(
+    await page.evaluate(() => !!document.querySelector('.view[data-view="player"] .title-card__name')),
+    true,
+    'a handoff card is painted behind mpv so nothing flashes when it closes'
+  );
+  await shot('18-mpv-handoff');
+
+  // Progress from the other process must reach the on-screen display.
+  await page.evaluate(() =>
+    window.__emit({ type: 'playback', state: 'progress', engine: 'mpv', position: 300, duration: 1200, paused: false })
+  );
+  await page.waitForTimeout(300);
+  assertEqual(
+    await page.evaluate(() => document.querySelector('.view[data-view="player"] .osd__fill').style.width),
+    '25%',
+    'mpv progress drives the on-screen display'
+  );
+
+  // When mpv closes on its own, the room goes back to the lobby.
+  await page.evaluate(() => window.__emit({ type: 'playback', state: 'ended', engine: 'mpv', code: 0 }));
+  await page.waitForTimeout(6000);
+  assertEqual(await activeView(), 'attract', 'the end of the film returns the room to the lobby');
 
   await browser.close();
   await site.close();

@@ -29,6 +29,18 @@ contextBridge.exposeInMainWorld('cinema', {
     resolve: (stream) => invoke('playback:resolve', stream),
     serverStatus: () => invoke('playback:serverStatus'),
   },
+  player: {
+    status: () => invoke('player:status'),
+    play: (options) => invoke('player:play', options),
+    command: (...args) => invoke('player:command', args),
+    stop: () => invoke('player:stop'),
+    install: () => invoke('player:install'),
+  },
+  update: {
+    status: () => invoke('update:status'),
+    check: () => invoke('update:check'),
+    install: () => invoke('update:install'),
+  },
   account: {
     login: (email, password) => invoke('account:login', { email, password }),
     logout: () => invoke('account:logout'),

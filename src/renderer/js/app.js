@@ -15,6 +15,7 @@
     /** Is the auditorium on a television right now? Set by the main process. */
     cinema: false,
     tv: false,
+    update: { phase: 'idle' },
 
     current: null,      // { id, params, node, instance }
     stack: [],
@@ -190,6 +191,37 @@
 
   /* --------------------------------------------------------------- boot */
 
+  /* Views subscribe to the booth's messages by type. */
+  const listeners = new Map();
+  function onCommand(type, handler) {
+    if (!listeners.has(type)) listeners.set(type, new Set());
+    listeners.get(type).add(handler);
+    return () => listeners.get(type).delete(handler);
+  }
+
+  function dispatchCommand(payload) {
+    if (!payload || !payload.type) return;
+    for (const handler of listeners.get(payload.type) || []) {
+      try {
+        handler(payload);
+      } catch (err) {
+        console.warn('command handler failed', payload.type, err);
+      }
+    }
+    if (payload.type === 'cinema-mode') onCinemaCommand(payload);
+    if (payload.type === 'update') onUpdateCommand(payload);
+  }
+
+  /** A new build is waiting; say so once, quietly, and never mid-film. */
+  let updateAnnounced = null;
+  function onUpdateCommand(payload) {
+    app.update = payload;
+    if (payload.phase !== 'ready' || updateAnnounced === payload.available) return;
+    if (app.current && (app.current.id === 'player' || app.current.id === 'preshow')) return;
+    updateAnnounced = payload.available;
+    toast(CH.i18n.t('updateReady', { version: payload.available || '' }), 8000);
+  }
+
   /**
    * The projection booth tells us when a television appears or goes away, so
    * plugging one in starts the show and unplugging it hands the desk back.
@@ -218,7 +250,7 @@
     applyConfig();
     CH.ui.startClock(() => app.config);
 
-    window.cinema.on('ui:command', onCinemaCommand);
+    window.cinema.on('ui:command', dispatchCommand);
 
     // Ask once at startup rather than waiting for a change that may never come.
     try {
@@ -258,7 +290,7 @@
   document.addEventListener('click', resetIdle);
   document.addEventListener('wheel', resetIdle, { passive: true });
 
-  Object.assign(app, { go, back, applyConfig, loadProgramme, resetIdle });
+  Object.assign(app, { go, back, applyConfig, loadProgramme, resetIdle, onCommand });
   CH.app = app;
 
   window.addEventListener('DOMContentLoaded', boot);

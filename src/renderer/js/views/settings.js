@@ -6,8 +6,15 @@
   const { el, clear, toast } = CH.ui;
   const t = (k, v) => CH.i18n.t(k, v);
 
-  const TABS = ['display', 'sources', 'show', 'account', 'about'];
-  const TAB_LABEL = { display: 'setDisplay', sources: 'setSources', show: 'setShow', account: 'setAccount', about: 'setAbout' };
+  const TABS = ['display', 'player', 'sources', 'show', 'account', 'about'];
+  const TAB_LABEL = {
+    display: 'setDisplay',
+    player: 'setPlayer',
+    sources: 'setSources',
+    show: 'setShow',
+    account: 'setAccount',
+    about: 'setAbout',
+  };
 
   /* --------------------------------------------------------- text prompt */
 
@@ -62,6 +69,8 @@
     let serverState = null;
     let addonList = [];
     let tvState = null;
+    let playerState = null;
+    let updateState = null;
 
     const nav = el('nav.settings__nav');
     const pane = el('div.settings__pane');
@@ -149,6 +158,112 @@
           save({ language: c.language === 'ar' ? 'en' : 'ar' })
         ),
       ];
+    }
+
+    function playerPane() {
+      const c = cfg();
+      const engineLabels = { auto: t('engineAuto'), mpv: t('engineMpv'), builtin: t('engineBuiltin') };
+      const rows = [];
+
+      rows.push(
+        field(
+          t('optEngine'),
+          engineLabels[c.playerEngine] || c.playerEngine,
+          async () => {
+            const order = ['auto', 'mpv', 'builtin'];
+            const next = order[(order.indexOf(c.playerEngine) + 1) % order.length];
+            await save({ playerEngine: next });
+            playerState = await window.cinema.player.status();
+            render();
+          },
+          t('optEngineHint')
+        )
+      );
+
+      if (playerState) {
+        rows.push(
+          field(
+            t('mpvStatus'),
+            playerState.mpv.available ? t('mpvFound', { version: playerState.mpv.version }) : t('mpvMissing'),
+            async () => {
+              playerState = await window.cinema.player.status();
+              render();
+            },
+            playerState.mpv.available
+              ? `${playerState.mpv.binary} · ${t('engineInUse', { engine: engineName(playerState.engine) })}`
+              : t('engineInUse', { engine: engineName(playerState.engine) })
+          )
+        );
+
+        if (!playerState.mpv.available && playerState.install) {
+          rows.push(
+            field(t('mpvInstall'), '⬇', async () => {
+              toast(t('mpvInstalling'), 60000);
+              const result = await window.cinema.player.install();
+              playerState = await window.cinema.player.status();
+              toast(
+                result.ok
+                  ? t('mpvInstalled', { version: result.version })
+                  : t('mpvInstallFailed', { message: result.error || result.output || result.code }),
+                8000
+              );
+              render();
+            }, t('mpvInstallHint', { command: playerState.install }))
+          );
+        }
+
+        rows.push(
+          field(t('mpvPath'), c.mpvPath || '—', async () => {
+            const value = await prompt({ title: t('mpvPath'), value: c.mpvPath || '', hint: t('mpvPathHint') });
+            if (value === null) return;
+            await save({ mpvPath: value.trim() || null });
+            playerState = await window.cinema.player.status();
+            render();
+          }, t('mpvPathHint'))
+        );
+      }
+
+      rows.push(el('p.eyebrow', { text: t('updates'), style: { marginTop: '1.4rem' } }));
+      rows.push(
+        field(t('updateStatus'), updateLabel(updateState), async () => {
+          updateState = await window.cinema.update.check();
+          render();
+        }, updateState && !updateState.supported ? t('updateUnsupportedHint') : updateState && updateState.reason)
+      );
+      rows.push(
+        field(t('updateCheck'), '↻', async () => {
+          updateState = await window.cinema.update.check();
+          render();
+        })
+      );
+      if (updateState && updateState.phase === 'ready') {
+        rows.push(field(t('updateInstall'), '⏻', () => window.cinema.update.install()));
+      }
+      return rows;
+    }
+
+    /** The engine's own name for mpv, a translated label for the web player. */
+    function engineName(engine) {
+      return engine === 'mpv' ? 'mpv' : t('engineBuiltin');
+    }
+
+    function updateLabel(state) {
+      if (!state) return '…';
+      if (!state.supported) return t('updateUnsupported');
+      switch (state.phase) {
+        case 'checking':
+          return t('updateChecking');
+        case 'current':
+          return t('updateCurrent');
+        case 'downloading':
+          return t('updateDownloading', { percent: state.percent || 0 });
+        case 'ready':
+          return t('updateReadyShort', { version: state.available || '' });
+        case 'error':
+          return t('updateError');
+        default:
+          return t('updateIdle');
+      }
     }
 
     function sourcesPane() {
@@ -295,7 +410,14 @@
     function render() {
       buildNav();
       clear(pane);
-      const panes = { display: displayPane, sources: sourcesPane, show: showPane, account: accountPane, about: aboutPane };
+      const panes = {
+        display: displayPane,
+        player: playerPane,
+        sources: sourcesPane,
+        show: showPane,
+        account: accountPane,
+        about: aboutPane,
+      };
       for (const node of panes[tab]()) if (node) pane.appendChild(node);
       CH.nav.setScope(root);
     }
@@ -308,15 +430,25 @@
       window.cinema.addons.list(),
       window.cinema.playback.serverStatus(),
       window.cinema.app.tvStatus(),
+      window.cinema.player.status(),
+      window.cinema.update.status(),
     ])
-      .then(([d, a, s, tv]) => {
+      .then(([d, a, s, tv, pl, up]) => {
         displays = d;
         addonList = a;
         serverState = s;
         tvState = tv;
+        playerState = pl;
+        updateState = up;
         render();
       })
       .catch(() => {});
+
+    // Keep the update row live while the pane is open.
+    const stopWatching = CH.app.onCommand('update', (payload) => {
+      updateState = payload;
+      if (tab === 'player') render();
+    });
 
     return {
       onKey(event) {
@@ -326,7 +458,9 @@
         }
         return false;
       },
-      destroy() {},
+      destroy() {
+        stopWatching();
+      },
     };
   }
 

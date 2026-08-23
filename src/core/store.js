@@ -30,6 +30,11 @@ const DEFAULTS = {
   preshowTrailers: 2,
   preshowBumpers: true,
   preshowCountdown: true,
+  // Playback
+  //   auto — mpv when it is installed, the built-in web player otherwise
+  playerEngine: 'auto',
+  mpvPath: null, // an explicit mpv binary, when it lives somewhere unusual
+  autoUpdate: true,
   // Sources
   addons: ['https://v3-cinemeta.strem.io/manifest.json'],
   streamingServerUrl: 'http://127.0.0.1:11470',

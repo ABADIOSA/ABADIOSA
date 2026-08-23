@@ -1,8 +1,10 @@
 /* The feature presentation.
  *
- * Plain <video> for direct and torrent-server streams, hls.js for m3u8. The
- * on-screen display stays out of the way and disappears after a few seconds so
- * the picture is all that is left in the room.
+ * Two engines. When mpv is on the machine the film is handed to it — it plays
+ * the MKV/HEVC/AV1/DTS material that most add-ons actually return, which a
+ * WebView cannot decode at all — and it takes the screen and the keyboard for
+ * the duration. Otherwise the page plays it itself with <video> (plus hls.js
+ * for m3u8), with an on-screen display that fades out of the way.
  */
 (function (CH) {
   'use strict';
@@ -46,6 +48,8 @@
     let osdTimer = null;
     let disposed = false;
     let finished = false;
+    let engine = 'builtin';
+    let unsubscribe = null;
 
     function flashOsd(ms = 4000) {
       osd.classList.add('is-visible');
@@ -91,7 +95,54 @@
       if (resolved.needsServer) return fail(t('serverNeeded'));
       if (!resolved.url) return fail(resolved.reason || t('unsupported'));
 
-      attachSource(resolved.url);
+      // Offer the film to mpv first; it falls back to the page when absent.
+      let handoff;
+      try {
+        handoff = await window.cinema.player.play({
+          url: resolved.url,
+          title: params.meta.name,
+          subtitles: params.stream.subtitles || [],
+        });
+      } catch (err) {
+        handoff = { engine: 'builtin', url: resolved.url, reason: err.message };
+      }
+      if (disposed) return;
+
+      if (handoff.engine === 'mpv') {
+        engine = 'mpv';
+        showHandoff(handoff.version);
+        return;
+      }
+      if (handoff.reason) console.warn('mpv declined the film:', handoff.reason);
+      attachSource(handoff.url || resolved.url);
+    }
+
+    /**
+     * mpv owns the screen from here. This card only exists so that the instant
+     * mpv closes there is a picture behind it rather than the previous view.
+     */
+    function showHandoff(version) {
+      setSpinner(false);
+      video.style.display = 'none';
+      stage.appendChild(
+        el('div', {
+          style: {
+            position: 'absolute',
+            inset: '0',
+            backgroundImage: `url("${params.meta.background || params.meta.poster || ''}")`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            filter: 'brightness(0.28)',
+          },
+        })
+      );
+      stage.appendChild(
+        el('div.title-card.is-live', {}, [
+          el('p.eyebrow', { text: t('featurePresentation') }),
+          el('h1.title-card__name.display', { text: params.meta.name, dir: 'auto' }),
+          el('p.bumper__sub', { text: version ? `mpv ${version}` : 'mpv' }),
+        ])
+      );
     }
 
     function attachSource(url) {
@@ -157,6 +208,25 @@
     });
     video.addEventListener('ended', () => endOfFilm());
 
+    // The projector reports back from its own process.
+    unsubscribe = CH.app.onCommand('playback', (payload) => {
+      if (disposed || payload.engine !== 'mpv') return;
+      if (payload.state === 'progress') {
+        if (Number.isFinite(payload.duration) && payload.duration > 0) {
+          osdFill.style.width = `${(payload.position / payload.duration) * 100}%`;
+          osdLeft.textContent = `-${fmt(payload.duration - payload.position)}`;
+        }
+        osdNow.textContent = fmt(payload.position || 0);
+      } else if (payload.state === 'ended') {
+        if (payload.error) {
+          toast(payload.error, 6000);
+          CH.app.back();
+        } else {
+          endOfFilm();
+        }
+      }
+    });
+
     async function endOfFilm() {
       if (finished || disposed) return;
       finished = true;
@@ -190,6 +260,14 @@
 
     return {
       onKey(event) {
+        // While mpv is up it owns the keyboard; only a way out is ours.
+        if (engine === 'mpv') {
+          if (event.key === 'Escape' || event.key === 'Backspace') {
+            window.cinema.player.stop();
+            return true;
+          }
+          return true;
+        }
         const rtl = CH.i18n.dir === 'rtl';
         switch (event.key) {
           case ' ':
@@ -239,6 +317,8 @@
       },
       destroy() {
         disposed = true;
+        if (unsubscribe) unsubscribe();
+        if (engine === 'mpv') window.cinema.player.stop();
         clearTimeout(osdTimer);
         if (hls) {
           hls.destroy();

@@ -1,8 +1,8 @@
 {
   "name": "cinema-hall",
   "productName": "Cinema Hall",
-  "version": "1.0.0",
-  "description": "A cinema-auditorium Stremio client for the big screen — lobby attract loop, trailer reels, pre-show bumpers and a feature presentation.",
+  "version": "1.1.0",
+  "description": "A cinema-auditorium Stremio client for the big screen — starts itself on the television, runs a lobby attract loop and a full pre-show, and plays the feature through mpv.",
   "author": "ABADIOSA",
   "license": "MIT",
   "private": true,
@@ -12,14 +12,18 @@
     "dev": "electron . --dev --windowed",
     "postinstall": "node scripts/vendor.js",
     "vendor": "node scripts/vendor.js",
-    "test": "node --test test/core.test.js test/ipc.test.js test/server.test.js",
+    "test": "node --test test/core.test.js test/ipc.test.js test/server.test.js test/mpv.test.js test/updater.test.js",
     "dist": "electron-builder --publish never",
     "dist:win": "electron-builder --win --publish never",
     "dist:mac": "electron-builder --mac --publish never",
-    "dist:linux": "electron-builder --linux --publish never"
+    "dist:linux": "electron-builder --linux --publish never",
+    "release:win": "electron-builder --win --publish always",
+    "release:mac": "electron-builder --mac --publish always",
+    "release:linux": "electron-builder --linux --publish always"
   },
   "dependencies": {
-    "hls.js": "^1.6.2"
+    "hls.js": "^1.6.2",
+    "electron-updater": "^6.3.9"
   },
   "devDependencies": {
     "electron": "^43.0.0",
@@ -71,6 +75,23 @@
     },
     "portable": {
       "artifactName": "CinemaHall-Portable-${version}-${arch}.${ext}"
-    }
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "ABADIOSA",
+        "repo": "ABADIOSA",
+        "releaseType": "release"
+      }
+    ],
+    "extraResources": [
+      {
+        "from": "resources",
+        "to": ".",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ]
   }
 }
