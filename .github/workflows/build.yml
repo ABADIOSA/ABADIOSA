@@ -46,6 +46,10 @@ jobs:
             exit 1
           fi
 
+          # An annotated tag records a tagger, and a fresh runner has no identity.
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+
           git tag -a "v$version" -m "Cinema Hall $version"
           git push origin "v$version"
           echo "tagged v$version at $(git rev-parse --short HEAD)"

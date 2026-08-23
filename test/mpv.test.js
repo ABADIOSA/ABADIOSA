@@ -49,11 +49,19 @@ async function waitFor(check, { timeout = 8000, every = 50, what = 'condition' }
   const deadline = Date.now() + timeout;
   let last;
   while (Date.now() < deadline) {
-    last = await check();
-    if (last) return last;
+    try {
+      const value = await check();
+      if (value) return value;
+      last = value;
+    } catch (err) {
+      // Before mpv has loaded the file, reading time-pos rejects with
+      // "property unavailable" rather than returning nothing. That is a
+      // not-yet, not a failure — keep polling.
+      last = `<${err.message}>`;
+    }
     await new Promise((r) => setTimeout(r, every));
   }
-  throw new Error(`timed out after ${timeout}ms waiting for ${what} (last value: ${JSON.stringify(last)})`);
+  throw new Error(`timed out after ${timeout}ms waiting for ${what} (last: ${JSON.stringify(last)})`);
 }
 
 /* ------------------------------------------------------------------ args */
@@ -145,9 +153,10 @@ test('plays a file and answers every control we use', { skip }, async () => {
 
     await session.client.setProperty('pause', true);
     // Read after the pause has taken effect, not merely after it was requested.
-    const held = await waitFor(async () => (await session.client.getProperty('pause')) && session.client.getProperty('time-pos'), {
-      what: 'the pause to take effect',
-    });
+    const held = await waitFor(
+      async () => ((await session.client.getProperty('pause')) ? await session.client.getProperty('time-pos') : null),
+      { what: 'the pause to take effect' }
+    );
     await new Promise((r) => setTimeout(r, 400));
     assert.equal(await session.client.getProperty('time-pos'), held, 'pause must actually hold the position');
 
