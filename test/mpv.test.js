@@ -89,8 +89,14 @@ test('candidate locations are platform-appropriate and honour an override', () =
   assert.ok(mac.some((p) => p.includes('homebrew')));
   assert.ok(mac.some((p) => p.includes('mpv.app')));
 
-  const bundled = mpv.candidatePaths({ platform: 'linux', bundledDir: '/app/resources/mpv', env: {} });
-  assert.equal(bundled[0], '/app/resources/mpv/mpv', 'a shipped binary is preferred over the system one');
+  // Build the expectation the same way the code does, so the separator is
+  // whatever this platform uses rather than a hard-coded slash.
+  const bundled = mpv.candidatePaths({ platform: 'linux', bundledDir: path.join('/app', 'resources', 'mpv'), env: {} });
+  assert.equal(
+    bundled[0],
+    path.join('/app', 'resources', 'mpv', 'mpv'),
+    'a shipped binary is preferred over the system one'
+  );
 });
 
 test('the ipc endpoint matches the platform', () => {
