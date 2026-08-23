@@ -40,6 +40,22 @@ function writeSample() {
 
 const HEADLESS = ['--vo=null', '--ao=null', '--no-config', '--really-quiet'];
 
+/**
+ * Poll until a condition about the player holds. Sleeping a fixed time and then
+ * asserting makes the test a race against a loaded machine; waiting for the
+ * state we actually care about does not.
+ */
+async function waitFor(check, { timeout = 8000, every = 50, what = 'condition' } = {}) {
+  const deadline = Date.now() + timeout;
+  let last;
+  while (Date.now() < deadline) {
+    last = await check();
+    if (last) return last;
+    await new Promise((r) => setTimeout(r, every));
+  }
+  throw new Error(`timed out after ${timeout}ms waiting for ${what} (last value: ${JSON.stringify(last)})`);
+}
+
 /* ------------------------------------------------------------------ args */
 
 test('the media path is always last, after --', () => {
@@ -122,20 +138,27 @@ test('plays a file and answers every control we use', { skip }, async () => {
   const sample = writeSample();
   const session = await mpv.launch(BINARY, { url: sample, fullscreen: false, volume: 70, extra: HEADLESS });
   try {
-    await new Promise((r) => setTimeout(r, 900));
+    await waitFor(async () => (await session.client.getProperty('time-pos')) > 0.3, { what: 'playback to start' });
 
     assert.equal(await session.client.getProperty('duration'), 6);
     assert.equal(await session.client.getProperty('volume'), 70, 'the launch volume is applied');
-    assert.ok((await session.client.getProperty('time-pos')) > 0.3, 'playback should have started');
 
     await session.client.setProperty('pause', true);
-    const held = await session.client.getProperty('time-pos');
+    // Read after the pause has taken effect, not merely after it was requested.
+    const held = await waitFor(async () => (await session.client.getProperty('pause')) && session.client.getProperty('time-pos'), {
+      what: 'the pause to take effect',
+    });
     await new Promise((r) => setTimeout(r, 400));
     assert.equal(await session.client.getProperty('time-pos'), held, 'pause must actually hold the position');
 
     await session.client.command('seek', 4, 'absolute');
-    await new Promise((r) => setTimeout(r, 300));
-    const sought = await session.client.getProperty('time-pos');
+    const sought = await waitFor(
+      async () => {
+        const at = await session.client.getProperty('time-pos');
+        return at > 3.5 && at < 4.5 ? at : null;
+      },
+      { what: 'the seek to land near 4s' }
+    );
     assert.ok(sought > 3.5 && sought < 4.5, `seek should land near 4s, got ${sought}`);
 
     await session.client.setProperty('mute', true);
@@ -170,7 +193,7 @@ test('closes itself when the film ends', { skip }, async () => {
 test('stop() ends a film that is still running', { skip }, async () => {
   const sample = writeSample();
   const session = await mpv.launch(BINARY, { url: sample, fullscreen: false, extra: HEADLESS });
-  await new Promise((r) => setTimeout(r, 400));
+  await waitFor(async () => (await session.client.getProperty('time-pos')) >= 0, { what: 'playback to begin' });
   await session.stop();
   const { code } = await session.exited;
   fs.unlinkSync(sample);
