@@ -1,7 +1,7 @@
 {
   "name": "cinema-hall",
   "productName": "Cinema Hall",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A cinema-auditorium Stremio client for the big screen — starts itself on the television, runs a lobby attract loop and a full pre-show, and plays the feature through mpv.",
   "author": "ABADIOSA",
   "license": "MIT",

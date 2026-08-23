@@ -37,8 +37,8 @@ Stremio المفتوح — لكن الفرق أن واجهته ليست واجه
 *Publish a release*. أو ادفع وسم نسخة:
 
 ```bash
-git tag v1.1.1
-git push origin v1.1.1
+git tag v1.1.2
+git push origin v1.1.2
 ```
 
 > **مهم:** الفرع الافتراضي لهذا المستودع يخصّ مشروعاً آخر. ولولا خطوة `tag` في المسار،
