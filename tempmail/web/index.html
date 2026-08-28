@@ -139,12 +139,23 @@
       </section>
 
       <section class="card">
-        <h3>دومينك الخاص (IMAP)</h3>
+        <h3>صندوق البريد (IMAP)</h3>
         <p class="hint">
-          لاستخدام دومينك أنت: فعّل <b>catch-all</b> على الدومين ووجّه كل الرسائل
-          إلى صندوق واحد، ثم أدخل بيانات ذلك الصندوق هنا. الشرح خطوة بخطوة في
-          ملف <code>README.md</code>.
+          هذه البيانات تُستخدم لخيارين: <b>Gmail / Outlook (اسم بديل)</b> — ويكفيه
+          بريدك وكلمة مرور التطبيق — و<b>دومينك الخاص</b> الذي يحتاج إضافة دوميناتك
+          في الخانة الأخيرة. الشرح كاملًا في <code>README.md</code>.
         </p>
+        <label class="field">
+          <span>اختيار سريع لمزوّد بريدك</span>
+          <select id="imap-preset">
+            <option value="">— اختر لتعبئة الخادم والمنفذ —</option>
+            <option value="gmail">Gmail</option>
+            <option value="outlook">Outlook / Hotmail</option>
+            <option value="yahoo">Yahoo</option>
+            <option value="icloud">iCloud</option>
+            <option value="proton">Proton (عبر Bridge)</option>
+          </select>
+        </label>
         <div class="grid-2">
           <label class="field"><span>خادم IMAP</span>
             <input id="imap-host" type="text" dir="ltr" placeholder="imap.gmail.com"></label>
@@ -157,7 +168,7 @@
                    autocomplete="new-password"></label>
           <label class="field"><span>مجلد البريد</span>
             <input id="imap-mailbox" type="text" dir="ltr" placeholder="INBOX"></label>
-          <label class="field"><span>دوميناتك (افصل بفاصلة)</span>
+          <label class="field"><span>دوميناتك الخاصة (اختياري)</span>
             <input id="imap-domains" type="text" dir="ltr" placeholder="mydomain.com, another.com"></label>
         </div>
         <label class="check"><input id="imap-ssl" type="checkbox"><span>اتصال مشفّر SSL/TLS (موصى به)</span></label>

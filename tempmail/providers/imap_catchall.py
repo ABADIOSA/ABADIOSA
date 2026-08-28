@@ -174,9 +174,20 @@ class ImapCatchAllProvider(Provider):
             status, data = conn.uid("SEARCH", None, criteria)
         except imaplib.IMAP4.error as exc:
             raise ProviderError(f"فشل البحث في الصندوق: {exc}") from exc
-        if status != "OK" or not data or data[0] is None:
-            return []
-        return data[0].split()
+
+        uids = data[0].split() if (status == "OK" and data and data[0]) else []
+        if uids:
+            return uids
+
+        # Gmail لا يطابق ترويسات العناوين دائمًا بالبحث القياسي — نستخدم بحثه الأصلي.
+        if "X-GM-EXT-1" in (conn.capabilities or ()):
+            try:
+                status, data = conn.uid("SEARCH", "X-GM-RAW", f'"to:{safe} OR deliveredto:{safe}"')
+                if status == "OK" and data and data[0]:
+                    return data[0].split()
+            except imaplib.IMAP4.error:
+                pass
+        return []
 
     def list_messages(self, account: dict) -> list[dict]:
         with self._lock:

@@ -256,7 +256,8 @@ function updatePreview() {
   }
   // نبقي المعاينة لاتينية بالكامل: خلط العربية داخل سطر LTR يكسر ترتيب الحروف.
   // شرح «اتركه فارغًا للعشوائي» موجود أصلًا في حقل الإدخال.
-  preview.textContent = `${local || "random"}@${domain}`;
+  const prefix = (currentProvider() || {}).address_prefix || "";
+  preview.textContent = `${prefix}${local || "random"}@${domain}`;
 }
 
 /* ============================== العناوين ============================== */
@@ -652,6 +653,22 @@ function fillSettingsForm() {
   $("imap-result").className = "test-result";
 }
 
+const IMAP_PRESETS = {
+  gmail: { host: "imap.gmail.com", port: 993, label: "Gmail" },
+  outlook: { host: "outlook.office365.com", port: 993, label: "Outlook / Hotmail" },
+  yahoo: { host: "imap.mail.yahoo.com", port: 993, label: "Yahoo" },
+  icloud: { host: "imap.mail.me.com", port: 993, label: "iCloud" },
+  proton: { host: "127.0.0.1", port: 1143, label: "Proton (عبر Bridge)" },
+};
+
+function applyImapPreset(key) {
+  const preset = IMAP_PRESETS[key];
+  if (!preset) return;
+  $("imap-host").value = preset.host;
+  $("imap-port").value = preset.port;
+  $("imap-ssl").checked = key !== "proton";
+}
+
 function collectImapForm() {
   return {
     host: $("imap-host").value.trim(),
@@ -796,6 +813,10 @@ function wireEvents() {
   $("settings-cancel").addEventListener("click", closeModal);
   $("settings-save").addEventListener("click", saveSettingsFromForm);
   $("imap-test").addEventListener("click", testImap);
+  $("imap-preset").addEventListener("change", (e) => {
+    applyImapPreset(e.target.value);
+    e.target.value = "";
+  });
   $("modal").addEventListener("click", (e) => {
     if (e.target === $("modal")) closeModal();
   });

@@ -65,12 +65,17 @@ class Provider:
             "requires_setup": self.requires_setup,
             "ready": self.is_ready(),
             "setup_hint": self.setup_hint(),
+            "address_prefix": self.address_prefix(),
         }
 
     def is_ready(self) -> bool:
         return True
 
     def setup_hint(self) -> str:
+        return ""
+
+    def address_prefix(self) -> str:
+        """جزء ثابت يسبق ما يكتبه المستخدم (مثل «ahmad+») — للمعاينة فقط."""
         return ""
 
 

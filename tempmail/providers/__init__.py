@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from .alias import AliasProvider
 from .base import Provider, ProviderError, random_local, random_password
 from .imap_catchall import ImapCatchAllProvider, test_connection as imap_test_connection
 from .mailtm import MailGwProvider, MailTmProvider
@@ -25,6 +26,7 @@ class ProviderRegistry:
         for provider in (
             MailTmProvider(),
             MailGwProvider(),
+            AliasProvider(settings_loader),
             ImapCatchAllProvider(settings_loader),
             OneSecMailProvider(),
         ):

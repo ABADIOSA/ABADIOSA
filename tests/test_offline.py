@@ -21,6 +21,7 @@ from tempmail import secrets_store, store  # noqa: E402
 from tempmail.providers.imap_catchall import (  # noqa: E402
     ImapCatchAllProvider, _attachment_parts, _decode_header, _header_date, _require_uid,
 )
+from tempmail.providers.alias import AliasProvider  # noqa: E402
 from tempmail.providers.base import ProviderError, random_local  # noqa: E402
 from tempmail.providers.mailtm import MailTmProvider, _iso, _members  # noqa: E402
 from tempmail.providers.onesecmail import OneSecMailProvider, _parse_date  # noqa: E402
@@ -236,6 +237,50 @@ class ImapParsingTests(unittest.TestCase):
         ready = ImapCatchAllProvider(lambda: {"imap": {
             "host": "h", "username": "u", "password": "p", "domain": "d.com"}})
         self.assertTrue(ready.is_ready())
+
+
+class AliasProviderTests(unittest.TestCase):
+    """الأسماء البديلة (+) على Gmail/Outlook — الطريقة الوحيدة الممكنة لعنوان
+    حقيقي على تلك الدومينات."""
+
+    def _provider(self, username="Ahmad@Gmail.com"):
+        return AliasProvider(lambda: {"imap": {
+            "host": "imap.gmail.com", "username": username, "password": "pw"}})
+
+    def test_domain_comes_from_user_mailbox(self):
+        self.assertEqual(self._provider().list_domains(), ["gmail.com"])
+        self.assertEqual(
+            self._provider("me@outlook.com").list_domains(), ["outlook.com"])
+
+    def test_builds_plus_alias(self):
+        account = self._provider().create_account("netflix", "gmail.com")
+        self.assertEqual(account["address"], "ahmad+netflix@gmail.com")
+        self.assertEqual(account["local"], "netflix")
+
+    def test_prefix_shown_in_ui(self):
+        self.assertEqual(self._provider().address_prefix(), "ahmad+")
+        # بلا إعداد صالح لا ننهار، فقط لا نعرض بادئة
+        self.assertEqual(self._provider("").address_prefix(), "")
+
+    def test_strips_existing_tag_from_base(self):
+        account = self._provider("ahmad+old@gmail.com").create_account("new", "gmail.com")
+        self.assertEqual(account["address"], "ahmad+new@gmail.com")
+
+    def test_rejects_bad_input(self):
+        provider = self._provider()
+        with self.assertRaises(ProviderError):
+            provider.create_account("ahmad", "gmail.com")      # مطابق للاسم الأساسي
+        with self.assertRaises(ProviderError):
+            provider.create_account("x", "yahoo.com")          # دومين مختلف
+        with self.assertRaises(ProviderError):
+            provider.create_account("+", "gmail.com")          # وسم فارغ
+        with self.assertRaises(ProviderError):
+            self._provider("لا-يوجد-قوس").list_domains()       # مستخدم بلا @
+
+    def test_ready_without_custom_domain(self):
+        # على عكس مزوّد الدومين الخاص، هذا لا يحتاج خانة الدومينات
+        self.assertTrue(self._provider().is_ready())
+        self.assertFalse(AliasProvider(lambda: {"imap": {"host": "h"}}).is_ready())
 
 
 class ApiTests(unittest.TestCase):
