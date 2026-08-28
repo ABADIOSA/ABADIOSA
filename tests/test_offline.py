@@ -6,6 +6,7 @@ import email
 import email.policy
 import json
 import os
+import re
 import sys
 import tempfile
 import threading
@@ -25,7 +26,7 @@ from tempmail.providers.alias import AliasProvider  # noqa: E402
 from tempmail.providers.base import ProviderError, random_local  # noqa: E402
 from tempmail.providers.mailtm import MailTmProvider, _iso, _members  # noqa: E402
 from tempmail.providers.onesecmail import OneSecMailProvider, _parse_date  # noqa: E402
-from tempmail import autostart, notifier  # noqa: E402
+from tempmail import auth, autostart, notifier  # noqa: E402
 from tempmail.server import (  # noqa: E402
     TOKEN_PLACEHOLDER, ApiError, AppState, _validate_new_address, build_server, is_blocked,
 )
@@ -507,6 +508,191 @@ class ApiTests(unittest.TestCase):
         with self.assertRaises(urllib.error.HTTPError) as ctx:
             self.call("GET", "/api/nope")
         self.assertEqual(ctx.exception.code, 404)
+
+
+class AuthUnitTests(unittest.TestCase):
+    def test_password_round_trip(self):
+        encoded = auth.hash_password("correct horse battery")
+        self.assertTrue(auth.verify_password("correct horse battery", encoded))
+        self.assertFalse(auth.verify_password("wrong", encoded))
+
+    def test_salt_is_random(self):
+        self.assertNotEqual(auth.hash_password("same"), auth.hash_password("same"))
+
+    def test_malformed_hash_rejected(self):
+        for bad in ("", "not-a-hash", "pbkdf2_sha256$x$y$z", "md5$1$aa$bb"):
+            self.assertFalse(auth.verify_password("any", bad))
+
+    def test_password_policy(self):
+        self.assertTrue(auth.password_problem(""))
+        self.assertTrue(auth.password_problem("short"))
+        self.assertEqual(auth.password_problem("a" * 10), "")
+
+    def test_sessions(self):
+        store_ = auth.SessionStore()
+        session_id, token = store_.create()
+        self.assertEqual(store_.token_for(session_id), token)
+        self.assertIsNone(store_.token_for("unknown"))
+        store_.destroy(session_id)
+        self.assertIsNone(store_.token_for(session_id))
+
+    def test_expired_session_is_dropped(self):
+        store_ = auth.SessionStore(ttl=-1)
+        session_id, _token = store_.create()
+        self.assertIsNone(store_.token_for(session_id))
+
+    def test_throttle_locks_then_resets(self):
+        throttle = auth.LoginThrottle(max_attempts=3, window=60, lockout=60)
+        self.assertEqual(throttle.retry_after("1.1.1.1"), 0)
+        for _ in range(3):
+            throttle.record_failure("1.1.1.1")
+        self.assertGreater(throttle.retry_after("1.1.1.1"), 0)
+        self.assertEqual(throttle.retry_after("2.2.2.2"), 0)  # عزل بين العناوين
+        throttle.record_success("1.1.1.1")
+        self.assertEqual(throttle.retry_after("1.1.1.1"), 0)
+
+    def test_cookie_parsing(self):
+        header = "theme=dark; tempmail_session=abc123; other=x"
+        self.assertEqual(auth.parse_cookie(header, "tempmail_session"), "abc123")
+        self.assertEqual(auth.parse_cookie(header, "missing"), "")
+        self.assertEqual(auth.parse_cookie("", "tempmail_session"), "")
+
+
+class ServerModeTests(unittest.TestCase):
+    """وضع النشر: كلمة مرور، جلسات، وحماية من CSRF وتخمين كلمة المرور."""
+
+    PASSWORD = "a-strong-password"
+
+    @classmethod
+    def setUpClass(cls):
+        cls._data = TempDataDir()
+        cls._data.__enter__()
+        cls.state = AppState(auth.hash_password(cls.PASSWORD))
+        cls.state.registry._providers = {"fake": FakeProvider()}
+        cls.server = build_server(cls.state, 0)
+        cls.base = f"http://127.0.0.1:{cls.server.server_port}"
+        threading.Thread(target=cls.server.serve_forever, daemon=True).start()
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.server.shutdown()
+        cls.server.server_close()
+        cls._data.__exit__(None, None, None)
+
+    def request(self, method, path, body=None, cookie=None, token=None, headers=None):
+        data = json.dumps(body).encode() if body is not None else None
+        req = urllib.request.Request(self.base + path, data=data, method=method)
+        if data:
+            req.add_header("Content-Type", "application/json")
+        if cookie:
+            req.add_header("Cookie", f"{auth.COOKIE_NAME}={cookie}")
+        if token:
+            req.add_header("X-Auth-Token", token)
+        for key, value in (headers or {}).items():
+            req.add_header(key, value)
+        with urllib.request.urlopen(req, timeout=10) as response:
+            return response.status, response.read(), dict(response.headers)
+
+    def login(self):
+        _status, _body, headers = self.request("POST", "/api/login", {"password": self.PASSWORD})
+        cookie = auth.parse_cookie(headers.get("Set-Cookie", ""), auth.COOKIE_NAME)
+        # الرمز يُحقن في الصفحة، تمامًا كما يقرؤه المتصفح
+        _s, page, _h = self.request("GET", "/", cookie=cookie)
+        token = re.search(r'window\.__AUTH_TOKEN__ = "([^"]+)"', page.decode()).group(1)
+        return cookie, token
+
+    def test_01_root_serves_login_page(self):
+        _status, body, _headers = self.request("GET", "/")
+        html = body.decode()
+        self.assertIn("تسجيل الدخول", html)
+        self.assertIn('id="login-form"', html)
+
+    def test_02_api_denied_without_session(self):
+        with self.assertRaises(urllib.error.HTTPError) as ctx:
+            self.request("GET", "/api/bootstrap")
+        self.assertEqual(ctx.exception.code, 403)
+
+    def test_03_wrong_password_rejected(self):
+        with self.assertRaises(urllib.error.HTTPError) as ctx:
+            self.request("POST", "/api/login", {"password": "nope"})
+        self.assertEqual(ctx.exception.code, 401)
+
+    def test_04_login_sets_httponly_cookie(self):
+        _status, _body, headers = self.request(
+            "POST", "/api/login", {"password": self.PASSWORD})
+        cookie_header = headers.get("Set-Cookie", "")
+        self.assertIn("HttpOnly", cookie_header)
+        self.assertIn("SameSite=Lax", cookie_header)
+        self.assertTrue(auth.parse_cookie(cookie_header, auth.COOKIE_NAME))
+
+    def test_05_secure_flag_behind_https_proxy(self):
+        _s, _b, headers = self.request(
+            "POST", "/api/login", {"password": self.PASSWORD},
+            headers={"X-Forwarded-Proto": "https"})
+        self.assertIn("Secure", headers.get("Set-Cookie", ""))
+
+    def test_06_session_grants_api_access(self):
+        cookie, token = self.login()
+        status, body, _h = self.request("GET", "/api/bootstrap", cookie=cookie, token=token)
+        self.assertEqual(status, 200)
+        self.assertTrue(json.loads(body)["server_mode"])
+
+    def test_07_cookie_without_header_is_rejected(self):
+        """جوهر الحماية من CSRF: الكوكي وحده لا يكفي."""
+        cookie, _token = self.login()
+        with self.assertRaises(urllib.error.HTTPError) as ctx:
+            self.request("GET", "/api/bootstrap", cookie=cookie)
+        self.assertEqual(ctx.exception.code, 403)
+
+    def test_08_foreign_origin_rejected(self):
+        cookie, token = self.login()
+        with self.assertRaises(urllib.error.HTTPError) as ctx:
+            self.request("GET", "/api/bootstrap", cookie=cookie, token=token,
+                         headers={"Origin": "https://evil.example"})
+        self.assertEqual(ctx.exception.code, 403)
+
+    def test_09_logout_destroys_session(self):
+        cookie, token = self.login()
+        self.request("POST", "/api/logout", {}, cookie=cookie, token=token)
+        with self.assertRaises(urllib.error.HTTPError) as ctx:
+            self.request("GET", "/api/bootstrap", cookie=cookie, token=token)
+        self.assertEqual(ctx.exception.code, 403)
+
+    def test_10_quit_is_blocked_in_server_mode(self):
+        cookie, token = self.login()
+        with self.assertRaises(urllib.error.HTTPError) as ctx:
+            self.request("POST", "/api/quit", {}, cookie=cookie, token=token)
+        self.assertEqual(ctx.exception.code, 403)
+        self.assertFalse(self.state.shutdown_event.is_set())
+
+    def test_11_brute_force_is_throttled(self):
+        state = AppState(auth.hash_password(self.PASSWORD))
+        state.registry._providers = {"fake": FakeProvider()}
+        server = build_server(state, 0)
+        base = f"http://127.0.0.1:{server.server_port}"
+        threading.Thread(target=server.serve_forever, daemon=True).start()
+        try:
+            codes = []
+            for _ in range(auth.MAX_ATTEMPTS + 2):
+                request = urllib.request.Request(
+                    base + "/api/login", data=json.dumps({"password": "x"}).encode(),
+                    method="POST", headers={"Content-Type": "application/json"})
+                try:
+                    urllib.request.urlopen(request, timeout=10)
+                    codes.append(200)
+                except urllib.error.HTTPError as exc:
+                    codes.append(exc.code)
+            self.assertIn(429, codes, codes)
+            # وبعد المنع، حتى كلمة المرور الصحيحة تُرفض
+            request = urllib.request.Request(
+                base + "/api/login", data=json.dumps({"password": self.PASSWORD}).encode(),
+                method="POST", headers={"Content-Type": "application/json"})
+            with self.assertRaises(urllib.error.HTTPError) as ctx:
+                urllib.request.urlopen(request, timeout=10)
+            self.assertEqual(ctx.exception.code, 429)
+        finally:
+            server.shutdown()
+            server.server_close()
 
 
 if __name__ == "__main__":

@@ -1,0 +1,13 @@
+.git/
+.github/
+tests/
+scripts/
+build/
+dist/
+__pycache__/
+*.pyc
+*.bat
+*.md
+.gitignore
+docker-compose.yml
+Dockerfile

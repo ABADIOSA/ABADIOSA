@@ -1,0 +1,19 @@
+services:
+  tempmail:
+    build: .
+    image: tempmailwin:latest
+    container_name: tempmail
+    restart: unless-stopped
+    environment:
+      # كلمة مرور الدخول — غيّرها قبل التشغيل (١٠ محارف على الأقل).
+      TEMPMAIL_PASSWORD: ${TEMPMAIL_PASSWORD:?اضبط TEMPMAIL_PASSWORD في ملف .env}
+      TEMPMAIL_PORT: 8080
+    volumes:
+      # يحفظ العناوين والإعدادات بين عمليات إعادة التشغيل.
+      - tempmail-data:/data
+    ports:
+      # مربوط بالمنفذ المحلي فقط — الوكيل العكسي هو من ينشره على الإنترنت.
+      - "127.0.0.1:8080:8080"
+
+volumes:
+  tempmail-data:

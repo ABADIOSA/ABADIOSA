@@ -3,11 +3,12 @@
 from __future__ import annotations
 
 import argparse
+import os
 import sys
 import threading
 import webbrowser
 
-from . import APP_NAME, __version__
+from . import APP_NAME, __version__, auth
 from .server import AppState, build_server
 
 
@@ -44,17 +45,36 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--port", type=int, default=0, help="منفذ محلي ثابت (افتراضيًا عشوائي)")
     parser.add_argument("--browser", action="store_true", help="افتح في المتصفح بدل النافذة الأصلية")
     parser.add_argument("--no-open", action="store_true", help="شغّل الخادم فقط بلا فتح واجهة")
+    parser.add_argument("--host", default="127.0.0.1",
+                        help="عنوان الاستماع (0.0.0.0 للنشر على سيرفر)")
+    parser.add_argument("--server-mode", action="store_true",
+                        help="تفعيل كلمة المرور والجلسات للنشر على الإنترنت")
     parser.add_argument("--version", action="version", version=f"{APP_NAME} {__version__}")
     args = parser.parse_args(argv)
 
-    state = AppState()
+    # الاستماع خارج الجهاز بلا كلمة مرور يعرّض بريدك للعالم — نمنعه.
+    exposed = args.host not in ("127.0.0.1", "localhost", "::1")
+    password = os.environ.get("TEMPMAIL_PASSWORD", "")
+    password_hash = ""
+
+    if args.server_mode or exposed:
+        problem = auth.password_problem(password)
+        if problem:
+            print(f"رُفض التشغيل: {problem}", file=sys.stderr)
+            print("مثال:  set TEMPMAIL_PASSWORD=كلمة-مرور-قوية", file=sys.stderr)
+            return 2
+        password_hash = auth.hash_password(password)
+        print("وضع السيرفر: كلمة المرور مفعّلة.")
+
+    state = AppState(password_hash)
     try:
-        server = build_server(state, args.port)
+        server = build_server(state, args.port, args.host)
     except OSError as exc:
         print(f"تعذّر بدء الخادم المحلي: {exc}", file=sys.stderr)
         return 1
 
-    url = f"http://127.0.0.1:{server.server_port}/"
+    display_host = "127.0.0.1" if args.host in ("0.0.0.0", "::") else args.host
+    url = f"http://{display_host}:{server.server_port}/"
     thread = threading.Thread(target=server.serve_forever, daemon=True)
     thread.start()
     print(f"{APP_NAME} {__version__} يعمل على {url}")

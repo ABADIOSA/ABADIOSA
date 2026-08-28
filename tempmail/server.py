@@ -18,7 +18,7 @@ import uuid
 from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
-from . import __version__, autostart, notifier
+from . import __version__, auth, autostart, notifier
 from .paths import web_dir
 from .providers import ProviderRegistry, ProviderError, imap_test_connection, random_local
 from . import store
@@ -36,12 +36,25 @@ class ApiError(Exception):
 
 
 class AppState:
-    """يجمع الحالة المشتركة بين الطلبات."""
+    """يجمع الحالة المشتركة بين الطلبات.
 
-    def __init__(self) -> None:
+    وضعان: سطح المكتب (رمز واحد يُحقن في الصفحة، استماع محلي فقط)، ووضع
+    السيرفر (كلمة مرور وجلسات وحدّ لمحاولات الدخول).
+    """
+
+    def __init__(self, password_hash: str = "") -> None:
         self.token = secrets.token_urlsafe(32)
         self.registry = ProviderRegistry(store.load_settings)
         self.shutdown_event = threading.Event()
+
+        self.password_hash = password_hash
+        self.server_mode = bool(password_hash)
+        self.sessions = auth.SessionStore()
+        self.throttle = auth.LoginThrottle()
+
+    def allow_quit(self) -> bool:
+        """إيقاف الخادم عن بُعد ممنوع في وضع السيرفر."""
+        return not self.server_mode
 
 
 # ------------------------------------------------------------------ منطق العمل
@@ -226,6 +239,7 @@ def bootstrap(state: AppState) -> dict:
         "desktop_notifications": notifier.available(),
         "autostart_supported": autostart.available(),
         "autostart_enabled": autostart.is_enabled(),
+        "server_mode": state.server_mode,
     }
 
 
@@ -252,9 +266,9 @@ class Handler(BaseHTTPRequestHandler):
         if self.command != "HEAD":
             self.wfile.write(body)
 
-    def _json(self, payload, status: int = 200) -> None:
+    def _json(self, payload, status: int = 200, extra: dict | None = None) -> None:
         body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
-        self._send(status, body, "application/json; charset=utf-8")
+        self._send(status, body, "application/json; charset=utf-8", extra)
 
     def _error(self, message: str, status: int = 400) -> None:
         self._json({"error": message}, status=status)
@@ -273,16 +287,40 @@ class Handler(BaseHTTPRequestHandler):
         except (json.JSONDecodeError, UnicodeDecodeError) as exc:
             raise ApiError("محتوى الطلب غير صالح") from exc
 
+    def _client_ip(self) -> str:
+        """خلف وكيل عكسي نأخذ أول عنوان في X-Forwarded-For."""
+        forwarded = self.headers.get("X-Forwarded-For", "")
+        if forwarded:
+            return forwarded.split(",")[0].strip()[:60]
+        return self.client_address[0] if self.client_address else "?"
+
+    def _session_token(self) -> str:
+        """رمز الجلسة الصالح لهذا الطلب، أو نص فارغ."""
+        if not self.state.server_mode:
+            return self.state.token
+        session_id = auth.parse_cookie(self.headers.get("Cookie", ""), auth.COOKIE_NAME)
+        return self.state.sessions.token_for(session_id) or ""
+
     def _authorized(self, query: dict) -> bool:
+        expected = self._session_token()
+        if not expected:
+            return False
         token = self.headers.get("X-Auth-Token") or (query.get("t") or [""])[0]
-        if not token or not secrets.compare_digest(token, self.state.token):
+        if not token or not secrets.compare_digest(token, expected):
             return False
         # منع مواقع خارجية من مناداة الواجهة البرمجية عبر المتصفح.
         origin = self.headers.get("Origin")
-        if origin and origin not in (f"http://127.0.0.1:{self.server.server_port}",
-                                     f"http://localhost:{self.server.server_port}"):
+        if origin and not self._origin_allowed(origin):
             return False
         return True
+
+    def _origin_allowed(self, origin: str) -> bool:
+        if self.state.server_mode:
+            # خلف وكيل عكسي، النطاق المعلن هو المرجع الوحيد المتاح.
+            host = self.headers.get("Host", "")
+            return origin.split("://")[-1] == host
+        return origin in (f"http://127.0.0.1:{self.server.server_port}",
+                          f"http://localhost:{self.server.server_port}")
 
     # ------------------------------------------------------------ التوجيه
     def do_GET(self):
@@ -301,7 +339,13 @@ class Handler(BaseHTTPRequestHandler):
 
         try:
             if path == "/" or path == "/index.html":
+                if self.state.server_mode and not self._session_token():
+                    return self._serve_page("login.html")
                 return self._serve_index()
+            if path == "/api/login" and method == "POST":
+                return self._handle_login()
+            if path == "/api/logout" and method == "POST":
+                return self._handle_logout()
             if path.startswith("/static/"):
                 return self._serve_static(path[len("/static/"):])
             if path.startswith("/api/"):
@@ -319,15 +363,55 @@ class Handler(BaseHTTPRequestHandler):
             traceback.print_exc()
             self._error("حدث خطأ غير متوقع داخل التطبيق", status=500)
 
+    # ------------------------------------------------------------ الدخول
+    def _handle_login(self) -> None:
+        ip = self._client_ip()
+        wait = self.state.throttle.retry_after(ip)
+        if wait:
+            minutes = max(1, wait // 60)
+            raise ApiError(
+                f"محاولات كثيرة. حاول بعد {minutes} دقيقة.", status=429)
+
+        password = str(self._read_body().get("password") or "")
+        if not auth.verify_password(password, self.state.password_hash):
+            self.state.throttle.record_failure(ip)
+            raise ApiError("كلمة المرور غير صحيحة", status=401)
+
+        self.state.throttle.record_success(ip)
+        session_id, _token = self.state.sessions.create()
+        # Secure يُضاف خلف HTTPS؛ نستدل عليه من ترويسة الوكيل العكسي.
+        https = self.headers.get("X-Forwarded-Proto", "").lower() == "https"
+        cookie = (
+            f"{auth.COOKIE_NAME}={session_id}; Path=/; HttpOnly; SameSite=Lax; "
+            f"Max-Age={auth.SESSION_TTL_SECONDS}" + ("; Secure" if https else "")
+        )
+        self._json({"ok": True}, extra={"Set-Cookie": cookie})
+
+    def _handle_logout(self) -> None:
+        session_id = auth.parse_cookie(self.headers.get("Cookie", ""), auth.COOKIE_NAME)
+        self.state.sessions.destroy(session_id)
+        self._json(
+            {"ok": True},
+            extra={"Set-Cookie": f"{auth.COOKIE_NAME}=; Path=/; HttpOnly; Max-Age=0"},
+        )
+
     # ------------------------------------------------------------ الواجهة
+    def _serve_page(self, name: str) -> None:
+        try:
+            html = (web_dir() / name).read_text(encoding="utf-8")
+        except OSError:
+            return self._error("تعذّر تحميل صفحة التطبيق", status=500)
+        self._send(200, html.encode("utf-8"), "text/html; charset=utf-8",
+                   {"Cache-Control": "no-store"})
+
     def _serve_index(self) -> None:
         index = web_dir() / "index.html"
         try:
             html = index.read_text(encoding="utf-8")
         except OSError:
             return self._error("تعذّر تحميل واجهة التطبيق", status=500)
-        # حقن الرمز السرّي داخل الصفحة بدل تمريره في الرابط.
-        html = html.replace(TOKEN_PLACEHOLDER, self.state.token)
+        # حقن رمز الجلسة داخل الصفحة بدل تمريره في الرابط.
+        html = html.replace(TOKEN_PLACEHOLDER, self._session_token())
         self._send(200, html.encode("utf-8"), "text/html; charset=utf-8",
                    {"Cache-Control": "no-store"})
 
@@ -391,6 +475,8 @@ class Handler(BaseHTTPRequestHandler):
             return self._json({"enabled": enabled})
 
         if method == "POST" and path == "/api/quit":
+            if not state.allow_quit():
+                raise ApiError("إيقاف الخادم غير متاح في وضع السيرفر.", status=403)
             state.shutdown_event.set()
             return self._json({"ok": True})
 
@@ -449,8 +535,8 @@ class Handler(BaseHTTPRequestHandler):
         )
 
 
-def build_server(state: AppState, port: int = 0) -> ThreadingHTTPServer:
+def build_server(state: AppState, port: int = 0, host: str = "127.0.0.1") -> ThreadingHTTPServer:
     handler = type("BoundHandler", (Handler,), {"state": state})
-    server = ThreadingHTTPServer(("127.0.0.1", port), handler)
+    server = ThreadingHTTPServer((host, port), handler)
     server.daemon_threads = True
     return server

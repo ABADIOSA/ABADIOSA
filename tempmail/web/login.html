@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>تسجيل الدخول — بريد مؤقت</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9C%89%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/static/style.css">
+  <style>
+    body { display: grid; place-items: center; overflow: auto; }
+    .login-box {
+      position: relative; z-index: 1;
+      width: min(370px, calc(100vw - 32px));
+      background: var(--bg-card);
+      border: 1px solid var(--border-soft);
+      border-radius: 17px;
+      padding: 30px 26px;
+      box-shadow: var(--shadow-lg);
+      text-align: center;
+      animation: zoom .3s var(--ease-out) both;
+    }
+    .login-mark {
+      width: 54px; height: 54px; margin: 0 auto 15px;
+      display: grid; place-items: center;
+      border-radius: 16px; background: var(--grad); color: #fff;
+      box-shadow: 0 8px 22px var(--accent-soft);
+    }
+    .login-mark .icon { width: 26px; height: 26px; }
+    .login-box h1 { font-size: 18px; margin-bottom: 5px; }
+    .login-box p.sub { margin: 0 0 22px; font-size: 12.5px; color: var(--text-faint); }
+    .login-box input { text-align: center; height: 42px; }
+    .login-box .primary-btn { margin-top: 12px; }
+    .login-error {
+      margin-top: 13px; font-size: 12px; color: var(--danger);
+      min-height: 17px; line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <svg class="icon-defs" aria-hidden="true">
+    <symbol id="i-mail" viewBox="0 0 24 24">
+      <rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="M3 7l9 6 9-6"/>
+    </symbol>
+  </svg>
+
+  <form class="login-box" id="login-form" autocomplete="on">
+    <div class="login-mark"><svg class="icon"><use href="#i-mail"/></svg></div>
+    <h1>بريد مؤقت</h1>
+    <p class="sub">أدخل كلمة المرور للمتابعة</p>
+
+    <input id="password" type="password" placeholder="كلمة المرور"
+           autocomplete="current-password" required autofocus>
+    <button type="submit" class="primary-btn" id="submit-btn">دخول</button>
+    <p class="login-error" id="error" role="alert"></p>
+  </form>
+
+<script>
+"use strict";
+const form = document.getElementById("login-form");
+const errorBox = document.getElementById("error");
+const button = document.getElementById("submit-btn");
+
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const password = document.getElementById("password").value;
+  errorBox.textContent = "";
+  button.disabled = true;
+  button.textContent = "جارٍ التحقق…";
+
+  try {
+    const response = await fetch("/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ password }),
+    });
+    if (response.ok) {
+      window.location.replace("/");
+      return;
+    }
+    const data = await response.json().catch(() => ({}));
+    errorBox.textContent = data.error || "تعذّر تسجيل الدخول";
+  } catch (_) {
+    errorBox.textContent = "تعذّر الاتصال بالخادم";
+  } finally {
+    button.disabled = false;
+    button.textContent = "دخول";
+    document.getElementById("password").select();
+  }
+});
+</script>
+</body>
+</html>
