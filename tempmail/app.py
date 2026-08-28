@@ -1,0 +1,80 @@
+"""نقطة تشغيل التطبيق: يشغّل الخادم المحلي ثم يفتح النافذة."""
+
+from __future__ import annotations
+
+import argparse
+import sys
+import threading
+import webbrowser
+
+from . import APP_NAME, __version__
+from .server import AppState, build_server
+
+
+def _open_native_window(url: str, state: AppState) -> bool:
+    """يحاول فتح نافذة سطح مكتب أصلية عبر pywebview (WebView2 على ويندوز)."""
+    try:
+        import webview  # type: ignore
+    except ImportError:
+        return False
+
+    try:
+        window = webview.create_window(
+            f"{APP_NAME} — بريد مؤقت",
+            url,
+            width=1180,
+            height=780,
+            min_size=(900, 600),
+            text_select=True,
+        )
+
+        def _on_closed():
+            state.shutdown_event.set()
+
+        window.events.closed += _on_closed
+        webview.start()
+        return True
+    except Exception as exc:  # pragma: no cover - يعتمد على بيئة التشغيل
+        print(f"[تنبيه] تعذّر فتح النافذة الأصلية ({exc}) — سيُفتح المتصفح بدلًا منها.")
+        return False
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description=f"{APP_NAME} — تطبيق بريد مؤقت")
+    parser.add_argument("--port", type=int, default=0, help="منفذ محلي ثابت (افتراضيًا عشوائي)")
+    parser.add_argument("--browser", action="store_true", help="افتح في المتصفح بدل النافذة الأصلية")
+    parser.add_argument("--no-open", action="store_true", help="شغّل الخادم فقط بلا فتح واجهة")
+    parser.add_argument("--version", action="version", version=f"{APP_NAME} {__version__}")
+    args = parser.parse_args(argv)
+
+    state = AppState()
+    try:
+        server = build_server(state, args.port)
+    except OSError as exc:
+        print(f"تعذّر بدء الخادم المحلي: {exc}", file=sys.stderr)
+        return 1
+
+    url = f"http://127.0.0.1:{server.server_port}/"
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    print(f"{APP_NAME} {__version__} يعمل على {url}")
+
+    try:
+        if args.no_open:
+            state.shutdown_event.wait()
+        elif args.browser or not _open_native_window(url, state):
+            if not args.no_open:
+                webbrowser.open(url)
+            print("أغلق هذه النافذة (أو اضغط Ctrl+C) لإيقاف التطبيق.")
+            state.shutdown_event.wait()
+    except KeyboardInterrupt:
+        pass
+    finally:
+        server.shutdown()
+        server.server_close()
+        state.registry.close()
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

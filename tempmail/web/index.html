@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>بريد مؤقت — TempMailWin</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9C%89%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/static/style.css">
+  <script>window.__AUTH_TOKEN__ = "{{TEMPMAIL_AUTH_TOKEN}}";</script>
+</head>
+<body>
+<div id="app">
+
+  <!-- ================= الشريط الجانبي ================= -->
+  <aside class="sidebar">
+    <header class="brand">
+      <span class="brand-mark">✉</span>
+      <div>
+        <h1>بريد مؤقت</h1>
+        <p class="brand-sub">أنشئ عنوانًا واختر دومينه</p>
+      </div>
+    </header>
+
+    <section class="card create-card">
+      <h2>عنوان جديد</h2>
+
+      <label class="field">
+        <span>المزوّد</span>
+        <select id="provider-select"></select>
+      </label>
+      <p class="hint" id="provider-hint"></p>
+
+      <label class="field">
+        <span>الدومين</span>
+        <div class="row">
+          <select id="domain-select"><option value="">—</option></select>
+          <button type="button" id="reload-domains" class="icon-btn" title="تحديث قائمة الدومينات">⟳</button>
+        </div>
+      </label>
+
+      <label class="field">
+        <span>الاسم قبل @</span>
+        <div class="row">
+          <input id="local-input" type="text" placeholder="اتركه فارغًا للعشوائي"
+                 autocomplete="off" spellcheck="false" dir="ltr">
+          <button type="button" id="shuffle-local" class="icon-btn" title="اسم عشوائي">🎲</button>
+        </div>
+      </label>
+
+      <p class="preview" id="address-preview" dir="ltr">—</p>
+      <button type="button" id="create-btn" class="primary-btn">إنشاء العنوان</button>
+    </section>
+
+    <section class="accounts">
+      <h2>عناويني <span class="count" id="accounts-count">0</span></h2>
+      <ul id="accounts-list" class="accounts-list"></ul>
+      <p class="empty-note" id="accounts-empty">لا توجد عناوين بعد.</p>
+    </section>
+
+    <footer class="sidebar-footer">
+      <button type="button" id="settings-btn" class="ghost-btn">⚙ الإعدادات</button>
+      <button type="button" id="theme-btn" class="ghost-btn" title="تبديل المظهر">◐</button>
+      <button type="button" id="quit-btn" class="ghost-btn" title="إغلاق التطبيق">⏻</button>
+    </footer>
+  </aside>
+
+  <!-- ================= قائمة الرسائل ================= -->
+  <section class="list-pane">
+    <header class="pane-head">
+      <div class="address-block">
+        <span class="address" id="current-address" dir="ltr">اختر عنوانًا</span>
+        <button type="button" id="copy-address" class="chip-btn" hidden>نسخ</button>
+      </div>
+      <div class="pane-actions">
+        <span class="countdown" id="countdown"></span>
+        <button type="button" id="refresh-btn" class="icon-btn" title="تحديث الآن">⟳</button>
+        <label class="toggle" title="تحديث تلقائي">
+          <input type="checkbox" id="auto-refresh" checked><span>تلقائي</span>
+        </label>
+      </div>
+    </header>
+
+    <div class="banner" id="list-error" hidden></div>
+    <ul id="messages-list" class="messages"></ul>
+    <div class="placeholder" id="messages-placeholder">
+      <span class="placeholder-icon">📭</span>
+      <p id="messages-placeholder-text">أنشئ عنوانًا لتبدأ باستقبال الرسائل</p>
+    </div>
+  </section>
+
+  <!-- ================= عارض الرسالة ================= -->
+  <section class="view-pane">
+    <div class="placeholder" id="view-placeholder">
+      <span class="placeholder-icon">📬</span>
+      <p>اختر رسالة لعرضها</p>
+    </div>
+
+    <article id="message-view" hidden>
+      <header class="message-head">
+        <h2 id="msg-subject"></h2>
+        <div class="msg-meta">
+          <span id="msg-from" dir="ltr"></span>
+          <time id="msg-date"></time>
+        </div>
+        <div class="msg-actions">
+          <button type="button" id="copy-code-btn" class="chip-btn accent" hidden></button>
+          <button type="button" id="images-btn" class="chip-btn" hidden>عرض الصور</button>
+          <button type="button" id="delete-msg-btn" class="chip-btn danger">حذف</button>
+        </div>
+      </header>
+      <div id="attachments" class="attachments" hidden></div>
+      <iframe id="msg-body" class="msg-body" sandbox="allow-popups allow-popups-to-escape-sandbox"
+              referrerpolicy="no-referrer" title="محتوى الرسالة"></iframe>
+    </article>
+  </section>
+</div>
+
+<!-- ================= نافذة الإعدادات ================= -->
+<div id="modal" class="modal" hidden>
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <header class="modal-head">
+      <h2 id="modal-title">الإعدادات</h2>
+      <button type="button" id="modal-close" class="icon-btn" aria-label="إغلاق">✕</button>
+    </header>
+
+    <div class="modal-body">
+      <section class="card">
+        <h3>عام</h3>
+        <label class="field">
+          <span>مدة التحديث التلقائي (ثانية)</span>
+          <input id="set-refresh" type="number" min="5" max="300" step="1">
+        </label>
+        <label class="check">
+          <input id="set-images" type="checkbox"><span>تحميل الصور الخارجية تلقائيًا (يكشف فتحك للرسالة)</span>
+        </label>
+        <label class="check">
+          <input id="set-sound" type="checkbox"><span>تنبيه صوتي عند وصول رسالة جديدة</span>
+        </label>
+      </section>
+
+      <section class="card">
+        <h3>دومينك الخاص (IMAP)</h3>
+        <p class="hint">
+          لاستخدام دومينك أنت: فعّل <b>catch-all</b> على الدومين ووجّه كل الرسائل
+          إلى صندوق واحد، ثم أدخل بيانات ذلك الصندوق هنا. الشرح خطوة بخطوة في
+          ملف <code>README.md</code>.
+        </p>
+        <div class="grid-2">
+          <label class="field"><span>خادم IMAP</span>
+            <input id="imap-host" type="text" dir="ltr" placeholder="imap.gmail.com"></label>
+          <label class="field"><span>المنفذ</span>
+            <input id="imap-port" type="number" dir="ltr" min="1" max="65535" placeholder="993"></label>
+          <label class="field"><span>اسم المستخدم</span>
+            <input id="imap-user" type="text" dir="ltr" placeholder="you@gmail.com" autocomplete="off"></label>
+          <label class="field"><span>كلمة المرور</span>
+            <input id="imap-pass" type="password" dir="ltr" placeholder="اتركها فارغة للإبقاء على الحالية"
+                   autocomplete="new-password"></label>
+          <label class="field"><span>مجلد البريد</span>
+            <input id="imap-mailbox" type="text" dir="ltr" placeholder="INBOX"></label>
+          <label class="field"><span>دوميناتك (افصل بفاصلة)</span>
+            <input id="imap-domains" type="text" dir="ltr" placeholder="mydomain.com, another.com"></label>
+        </div>
+        <label class="check"><input id="imap-ssl" type="checkbox"><span>اتصال مشفّر SSL/TLS (موصى به)</span></label>
+        <div class="row">
+          <button type="button" id="imap-test" class="ghost-btn">اختبار الاتصال</button>
+          <span id="imap-result" class="test-result"></span>
+        </div>
+        <p class="hint" id="storage-note"></p>
+      </section>
+    </div>
+
+    <footer class="modal-foot">
+      <button type="button" id="settings-save" class="primary-btn">حفظ</button>
+      <button type="button" id="settings-cancel" class="ghost-btn">إلغاء</button>
+    </footer>
+  </div>
+</div>
+
+<div id="toasts" class="toasts"></div>
+<script src="/static/app.js"></script>
+</body>
+</html>
