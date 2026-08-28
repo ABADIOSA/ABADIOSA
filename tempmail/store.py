@@ -18,6 +18,8 @@ DEFAULT_SETTINGS: dict[str, Any] = {
     "load_remote_images": False,
     "notify_sound": True,
     "last_provider": "mailtm",
+    "notify_desktop": True,
+    "blocked_senders": [],
     "imap": {
         "host": "",
         "port": 993,

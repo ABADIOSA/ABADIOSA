@@ -630,3 +630,67 @@ select { cursor: pointer; }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 20px; border: 2px solid transparent; background-clip: content-box; }
 ::-webkit-scrollbar-thumb:hover { background: var(--text-faint); background-clip: content-box; }
 ::-webkit-scrollbar-track { background: transparent; }
+
+/* ======================= بحث، حظر، واختصارات ======================= */
+.search-row { display: flex; align-items: center; gap: 7px; position: relative; }
+.search-icon {
+  position: absolute; inset-inline-start: 11px;
+  color: var(--text-faint); pointer-events: none;
+}
+#search-input {
+  flex: 1; min-width: 0;
+  padding-inline-start: 32px;
+  height: 34px;
+  border-radius: 20px;
+  background: var(--bg-raised);
+}
+#search-input::-webkit-search-cancel-button { filter: grayscale(1) opacity(.5); cursor: pointer; }
+
+.blocked-list {
+  list-style: none; margin: 10px 0 0; padding: 0;
+  display: flex; flex-wrap: wrap; gap: 6px;
+}
+.blocked-item {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 6px 4px 11px;
+  border-radius: 20px;
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  font-family: var(--mono); font-size: 11px;
+  color: var(--text-dim);
+  direction: ltr;
+  animation: pop .22s var(--spring) both;
+}
+.blocked-item button {
+  border: 0; background: transparent; color: var(--text-faint);
+  padding: 2px; border-radius: 50%; display: grid; place-items: center;
+  transition: color .16s, background .16s;
+}
+.blocked-item button:hover { color: var(--danger); background: var(--bg); }
+
+.check em {
+  font-style: normal; color: var(--text-faint); font-size: 11px;
+  display: block; margin-top: 2px;
+}
+
+.modal-box.narrow { width: min(430px, 100%); }
+.keys { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 3px; }
+.keys li {
+  display: flex; align-items: center; gap: 6px;
+  padding: 9px 4px;
+  border-bottom: 1px solid var(--border-soft);
+  font-size: 12.5px; color: var(--text-dim);
+}
+.keys li:last-child { border-bottom: 0; }
+.keys li span { flex: 1; }
+kbd {
+  font-family: var(--mono); font-size: 10.5px;
+  padding: 3px 7px; border-radius: 6px;
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-bottom-width: 2px;
+  color: var(--text);
+}
+
+/* نتيجة بحث فارغة */
+.no-results { padding: 26px 16px; text-align: center; color: var(--text-faint); font-size: 12.5px; }

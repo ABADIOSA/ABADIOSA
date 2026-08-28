@@ -18,7 +18,7 @@ import uuid
 from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
-from . import __version__
+from . import __version__, autostart, notifier
 from .paths import web_dir
 from .providers import ProviderRegistry, ProviderError, imap_test_connection, random_local
 from . import store
@@ -101,9 +101,30 @@ def delete_account(state: AppState, account_id: str) -> dict:
     return {"ok": True}
 
 
+def is_blocked(address: str, blocked: list[str]) -> bool:
+    """يطابق عنوانًا كاملًا، أو دومينًا كاملًا إذا بدأ المدخل بـ @."""
+    sender = (address or "").strip().lower()
+    if not sender:
+        return False
+    for entry in blocked:
+        rule = (entry or "").strip().lower()
+        if not rule:
+            continue
+        if rule.startswith("@"):
+            if sender.endswith(rule):
+                return True
+        elif sender == rule:
+            return True
+    return False
+
+
 def list_messages(state: AppState, account_id: str) -> dict:
     account, provider = _account_and_provider(state, account_id)
     messages = provider.list_messages(account)
+
+    blocked = store.load_settings().get("blocked_senders", []) or []
+    if blocked:
+        messages = [m for m in messages if not is_blocked(m.get("from_address", ""), blocked)]
     # قد يُجدَّد رمز الجلسة أثناء الجلب — نحفظه لتفادي تسجيل دخول متكرر.
     if account.get("token"):
         store.update_account(account_id, {"token": account["token"]})
@@ -121,6 +142,32 @@ def delete_message(state: AppState, account_id: str, message_id: str) -> dict:
     return {"ok": True}
 
 
+# أقصى عدد رسائل يُصدَّر مرة واحدة — يحمي من انتظار طويل مع المزوّدات البطيئة.
+EXPORT_LIMIT = 50
+
+
+def export_messages(state: AppState, account_id: str) -> dict:
+    """يجمع الرسائل مع أجسامها في بنية واحدة قابلة للحفظ."""
+    account, provider = _account_and_provider(state, account_id)
+    summaries = provider.list_messages(account)[:EXPORT_LIMIT]
+
+    messages = []
+    for summary in summaries:
+        try:
+            messages.append(provider.get_message(account, summary["id"]))
+        except ProviderError:
+            # رسالة حُذفت أثناء التصدير — نكتفي بملخّصها.
+            messages.append(summary)
+
+    return {
+        "address": account["address"],
+        "provider": account["provider"],
+        "exported_at": datetime.now(timezone.utc).isoformat(),
+        "count": len(messages),
+        "messages": messages,
+    }
+
+
 def save_settings(payload: dict) -> dict:
     settings = store.load_settings()
     incoming = dict(payload or {})
@@ -130,6 +177,18 @@ def save_settings(payload: dict) -> dict:
             incoming["refresh_seconds"] = max(5, min(300, int(incoming["refresh_seconds"])))
         except (TypeError, ValueError):
             incoming.pop("refresh_seconds")
+
+    blocked = incoming.get("blocked_senders")
+    if isinstance(blocked, list):
+        cleaned, seen = [], set()
+        for entry in blocked:
+            rule = str(entry or "").strip().lower()
+            if rule and rule not in seen and len(rule) <= 254:
+                seen.add(rule)
+                cleaned.append(rule)
+        incoming["blocked_senders"] = cleaned[:500]
+    elif blocked is not None:
+        incoming.pop("blocked_senders")
 
     imap_in = incoming.get("imap")
     if isinstance(imap_in, dict):
@@ -164,6 +223,9 @@ def bootstrap(state: AppState) -> dict:
         "accounts": [store.public_account(a) for a in store.load_accounts()],
         "settings": store.public_settings(settings),
         "secure_storage": __import__("tempmail.secrets_store", fromlist=["x"]).dpapi_available(),
+        "desktop_notifications": notifier.available(),
+        "autostart_supported": autostart.available(),
+        "autostart_enabled": autostart.is_enabled(),
     }
 
 
@@ -307,6 +369,27 @@ class Handler(BaseHTTPRequestHandler):
         if method == "POST" and path == "/api/imap/test":
             return self._json(test_imap(self._read_body()))
 
+        if method == "POST" and path == "/api/notify":
+            body = self._read_body()
+            settings = store.load_settings()
+            sent = False
+            if settings.get("notify_desktop", True):
+                sent = notifier.notify(
+                    str(body.get("title") or "رسالة جديدة")[:120],
+                    str(body.get("body") or "")[:400],
+                )
+            return self._json({"sent": sent})
+
+        if method == "POST" and path == "/api/autostart":
+            body = self._read_body()
+            if not autostart.available():
+                raise ApiError("التشغيل التلقائي متاح على ويندوز فقط.")
+            try:
+                enabled = autostart.set_enabled(bool(body.get("enabled")))
+            except OSError as exc:
+                raise ApiError(f"تعذّر تعديل التشغيل التلقائي: {exc}") from exc
+            return self._json({"enabled": enabled})
+
         if method == "POST" and path == "/api/quit":
             state.shutdown_event.set()
             return self._json({"ok": True})
@@ -318,6 +401,18 @@ class Handler(BaseHTTPRequestHandler):
         match = re.fullmatch(r"/api/accounts/([0-9a-f]{32})/messages", path)
         if match and method == "GET":
             return self._json(list_messages(state, match.group(1)))
+
+        match = re.fullmatch(r"/api/accounts/([0-9a-f]{32})/export", path)
+        if match and method == "GET":
+            data = export_messages(state, match.group(1))
+            body = json.dumps(data, ensure_ascii=False, indent=2).encode("utf-8")
+            stamp = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M")
+            safe = re.sub(r"[^A-Za-z0-9._-]", "_", data["address"])
+            return self._send(
+                200, body, "application/json; charset=utf-8",
+                {"Content-Disposition": f'attachment; filename="{safe}-{stamp}.json"',
+                 "Cache-Control": "no-store"},
+            )
 
         match = re.fullmatch(r"/api/accounts/([0-9a-f]{32})/messages/([^/]+)", path)
         if match:

@@ -15,6 +15,7 @@ const state = {
   seenIds: {},        // معرّفات الرسائل المقروءة محليًا: { accountId: Set }
   knownIds: {},       // لاكتشاف الجديد دون تنبيه كاذب عند أول تحميل
   showImages: false,
+  query: "",
   timer: null,
   countdownTimer: null,
   nextRefreshAt: 0,
@@ -417,6 +418,16 @@ async function selectAccount(accountId) {
 
 /* =============================== الرسائل =============================== */
 
+/** يطابق نص البحث على المرسل والعنوان والمقتطف. */
+function filteredMessages() {
+  const query = state.query.trim().toLowerCase();
+  if (!query) return state.messages;
+  return state.messages.filter((message) =>
+    [message.from_name, message.from_address, message.subject, message.intro]
+      .some((field) => (field || "").toLowerCase().includes(query))
+  );
+}
+
 function renderMessages() {
   const list = $("messages-list");
   const placeholder = $("messages-placeholder");
@@ -427,6 +438,14 @@ function renderMessages() {
     $("welcome-steps").hidden = false;
     $("messages-placeholder-text").textContent = "أنشئ عنوانًا لتبدأ باستقبال الرسائل";
     renderStats();
+    return;
+  }
+  const visible = filteredMessages();
+  if (state.messages.length && !visible.length) {
+    // نتائج بحث فارغة — نميّزها عن صندوق فارغ فعلًا
+    placeholder.hidden = true;
+    list.innerHTML = `<li class="no-results">لا توجد رسالة تطابق «${escapeHtml(state.query)}»</li>`;
+    updateUnreadCounts();
     return;
   }
   if (!state.messages.length) {
@@ -440,7 +459,7 @@ function renderMessages() {
   placeholder.hidden = true;
 
   const freshIds = state.freshIds || new Set();
-  state.messages.forEach((message, index) => {
+  visible.forEach((message, index) => {
     const item = document.createElement("li");
     const unread = isUnread(state.activeAccountId, message);
     item.className =
@@ -519,6 +538,7 @@ async function refreshMessages({ silent = false } = {}) {
         state.freshIds = new Set(added);
         toast(`وصلت ${added.length} رسالة جديدة`, "ok");
         setTimeout(() => { state.freshIds = new Set(); }, 2000);
+        notifyDesktop(incoming.filter((m) => added.includes(m.id)));
       }
     }
     state.knownIds[accountId] = new Set(freshIds);
@@ -533,6 +553,25 @@ async function refreshMessages({ silent = false } = {}) {
   } finally {
     showSkeleton(false);
     state.loadingMessages = false;
+  }
+}
+
+/** إشعار ويندوز أصلي — الخادم يتكفّل بالتنفيذ ويتجاهل الفشل بصمت. */
+async function notifyDesktop(added) {
+  if (!state.settings || !state.settings.notify_desktop) return;
+  if (!state.capabilities || !state.capabilities.desktop_notifications) return;
+
+  const first = added[0];
+  const title = added.length > 1
+    ? `${added.length} رسائل جديدة`
+    : (first.from_name || first.from_address || "رسالة جديدة");
+  try {
+    await api("/api/notify", {
+      method: "POST",
+      body: JSON.stringify({ title, body: first ? first.subject : "" }),
+    });
+  } catch (_) {
+    /* الإشعار رفاهية */
   }
 }
 
@@ -642,6 +681,28 @@ function renderBody(message) {
     `</style></head><body>${content}</body></html>`;
 }
 
+async function blockActiveSender() {
+  const message = state.activeMessage;
+  if (!message || !message.from_address) {
+    toast("لا يوجد عنوان مرسل لحظره", "err");
+    return;
+  }
+  const sender = message.from_address.toLowerCase();
+  const blocked = [...(state.settings.blocked_senders || [])];
+  if (blocked.includes(sender)) {
+    toast("هذا المرسل محظور بالفعل", "info");
+    return;
+  }
+  if (!confirm(`حظر ${sender}؟\nلن تظهر رسائله في القائمة.`)) return;
+
+  blocked.push(sender);
+  const settings = await saveSettingsPartial({ blocked_senders: blocked });
+  if (!settings) return;
+  clearMessageView();
+  await refreshMessages();
+  toast(`تم حظر ${sender}`, "ok");
+}
+
 async function deleteActiveMessage() {
   if (!state.activeMessage || !state.activeAccountId) return;
   const provider = state.providers.find(
@@ -663,6 +724,19 @@ async function deleteActiveMessage() {
   } catch (error) {
     toast(error.message, "err");
   }
+}
+
+/** تنقّل بين الرسائل بالأسهم. */
+function moveSelection(step) {
+  const visible = filteredMessages();
+  if (!visible.length) return;
+  const current = visible.findIndex((m) => m.id === state.activeMessageId);
+  const next = current === -1
+    ? (step > 0 ? 0 : visible.length - 1)
+    : Math.min(Math.max(current + step, 0), visible.length - 1);
+  openMessage(visible[next].id);
+  const item = $("messages-list").children[next];
+  if (item && item.scrollIntoView) item.scrollIntoView({ block: "nearest" });
 }
 
 /* ========================== التحديث التلقائي ========================== */
@@ -704,6 +778,21 @@ function fillSettingsForm() {
   $("set-images").checked = !!settings.load_remote_images;
   $("set-sound").checked = !!settings.notify_sound;
 
+  const caps = state.capabilities || {};
+  const desktop = $("set-desktop");
+  desktop.checked = !!settings.notify_desktop && caps.desktop_notifications;
+  desktop.disabled = !caps.desktop_notifications;
+  $("desktop-note").textContent = caps.desktop_notifications
+    ? "" : "متاح على ويندوز فقط.";
+
+  const autostart = $("set-autostart");
+  autostart.checked = !!caps.autostart_enabled;
+  autostart.disabled = !caps.autostart_supported;
+  $("autostart-note").textContent = caps.autostart_supported
+    ? "" : "متاح على ويندوز فقط.";
+
+  renderBlockedList();
+
   const imap = settings.imap || {};
   $("imap-host").value = imap.host || "";
   $("imap-port").value = imap.port || 993;
@@ -735,6 +824,54 @@ function applyImapPreset(key) {
   $("imap-ssl").checked = key !== "proton";
 }
 
+function renderBlockedList() {
+  const list = $("blocked-list");
+  const blocked = state.settings.blocked_senders || [];
+  list.innerHTML = "";
+  $("blocked-empty").hidden = blocked.length > 0;
+
+  for (const rule of blocked) {
+    const item = document.createElement("li");
+    item.className = "blocked-item";
+    const label = document.createElement("span");
+    label.textContent = rule;
+    const remove = document.createElement("button");
+    remove.innerHTML = icon("close", "sm");
+    remove.title = "إزالة";
+    remove.addEventListener("click", async () => {
+      const next = (state.settings.blocked_senders || []).filter((r) => r !== rule);
+      if (await saveSettingsPartial({ blocked_senders: next })) {
+        renderBlockedList();
+        refreshMessages({ silent: true });
+      }
+    });
+    item.appendChild(label);
+    item.appendChild(remove);
+    list.appendChild(item);
+  }
+}
+
+async function addBlockedSender() {
+  const input = $("block-input");
+  const rule = input.value.trim().toLowerCase();
+  if (!rule) return;
+  if (!/^@?[^@\s]+(@[^@\s]+)?\.[a-z]{2,}$/i.test(rule)) {
+    toast("اكتب بريدًا كاملًا أو دومينًا يبدأ بـ @", "err");
+    return;
+  }
+  const blocked = [...(state.settings.blocked_senders || [])];
+  if (blocked.includes(rule)) {
+    toast("موجود بالفعل", "info");
+    return;
+  }
+  blocked.push(rule);
+  if (await saveSettingsPartial({ blocked_senders: blocked })) {
+    input.value = "";
+    renderBlockedList();
+    refreshMessages({ silent: true });
+  }
+}
+
 function collectImapForm() {
   return {
     host: $("imap-host").value.trim(),
@@ -763,10 +900,25 @@ async function saveSettingsFromForm() {
     refresh_seconds: parseInt($("set-refresh").value, 10) || 10,
     load_remote_images: $("set-images").checked,
     notify_sound: $("set-sound").checked,
+    notify_desktop: $("set-desktop").checked,
     imap: collectImapForm(),
   };
   const settings = await saveSettingsPartial(patch);
   if (!settings) return;
+
+  // التشغيل التلقائي يُدار في سجل ويندوز لا في ملف الإعدادات.
+  const caps = state.capabilities || {};
+  if (caps.autostart_supported && $("set-autostart").checked !== caps.autostart_enabled) {
+    try {
+      const result = await api("/api/autostart", {
+        method: "POST",
+        body: JSON.stringify({ enabled: $("set-autostart").checked }),
+      });
+      state.capabilities.autostart_enabled = result.enabled;
+    } catch (error) {
+      toast(error.message, "err");
+    }
+  }
 
   // إعداد IMAP قد يغيّر جاهزية المزوّد — نعيد تحميل الوصف والدومينات.
   const bootstrapData = await api("/api/bootstrap");
@@ -817,6 +969,12 @@ async function boot() {
     state.accounts = data.accounts;
     state.settings = data.settings;
     state.unreadCounts = {};
+    state.capabilities = {
+      desktop_notifications: !!data.desktop_notifications,
+      autostart_supported: !!data.autostart_supported,
+      autostart_enabled: !!data.autostart_enabled,
+      secure_storage: !!data.secure_storage,
+    };
 
     applyTheme(state.settings.theme);
     $("storage-note").textContent = data.secure_storage
@@ -884,6 +1042,24 @@ function wireEvents() {
     if (state.activeMessage) renderBody(state.activeMessage);
   });
 
+  $("export-btn").addEventListener("click", () => {
+    if (!state.activeAccountId) {
+      toast("اختر عنوانًا أولًا", "err");
+      return;
+    }
+    toast("جارٍ تجهيز ملف التصدير…", "info");
+    // التنزيل ينتقل خارج طبقة fetch، فيمرَّر الرمز في الرابط.
+    window.location.href =
+      `/api/accounts/${state.activeAccountId}/export?t=${encodeURIComponent(TOKEN)}`;
+  });
+
+  $("block-btn").addEventListener("click", blockActiveSender);
+
+  $("search-input").addEventListener("input", (e) => {
+    state.query = e.target.value;
+    renderMessages();
+  });
+
   $("settings-btn").addEventListener("click", openModal);
   $("modal-close").addEventListener("click", closeModal);
   $("settings-cancel").addEventListener("click", closeModal);
@@ -918,11 +1094,57 @@ function wireEvents() {
     await saveSettingsPartial({ theme: next });
   });
 
+  $("block-add").addEventListener("click", addBlockedSender);
+  $("block-input").addEventListener("keydown", (e) => {
+    if (e.key === "Enter") addBlockedSender();
+  });
+
+  $("shortcuts-btn").addEventListener("click", () => { $("shortcuts").hidden = false; });
+  $("shortcuts-close").addEventListener("click", () => { $("shortcuts").hidden = true; });
+  $("shortcuts").addEventListener("click", (e) => {
+    if (e.target === $("shortcuts")) $("shortcuts").hidden = true;
+  });
+
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && !$("modal").hidden) closeModal();
+    const typing = /^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName);
+
+    if (e.key === "Escape") {
+      if (!$("modal").hidden) return closeModal();
+      if (!$("shortcuts").hidden) return void ($("shortcuts").hidden = true);
+      if (typing) return document.activeElement.blur();
+    }
+    // لا نلتقط حروفًا مفردة أثناء الكتابة في حقل.
+    if (typing && !e.ctrlKey) return;
+
     if (e.key === "F5" || (e.ctrlKey && e.key.toLowerCase() === "r")) {
       e.preventDefault();
-      refreshMessages();
+      return refreshMessages();
+    }
+    if (e.ctrlKey && e.key.toLowerCase() === "f") {
+      e.preventDefault();
+      return $("search-input").focus();
+    }
+    if (e.ctrlKey && e.key.toLowerCase() === "n") {
+      e.preventDefault();
+      return $("local-input").focus();
+    }
+    if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "c") {
+      e.preventDefault();
+      return $("copy-address").click();
+    }
+    if (typing) return;
+
+    if (e.key === "?" || e.key === "؟") {
+      e.preventDefault();
+      return void ($("shortcuts").hidden = false);
+    }
+    if (e.key === "Delete" && state.activeMessage) {
+      e.preventDefault();
+      return deleteActiveMessage();
+    }
+    if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+      e.preventDefault();
+      return moveSelection(e.key === "ArrowDown" ? 1 : -1);
     }
   });
 

@@ -25,8 +25,9 @@ from tempmail.providers.alias import AliasProvider  # noqa: E402
 from tempmail.providers.base import ProviderError, random_local  # noqa: E402
 from tempmail.providers.mailtm import MailTmProvider, _iso, _members  # noqa: E402
 from tempmail.providers.onesecmail import OneSecMailProvider, _parse_date  # noqa: E402
+from tempmail import autostart, notifier  # noqa: E402
 from tempmail.server import (  # noqa: E402
-    TOKEN_PLACEHOLDER, ApiError, AppState, _validate_new_address, build_server,
+    TOKEN_PLACEHOLDER, ApiError, AppState, _validate_new_address, build_server, is_blocked,
 )
 from tests.fake_provider import FakeProvider  # noqa: E402
 
@@ -283,6 +284,43 @@ class AliasProviderTests(unittest.TestCase):
         self.assertFalse(AliasProvider(lambda: {"imap": {"host": "h"}}).is_ready())
 
 
+class BlockingTests(unittest.TestCase):
+    def test_matches_exact_address(self):
+        self.assertTrue(is_blocked("Spam@Example.com", ["spam@example.com"]))
+        self.assertFalse(is_blocked("ok@example.com", ["spam@example.com"]))
+
+    def test_matches_whole_domain(self):
+        self.assertTrue(is_blocked("anyone@spam.com", ["@spam.com"]))
+        self.assertFalse(is_blocked("me@notspam.com", ["@spam.com"]))
+        # لا يُحظر دومين ينتهي بنفس الحروف دون أن يكون هو
+        self.assertFalse(is_blocked("me@myspam.com", ["@spam.com"]))
+
+    def test_ignores_empty_values(self):
+        self.assertFalse(is_blocked("", ["a@b.com"]))
+        self.assertFalse(is_blocked("a@b.com", []))
+        self.assertFalse(is_blocked("a@b.com", ["", "   "]))
+
+
+class PlatformHelperTests(unittest.TestCase):
+    """الوحدات الخاصة بويندوز يجب ألا تنهار على أي نظام آخر."""
+
+    def test_notifier_is_safe_off_windows(self):
+        if not notifier.available():
+            self.assertFalse(notifier.notify("عنوان", "نص"))
+
+    def test_notifier_escapes_quotes(self):
+        self.assertEqual(notifier._quote("it's"), "it''s")
+        self.assertEqual(notifier._quote("a\n  b"), "a b")
+        self.assertLessEqual(len(notifier._quote("x" * 500)), 180)
+
+    def test_autostart_is_safe_off_windows(self):
+        if not autostart.available():
+            self.assertFalse(autostart.is_enabled())
+            autostart.disable()  # يجب ألا يرمي
+            with self.assertRaises(RuntimeError):
+                autostart.enable()
+
+
 class ApiTests(unittest.TestCase):
     """يشغّل الخادم فعليًا ويتحدث إليه عبر HTTP."""
 
@@ -413,6 +451,57 @@ class ApiTests(unittest.TestCase):
         with self.assertRaises(urllib.error.HTTPError) as ctx:
             self.call("GET", f"/api/accounts/{self.account_id}/messages")
         self.assertEqual(ctx.exception.code, 404)
+
+    def test_14b_blocked_sender_hidden(self):
+        status, data = self.call("POST", "/api/accounts",
+                                 {"provider": "fake", "local": "blocktest", "domain": "demo.test"})
+        account_id = data["account"]["id"]
+
+        _s, before = self.call("GET", f"/api/accounts/{account_id}/messages")
+        self.call("POST", "/api/settings", {"blocked_senders": ["@github.example"]})
+        _s, after = self.call("GET", f"/api/accounts/{account_id}/messages")
+        self.assertEqual(len(after["messages"]), len(before["messages"]) - 1)
+        self.assertFalse(any("github" in m["from_address"] for m in after["messages"]))
+
+        # التنظيف: تكرار ومسافات وحروف كبيرة تُوحَّد
+        _s, settings = self.call("POST", "/api/settings",
+                                 {"blocked_senders": [" @GitHub.example ", "@github.example", ""]})
+        self.assertEqual(settings["settings"]["blocked_senders"], ["@github.example"])
+
+        self.call("POST", "/api/settings", {"blocked_senders": []})
+        self.call("DELETE", f"/api/accounts/{account_id}")
+
+    def test_14c_export_returns_messages_with_bodies(self):
+        _s, data = self.call("POST", "/api/accounts",
+                             {"provider": "fake", "local": "exp", "domain": "demo.test"})
+        account_id = data["account"]["id"]
+
+        status, body, headers = self.call(
+            "GET", f"/api/accounts/{account_id}/export", raw=True)
+        self.assertEqual(status, 200)
+        self.assertIn("attachment;", headers["Content-Disposition"])
+        payload = json.loads(body.decode())
+        self.assertEqual(payload["address"], "exp@demo.test")
+        self.assertTrue(payload["count"] >= 1)
+        self.assertIn("html", payload["messages"][0])
+        self.call("DELETE", f"/api/accounts/{account_id}")
+
+    def test_14d_notify_endpoint_reports_platform(self):
+        _s, data = self.call("POST", "/api/notify", {"title": "t", "body": "b"})
+        self.assertIn("sent", data)
+        self.assertEqual(data["sent"], notifier.available() and data["sent"])
+
+    def test_14e_autostart_rejected_off_windows(self):
+        if autostart.available():
+            self.skipTest("يُختبر السلوك على الأنظمة غير ويندوز")
+        with self.assertRaises(urllib.error.HTTPError) as ctx:
+            self.call("POST", "/api/autostart", {"enabled": True})
+        self.assertEqual(ctx.exception.code, 400)
+
+    def test_14f_bootstrap_reports_capabilities(self):
+        _s, data = self.call("GET", "/api/bootstrap")
+        for key in ("desktop_notifications", "autostart_supported", "autostart_enabled"):
+            self.assertIn(key, data)
 
     def test_15_unknown_route(self):
         with self.assertRaises(urllib.error.HTTPError) as ctx:
