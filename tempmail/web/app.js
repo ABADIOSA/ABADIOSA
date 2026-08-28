@@ -51,7 +51,10 @@ function toast(message, kind = "info", ms = 3600) {
   el.className = `toast ${kind}`;
   el.textContent = message;
   $("toasts").appendChild(el);
-  setTimeout(() => el.remove(), ms);
+  setTimeout(() => {
+    el.classList.add("leaving");
+    setTimeout(() => el.remove(), 260);
+  }, ms);
 }
 
 function formatTime(iso) {
@@ -142,6 +145,10 @@ function stripHtml(html) {
   const div = document.createElement("div");
   div.innerHTML = html;
   return div.textContent || "";
+}
+
+function icon(name, cls = "") {
+  return `<svg class="icon ${cls}"><use href="#i-${name}"/></svg>`;
 }
 
 function escapeHtml(text) {
@@ -272,7 +279,7 @@ function renderAccounts() {
   $("accounts-count").textContent = state.accounts.length;
   $("accounts-empty").hidden = state.accounts.length > 0;
 
-  for (const account of state.accounts) {
+  state.accounts.forEach((account, index) => {
     const item = document.createElement("li");
     item.className = "account-item" + (account.id === state.activeAccountId ? " active" : "");
 
@@ -285,7 +292,7 @@ function renderAccounts() {
 
     const del = document.createElement("button");
     del.className = "account-del";
-    del.textContent = "🗑";
+    del.innerHTML = icon("trash", "sm");
     del.title = "حذف العنوان";
     del.addEventListener("click", (event) => {
       event.stopPropagation();
@@ -303,8 +310,36 @@ function renderAccounts() {
     }
 
     item.appendChild(del);
+    item.style.animationDelay = `${Math.min(index * 35, 280)}ms`;
     list.appendChild(item);
-  }
+  });
+
+  renderStats();
+}
+
+/** لوحة الإحصائيات في أعلى الشريط الجانبي. */
+function renderStats() {
+  const counts = state.unreadCounts || {};
+  const unread = Object.values(counts).reduce((sum, n) => sum + n, 0);
+  animateNumber($("stat-accounts"), state.accounts.length);
+  animateNumber($("stat-messages"), state.messages.length);
+  animateNumber($("stat-unread"), unread);
+}
+
+/** عدّاد يتحرّك إلى قيمته بدل القفز — تفصيلة صغيرة تُحسّ. */
+function animateNumber(element, target) {
+  const current = parseInt(element.textContent, 10) || 0;
+  if (current === target) return;
+  const step = current < target ? 1 : -1;
+  const distance = Math.abs(target - current);
+  const delay = distance > 12 ? 12 : 45;
+  let value = current;
+  clearInterval(element._timer);
+  element._timer = setInterval(() => {
+    value += step;
+    element.textContent = value;
+    if (value === target) clearInterval(element._timer);
+  }, delay);
 }
 
 async function createAccount() {
@@ -389,16 +424,23 @@ function renderMessages() {
 
   if (!state.activeAccountId) {
     placeholder.hidden = false;
+    $("welcome-steps").hidden = false;
     $("messages-placeholder-text").textContent = "أنشئ عنوانًا لتبدأ باستقبال الرسائل";
+    renderStats();
     return;
   }
   if (!state.messages.length) {
     placeholder.hidden = false;
+    $("welcome-steps").hidden = true;
+    $("messages-placeholder-text").textContent =
+      "بانتظار أول رسالة — سيصلك تنبيه فور وصولها";
+    renderStats();
     return;
   }
   placeholder.hidden = true;
 
-  for (const message of state.messages) {
+  const freshIds = state.freshIds || new Set();
+  state.messages.forEach((message, index) => {
     const item = document.createElement("li");
     const unread = isUnread(state.activeAccountId, message);
     item.className =
@@ -413,11 +455,13 @@ function renderMessages() {
       `</div>` +
       `<span class="msg-subject">${escapeHtml(message.subject)}</span>` +
       (message.intro ? `<span class="msg-intro">${escapeHtml(message.intro)}</span>` : "") +
-      (message.has_attachments ? `<span class="clip">📎 مرفقات</span>` : "");
+      (message.has_attachments ? `<span class="clip">${icon("clip", "sm")} مرفقات</span>` : "");
 
+    if (freshIds.has(message.id)) item.classList.add("fresh");
+    item.style.animationDelay = `${Math.min(index * 28, 300)}ms`;
     item.addEventListener("click", () => openMessage(message.id));
     list.appendChild(item);
-  }
+  });
   updateUnreadCounts();
 }
 
@@ -438,10 +482,25 @@ function renderAccountsBadgesOnly() {
   list.scrollTop = scroll;
 }
 
+function showSkeleton(show) {
+  const skeleton = $("skeleton");
+  if (!show) {
+    skeleton.hidden = true;
+    return;
+  }
+  skeleton.innerHTML = Array.from({ length: 4 }, () =>
+    '<li class="skeleton-row"><div class="sk w40"></div>' +
+    '<div class="sk w75"></div><div class="sk w60"></div></li>').join("");
+  skeleton.hidden = false;
+  $("messages-placeholder").hidden = true;
+}
+
 async function refreshMessages({ silent = false } = {}) {
   if (!state.activeAccountId || state.loadingMessages) return;
   state.loadingMessages = true;
   const accountId = state.activeAccountId;
+  const firstLoad = !state.knownIds[accountId];
+  if (firstLoad) showSkeleton(true);
 
   try {
     const data = await api(`/api/accounts/${accountId}/messages`);
@@ -457,7 +516,9 @@ async function refreshMessages({ silent = false } = {}) {
       const added = freshIds.filter((id) => !known.has(id));
       if (added.length) {
         beep();
+        state.freshIds = new Set(added);
         toast(`وصلت ${added.length} رسالة جديدة`, "ok");
+        setTimeout(() => { state.freshIds = new Set(); }, 2000);
       }
     }
     state.knownIds[accountId] = new Set(freshIds);
@@ -470,6 +531,7 @@ async function refreshMessages({ silent = false } = {}) {
       banner.hidden = false;
     }
   } finally {
+    showSkeleton(false);
     state.loadingMessages = false;
   }
 }
@@ -547,7 +609,7 @@ function renderAttachments(accountId, message) {
       `/attachments/${encodeURIComponent(attachment.id)}?t=${encodeURIComponent(TOKEN)}`;
     link.download = attachment.filename;
     link.innerHTML =
-      `📎 <span>${escapeHtml(attachment.filename)}</span>` +
+      `${icon("clip", "sm")} <span>${escapeHtml(attachment.filename)}</span>` +
       (attachment.size ? `<span class="size">${formatSize(attachment.size)}</span>` : "");
     container.appendChild(link);
   }
@@ -629,7 +691,11 @@ function scheduleRefresh() {
 /* ============================== الإعدادات ============================== */
 
 function applyTheme(theme) {
-  document.documentElement.dataset.theme = theme === "light" ? "light" : "dark";
+  const light = theme === "light";
+  document.documentElement.dataset.theme = light ? "light" : "dark";
+  const use = $("theme-btn").querySelector("use");
+  if (use) use.setAttribute("href", light ? "#i-bolt" : "#i-moon");
+  $("theme-btn").title = light ? "التبديل إلى الداكن" : "التبديل إلى الفاتح";
 }
 
 function fillSettingsForm() {
@@ -798,7 +864,17 @@ function wireEvents() {
     }
   });
 
-  $("refresh-btn").addEventListener("click", () => refreshMessages());
+  $("refresh-btn").addEventListener("click", (e) => {
+    const button = e.currentTarget;
+    button.classList.add("spinning");
+    setTimeout(() => button.classList.remove("spinning"), 700);
+    refreshMessages();
+  });
+
+  // زر الرجوع للشاشات الضيّقة
+  $("back-btn").addEventListener("click", () => {
+    $("app").classList.remove("viewing");
+  });
   $("auto-refresh").addEventListener("change", scheduleRefresh);
   $("delete-msg-btn").addEventListener("click", deleteActiveMessage);
 

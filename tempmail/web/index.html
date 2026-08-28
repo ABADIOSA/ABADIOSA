@@ -9,20 +9,93 @@
   <script>window.__AUTH_TOKEN__ = "{{TEMPMAIL_AUTH_TOKEN}}";</script>
 </head>
 <body>
+
+<!-- ============ مكتبة الأيقونات (أشكال هندسية بسيطة، مرسومة للمشروع) ============ -->
+<svg class="icon-defs" aria-hidden="true">
+  <symbol id="i-mail" viewBox="0 0 24 24">
+    <rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="M3 7l9 6 9-6"/>
+  </symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24">
+    <path d="M20 12a8 8 0 1 1-2.6-5.9"/><path d="M20 4v4.5h-4.5"/>
+  </symbol>
+  <symbol id="i-dice" viewBox="0 0 24 24">
+    <rect x="3.8" y="3.8" width="16.4" height="16.4" rx="3.6"/>
+    <circle cx="8.6" cy="8.6" r="1.55" fill="currentColor" stroke="none"/>
+    <circle cx="15.4" cy="8.6" r="1.55" fill="currentColor" stroke="none"/>
+    <circle cx="8.6" cy="15.4" r="1.55" fill="currentColor" stroke="none"/>
+    <circle cx="15.4" cy="15.4" r="1.55" fill="currentColor" stroke="none"/>
+  </symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24">
+    <path d="M4 7h16"/><path d="M9.5 7V5.2a1.2 1.2 0 0 1 1.2-1.2h2.6a1.2 1.2 0 0 1 1.2 1.2V7"/>
+    <path d="M6.5 7l.9 12.1a1.5 1.5 0 0 0 1.5 1.4h6.2a1.5 1.5 0 0 0 1.5-1.4L17.5 7"/>
+  </symbol>
+  <symbol id="i-settings" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="3.6"/>
+    <path d="M12 2.6v3M12 18.4v3M21.4 12h-3M5.6 12h-3M18.6 5.4l-2.1 2.1M7.5 16.5l-2.1 2.1M18.6 18.6l-2.1-2.1M7.5 7.5L5.4 5.4"/>
+  </symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24">
+    <path d="M20 14.2A8.2 8.2 0 0 1 9.8 4 8.5 8.5 0 1 0 20 14.2z"/>
+  </symbol>
+  <symbol id="i-power" viewBox="0 0 24 24">
+    <path d="M12 3.5v8"/><path d="M7.3 6.6a7.5 7.5 0 1 0 9.4 0"/>
+  </symbol>
+  <symbol id="i-clip" viewBox="0 0 24 24">
+    <path d="M20 11.5l-8.2 8.2a4.6 4.6 0 0 1-6.5-6.5l8.5-8.5a3.1 3.1 0 0 1 4.4 4.4l-8.4 8.4a1.6 1.6 0 0 1-2.2-2.2l7.7-7.7"/>
+  </symbol>
+  <symbol id="i-inbox" viewBox="0 0 24 24">
+    <path d="M3.5 12.5h4l1.5 2.5h6l1.5-2.5h4"/>
+    <path d="M5.6 5h12.8l2.1 7.5v4.9a2 2 0 0 1-2 2H5.5a2 2 0 0 1-2-2v-4.9z"/>
+  </symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24">
+    <rect x="8.5" y="8.5" width="11" height="11" rx="2.2"/>
+    <path d="M15.5 8.5v-2a2.2 2.2 0 0 0-2.2-2.2H6.7a2.2 2.2 0 0 0-2.2 2.2v6.6a2.2 2.2 0 0 0 2.2 2.2h2"/>
+  </symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24">
+    <path d="M12 3.2l7 2.6v5.5c0 4.3-2.9 7.6-7 9.5-4.1-1.9-7-5.2-7-9.5V5.8z"/><path d="M9 12l2.2 2.2L15.4 10"/>
+  </symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24">
+    <path d="M2.5 12S6 5.8 12 5.8 21.5 12 21.5 12 18 18.2 12 18.2 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.8"/>
+  </symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
+  <symbol id="i-at" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="3.4"/>
+    <path d="M15.4 12v1.6a2.6 2.6 0 0 0 5.1 0V12a8.5 8.5 0 1 0-3.4 6.8"/>
+  </symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13.5 2.5L5 13.2h5.6L9.8 21.5l8.7-10.7h-5.7z"/></symbol>
+</svg>
+
 <div id="app">
 
   <!-- ================= الشريط الجانبي ================= -->
   <aside class="sidebar">
     <header class="brand">
-      <span class="brand-mark">✉</span>
-      <div>
+      <span class="brand-mark"><svg class="icon"><use href="#i-mail"/></svg></span>
+      <div class="brand-text">
         <h1>بريد مؤقت</h1>
         <p class="brand-sub">أنشئ عنوانًا واختر دومينه</p>
       </div>
     </header>
 
+    <!-- لوحة الإحصائيات -->
+    <section class="stats" id="stats">
+      <div class="stat">
+        <span class="stat-value" id="stat-accounts">0</span>
+        <span class="stat-label">عنوان</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value" id="stat-messages">0</span>
+        <span class="stat-label">رسالة</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value accent" id="stat-unread">0</span>
+        <span class="stat-label">غير مقروءة</span>
+      </div>
+    </section>
+
     <section class="card create-card">
-      <h2>عنوان جديد</h2>
+      <h2><svg class="icon sm"><use href="#i-at"/></svg> عنوان جديد</h2>
 
       <label class="field">
         <span>المزوّد</span>
@@ -34,7 +107,9 @@
         <span>الدومين</span>
         <div class="row">
           <select id="domain-select"><option value="">—</option></select>
-          <button type="button" id="reload-domains" class="icon-btn" title="تحديث قائمة الدومينات">⟳</button>
+          <button type="button" id="reload-domains" class="icon-btn" title="تحديث قائمة الدومينات">
+            <svg class="icon"><use href="#i-refresh"/></svg>
+          </button>
         </div>
       </label>
 
@@ -43,12 +118,16 @@
         <div class="row">
           <input id="local-input" type="text" placeholder="اتركه فارغًا للعشوائي"
                  autocomplete="off" spellcheck="false" dir="ltr">
-          <button type="button" id="shuffle-local" class="icon-btn" title="اسم عشوائي">🎲</button>
+          <button type="button" id="shuffle-local" class="icon-btn" title="اسم عشوائي">
+            <svg class="icon"><use href="#i-dice"/></svg>
+          </button>
         </div>
       </label>
 
       <p class="preview" id="address-preview" dir="ltr">—</p>
-      <button type="button" id="create-btn" class="primary-btn">إنشاء العنوان</button>
+      <button type="button" id="create-btn" class="primary-btn">
+        <svg class="icon sm"><use href="#i-bolt"/></svg> إنشاء العنوان
+      </button>
     </section>
 
     <section class="accounts">
@@ -58,9 +137,15 @@
     </section>
 
     <footer class="sidebar-footer">
-      <button type="button" id="settings-btn" class="ghost-btn">⚙ الإعدادات</button>
-      <button type="button" id="theme-btn" class="ghost-btn" title="تبديل المظهر">◐</button>
-      <button type="button" id="quit-btn" class="ghost-btn" title="إغلاق التطبيق">⏻</button>
+      <button type="button" id="settings-btn" class="ghost-btn">
+        <svg class="icon sm"><use href="#i-settings"/></svg> الإعدادات
+      </button>
+      <button type="button" id="theme-btn" class="icon-btn" title="تبديل المظهر">
+        <svg class="icon"><use href="#i-moon"/></svg>
+      </button>
+      <button type="button" id="quit-btn" class="icon-btn danger-hover" title="إغلاق التطبيق">
+        <svg class="icon"><use href="#i-power"/></svg>
+      </button>
     </footer>
   </aside>
 
@@ -68,12 +153,19 @@
   <section class="list-pane">
     <header class="pane-head">
       <div class="address-block">
+        <button type="button" id="back-btn" class="icon-btn back-only" title="رجوع">
+          <svg class="icon"><use href="#i-back"/></svg>
+        </button>
         <span class="address" id="current-address" dir="ltr">اختر عنوانًا</span>
-        <button type="button" id="copy-address" class="chip-btn" hidden>نسخ</button>
+        <button type="button" id="copy-address" class="chip-btn" hidden>
+          <svg class="icon sm"><use href="#i-copy"/></svg> نسخ
+        </button>
       </div>
       <div class="pane-actions">
         <span class="countdown" id="countdown"></span>
-        <button type="button" id="refresh-btn" class="icon-btn" title="تحديث الآن">⟳</button>
+        <button type="button" id="refresh-btn" class="icon-btn" title="تحديث الآن">
+          <svg class="icon"><use href="#i-refresh"/></svg>
+        </button>
         <label class="toggle" title="تحديث تلقائي">
           <input type="checkbox" id="auto-refresh" checked><span>تلقائي</span>
         </label>
@@ -81,17 +173,24 @@
     </header>
 
     <div class="banner" id="list-error" hidden></div>
+    <ul id="skeleton" class="messages skeleton-list" hidden></ul>
     <ul id="messages-list" class="messages"></ul>
+
     <div class="placeholder" id="messages-placeholder">
-      <span class="placeholder-icon">📭</span>
+      <span class="placeholder-icon pulse"><svg class="icon xl"><use href="#i-inbox"/></svg></span>
       <p id="messages-placeholder-text">أنشئ عنوانًا لتبدأ باستقبال الرسائل</p>
+      <ol class="steps" id="welcome-steps">
+        <li><b>١</b> اختر المزوّد والدومين</li>
+        <li><b>٢</b> اكتب الاسم أو ولّده عشوائيًا</li>
+        <li><b>٣</b> اضغط «إنشاء العنوان» وانتظر رسائلك هنا</li>
+      </ol>
     </div>
   </section>
 
   <!-- ================= عارض الرسالة ================= -->
   <section class="view-pane">
     <div class="placeholder" id="view-placeholder">
-      <span class="placeholder-icon">📬</span>
+      <span class="placeholder-icon"><svg class="icon xl"><use href="#i-mail"/></svg></span>
       <p>اختر رسالة لعرضها</p>
     </div>
 
@@ -104,8 +203,12 @@
         </div>
         <div class="msg-actions">
           <button type="button" id="copy-code-btn" class="chip-btn accent" hidden></button>
-          <button type="button" id="images-btn" class="chip-btn" hidden>عرض الصور</button>
-          <button type="button" id="delete-msg-btn" class="chip-btn danger">حذف</button>
+          <button type="button" id="images-btn" class="chip-btn" hidden>
+            <svg class="icon sm"><use href="#i-eye"/></svg> عرض الصور
+          </button>
+          <button type="button" id="delete-msg-btn" class="chip-btn danger">
+            <svg class="icon sm"><use href="#i-trash"/></svg> حذف
+          </button>
         </div>
       </header>
       <div id="attachments" class="attachments" hidden></div>
@@ -119,8 +222,10 @@
 <div id="modal" class="modal" hidden>
   <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modal-title">
     <header class="modal-head">
-      <h2 id="modal-title">الإعدادات</h2>
-      <button type="button" id="modal-close" class="icon-btn" aria-label="إغلاق">✕</button>
+      <h2 id="modal-title"><svg class="icon sm"><use href="#i-settings"/></svg> الإعدادات</h2>
+      <button type="button" id="modal-close" class="icon-btn" aria-label="إغلاق">
+        <svg class="icon"><use href="#i-close"/></svg>
+      </button>
     </header>
 
     <div class="modal-body">
@@ -176,7 +281,7 @@
           <button type="button" id="imap-test" class="ghost-btn">اختبار الاتصال</button>
           <span id="imap-result" class="test-result"></span>
         </div>
-        <p class="hint" id="storage-note"></p>
+        <p class="hint secure-note" id="storage-note"></p>
       </section>
     </div>
 
