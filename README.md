@@ -29,6 +29,31 @@
 
 ---
 
+## ⬇️ التحميل
+
+### الأسهل: ملف EXE جاهز (بلا تثبيت بايثون)
+
+مع كل تحديث يبني GitHub ملفًا جاهزًا على خوادم ويندوز:
+
+1. افتح تبويب **[Actions](../../actions)** في المستودع
+2. اختر آخر تشغيل ناجح ✅ لـ «بناء TempMailWin.exe»
+3. من قسم **Artifacts** حمّل **`TempMailWin-windows`**
+4. فك الضغط، وشغّل **`TempMailWin.exe`** بنقرتين
+
+> التحميل من Actions يتطلب تسجيل دخول في GitHub. عند نشر إصدار موسوم
+> (`v1.0.0` مثلًا) يصبح الملف متاحًا للجميع في صفحة **Releases**.
+
+### أو: من المصدر
+
+```
+https://github.com/ABADIOSA/ABADIOSA/archive/refs/heads/claude/windows-temp-email-app-mtx1oq.zip
+```
+
+فك الضغط، ثبّت [Python 3.10+](https://www.python.org/downloads/) مع تفعيل
+**Add Python to PATH**، ثم شغّل `run.bat`.
+
+---
+
 ## 🚀 التشغيل السريع
 
 **المتطلب الوحيد:** [Python 3.10+](https://www.python.org/downloads/) — وعند التثبيت
@@ -265,7 +290,7 @@ docs/DEPLOY.md                    دليل النشر خطوة بخطوة
 python -m unittest discover -s tests -t .
 ```
 
-76 اختبارًا تغطي التخزين والتشفير وتحليل الرسائل وقوائم الحظر والتصدير
+78 اختبارًا تغطي التخزين والتشفير وتحليل الرسائل وقوائم الحظر والتصدير
 والمصادقة وحماية CSRF وحدّ المحاولات والواجهة البرمجية كاملة — كلها تعمل
 بلا إنترنت.
 

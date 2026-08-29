@@ -3,13 +3,44 @@
 from __future__ import annotations
 
 import argparse
+import io
 import os
 import sys
 import threading
 import webbrowser
 
 from . import APP_NAME, __version__, auth
+from .paths import data_dir
 from .server import AppState, build_server
+
+# أقصى حجم لملف السجل قبل بدئه من جديد.
+MAX_LOG_BYTES = 2 * 1024 * 1024
+
+
+def _ensure_output_streams() -> None:
+    """يضمن وجود stdout/stderr صالحين.
+
+    في بناء PyInstaller بلا نافذة طرفية (--windowed) تكون قيمتهما None، وأي
+    كتابة عليهما — مثل traceback عند خطأ غير متوقع — تُسقط الخيط المعالِج.
+    نوجّههما إلى ملف سجل في مجلد بيانات المستخدم بدل ذلك.
+    """
+    if sys.stdout is not None and sys.stderr is not None:
+        return
+
+    stream: object
+    try:
+        log_path = data_dir() / "tempmail.log"
+        if log_path.exists() and log_path.stat().st_size > MAX_LOG_BYTES:
+            log_path.unlink()
+        stream = open(log_path, "a", encoding="utf-8", buffering=1)
+    except OSError:
+        # حتى لو تعذّرت الكتابة على القرص، يجب ألا ينهار التطبيق.
+        stream = io.StringIO()
+
+    if sys.stdout is None:
+        sys.stdout = stream
+    if sys.stderr is None:
+        sys.stderr = stream
 
 
 def _open_native_window(url: str, state: AppState) -> bool:
@@ -41,6 +72,7 @@ def _open_native_window(url: str, state: AppState) -> bool:
 
 
 def main(argv: list[str] | None = None) -> int:
+    _ensure_output_streams()
     parser = argparse.ArgumentParser(description=f"{APP_NAME} — تطبيق بريد مؤقت")
     parser.add_argument("--port", type=int, default=0, help="منفذ محلي ثابت (افتراضيًا عشوائي)")
     parser.add_argument("--browser", action="store_true", help="افتح في المتصفح بدل النافذة الأصلية")

@@ -4,12 +4,14 @@ from __future__ import annotations
 
 import email
 import email.policy
+import io
 import json
 import os
 import re
 import sys
 import tempfile
 import threading
+import traceback
 import unittest
 import urllib.error
 import urllib.request
@@ -26,6 +28,7 @@ from tempmail.providers.alias import AliasProvider  # noqa: E402
 from tempmail.providers.base import ProviderError, random_local  # noqa: E402
 from tempmail.providers.mailtm import MailTmProvider, _iso, _members  # noqa: E402
 from tempmail.providers.onesecmail import OneSecMailProvider, _parse_date  # noqa: E402
+from tempmail import app as app_module  # noqa: E402
 from tempmail import auth, autostart, notifier  # noqa: E402
 from tempmail.server import (  # noqa: E402
     TOKEN_PLACEHOLDER, ApiError, AppState, _validate_new_address, build_server, is_blocked,
@@ -556,6 +559,39 @@ class AuthUnitTests(unittest.TestCase):
         self.assertEqual(auth.parse_cookie(header, "tempmail_session"), "abc123")
         self.assertEqual(auth.parse_cookie(header, "missing"), "")
         self.assertEqual(auth.parse_cookie("", "tempmail_session"), "")
+
+
+class WindowedBuildTests(unittest.TestCase):
+    """في بناء PyInstaller بلا نافذة طرفية تكون stdout/stderr معدومة."""
+
+    def test_streams_are_restored_when_missing(self):
+        with TempDataDir() as path:
+            original_out, original_err = sys.stdout, sys.stderr
+            try:
+                sys.stdout = None
+                sys.stderr = None
+                app_module.data_dir = lambda: path
+                app_module._ensure_output_streams()
+                self.assertIsNotNone(sys.stdout)
+                self.assertIsNotNone(sys.stderr)
+                # يجب أن تكون قابلة للكتابة فعلًا، لا مجرد كائن غير None
+                print("سطر تجريبي")
+                traceback.print_exc()
+            finally:
+                stream = sys.stdout
+                sys.stdout, sys.stderr = original_out, original_err
+                if hasattr(stream, "close"):
+                    stream.close()
+
+    def test_existing_streams_are_left_alone(self):
+        marker = io.StringIO()
+        original_out = sys.stdout
+        try:
+            sys.stdout = marker
+            app_module._ensure_output_streams()
+            self.assertIs(sys.stdout, marker)
+        finally:
+            sys.stdout = original_out
 
 
 class ServerModeTests(unittest.TestCase):
