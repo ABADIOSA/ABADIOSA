@@ -43,6 +43,24 @@ def _ensure_output_streams() -> None:
         sys.stderr = stream
 
 
+def _force_utf8_output() -> None:
+    """يفرض UTF-8 على المخرجات.
+
+    حين يُوجَّه الإخراج إلى ملف أو أنبوب على ويندوز، تستخدم بايثون ترميز
+    النظام القديم (cp1252) الذي لا يمثّل العربية، فتُسقط أول رسالة عربية
+    التطبيق بـ UnicodeEncodeError. errors="replace" يضمن ألا تُسقطه أي رسالة
+    مهما كان الترميز.
+    """
+    for stream in (sys.stdout, sys.stderr):
+        reconfigure = getattr(stream, "reconfigure", None)
+        if reconfigure is None:
+            continue
+        try:
+            reconfigure(encoding="utf-8", errors="replace")
+        except (ValueError, OSError):
+            pass
+
+
 def _open_native_window(url: str, state: AppState) -> bool:
     """يحاول فتح نافذة سطح مكتب أصلية عبر pywebview (WebView2 على ويندوز)."""
     try:
@@ -73,6 +91,7 @@ def _open_native_window(url: str, state: AppState) -> bool:
 
 def main(argv: list[str] | None = None) -> int:
     _ensure_output_streams()
+    _force_utf8_output()
     parser = argparse.ArgumentParser(description=f"{APP_NAME} — تطبيق بريد مؤقت")
     parser.add_argument("--port", type=int, default=0, help="منفذ محلي ثابت (افتراضيًا عشوائي)")
     parser.add_argument("--browser", action="store_true", help="افتح في المتصفح بدل النافذة الأصلية")

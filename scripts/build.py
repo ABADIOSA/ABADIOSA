@@ -11,7 +11,21 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def _force_utf8_output() -> None:
+    """على ويندوز يصبح ترميز الإخراج cp1252 عند توجيهه إلى أنبوب — كما يحدث
+    في GitHub Actions — فتفشل طباعة أي حرف عربي أو رمز مثل ✓."""
+    for stream in (sys.stdout, sys.stderr):
+        reconfigure = getattr(stream, "reconfigure", None)
+        if reconfigure is None:
+            continue
+        try:
+            reconfigure(encoding="utf-8", errors="replace")
+        except (ValueError, OSError):
+            pass
+
+
 def main() -> int:
+    _force_utf8_output()
     if shutil.which("pyinstaller") is None:
         print("PyInstaller غير مثبّت. نفّذ:  pip install pyinstaller")
         return 1
