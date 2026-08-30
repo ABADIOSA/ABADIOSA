@@ -1,0 +1,17 @@
+{
+  "addons": {
+    "stremiohub-harbor@abadiosa": {
+      "updates": [
+        {
+          "version": "1.8.0",
+          "update_link": "https://github.com/ABADIOSA/ABADIOSA/releases/download/v1.8.0/stremiohub-harbor-1.8.0.xpi",
+          "applications": {
+            "gecko": {
+              "strict_min_version": "119.0"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

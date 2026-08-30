@@ -4023,3 +4023,166 @@ body.theme-oled .tab-indicator {
   background: var(--glass-surface);
   color: var(--text-secondary);
 }
+
+/* ==================== تحديثات الإضافة ==================== */
+
+.update-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  background: rgba(16, 185, 129, 0.12);
+  border-bottom: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.update-banner-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  color: var(--success);
+}
+
+.update-banner-text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.update-banner-text strong {
+  font-size: 13px;
+  color: var(--text-primary);
+}
+
+.update-banner-text span {
+  font-size: 11px;
+  color: var(--text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.update-banner-btn {
+  flex-shrink: 0;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  background: var(--success);
+  color: #04211a;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.update-banner-btn:hover {
+  background: var(--success-hover);
+  color: #fff;
+}
+
+.update-banner-close {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.update-banner-close:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-primary);
+}
+
+/* ── بطاقة الإعدادات ── */
+.upd-card .setting-info {
+  display: block;
+}
+
+.upd-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.upd-version {
+  font-family: monospace;
+  font-size: 12px;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--glass-border-light);
+  background: var(--glass-surface);
+  color: var(--text-secondary);
+}
+
+.upd-status {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.upd-status.ok { color: var(--success); }
+.upd-status.new { color: var(--success); font-weight: 700; }
+.upd-status.fail { color: var(--danger); }
+
+.upd-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.upd-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+/* الـ slider هنا خارج .toggle-switch فنعطيه أبعاده بنفسه */
+.upd-toggle .slider {
+  position: relative;
+  flex-shrink: 0;
+  width: 38px;
+  height: 20px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.14);
+  transition: background 0.2s ease;
+}
+
+.upd-toggle .slider::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  inset-inline-start: 3px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.2s ease;
+}
+
+.upd-toggle input { display: none; }
+
+.upd-toggle input:checked + .slider {
+  background: var(--accent);
+}
+
+.upd-toggle input:checked + .slider::before {
+  transform: translateX(18px);
+}
+
+[dir="rtl"] .upd-toggle input:checked + .slider::before {
+  transform: translateX(-18px);
+}

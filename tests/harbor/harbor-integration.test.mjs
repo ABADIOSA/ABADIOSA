@@ -34,6 +34,8 @@ const extId = new URL(sw.url()).host;
 const swErrors = [];
 sw.on('console', (m) => { if (m.type() === 'error') swErrors.push('[sw] ' + m.text()); });
 
+const chrome_version = JSON.parse(fs.readFileSync(path.join(EXT, 'manifest.json'), 'utf8')).version;
+
 const page = await ctx.newPage();
 const errors = [];
 page.on('console', (m) => { if (m.type() === 'error') errors.push('[console] ' + m.text()); });
@@ -351,6 +353,134 @@ check('TMDB → نوع + عنوان', byUrl['https://www.themoviedb.org/tv/1396-
 check('Letterboxd → فيلم', byUrl['https://letterboxd.com/film/the-matrix/']?.query === 'the matrix');
 check('Trakt → السنة مُزالة من الـ slug', byUrl['https://trakt.tv/movies/the-matrix-1999']?.query === 'the matrix');
 check('رابط غير مدعوم → null', byUrl['https://example.com/nothing'] === null);
+
+console.log('\n== 15. مقارنة الإصدارات ==');
+const vcmp = await page.evaluate(() => {
+  const c = ExtUpdater.compareVersions;
+  return {
+    newer: c('1.8.0', '1.7.0'),
+    older: c('1.7.0', '1.8.0'),
+    equal: c('1.7.0', '1.7.0'),
+    vPrefix: c('v1.8.0', '1.7.0'),
+    minor: c('1.7.1', '1.7.0'),
+    fourth: c('1.7.0.2', '1.7.0'),
+    tenVsNine: c('1.10.0', '1.9.0'),
+    shortVsLong: c('2', '1.9.9'),
+    garbage: c('abc', '1.0.0'),
+    parse: ExtUpdater.parseVersion('v1.7.0'),
+  };
+});
+console.log('  ', JSON.stringify(vcmp));
+check('أحدث ← 1', vcmp.newer === 1);
+check('أقدم ← -1', vcmp.older === -1);
+check('متساويتان ← 0', vcmp.equal === 0);
+check('بادئة v تُتجاهل', vcmp.vPrefix === 1);
+check('فرق في الرقم الثالث', vcmp.minor === 1);
+check('مقطع رابع', vcmp.fourth === 1);
+check('1.10 أحدث من 1.9 (ليست مقارنة نصية)', vcmp.tenVsNine === 1, String(vcmp.tenVsNine));
+check('طول مختلف: 2 > 1.9.9', vcmp.shortVsLong === 1);
+check('نص غير صالح لا يكسر المقارنة', vcmp.garbage === -1, String(vcmp.garbage));
+check('parseVersion يزيل v', JSON.stringify(vcmp.parse) === '[1,7,0]', JSON.stringify(vcmp.parse));
+
+console.log('\n== 16. شريط التحديث ==');
+const bannerNew = await page.evaluate(() => {
+  Updater.selfUpdating = false;
+  Updater.state = {
+    current: '1.7.0', latest: '1.9.0', hasUpdate: true,
+    url: 'https://example.com/rel', notes: '## عنوان\nأول سطر حقيقي',
+    checkedAt: Date.now(),
+  };
+  Updater.renderBanner();
+  const b = document.getElementById('update-banner');
+  return {
+    visible: !b.classList.contains('hidden'),
+    title: document.getElementById('update-banner-title').textContent,
+    sub: document.getElementById('update-banner-sub').textContent,
+    href: document.getElementById('update-banner-btn').getAttribute('href'),
+  };
+});
+check('الشريط يظهر عند توفّر تحديث', bannerNew.visible);
+check('يعرض رقم النسخة', bannerNew.title.includes('1.9.0'), bannerNew.title);
+check('يأخذ أول سطر من ملاحظات الإصدار', bannerNew.sub === 'عنوان', bannerNew.sub);
+check('زر التنزيل يشير للإصدار', bannerNew.href === 'https://example.com/rel', bannerNew.href);
+
+const bannerAuto = await page.evaluate(() => {
+  Updater.selfUpdating = true;
+  Updater.renderBanner();
+  return !document.getElementById('update-banner').classList.contains('hidden');
+});
+check('لا شريط للنسخ ذاتية التحديث', !bannerAuto);
+
+const bannerDismissed = await page.evaluate(() => {
+  Updater.selfUpdating = false;
+  Updater.state = { ...Updater.state, dismissedUpdate: '1.9.0' };
+  Updater.renderBanner();
+  const hidden = document.getElementById('update-banner').classList.contains('hidden');
+  // نسخة أحدث من المُتجاهَلة يجب أن تُظهر الشريط من جديد
+  Updater.state = { ...Updater.state, latest: '2.0.0' };
+  Updater.renderBanner();
+  const backAgain = !document.getElementById('update-banner').classList.contains('hidden');
+  return { hidden, backAgain };
+});
+check('التجاهل يُخفي الشريط', bannerDismissed.hidden);
+check('نسخة أحدث من المُتجاهَلة تُظهره ثانيةً', bannerDismissed.backAgain);
+
+const bannerNone = await page.evaluate(() => {
+  Updater.state = { current: '1.7.0', latest: '1.7.0', hasUpdate: false, checkedAt: Date.now() };
+  Updater.renderBanner();
+  Updater.renderSettings();
+  return {
+    hidden: document.getElementById('update-banner').classList.contains('hidden'),
+    status: document.getElementById('upd-status').textContent,
+  };
+});
+check('لا شريط بلا تحديث', bannerNone.hidden);
+check('الإعدادات تقول إنك على الأحدث', bannerNone.status.length > 0, bannerNone.status);
+
+console.log('\n== 17. أولوية الشارة ==');
+const badge = await page.evaluate(async () => {
+  const read = () => chrome.action.getBadgeText({});
+
+  // تحديثات إضافات Stremio فقط
+  await chrome.storage.local.set({
+    updateState: { hasUpdate: false },
+    addonUpdates: [{ transportUrl: 'a' }, { transportUrl: 'b' }],
+    dismissedUpdate: null,
+  });
+  await ExtUpdater.refreshBadge();
+  const addonsOnly = await read();
+
+  // تحديث الإضافة نفسها له الأولوية
+  await chrome.storage.local.set({ updateState: { hasUpdate: true, latest: '9.9.9' } });
+  await ExtUpdater.refreshBadge();
+  const selfWins = await read();
+
+  // بعد تجاهله تعود شارة الإضافات
+  await chrome.storage.local.set({ dismissedUpdate: '9.9.9' });
+  await ExtUpdater.refreshBadge();
+  const afterDismiss = await read();
+
+  // لا شيء إطلاقاً
+  await chrome.storage.local.set({ updateState: { hasUpdate: false }, addonUpdates: [] });
+  await ExtUpdater.refreshBadge();
+  const empty = await read();
+
+  await chrome.storage.local.remove(['updateState', 'addonUpdates', 'dismissedUpdate']);
+  return { addonsOnly, selfWins, afterDismiss, empty };
+});
+console.log('  ', JSON.stringify(badge));
+check('عدّاد إضافات Stremio', badge.addonsOnly === '2', badge.addonsOnly);
+check('تحديث الإضافة يتقدّم على العدّاد', badge.selfWins === '↑', badge.selfWins);
+check('بعد التجاهل يعود العدّاد', badge.afterDismiss === '2', badge.afterDismiss);
+check('الشارة تُمسح بلا تحديثات', badge.empty === '', JSON.stringify(badge.empty));
+
+console.log('\n== 18. الفحص عبر الـ background ==');
+const checkRes = await page.evaluate(async () =>
+  await chrome.runtime.sendMessage({ type: 'CHECK_EXTENSION_UPDATE', force: true }));
+console.log('  ', JSON.stringify({ ...checkRes, notes: undefined }));
+check('الفحص يرجّع النسخة الحالية', checkRes?.current === chrome_version, `${checkRes?.current} ≠ ${chrome_version}`);
+check('الفحص لا يرمي استثناءً', typeof checkRes?.hasUpdate === 'boolean', JSON.stringify(checkRes));
+check('يبلّغ إن كان المتصفح يحدّث تلقائياً', typeof checkRes?.selfUpdating === 'boolean');
 
 console.log('\n== الأخطاء ==');
 const realErrors = errors.filter(e => !/net::ERR_|Failed to load resource|WebSocket connection to/.test(e));

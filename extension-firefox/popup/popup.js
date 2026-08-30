@@ -1,6 +1,20 @@
 const I18N = {
   ar: {
     // ── Harbor ──
+    update_title: "تحديثات الإضافة",
+    update_desc: "يفحص إصدارات GitHub تلقائياً كل ٦ ساعات ويُعلمك عند صدور نسخة أحدث.",
+    update_check_now: "تحقق الآن",
+    update_releases: "صفحة الإصدارات",
+    update_auto_label: "الفحص التلقائي",
+    update_checking: "جارِ الفحص…",
+    update_latest: "أنت على أحدث نسخة.",
+    update_latest_auto: "أحدث نسخة — والتحديث تلقائي.",
+    update_check_failed: "تعذّر الفحص. تحقق من اتصالك.",
+    update_available: "تحديث متاح: v{v}",
+    update_available_short: "متاح v{v}",
+    update_current_is: "نسختك الحالية v{v}",
+    update_download: "تنزيل",
+    update_later: "لاحقاً",
     tab_harbor: "Harbor",
     action_harbor: "Harbor",
     harbor_cast_title: "أجهزة البثّ",
@@ -303,6 +317,20 @@ const I18N = {
   },
   en: {
     // ── Harbor ──
+    update_title: "Extension updates",
+    update_desc: "Checks GitHub releases every 6 hours and tells you when a newer version is out.",
+    update_check_now: "Check now",
+    update_releases: "Releases page",
+    update_auto_label: "Automatic checks",
+    update_checking: "Checking…",
+    update_latest: "You're on the latest version.",
+    update_latest_auto: "Latest version — updates are automatic.",
+    update_check_failed: "Check failed. Verify your connection.",
+    update_available: "Update available: v{v}",
+    update_available_short: "v{v} available",
+    update_current_is: "You have v{v}",
+    update_download: "Download",
+    update_later: "Later",
     tab_harbor: "Harbor",
     action_harbor: "Harbor",
     harbor_cast_title: "Cast devices",
@@ -1337,6 +1365,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   setupAddonManagerListeners();
 
   // تكامل Harbor
+  Updater.bind();
+  Updater.init().catch(() => {});
+
   await Harbor.load();
   Harbor.bind();
   Harbor.reflectHeaderButton();
@@ -5710,6 +5741,156 @@ function formatClock(seconds) {
   const pad = (n) => String(n).padStart(2, '0');
   return h > 0 ? `${h}:${pad(m)}:${pad(sec)}` : `${m}:${pad(sec)}`;
 }
+
+
+// ==================== تحديثات الإضافة ====================
+// التحديث التلقائي الحقيقي متاح فقط لنسخ فايرفوكس الموقّعة (update_url)
+// ولنسخ كروم من المتجر. أما النسخة المحمَّلة يدوياً فلا يحدّثها المتصفح،
+// ولهذا نفحص إصدارات GitHub ونعرض شريطاً بدل أن يتفقّدها المستخدم بنفسه.
+
+const Updater = {
+  state: null,
+  selfUpdating: false,
+
+  tr(key, vars) {
+    const t = I18N[state.language || 'ar'] || I18N.ar;
+    let out = t[key] || key;
+    if (vars) for (const [k, v] of Object.entries(vars)) out = out.replace(`{${k}}`, v);
+    return out;
+  },
+
+  /** فحص هادئ عند فتح الإضافة — يستعمل الكاش ولا يُرهق GitHub */
+  async init() {
+    const version = chrome.runtime.getManifest().version;
+    const cur = $('upd-current');
+    if (cur) cur.textContent = `v${version}`;
+
+    const link = $('upd-releases-link');
+    if (link) link.href = ExtUpdater.RELEASES_PAGE;
+
+    const stored = await ExtUpdater.getState();
+    const auto = $('upd-auto-check');
+    if (auto) auto.checked = stored.enabled !== false;
+
+    this.state = stored;
+    this.renderSettings();
+    this.renderBanner();
+
+    // فحص في الخلفية دون تعطيل فتح الإضافة
+    chrome.runtime.sendMessage({ type: 'CHECK_EXTENSION_UPDATE' }, (res) => {
+      if (chrome.runtime.lastError || !res) return;
+      this.selfUpdating = !!res.selfUpdating;
+      this.state = { ...this.state, ...res };
+      this.renderSettings();
+      this.renderBanner();
+    });
+  },
+
+  renderSettings() {
+    const status = $('upd-status');
+    if (!status) return;
+    const s = this.state || {};
+
+    status.className = 'upd-status';
+    if (s.error) {
+      status.classList.add('fail');
+      status.textContent = this.tr('update_check_failed');
+    } else if (s.hasUpdate && s.latest) {
+      status.classList.add('new');
+      status.textContent = this.tr('update_available_short', { v: s.latest });
+    } else if (s.checkedAt) {
+      status.classList.add('ok');
+      status.textContent = this.selfUpdating
+        ? this.tr('update_latest_auto')
+        : this.tr('update_latest');
+    } else {
+      status.textContent = '';
+    }
+  },
+
+  renderBanner() {
+    const banner = $('update-banner');
+    if (!banner) return;
+    const s = this.state || {};
+
+    const dismissed = s.dismissedUpdate &&
+      ExtUpdater.compareVersions(s.latest, s.dismissedUpdate) <= 0;
+
+    // النسخ التي يحدّثها المتصفح وحده لا تحتاج شريطاً يطالب بالتنزيل
+    if (!s.hasUpdate || !s.latest || dismissed || this.selfUpdating) {
+      banner.classList.add('hidden');
+      return;
+    }
+
+    const title = $('update-banner-title');
+    const sub = $('update-banner-sub');
+    const btn = $('update-banner-btn');
+
+    if (title) title.textContent = this.tr('update_available', { v: s.latest });
+    if (sub) {
+      // أول سطر غير فارغ من ملاحظات الإصدار
+      const firstLine = String(s.notes || '')
+        .split('\n')
+        .map(l => l.replace(/^#+\s*/, '').trim())
+        .find(l => l.length > 0);
+      sub.textContent = firstLine || this.tr('update_current_is', { v: s.current });
+    }
+    if (btn) btn.href = s.url || ExtUpdater.RELEASES_PAGE;
+
+    banner.classList.remove('hidden');
+  },
+
+  async checkNow() {
+    const btn = $('upd-check-btn');
+    const status = $('upd-status');
+    if (btn) btn.disabled = true;
+    if (status) {
+      status.className = 'upd-status';
+      status.textContent = this.tr('update_checking');
+    }
+
+    const res = await chrome.runtime.sendMessage({ type: 'CHECK_EXTENSION_UPDATE', force: true });
+    if (btn) btn.disabled = false;
+
+    this.selfUpdating = !!res?.selfUpdating;
+    this.state = { ...this.state, ...(res || {}) };
+    this.renderSettings();
+    this.renderBanner();
+
+    if (res?.hasUpdate) {
+      showToast(this.tr('update_available', { v: res.latest }), 'success');
+    } else if (res?.error) {
+      showToast(this.tr('update_check_failed'), 'error');
+    } else {
+      showToast(this.tr('update_latest'), 'info');
+    }
+  },
+
+  bind() {
+    const checkBtn = $('upd-check-btn');
+    if (checkBtn) checkBtn.addEventListener('click', () => this.checkNow());
+
+    const auto = $('upd-auto-check');
+    if (auto) auto.addEventListener('change', async (e) => {
+      await chrome.runtime.sendMessage({ type: 'SET_AUTO_UPDATE_CHECK', enabled: e.target.checked });
+      if (!e.target.checked) {
+        this.state = { ...this.state, hasUpdate: false };
+        this.renderBanner();
+        this.renderSettings();
+      }
+    });
+
+    const close = $('update-banner-close');
+    if (close) close.addEventListener('click', async () => {
+      const version = this.state?.latest;
+      $('update-banner')?.classList.add('hidden');
+      if (version) {
+        await chrome.runtime.sendMessage({ type: 'DISMISS_EXTENSION_UPDATE', version });
+        this.state = { ...this.state, dismissedUpdate: version };
+      }
+    });
+  }
+};
 
 // ==================== Firefox Popup Workaround ====================
 document.addEventListener('DOMContentLoaded', () => {

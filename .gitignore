@@ -4,3 +4,4 @@ node_modules/
 *.zip
 tests/harbor/node_modules/
 tests/harbor/package-lock.json
+dist/

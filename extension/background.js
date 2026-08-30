@@ -3,6 +3,9 @@
 // جسر Harbor — يضع globalThis.HarborCore (لا يصدّر شيئاً)
 import './modules/harbor-core.js';
 
+// فاحص تحديثات الإضافة نفسها — يضع globalThis.ExtUpdater
+import './modules/updater.js';
+
 // ==================== Context Menu ====================
 async function updateContextMenu() {
   const { language } = await chrome.storage.local.get('language');
@@ -49,6 +52,33 @@ async function updateContextMenu() {
     }
   });
 }
+
+chrome.runtime.onInstalled.addListener(() => {
+  updateContextMenu();
+  // جدولة فحص تحديثات إضافات Stremio كل 24 ساعة
+  chrome.alarms.create('addon-update-check', { periodInMinutes: 60 * 24 });
+  // وفحص تحديثات الإضافة نفسها كل 6 ساعات
+  chrome.alarms.create(ExtUpdater.ALARM, {
+    delayInMinutes: 1,
+    periodInMinutes: ExtUpdater.CHECK_INTERVAL_MIN
+  });
+  ExtUpdater.check().catch(() => {});
+});
+
+// عند إقلاع المتصفح: أعِد رسم الشارة من الحالة المحفوظة دون طلب شبكة
+chrome.runtime.onStartup.addListener(() => {
+  ExtUpdater.refreshBadge().catch(() => {});
+});
+
+// يُطلق عندما يجهّز المتصفح تحديثاً لنسخة تُحدَّث تلقائياً (متجر أو update_url).
+// المتصفح يطبّقه وحده عند خمول الإضافة، فنكتفي بمسح حالة "تحديث متاح".
+chrome.runtime.onUpdateAvailable.addListener(async (details) => {
+  console.info('[StremioHub] تحديث جاهز للتطبيق:', details?.version);
+  try {
+    await chrome.storage.local.remove(ExtUpdater.STATE_KEY);
+    await ExtUpdater.refreshBadge();
+  } catch { /* لا شيء */ }
+});
 
 // ==================== Addon Update Checker ====================
 
@@ -165,20 +195,23 @@ async function checkAddonUpdates(authKey) {
     addonUpdatesCheckedAt: Date.now()
   });
 
-  // 5. تحديث Badge
-  const count = updates.length;
-  if (count > 0) {
-    await chrome.action.setBadgeText({ text: String(count) });
-    await chrome.action.setBadgeBackgroundColor({ color: '#8b5cf6' });
-  } else {
-    await chrome.action.setBadgeText({ text: '' });
-  }
+  // 5. تحديث Badge (مشتركة مع تحديث الإضافة نفسها)
+  await ExtUpdater.refreshBadge();
 
   return updates;
 }
 
 // ==================== Alarm Handler ====================
 chrome.alarms.onAlarm.addListener(async (alarm) => {
+  if (alarm.name === ExtUpdater.ALARM) {
+    try {
+      await ExtUpdater.check();
+    } catch (err) {
+      console.warn('[StremioHub] Extension update check failed:', err);
+    }
+    return;
+  }
+
   if (alarm.name === 'addon-update-check') {
     try {
       const { stremio_auth } = await chrome.storage.local.get(['stremio_auth']);
@@ -426,8 +459,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         await chrome.storage.local.set({ addonUpdates: remaining });
 
         // 6. تحديث Badge
-        const count = remaining.length;
-        await chrome.action.setBadgeText({ text: count > 0 ? String(count) : '' });
+        await ExtUpdater.refreshBadge();
 
         sendResponse({ success: true, newVersion: newManifest.version });
       } catch (err) {
@@ -489,8 +521,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         const { addonUpdates = [] } = await chrome.storage.local.get(['addonUpdates']);
         const remaining = addonUpdates.filter(u => u.transportUrl !== oldTransportUrl);
         await chrome.storage.local.set({ addonUpdates: remaining });
-        const count = remaining.length;
-        await chrome.action.setBadgeText({ text: count > 0 ? String(count) : '' });
+        await ExtUpdater.refreshBadge();
 
         sendResponse({ success: true, newVersion: newManifest.version });
       } catch (err) {
@@ -533,6 +564,36 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       } catch (err) {
         sendResponse({ success: false, error: err.message });
       }
+    })();
+    return true;
+  }
+
+  // ── فحص تحديثات الإضافة نفسها ──
+  if (message.type === 'CHECK_EXTENSION_UPDATE') {
+    (async () => {
+      try {
+        const result = await ExtUpdater.check({ force: !!message.force });
+        result.selfUpdating = await ExtUpdater.isSelfUpdating();
+        sendResponse(result);
+      } catch (err) {
+        sendResponse({ hasUpdate: false, error: err.message });
+      }
+    })();
+    return true;
+  }
+
+  if (message.type === 'DISMISS_EXTENSION_UPDATE') {
+    (async () => {
+      await ExtUpdater.dismiss(message.version);
+      sendResponse({ ok: true });
+    })();
+    return true;
+  }
+
+  if (message.type === 'SET_AUTO_UPDATE_CHECK') {
+    (async () => {
+      await ExtUpdater.setEnabled(message.enabled);
+      sendResponse({ ok: true });
     })();
     return true;
   }

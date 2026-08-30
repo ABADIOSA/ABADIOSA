@@ -1,0 +1,88 @@
+name: Release
+
+# يُطلق بدفع وسم نسخة، مثل:  git tag v1.8.0 && git push origin v1.8.0
+# يبني الحزمتين، يوقّع نسخة فايرفوكس عبر AMO إن توفّرت المفاتيح،
+# ينشر إصداراً على GitHub، ثم يحدّث updates/updates.json على main
+# ليلتقطه فايرفوكس ويحدّث الإضافة عند المستخدمين تلقائياً.
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: تحقّق من تطابق الوسم مع نسخة المانيفست
+        run: |
+          TAG="${GITHUB_REF_NAME#v}"
+          MANIFEST=$(node -p "require('./extension/manifest.json').version")
+          if [ "$TAG" != "$MANIFEST" ]; then
+            echo "::error::الوسم v$TAG لا يطابق نسخة المانيفست $MANIFEST"
+            exit 1
+          fi
+          echo "version=$MANIFEST" >> "$GITHUB_OUTPUT"
+        id: version
+
+      - name: بناء الحزم وبيانات التحديث
+        run: node scripts/build.mjs --manifests
+
+      # التوقيع اختياري: بدونه يصدر الإصدار بالحزم المضغوطة فقط،
+      # ومع المفاتيح يصدر XPI موقّعاً يحدّثه فايرفوكس تلقائياً.
+      - name: توقيع نسخة فايرفوكس (AMO)
+        id: sign
+        if: ${{ env.AMO_JWT_ISSUER != '' }}
+        env:
+          AMO_JWT_ISSUER: ${{ secrets.AMO_JWT_ISSUER }}
+          AMO_JWT_SECRET: ${{ secrets.AMO_JWT_SECRET }}
+        run: |
+          npm install --no-save web-ext
+          npx web-ext sign \
+            --source-dir=extension-firefox \
+            --artifacts-dir=dist \
+            --channel=unlisted \
+            --api-key="$AMO_JWT_ISSUER" \
+            --api-secret="$AMO_JWT_SECRET"
+          # web-ext يسمّي الملف بمعرّف الإضافة؛ نوحّد الاسم مع update_link
+          XPI=$(find dist -name '*.xpi' | head -1)
+          if [ -n "$XPI" ]; then
+            mv "$XPI" "dist/stremiohub-harbor-${{ steps.version.outputs.version }}.xpi"
+            echo "signed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: نشر الإصدار
+        uses: softprops/action-gh-release@v2
+        with:
+          name: v${{ steps.version.outputs.version }}
+          generate_release_notes: true
+          files: |
+            dist/*.zip
+            dist/*.xpi
+
+      # فايرفوكس يقرأ هذا الملف من main، فلا بد أن يشير إلى الإصدار الجديد
+      - name: تحديث بيان التحديث على main
+        if: steps.sign.outputs.signed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add updates/updates.json updates/updates.xml
+          if git diff --cached --quiet; then
+            echo "لا تغيير في بيانات التحديث"
+          else
+            git commit -m "تحديث بيان التحديث إلى v${{ steps.version.outputs.version }}"
+            git push origin main
+          fi

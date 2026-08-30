@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<gupdate xmlns='http://www.google.com/update2/response' protocol='2.0'>
+  <app appid='REPLACE_WITH_CRX_APP_ID'>
+    <updatecheck codebase='https://github.com/ABADIOSA/ABADIOSA/releases/download/v1.8.0/stremiohub-harbor-1.8.0.crx' version='1.8.0' />
+  </app>
+</gupdate>

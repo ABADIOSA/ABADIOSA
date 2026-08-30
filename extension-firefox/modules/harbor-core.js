@@ -462,10 +462,18 @@
         ws.send(JSON.stringify({ t: 'hello', client: 'harbor-remote', proto: REMOTE_PROTO }));
       };
 
+      // Harbor يرسل أكثر من لقطة على الاتصال الواحد (واحدة عند الانضمام
+      // وأخرى رداً على hello). نتصرّف على أول لقطة فقط: القرار يعتمد على
+      // الحالة، فلو أعدنا التقييم على لقطة تالية لأرسلنا أمراً يُلغي الأول
+      // — "أوقف" ثم "شغّل" مثلاً، فلا يحدث شيء.
+      let acted = false;
+
       ws.onmessage = async (event) => {
+        if (acted || settled) return;
         let msg;
         try { msg = JSON.parse(event.data); } catch { return; }
         if (msg?.t !== 'snapshot' || !msg.snapshot) return;
+        acted = true;
 
         let command;
         try {

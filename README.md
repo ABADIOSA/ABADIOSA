@@ -6,12 +6,13 @@
     <a href="#features">Features</a> •
     <a href="#installation-developer-mode">Installation</a> •
     <a href="#-harbor-integration--v170">Harbor</a> •
+    <a href="#-updates--v180">Updates</a> •
     <a href="#chrome-web-store">Chrome Web Store</a>
   </p>
   <p>
     <a href="README_AR.md">🇸🇦 Read in Arabic (اقرأ بالعربية)</a>
   </p>
-  <img src="https://img.shields.io/badge/version-1.7.0-8b5cf6?style=flat-square" alt="Version">
+  <img src="https://img.shields.io/badge/version-1.8.0-8b5cf6?style=flat-square" alt="Version">
   <img src="https://img.shields.io/badge/chrome-MV3-4285F4?style=flat-square&logo=googlechrome" alt="Chrome MV3">
   <img src="https://img.shields.io/badge/firefox-MV3-FF7139?style=flat-square&logo=firefox" alt="Firefox MV3">
 </div>
@@ -43,11 +44,30 @@
 - **✨ Stremio Web Enhancer** *(New)*: Customize Stremio Web with deep OLED black themes, custom Arabic/English typography (like Thmanyah), custom accent colors, and injected community ratings.
 - **👥 Multi-Account & Avatars**: Seamlessly switch between multiple Stremio accounts and assign beautiful custom avatars to them.
 - **🧩 Addon Manager** *(New in v1.3.0)*: Install, remove, reorder, and manage your Stremio addons — with per-addon catalog editing — all from the extension.
+- **🔄 Update Checker** *(New in v1.8.0)*: Checks GitHub releases every 6 hours, badges the icon and shows a one-click download banner — plus full release tooling so Firefox builds can auto-update themselves with no downloads at all. See [UPDATING.md](UPDATING.md).
 - **⚓ Harbor Integration** *(New in v1.6.0, expanded in v1.7.0)*: Open titles in the [Harbor](https://github.com/harborstremio/harbor) player and fully control it from the browser — now-playing, seek, volume, subtitles, episode skip, cast-device switching, remote typing, and keyboard shortcuts that work from any tab.
 - **🎨 Glassmorphism UI**: A breathtaking, premium Apple-inspired dark mode design with buttery smooth micro-animations.
 - **🔗 Smart Add-on Support**: Dynamically fetches descriptions and metadata from your actual Stremio add-ons (like TMDB) to provide rich, localized context.
 - **🌍 Bilingual Support**: Fully supports Arabic & English with native right-to-left (RTL) alignments and live toggling.
 - **🛠 Highly Customizable**: Choose between floating pop-up cards or full-screen immersive details views, adjust popup sizes, and more!
+
+## 🔄 Updates — v1.8.0
+
+How this extension updates depends on how you installed it — and only some paths can be fully automatic:
+
+| Method | Fully automatic? | Requires |
+|---|---|---|
+| **Firefox + signed XPI** | ✅ Yes — Firefox updates it for you | A free AMO account for signing |
+| **Chrome Web Store** | ✅ Yes | $5 one-time developer fee |
+| **Chrome self-hosted CRX** | ⚠️ Linux only, or enterprise policy on Windows/macOS | A CRX signing key |
+| **Load unpacked** | ❌ Never auto-updates | — |
+
+So v1.8.0 ships both halves:
+
+- **A built-in checker that works everywhere** — polls GitHub releases every 6 hours, puts a green **↑** on the toolbar icon, and shows a banner with the new version and a download button. A *Check now* button and an on/off switch live under Settings → General. It detects when the browser already updates the extension itself and stays quiet in that case.
+- **Release infrastructure for true auto-update** — `scripts/build.mjs` builds both packages and generates the Firefox `updates.json` and Chrome `updates.xml`; `.github/workflows/release.yml` builds, signs the Firefox XPI through AMO, publishes a GitHub Release and refreshes the update manifest on a version tag.
+
+📖 Setup steps and the full picture: **[UPDATING.md](UPDATING.md)**
 
 ## ⚓ Harbor Integration — v1.7.0
 
