@@ -3863,3 +3863,163 @@ body.theme-oled .tab-indicator {
   border-color: var(--hb-accent-border);
   background: var(--hb-accent-soft);
 }
+
+/* ── مُنتقي أجهزة البثّ ── */
+.hb-cast {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.hb-cast-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hb-cast-btn {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--glass-border-light);
+  background: var(--glass-surface);
+  color: var(--text-secondary);
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  text-align: start;
+}
+
+.hb-cast-btn:hover {
+  background: var(--glass-surface-hover);
+  color: var(--text-primary);
+}
+
+.hb-cast-btn.casting {
+  color: var(--hb-accent);
+  border-color: var(--hb-accent-border);
+  background: var(--hb-accent-soft);
+}
+
+.hb-cast-btn span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hb-cast-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 6px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--glass-border);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.hb-cast-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 10px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-secondary);
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  text-align: start;
+}
+
+.hb-cast-item:hover {
+  background: var(--glass-surface-hover);
+  color: var(--text-primary);
+}
+
+.hb-cast-item.active {
+  color: var(--hb-accent);
+  background: var(--hb-accent-soft);
+}
+
+.hb-cast-kind {
+  flex-shrink: 0;
+  font-size: 9px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--glass-border-light);
+  color: var(--text-muted);
+}
+
+.hb-cast-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hb-cast-empty {
+  padding: 10px;
+  font-size: 12px;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+/* ── الكتابة عن بُعد ── */
+.hb-typing {
+  border-color: var(--hb-accent-border);
+  background: var(--hb-accent-soft);
+}
+
+.hb-typing-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--hb-accent);
+}
+
+.hb-typing input {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--hb-accent-border);
+  background: rgba(0, 0, 0, 0.25);
+  color: var(--text-primary);
+}
+
+.hb-typing-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ── تلميح اختصارات لوحة المفاتيح ── */
+.hb-hint {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-align: center;
+  margin: 0;
+  line-height: 1.8;
+}
+
+.hb-hint kbd {
+  display: inline-block;
+  padding: 1px 6px;
+  margin: 0 2px;
+  font-family: monospace;
+  font-size: 10px;
+  border-radius: 4px;
+  border: 1px solid var(--glass-border-light);
+  background: var(--glass-surface);
+  color: var(--text-secondary);
+}

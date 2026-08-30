@@ -123,6 +123,57 @@
     return 'harbor://' + url.replace(/^[a-z]+:\/\//i, '');
   }
 
+  /**
+   * يستخرج معرّف العمل ونوعه من رابط موقع مدعوم.
+   * IMDb يعطينا المعرّف مباشرةً؛ بقية المواقع نأخذ منها العنوان للبحث.
+   */
+  function parseMediaLink(url) {
+    if (!url) return null;
+    try {
+      const u = new URL(url);
+      const host = u.hostname.replace(/^www\./, '');
+      const path = u.pathname;
+  
+      const imdb = path.match(/\/title\/(tt\d+)/);
+      if (host.endsWith('imdb.com') && imdb) {
+        return { imdbId: imdb[1] };
+      }
+  
+      if (host.endsWith('themoviedb.org')) {
+        const m = path.match(/\/(movie|tv)\/\d+-([^/]+)/);
+        if (m) {
+          return {
+            mediaType: m[1] === 'tv' ? 'series' : 'movie',
+            query: decodeURIComponent(m[2]).replace(/-/g, ' ')
+          };
+        }
+      }
+  
+      if (host.endsWith('letterboxd.com')) {
+        const m = path.match(/\/film\/([^/]+)/);
+        if (m) return { mediaType: 'movie', query: m[1].replace(/-/g, ' ') };
+      }
+  
+      if (host.endsWith('trakt.tv')) {
+        const m = path.match(/\/(movies|shows)\/([^/]+)/);
+        if (m) {
+          return {
+            mediaType: m[1] === 'shows' ? 'series' : 'movie',
+            // Trakt يلحق سنة بالـ slug أحياناً: the-matrix-1999
+            query: m[2].replace(/-\d{4}$/, '').replace(/-/g, ' ')
+          };
+        }
+      }
+    } catch { /* رابط غير صالح */ }
+    return null;
+  }
+  
+  chrome.runtime.onInstalled.addListener(() => {
+    updateContextMenu();
+    // جدولة فحص التحديثات كل 24 ساعة
+    chrome.alarms.create('addon-update-check', { periodInMinutes: 60 * 24 });
+  });
+
   // ==================== فحص الاتصال ====================
 
   /**
@@ -375,6 +426,74 @@
     ]);
   }
 
+  /**
+   * يفتح اتصالاً قصيراً، ينتظر أول لقطة من Harbor، ثم يمرّرها إلى decide
+   * ليقرّر الأمر المناسب. مفيد للأوامر التي تعتمد على الحالة الحالية —
+   * مثل "تشغيل/إيقاف" الذي يحتاج معرفة إن كان يعمل الآن.
+   *
+   * decide(snapshot) يرجّع أمراً، أو null لإلغاء الإرسال.
+   * يرجّع { ok, snapshot?, command?, error? }
+   */
+  function withSnapshot(cfg, decide, timeoutMs = 6000) {
+    return new Promise((resolve) => {
+      let ws;
+      let settled = false;
+      const finish = (result) => {
+        if (settled) return;
+        settled = true;
+        clearTimeout(guard);
+        if (ws) { try { ws.close(); } catch { /* لا شيء */ } }
+        resolve(result);
+      };
+      const guard = setTimeout(() => finish({ ok: false, error: 'timeout' }), timeoutMs);
+
+      try {
+        ws = new WebSocket(remoteWsUrl(cfg));
+      } catch (err) {
+        finish({ ok: false, error: err?.message || 'ws_failed' });
+        return;
+      }
+
+      ws.onerror = () => finish({ ok: false, error: 'unreachable' });
+      ws.onclose = () => finish({ ok: false, error: 'closed_early' });
+
+      ws.onopen = () => {
+        // Harbor يبثّ لقطة فور انضمام أي عميل، والـ hello يطلبها صراحةً أيضاً
+        ws.send(JSON.stringify({ t: 'hello', client: 'harbor-remote', proto: REMOTE_PROTO }));
+      };
+
+      ws.onmessage = async (event) => {
+        let msg;
+        try { msg = JSON.parse(event.data); } catch { return; }
+        if (msg?.t !== 'snapshot' || !msg.snapshot) return;
+
+        let command;
+        try {
+          command = decide(msg.snapshot);
+        } catch (err) {
+          finish({ ok: false, error: err?.message || 'decide_failed', snapshot: msg.snapshot });
+          return;
+        }
+        if (!command) {
+          finish({ ok: true, snapshot: msg.snapshot, command: null });
+          return;
+        }
+        ws.send(JSON.stringify({ t: 'cmd', command }));
+        // امنح Harbor لحظة لتنفيذ الأمر قبل الإغلاق
+        await sleep(200);
+        finish({ ok: true, snapshot: msg.snapshot, command });
+      };
+    });
+  }
+
+  /** تبديل التشغيل/الإيقاف اعتماداً على حالة Harbor الحالية */
+  function togglePlayback(cfg) {
+    return withSnapshot(cfg, (snap) => {
+      if (snap.idle) return null;
+      return { action: snap.playing ? 'pause' : 'play' };
+    });
+  }
+
   /** أمر ريموت واحد (تشغيل/إيقاف/... ) من سياق لا يبقي اتصالاً مفتوحاً */
   function sendCommandOnce(cfg, command) {
     return runOnce(cfg, [{ command }]);
@@ -399,10 +518,13 @@
     remoteWsUrl,
     detailDeepLink,
     addonInstallLink,
+    parseMediaLink,
     probe,
     createRemote,
     runOnce,
     pushSearch,
-    sendCommandOnce
+    sendCommandOnce,
+    withSnapshot,
+    togglePlayback
   };
 })();

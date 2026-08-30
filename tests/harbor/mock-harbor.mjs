@@ -19,7 +19,11 @@ const snapshot = {
   volume: 0.8,
   muted: false,
   target: { kind: 'local', label: 'This PC' },
-  castDevices: [],
+  castDevices: [
+    { id: 'cc-1', name: 'Living Room TV', kind: 'chromecast', host: '192.168.1.20', port: 8009 },
+    // اسم فيه وسوم HTML للتأكد من التهريب
+    { id: 'dlna-1', name: '<img src=x onerror=alert(1)>Bedroom', kind: 'dlna', host: '192.168.1.21', port: 1900 },
+  ],
   castDiscovering: false,
   hasPrevEpisode: true,
   hasNextEpisode: true,
@@ -55,6 +59,20 @@ wss.on('connection', (ws) => {
       if (c.action === 'setMuted') snapshot.muted = c.muted;
       if (c.action === 'setVolume') snapshot.volume = c.volume;
       if (c.action === 'toggleSubtitles') snapshot.subtitlesOn = !snapshot.subtitlesOn;
+      if (c.action === 'nextEpisode') snapshot.episode = { season: 2, episode: 5, name: 'Breakage' };
+      if (c.action === 'setTarget') {
+        if (c.target === 'local') {
+          snapshot.target = { kind: 'local', label: 'This PC' };
+        } else {
+          const dev = snapshot.castDevices.find((d) => d.id === c.target.castDeviceId);
+          snapshot.target = { kind: 'cast', deviceId: c.target.castDeviceId, label: dev?.name ?? '?', castKind: dev?.kind ?? 'dlna' };
+        }
+      }
+      if (c.action === 'castStop') snapshot.target = { kind: 'local', label: 'This PC' };
+      // يحاكي تركيز Harbor داخل حقل نصّي (بحث مثلاً)
+      if (c.action === 'openSearch') snapshot.textEntry = { value: '', placeholder: 'Search Harbor' };
+      if (c.action === 'setText') snapshot.textEntry = { value: c.value, placeholder: 'Search Harbor' };
+      if (c.action === 'submitText' || c.action === 'blurText') snapshot.textEntry = null;
       snapshot.updatedAt = Date.now();
       ws.send(JSON.stringify({ t: 'snapshot', snapshot }));
     }

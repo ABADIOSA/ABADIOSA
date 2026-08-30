@@ -30,15 +30,25 @@ async function updateContextMenu() {
         title: harborTitle,
         contexts: ['selection']
       });
+      chrome.contextMenus.create({
+        id: 'open-link-harbor',
+        title: lang === 'en' ? '⚓ Open this link in Harbor' : '⚓ افتح هذا الرابط في Harbor',
+        contexts: ['link'],
+        targetUrlPatterns: [
+          '*://*.imdb.com/title/*',
+          '*://*.themoviedb.org/movie/*',
+          '*://*.themoviedb.org/tv/*',
+          '*://letterboxd.com/film/*',
+          '*://*.letterboxd.com/*film/*',
+          '*://trakt.tv/movies/*',
+          '*://trakt.tv/shows/*',
+          '*://*.trakt.tv/movies/*',
+          '*://*.trakt.tv/shows/*'
+        ]
+      });
     }
   });
 }
-
-chrome.runtime.onInstalled.addListener(() => {
-  updateContextMenu();
-  // جدولة فحص التحديثات كل 24 ساعة
-  chrome.alarms.create('addon-update-check', { periodInMinutes: 60 * 24 });
-});
 
 // ==================== Addon Update Checker ====================
 
@@ -273,6 +283,13 @@ async function openInHarbor({ imdbId, mediaType, videoId, query, year }) {
 
 // ==================== Context Menu Click ====================
 chrome.contextMenus.onClicked.addListener(async (info, tab) => {
+  if (info.menuItemId === 'open-link-harbor') {
+    const parsed = HarborCore.parseMediaLink(info.linkUrl);
+    if (!parsed) return;
+    await openInHarbor(parsed);
+    return;
+  }
+
   if (info.menuItemId === 'search-harbor') {
     const query = info.selectionText?.trim();
     if (!query) return;
@@ -307,6 +324,42 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
 });
 
 import { StremioAPI } from './modules/stremio-api.js';
+
+// ==================== Global Keyboard Commands ====================
+// اختصارات تعمل من أي تبويب. المستخدم يغيّرها من chrome://extensions/shortcuts
+
+chrome.commands?.onCommand.addListener(async (command) => {
+  try {
+    const cfg = await HarborCore.getConfig();
+    if (!cfg.enabled) return;
+
+    if (command === 'harbor-open-remote') {
+      // نطلب من الـ popup فتح شاشة الريموت مباشرةً عند ظهوره
+      await chrome.storage.session.set({ openHarborRemote: true });
+      try {
+        await chrome.action.openPopup();
+      } catch {
+        // بعض المتصفحات لا تدعم openPopup من الخلفية — افتح واجهة Harbor بدلاً منها
+        await chrome.tabs.create({ url: HarborCore.webUiUrl(cfg) });
+      }
+      return;
+    }
+
+    if (command === 'harbor-play-pause') {
+      // نحتاج معرفة الحالة الحالية، لذلك نقرأ لقطة قبل إرسال الأمر
+      await HarborCore.togglePlayback(cfg);
+      return;
+    }
+
+    if (command === 'harbor-next-episode') {
+      await HarborCore.withSnapshot(cfg, (snap) =>
+        snap.hasNextEpisode ? { action: 'nextEpisode' } : null
+      );
+    }
+  } catch (err) {
+    console.warn('[StremioHub] Harbor command failed:', command, err);
+  }
+});
 
 // ==================== Message Listener ====================
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
@@ -498,6 +551,15 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     (async () => {
       const cfg = await HarborCore.getConfig();
       sendResponse(await HarborCore.pushSearch(cfg, message.query));
+    })();
+    return true;
+  }
+
+  // ── تبديل التشغيل/الإيقاف اعتماداً على حالة Harbor الحالية ──
+  if (message.type === 'HARBOR_TOGGLE_PLAY') {
+    (async () => {
+      const cfg = await HarborCore.getConfig();
+      sendResponse(await HarborCore.togglePlayback(cfg));
     })();
     return true;
   }

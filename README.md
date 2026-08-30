@@ -5,13 +5,13 @@
   <p>
     <a href="#features">Features</a> •
     <a href="#installation-developer-mode">Installation</a> •
-    <a href="#-harbor-integration--v160">Harbor</a> •
+    <a href="#-harbor-integration--v170">Harbor</a> •
     <a href="#chrome-web-store">Chrome Web Store</a>
   </p>
   <p>
     <a href="README_AR.md">🇸🇦 Read in Arabic (اقرأ بالعربية)</a>
   </p>
-  <img src="https://img.shields.io/badge/version-1.6.0-8b5cf6?style=flat-square" alt="Version">
+  <img src="https://img.shields.io/badge/version-1.7.0-8b5cf6?style=flat-square" alt="Version">
   <img src="https://img.shields.io/badge/chrome-MV3-4285F4?style=flat-square&logo=googlechrome" alt="Chrome MV3">
   <img src="https://img.shields.io/badge/firefox-MV3-FF7139?style=flat-square&logo=firefox" alt="Firefox MV3">
 </div>
@@ -43,13 +43,13 @@
 - **✨ Stremio Web Enhancer** *(New)*: Customize Stremio Web with deep OLED black themes, custom Arabic/English typography (like Thmanyah), custom accent colors, and injected community ratings.
 - **👥 Multi-Account & Avatars**: Seamlessly switch between multiple Stremio accounts and assign beautiful custom avatars to them.
 - **🧩 Addon Manager** *(New in v1.3.0)*: Install, remove, reorder, and manage your Stremio addons — with per-addon catalog editing — all from the extension.
-- **⚓ Harbor Integration** *(New in v1.6.0)*: Open titles in the [Harbor](https://github.com/harborstremio/harbor) player, and control what it's playing — now-playing info, seek, volume, subtitles, episode skip and a navigation pad — straight from the popup.
+- **⚓ Harbor Integration** *(New in v1.6.0, expanded in v1.7.0)*: Open titles in the [Harbor](https://github.com/harborstremio/harbor) player and fully control it from the browser — now-playing, seek, volume, subtitles, episode skip, cast-device switching, remote typing, and keyboard shortcuts that work from any tab.
 - **🎨 Glassmorphism UI**: A breathtaking, premium Apple-inspired dark mode design with buttery smooth micro-animations.
 - **🔗 Smart Add-on Support**: Dynamically fetches descriptions and metadata from your actual Stremio add-ons (like TMDB) to provide rich, localized context.
 - **🌍 Bilingual Support**: Fully supports Arabic & English with native right-to-left (RTL) alignments and live toggling.
 - **🛠 Highly Customizable**: Choose between floating pop-up cards or full-screen immersive details views, adjust popup sizes, and more!
 
-## ⚓ Harbor Integration — v1.6.0
+## ⚓ Harbor Integration — v1.7.0
 
 [Harbor](https://github.com/harborstremio/harbor) is an open-source desktop player for the Stremio addon ecosystem. Because it signs in with the **same Stremio account**, your library, watched state and addon collection are already shared with StremioHub. This release adds the missing half: opening titles in Harbor, and controlling playback from the browser.
 
@@ -61,6 +61,10 @@
 | 🔍 **Search & D-pad** | Push a search into Harbor and drive its interface with arrow / select / back |
 | 🧩 **Addon mirroring** | Optionally open a `harbor://` link when you install an addon, so Harbor picks it up too |
 | 🌐 **LAN support** | Point the extension at Harbor running on another machine on your network |
+| 📡 **Cast control** *(v1.7.0)* | Discover Chromecast / DLNA / AirPlay / Roku devices and move playback between them and your PC |
+| ⌨️ **Remote typing** *(v1.7.0)* | When Harbor focuses a text field, type into it from your browser keyboard |
+| ⚡ **Keyboard shortcuts** *(v1.7.0)* | Space, arrows, M, C, N/P inside the remote — plus `Alt+Shift+P/N/H` from any tab |
+| 🔗 **Open any link** *(v1.7.0)* | Right-click an IMDb / TMDB / Letterboxd / Trakt link anywhere → open it in Harbor |
 
 **Setup**: in Harbor enable *Settings → Remote Control* (or *Serve Web UI*), then in StremioHub open *Settings → Harbor* and turn the integration on. Default endpoint is `127.0.0.1:11471`.
 

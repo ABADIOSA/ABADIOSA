@@ -53,7 +53,55 @@
 
 الحالة تتحدّث لحظياً من اللقطات (`snapshot`) التي يبثّها Harbor.
 
-### ٣. نسخ تثبيت الإضافات
+### ٣. التحكم بالبثّ (Cast)
+
+Harbor يدعم Chromecast و DLNA و AirPlay و Roku، والريموت يعرض ذلك كاملاً. في شاشة الريموت زر **أجهزة البثّ**:
+
+- يبدأ بحثاً في الشبكة (`castDiscover`) عند كل فتح — لأن قائمة Harbor تبقى على نتيجة آخر بحث وقد يكون جهاز جديد اشتغل بعدها.
+- يعرض "هذا الجهاز" مع كل جهاز مكتشف ونوعه، والنشط منها مُعلَّم.
+- الضغط على جهاز يحوّل التشغيل إليه (`setTarget`)، والضغط على "هذا الجهاز" يرجّعه.
+
+> أسماء الأجهزة تأتي من إعلانات الشبكة المحلية، لذلك تُهرَّب قبل عرضها.
+
+### ٤. الكتابة عن بُعد
+
+عندما يركّز Harbor على حقل نصّي، تبثّ اللقطة `textEntry` بقيمته وعنصره النائب. عندها تظهر لوحة كتابة في الإضافة:
+
+- ما تكتبه ينعكس فوراً في Harbor (`setText`).
+- <kbd>Enter</kbd> يرسل (`submitText`)، و<kbd>Esc</kbd> يلغي التركيز (`blurText`).
+
+هذا يحل مشكلة الكتابة في واجهة مصمَّمة للريموت — تكتب من لوحة مفاتيح المتصفح بدل الأسهم.
+
+### ٥. اختصارات لوحة المفاتيح
+
+**داخل شاشة الريموت** (تتوقف تلقائياً داخل حقول الإدخال):
+
+| المفتاح | الفعل |
+| --- | --- |
+| <kbd>مسافة</kbd> / <kbd>K</kbd> | تشغيل / إيقاف |
+| <kbd>←</kbd> <kbd>→</kbd> | ‎∓10 ثوانٍ |
+| <kbd>↑</kbd> <kbd>↓</kbd> | الصوت ‎±5٪ |
+| <kbd>M</kbd> | كتم |
+| <kbd>C</kbd> | الترجمة |
+| <kbd>N</kbd> / <kbd>P</kbd> | الحلقة التالية / السابقة |
+| <kbd>/</kbd> | تركيز حقل البحث |
+| <kbd>Esc</kbd> | إغلاق الشاشة |
+
+**اختصارات عامة** تعمل من أي تبويب في المتصفح (تُغيَّر من `chrome://extensions/shortcuts`):
+
+| الاختصار | الفعل |
+| --- | --- |
+| <kbd>Alt+Shift+P</kbd> | تشغيل / إيقاف Harbor |
+| <kbd>Alt+Shift+N</kbd> | الحلقة التالية |
+| <kbd>Alt+Shift+H</kbd> | فتح شاشة الريموت |
+
+"تشغيل/إيقاف" يحتاج معرفة الحالة الحالية، فيقرأ لقطة من Harbor أولاً ثم يرسل الأمر الصحيح (`withSnapshot` في `harbor-core.js`).
+
+### ٦. فتح الروابط في Harbor
+
+النقر الأيمن على أي رابط لـ IMDb أو TMDB أو Letterboxd أو Trakt — في أي صفحة، ولو في نتائج بحث أو منتدى — يعطيك **"⚓ افتح هذا الرابط في Harbor"**. يستخرج `parseMediaLink` المعرّف من رابط IMDb مباشرةً، ومن البقية يأخذ العنوان من الـ slug (مع إزالة السنة الملحقة في روابط Trakt).
+
+### ٧. نسخ تثبيت الإضافات
 
 عند تفعيل الخيار، أي إضافة تُثبّتها من مدير الإضافات في StremioHub تفتح أيضاً رابط `harbor://…` ليعرضها Harbor في نافذة التثبيت عنده.
 
@@ -85,6 +133,8 @@
 | `extension/popup/popup.js` | كائن `Harbor`: تبويب الإعدادات وشاشة الريموت |
 | `extension/popup/popup.html` + `popup.css` | واجهة التبويب والشاشة |
 | `extension/content.js` | إجراء `harbor` لكل موقع |
+
+الأوامر المستعملة من البروتوكول الآن: `play` · `pause` · `seek` · `setVolume` · `setMuted` · `prevEpisode` · `nextEpisode` · `toggleSubtitles` · `nav` · `setText` · `submitText` · `blurText` · `openSearch` · `setTarget` · `castDiscover` · `ping` — أي البروتوكول كاملاً عدا `castStop` (يغطيه `setTarget: 'local'`).
 
 الملف `harbor-core.js` مكتوب بلا `import`/`export` ليعمل في السياقين: يُستورد من `background.js` (وهو ES module) ويُحمَّل بوسم `<script>` في الـ popup. وفي الحالتين يضع الواجهة على `globalThis.HarborCore`.
 
@@ -155,7 +205,15 @@ Entry points: a **Harbor** button on the detail screen, a **Harbor** choice in *
 
 **2. A full remote screen** — the anchor button in the header opens a WebSocket-backed screen showing now-playing (poster, title, episode, stream source, cast target), a draggable seek bar, transport controls (prev/next episode, ±10s, play/pause), volume, mute, subtitle toggle, plus a search box and a D-pad for driving Harbor's UI.
 
-**3. Addon install mirroring** — optionally also open a `harbor://…` link when installing an addon from StremioHub's addon manager.
+**3. Cast control** — Harbor supports Chromecast, DLNA, AirPlay and Roku, and the remote protocol exposes all of it. The remote screen has a **Cast devices** picker that rescans the network on every open (`castDiscover`), lists "This PC" alongside every discovered device with its kind, marks the active one, and switches playback with `setTarget`. Device names come from local-network advertisements, so they are HTML-escaped before display.
+
+**4. Remote typing** — when Harbor focuses a text field it publishes `textEntry` in the snapshot. A typing panel then appears in the extension: what you type mirrors into Harbor live (`setText`), <kbd>Enter</kbd> submits (`submitText`), <kbd>Esc</kbd> releases focus (`blurText`). This solves typing into a remote-first UI using your browser keyboard.
+
+**5. Keyboard shortcuts** — inside the remote screen: <kbd>Space</kbd>/<kbd>K</kbd> play-pause, <kbd>←→</kbd> ∓10s, <kbd>↑↓</kbd> volume, <kbd>M</kbd> mute, <kbd>C</kbd> subtitles, <kbd>N</kbd>/<kbd>P</kbd> episode, <kbd>/</kbd> search, <kbd>Esc</kbd> close — all suppressed while a text field has focus. Plus browser-wide shortcuts that work from any tab (rebindable at `chrome://extensions/shortcuts`): <kbd>Alt+Shift+P</kbd> play/pause, <kbd>Alt+Shift+N</kbd> next episode, <kbd>Alt+Shift+H</kbd> open the remote. Play/pause needs the current state, so it reads a snapshot first and then sends the right command (`withSnapshot`).
+
+**6. Open links in Harbor** — right-click any IMDb, TMDB, Letterboxd or Trakt link anywhere on the web for **"⚓ Open this link in Harbor"**. `parseMediaLink` pulls the id straight out of IMDb URLs and the title from the slug for the rest (stripping the trailing year Trakt appends).
+
+**7. Addon install mirroring** — optionally also open a `harbor://…` link when installing an addon from StremioHub's addon manager.
 
 ## Setup
 

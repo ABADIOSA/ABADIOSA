@@ -3,6 +3,14 @@ const I18N = {
     // ── Harbor ──
     tab_harbor: "Harbor",
     action_harbor: "Harbor",
+    harbor_cast_title: "أجهزة البثّ",
+    harbor_cast_scan: "بحث عن أجهزة",
+    harbor_cast_scanning: "جارِ البحث عن أجهزة…",
+    harbor_cast_none: "لم يُعثر على أجهزة بثّ في الشبكة.",
+    harbor_typing_title: "Harbor ينتظر إدخالاً",
+    harbor_typing_submit: "إرسال",
+    harbor_typing_cancel: "إلغاء التركيز",
+    harbor_keys_hint: "<kbd>مسافة</kbd> تشغيل · <kbd>←→</kbd> ‎±10 ث · <kbd>↑↓</kbd> الصوت · <kbd>M</kbd> كتم · <kbd>C</kbd> ترجمة · <kbd>N/P</kbd> حلقة · <kbd>/</kbd> بحث",
     open_harbor: "Harbor",
     harbor_btn_title: "ريموت Harbor",
     harbor_open_title: "فتح في Harbor",
@@ -297,6 +305,14 @@ const I18N = {
     // ── Harbor ──
     tab_harbor: "Harbor",
     action_harbor: "Harbor",
+    harbor_cast_title: "Cast devices",
+    harbor_cast_scan: "Scan for devices",
+    harbor_cast_scanning: "Scanning for devices…",
+    harbor_cast_none: "No cast devices found on the network.",
+    harbor_typing_title: "Harbor is waiting for input",
+    harbor_typing_submit: "Send",
+    harbor_typing_cancel: "Release focus",
+    harbor_keys_hint: "<kbd>Space</kbd> play · <kbd>←→</kbd> ±10s · <kbd>↑↓</kbd> volume · <kbd>M</kbd> mute · <kbd>C</kbd> subs · <kbd>N/P</kbd> episode · <kbd>/</kbd> search",
     open_harbor: "Harbor",
     harbor_btn_title: "Harbor remote",
     harbor_open_title: "Open in Harbor",
@@ -602,6 +618,12 @@ function applyI18N(lang) {
         el.textContent = t[key];
       }
     }
+  });
+
+  // نصوص تحوي وسوماً بسيطة (مثل <kbd>) وتُكتب كما هي في I18N
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const key = el.getAttribute('data-i18n-html');
+    if (t[key]) el.innerHTML = t[key];
   });
 
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
@@ -1319,6 +1341,15 @@ document.addEventListener('DOMContentLoaded', async () => {
   Harbor.bind();
   Harbor.reflectHeaderButton();
   Harbor.reflectDetailButton();
+
+  // فتح شاشة الريموت مباشرةً عند الوصول عبر الاختصار العام
+  try {
+    const { openHarborRemote } = await chrome.storage.session.get('openHarborRemote');
+    if (openHarborRemote) {
+      await chrome.storage.session.remove('openHarborRemote');
+      if (Harbor.enabled) Harbor.open();
+    }
+  } catch { /* storage.session غير متاح — نتجاهل */ }
 
   // تحديث الإضافات تلقائياً في الخلفية عند كل فتح للإضافة
   if (state.auth?.authKey) {
@@ -4986,6 +5017,11 @@ const Harbor = {
   seeking: false,
   lastSnapshot: null,
   probeTimer: 0,
+  // قائمة أجهزة البثّ مطويّة افتراضياً
+  castOpen: false,
+  // نتجاهل تحديث حقل الكتابة أثناء كتابة المستخدم حتى لا يُمسح ما يكتبه
+  typingLocal: false,
+  keyHandler: null,
 
   tr(key, vars) {
     const t = I18N[state.language || 'ar'] || I18N.ar;
@@ -5073,10 +5109,12 @@ const Harbor = {
 
   open() {
     showScreen('harbor');
+    this.installKeys();
     this.connect();
   },
 
   close() {
+    this.removeKeys();
     this.disconnect();
     showScreen('main');
   },
@@ -5159,6 +5197,7 @@ const Harbor = {
   renderSnapshot(snap) {
     this.lastSnapshot = snap;
     this.setPill('online');
+    this.renderTyping(snap);
 
     if (snap.idle) {
       this.showState('idle');
@@ -5253,6 +5292,87 @@ const Harbor = {
       subs.disabled = !snap.canToggleSubtitles;
       subs.classList.toggle('active', !!snap.subtitlesOn);
     }
+
+    this.renderCast(snap);
+  },
+
+  /** مُنتقي أجهزة البثّ — يعتمد على castDevices/castDiscovering/target في اللقطة */
+  renderCast(snap) {
+    const casting = snap.target?.kind === 'cast';
+
+    const toggle = $('hb-cast-toggle');
+    const label = $('hb-cast-label');
+    if (toggle) toggle.classList.toggle('casting', casting);
+    if (label) {
+      label.textContent = casting
+        ? snap.target.label
+        : this.tr('harbor_cast_title');
+    }
+
+    const refresh = $('hb-cast-refresh');
+    if (refresh) refresh.classList.toggle('rotating', !!snap.castDiscovering);
+
+    const list = $('hb-cast-list');
+    if (!list) return;
+    list.classList.toggle('hidden', !this.castOpen);
+    if (!this.castOpen) return;
+
+    const devices = Array.isArray(snap.castDevices) ? snap.castDevices : [];
+
+    if (snap.castDiscovering && devices.length === 0) {
+      list.innerHTML = `<div class="hb-cast-empty">${this.tr('harbor_cast_scanning')}</div>`;
+      return;
+    }
+
+    // "هذا الجهاز" دائماً في الأعلى، ثم الأجهزة المكتشفة
+    const rows = [`
+      <button class="hb-cast-item ${casting ? '' : 'active'}" data-cast="local">
+        <span class="hb-cast-kind">PC</span>
+        <span class="hb-cast-name">${escapeHtml(this.tr('harbor_target_local'))}</span>
+      </button>
+    `];
+
+    for (const d of devices) {
+      const active = casting && snap.target.deviceId === d.id;
+      rows.push(`
+        <button class="hb-cast-item ${active ? 'active' : ''}" data-cast="${escapeHtml(d.id)}">
+          <span class="hb-cast-kind">${escapeHtml(d.kind || '')}</span>
+          <span class="hb-cast-name">${escapeHtml(d.name || d.host || d.id)}</span>
+        </button>
+      `);
+    }
+
+    if (devices.length === 0) {
+      rows.push(`<div class="hb-cast-empty">${this.tr('harbor_cast_none')}</div>`);
+    }
+
+    list.innerHTML = rows.join('');
+    list.querySelectorAll('[data-cast]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.cast;
+        this.send({ action: 'setTarget', target: id === 'local' ? 'local' : { castDeviceId: id } });
+      });
+    });
+  },
+
+  /** لوحة الكتابة عن بُعد — تتبع snapshot.textEntry الذي يبثّه Harbor */
+  renderTyping(snap) {
+    const card = $('harbor-typing-card');
+    const input = $('harbor-typing-input');
+    if (!card || !input) return;
+
+    const entry = snap?.textEntry;
+    card.classList.toggle('hidden', !entry);
+    if (!entry) {
+      this.typingLocal = false;
+      return;
+    }
+
+    input.placeholder = entry.placeholder || '';
+    // لا نكتب فوق ما يكتبه المستخدم الآن
+    if (!this.typingLocal && document.activeElement !== input) {
+      input.value = entry.value || '';
+    }
   },
 
   send(command) {
@@ -5343,6 +5463,7 @@ const Harbor = {
 
     const settingsLink = $('harbor-settings-link');
     if (settingsLink) settingsLink.addEventListener('click', () => {
+      this.removeKeys();
       this.disconnect();
       showScreen('settings');
       switchSettingsTab('harbor');
@@ -5424,8 +5545,161 @@ const Harbor = {
     $$('.hb-nav').forEach((btn) => {
       btn.addEventListener('click', () => this.send({ action: 'nav', key: btn.dataset.nav }));
     });
+
+    // ── أجهزة البثّ ──
+    const castToggle = $('hb-cast-toggle');
+    if (castToggle) castToggle.addEventListener('click', () => {
+      this.castOpen = !this.castOpen;
+      // نمسح كل فتح: قائمة Harbor تبقى على نتيجة آخر بحث، وقد يكون
+      // المستخدم شغّل تلفازاً بعدها. البحث محميّ بـ castDiscovering.
+      if (this.castOpen) this.send({ action: 'castDiscover' });
+      if (this.lastSnapshot) this.renderCast(this.lastSnapshot);
+    });
+
+    const castRefresh = $('hb-cast-refresh');
+    if (castRefresh) castRefresh.addEventListener('click', () => {
+      this.castOpen = true;
+      this.send({ action: 'castDiscover' });
+      if (this.lastSnapshot) this.renderCast(this.lastSnapshot);
+    });
+
+    // ── الكتابة عن بُعد ──
+    const typingInput = $('harbor-typing-input');
+    if (typingInput) {
+      typingInput.addEventListener('input', () => {
+        this.typingLocal = true;
+        this.send({ action: 'setText', value: typingInput.value });
+      });
+      typingInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          this.submitTyping();
+        } else if (e.key === 'Escape') {
+          e.preventDefault();
+          this.cancelTyping();
+        }
+        // لا نترك اختصارات الشاشة تلتقط الكتابة
+        e.stopPropagation();
+      });
+      typingInput.addEventListener('blur', () => { this.typingLocal = false; });
+    }
+
+    const typingSubmit = $('harbor-typing-submit');
+    if (typingSubmit) typingSubmit.addEventListener('click', () => this.submitTyping());
+
+    const typingCancel = $('harbor-typing-cancel');
+    if (typingCancel) typingCancel.addEventListener('click', () => this.cancelTyping());
+
+    // ── البوستر يفتح واجهة Harbor ──
+    const poster = $('harbor-poster');
+    if (poster) {
+      poster.style.cursor = 'pointer';
+      poster.addEventListener('click', () => {
+        chrome.runtime.sendMessage({ type: 'HARBOR_OPEN_UI', remote: false });
+      });
+    }
+  },
+
+  submitTyping() {
+    const input = $('harbor-typing-input');
+    if (!input) return;
+    this.send({ action: 'submitText', value: input.value });
+    this.typingLocal = false;
+  },
+
+  cancelTyping() {
+    this.send({ action: 'blurText' });
+    this.typingLocal = false;
+    const card = $('harbor-typing-card');
+    if (card) card.classList.add('hidden');
+  },
+
+  // ==================== اختصارات لوحة المفاتيح ====================
+  // تعمل فقط أثناء وجود شاشة الريموت، وتتوقف داخل حقول الإدخال.
+
+  installKeys() {
+    if (this.keyHandler) return;
+    this.keyHandler = (e) => {
+      const harborScreen = $('screen-harbor');
+      if (!harborScreen || harborScreen.classList.contains('hidden')) return;
+
+      const el = document.activeElement;
+      const typing = el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.isContentEditable);
+      if (typing) return;
+      if (e.ctrlKey || e.metaKey || e.altKey) return;
+
+      const snap = this.lastSnapshot;
+      const seekBy = (d) => {
+        if (!snap || !(snap.durationSec > 0)) return;
+        const next = Math.min(Math.max(0, (snap.positionSec || 0) + d), snap.durationSec);
+        this.send({ action: 'seek', positionSec: next });
+      };
+      const volumeBy = (d) => {
+        if (!snap) return;
+        const next = Math.min(1, Math.max(0, (snap.volume ?? 1) + d));
+        this.send({ action: 'setVolume', volume: Number(next.toFixed(2)) });
+      };
+
+      let handled = true;
+      switch (e.key) {
+        case ' ':
+        case 'k':
+        case 'K':
+          this.send({ action: snap?.playing ? 'pause' : 'play' });
+          break;
+        case 'ArrowRight': seekBy(10); break;
+        case 'ArrowLeft': seekBy(-10); break;
+        case 'ArrowUp': volumeBy(0.05); break;
+        case 'ArrowDown': volumeBy(-0.05); break;
+        case 'm':
+        case 'M':
+          this.send({ action: 'setMuted', muted: !snap?.muted });
+          break;
+        case 'c':
+        case 'C':
+          if (snap?.canToggleSubtitles) this.send({ action: 'toggleSubtitles' });
+          break;
+        case 'n':
+        case 'N':
+          if (snap?.hasNextEpisode) this.send({ action: 'nextEpisode' });
+          break;
+        case 'p':
+        case 'P':
+          if (snap?.hasPrevEpisode) this.send({ action: 'prevEpisode' });
+          break;
+        case '/':
+          $('harbor-search-input')?.focus();
+          break;
+        case 'Escape':
+          this.close();
+          break;
+        default:
+          handled = false;
+      }
+      if (handled) e.preventDefault();
+    };
+    document.addEventListener('keydown', this.keyHandler);
+  },
+
+  removeKeys() {
+    if (!this.keyHandler) return;
+    document.removeEventListener('keydown', this.keyHandler);
+    this.keyHandler = null;
   }
 };
+
+/**
+ * تهريب HTML. أسماء أجهزة البثّ تأتي من إعلانات الشبكة المحلية
+ * (Chromecast / DLNA / Roku) فلا يجوز حقنها في innerHTML كما هي.
+ */
+function escapeHtml(value) {
+  return String(value ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
 
 /** ثوانٍ → H:MM:SS أو M:SS */
 function formatClock(seconds) {

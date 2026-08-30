@@ -1235,6 +1235,26 @@
             </button>
           </div>
 
+
+          <div class="hb-cast">
+            <div class="hb-cast-head">
+              <button id="hb-cast-toggle" class="hb-cast-btn" title="أجهزة البثّ" data-i18n-title="harbor_cast_title">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M2 16.1A5 5 0 0 1 5.9 20M2 12.05A9 9 0 0 1 9.95 20M2 8V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-6"/>
+                  <line x1="2" y1="20" x2="2.01" y2="20"/>
+                </svg>
+                <span id="hb-cast-label" data-i18n="harbor_cast_title">أجهزة البثّ</span>
+              </button>
+              <button id="hb-cast-refresh" class="hb-sbtn" title="بحث عن أجهزة" data-i18n-title="harbor_cast_scan">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/>
+                  <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+                </svg>
+              </button>
+            </div>
+            <div id="hb-cast-list" class="hb-cast-list hidden"></div>
+          </div>
+
           <div class="hb-secondary">
             <button id="hb-mute" class="hb-sbtn" title="كتم" data-i18n-title="harbor_mute">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path id="hb-vol-waves" d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14"/><g id="hb-vol-x" class="hidden"><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></g></svg>
@@ -1243,6 +1263,22 @@
             <button id="hb-subs" class="hb-sbtn" title="الترجمة" data-i18n-title="harbor_subs">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="6" y1="14" x2="11" y2="14"/><line x1="14" y1="14" x2="18" y2="14"/></svg>
             </button>
+          </div>
+        </div>
+
+
+        <!-- الكتابة عن بُعد: تظهر عندما يركّز Harbor على حقل نصّي -->
+        <div id="harbor-typing-card" class="hb-card hb-typing hidden">
+          <div class="hb-typing-head">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="6" width="20" height="12" rx="2"/><line x1="6" y1="10" x2="6" y2="10"/><line x1="10" y1="10" x2="10" y2="10"/><line x1="14" y1="10" x2="14" y2="10"/><line x1="18" y1="10" x2="18" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/>
+            </svg>
+            <span data-i18n="harbor_typing_title">Harbor ينتظر إدخالاً</span>
+          </div>
+          <input type="text" id="harbor-typing-input" class="modern-input" autocomplete="off" spellcheck="false">
+          <div class="hb-typing-actions">
+            <button id="harbor-typing-submit" class="addon-action-btn install-btn" data-i18n="harbor_typing_submit">إرسال</button>
+            <button id="harbor-typing-cancel" class="hb-link-btn" data-i18n="harbor_typing_cancel">إلغاء التركيز</button>
           </div>
         </div>
 
@@ -1273,6 +1309,8 @@
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
             </button>
           </div>
+
+          <p class="hb-hint" data-i18n-html="harbor_keys_hint"></p>
         </div>
 
       </div>

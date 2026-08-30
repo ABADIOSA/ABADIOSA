@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "__MSG_extensionName__",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "__MSG_extensionDescription__",
   "default_locale": "en",
   "icons": {
@@ -108,5 +108,25 @@
   },
   "content_security_policy": {
     "extension_pages": "default-src 'self'; script-src 'self'; img-src 'self' https: http: data: blob:; style-src 'self' 'unsafe-inline'; connect-src 'self' https: http: ws: wss:;"
+  },
+  "commands": {
+    "harbor-play-pause": {
+      "suggested_key": {
+        "default": "Alt+Shift+P"
+      },
+      "description": "Harbor: play / pause"
+    },
+    "harbor-next-episode": {
+      "suggested_key": {
+        "default": "Alt+Shift+N"
+      },
+      "description": "Harbor: next episode"
+    },
+    "harbor-open-remote": {
+      "suggested_key": {
+        "default": "Alt+Shift+H"
+      },
+      "description": "Harbor: open remote screen"
+    }
   }
 }
