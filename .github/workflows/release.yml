@@ -1,9 +1,10 @@
 name: Release
 
 # يُطلق بدفع وسم نسخة، مثل:  git tag v1.8.0 && git push origin v1.8.0
-# يبني الحزمتين، يوقّع نسخة فايرفوكس عبر AMO إن توفّرت المفاتيح،
-# ينشر إصداراً على GitHub، ثم يحدّث updates/updates.json على main
-# ليلتقطه فايرفوكس ويحدّث الإضافة عند المستخدمين تلقائياً.
+# يبني الحزمتين من الكود الموسوم نفسه، يوقّع نسخة فايرفوكس عبر AMO إن
+# توفّرت المفاتيح، وينشر إصداراً على GitHub. ثم — إن كان الكود موجوداً
+# على main — يحدّث updates/updates.json هناك ليلتقطه فايرفوكس ويحدّث
+# الإضافة عند المستخدمين تلقائياً.
 
 on:
   push:
@@ -17,26 +18,31 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
+    env:
+      # نمرّرها إلى البيئة لأن سياق secrets غير متاح في شرط if للخطوة
+      AMO_JWT_ISSUER: ${{ secrets.AMO_JWT_ISSUER }}
+      AMO_JWT_SECRET: ${{ secrets.AMO_JWT_SECRET }}
     steps:
+      # الافتراضي يجلب المرجع الذي أطلق التشغيل — أي الوسم نفسه،
+      # فنبني بالضبط ما وُسم لا ما على main.
       - uses: actions/checkout@v4
-        with:
-          ref: main
-          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
 
       - name: تحقّق من تطابق الوسم مع نسخة المانيفست
+        id: version
         run: |
-          TAG="${GITHUB_REF_NAME#v}"
           MANIFEST=$(node -p "require('./extension/manifest.json').version")
-          if [ "$TAG" != "$MANIFEST" ]; then
-            echo "::error::الوسم v$TAG لا يطابق نسخة المانيفست $MANIFEST"
-            exit 1
+          if [ "$GITHUB_REF_TYPE" = "tag" ]; then
+            TAG="${GITHUB_REF_NAME#v}"
+            if [ "$TAG" != "$MANIFEST" ]; then
+              echo "::error::الوسم v$TAG لا يطابق نسخة المانيفست $MANIFEST"
+              exit 1
+            fi
           fi
           echo "version=$MANIFEST" >> "$GITHUB_OUTPUT"
-        id: version
 
       - name: بناء الحزم وبيانات التحديث
         run: node scripts/build.mjs --manifests
@@ -45,10 +51,7 @@ jobs:
       # ومع المفاتيح يصدر XPI موقّعاً يحدّثه فايرفوكس تلقائياً.
       - name: توقيع نسخة فايرفوكس (AMO)
         id: sign
-        if: ${{ env.AMO_JWT_ISSUER != '' }}
-        env:
-          AMO_JWT_ISSUER: ${{ secrets.AMO_JWT_ISSUER }}
-          AMO_JWT_SECRET: ${{ secrets.AMO_JWT_SECRET }}
+        if: env.AMO_JWT_ISSUER != ''
         run: |
           npm install --no-save web-ext
           npx web-ext sign \
@@ -68,21 +71,40 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           name: v${{ steps.version.outputs.version }}
-          generate_release_notes: true
+          body_path: .github/release-notes/v${{ steps.version.outputs.version }}.md
+          fail_on_unmatched_files: true
           files: |
             dist/*.zip
             dist/*.xpi
 
-      # فايرفوكس يقرأ هذا الملف من main، فلا بد أن يشير إلى الإصدار الجديد
+  # فايرفوكس يقرأ updates.json من main، فلا بد أن يشير إلى أحدث إصدار.
+  # يُتخطّى بهدوء ما دام الكود لم يُدمج في main بعد.
+  sync-update-manifest:
+    runs-on: ubuntu-latest
+    needs: release
+    if: needs.release.result == 'success'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
       - name: تحديث بيان التحديث على main
-        if: steps.sign.outputs.signed == 'true'
         run: |
+          if [ ! -f scripts/build.mjs ]; then
+            echo "::notice::main لا يحتوي على الكود بعد — تخطّي تحديث بيان التحديث"
+            exit 0
+          fi
+          node scripts/build.mjs --manifests
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add updates/updates.json updates/updates.xml
           if git diff --cached --quiet; then
             echo "لا تغيير في بيانات التحديث"
           else
-            git commit -m "تحديث بيان التحديث إلى v${{ steps.version.outputs.version }}"
+            git commit -m "تحديث بيان التحديث إلى ${GITHUB_REF_NAME}"
             git push origin main
           fi
