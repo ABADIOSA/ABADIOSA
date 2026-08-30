@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=740">
+  <title>StremioHub</title>
+  <link rel="stylesheet" href="popup.css?v=2">
+</head>
+
+<body>
+  <div id="app">
+    <!-- شاشة تسجيل الدخول -->
+    <div id="screen-login" class="screen">
+      <button id="login-lang-btn" class="icon-btn" style="position: absolute; top: 16px; right: 16px; z-index: 10;" title="تغيير اللغة / Change Language">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="2" y1="12" x2="22" y2="12"></line>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+        </svg>
+      </button>
+      <div class="login-container">
+        <div class="logo">
+          <div class="logo-icon">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+              <circle cx="24" cy="24" r="22" fill="#7b5ea7" opacity="0.15" />
+              <circle cx="24" cy="24" r="16" fill="#7b5ea7" opacity="0.3" />
+              <path d="M20 16l12 8-12 8V16z" fill="#7b5ea7" />
+            </svg>
+          </div>
+          <a href="https://3-pr.github.io" target="_blank" style="text-decoration: none;"><h1>StremioHub</h1></a>
+          <p class="logo-subtitle">All-in-one</p>
+        </div>
+        <div id="login-form-container" class="login-form">
+          <div class="input-group">
+            <label for="email-input" data-i18n="email_label">البريد الإلكتروني</label>
+            <input type="email" id="email-input" placeholder="example@email.com" data-i18n-placeholder="email_placeholder" autocomplete="email">
+          </div>
+          <div class="input-group">
+            <label for="password-input" data-i18n="password_label">كلمة المرور</label>
+            <input type="password" id="password-input" placeholder="••••••••" data-i18n-placeholder="password_placeholder" autocomplete="current-password">
+          </div>
+          <div class="setting-row" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; padding: 0 4px;">
+            <span data-i18n="save_account" style="font-size: 14px; font-weight: 500; color: var(--text-primary);">حفظ الحساب</span>
+            <label class="toggle-switch">
+              <input type="checkbox" id="save-account-checkbox" checked>
+              <span class="slider round"></span>
+            </label>
+          </div>
+          <div class="input-group" id="account-name-group">
+            <label for="account-name-input" data-i18n="account_name">اسم الحساب (اختياري)</label>
+            <input type="text" id="account-name-input" placeholder="مثال: حسابي الأساسي" data-i18n-placeholder="account_name_placeholder">
+          </div>
+          <div class="input-group" id="avatar-picker-group">
+            <label data-i18n="choose_avatar">اختر شخصية (أفاتار)</label>
+            <div class="avatar-picker-container" id="avatar-picker-list">
+              <!-- Avatars will be populated here -->
+            </div>
+          </div>
+          <button id="login-btn" class="btn-primary">
+            <span class="btn-text" data-i18n="login_btn">تسجيل الدخول</span>
+            <span class="btn-loader hidden">
+              <span class="dot-loader"></span>
+            </span>
+          </button>
+          <p id="login-error" class="error-msg hidden"></p>
+          <button id="back-to-accounts-btn" class="btn-secondary hidden" style="margin-top: 8px;">
+            <span class="btn-text" data-i18n="back_to_accounts">الرجوع للحسابات</span>
+          </button>
+        </div>
+      <!-- Saved Accounts Section -->
+      <div id="saved-accounts-section" class="saved-accounts-container hidden">
+        <div class="saved-accounts-header">
+          <h3 data-i18n="saved_accounts">الحسابات المحفوظة</h3>
+        </div>
+        <div id="saved-accounts-list" class="saved-accounts-list"></div>
+        <button id="show-add-account-btn" class="btn-secondary" style="margin-top: 16px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          <span data-i18n="add_new_account">إضافة حساب جديد</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- شاشة الإعدادات -->
+    <div id="screen-settings" class="screen hidden">
+      <header class="popup-header">
+        <div class="header-brand">
+          <button id="settings-back-btn" class="icon-btn" title="رجوع">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 12H5" />
+              <path d="m12 19-7-7 7-7" />
+            </svg>
+          </button>
+          <span class="header-title" style="margin-right: 8px;" data-i18n="settings_title">الإعدادات</span>
+        </div>
+      </header>
+      <div class="settings-content">
+        <!-- Account Card -->
+        <div class="account-card-modern">
+          <div class="account-header">
+            <div class="account-avatar" id="settings-avatar" title="تغيير الأفاتار" style="cursor: pointer; position: relative; overflow: hidden;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+              <div class="avatar-edit-overlay" style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.6); height: 16px; display: flex; align-items: center; justify-content: center;">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+              </div>
+            </div>
+            <div class="account-info">
+              <h3 class="account-title" data-i18n="account_title">حساب Stremio</h3>
+              <p id="settings-user-email" class="account-email" data-i18n="loading">جاري التحميل...</p>
+            </div>
+          </div>
+          
+          <div class="account-stats">
+            <div class="stat-item">
+              <span class="stat-value" id="stat-watched">-</span>
+              <span class="stat-label" data-i18n="stat_watched">شُوهدت</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <span class="stat-value" id="stat-addons">-</span>
+              <span class="stat-label" data-i18n="stat_addons">إضافات</span>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 8px; width: 100%; margin-top: 16px;">
+            <button id="switch-account-btn" class="btn-switch-modern">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 3h5v5"></path>
+                <path d="M8 3H3v5"></path>
+                <path d="M12 22v-8.3a4 4 0 0 0-1.172-2.828L3 3"></path>
+                <path d="m15 15 6-6"></path>
+              </svg>
+              <span data-i18n="switch_account_btn">تبديل الحساب</span>
+            </button>
+            <button id="logout-btn" class="btn-logout-modern">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                <polyline points="16 17 21 12 16 7" />
+                <line x1="21" y1="12" x2="9" y2="12" />
+              </svg>
+              <span data-i18n="logout_btn">تسجيل الخروج</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="settings-group-title" data-i18n="extension_settings">إعدادات الإضافة</div>
+
+        <nav class="settings-tabs">
+          <div class="settings-tab-indicator"></div>
+          <button class="settings-tab-btn active" data-settings-tab="general" data-i18n="tab_general">عام</button>
+          <button class="settings-tab-btn" data-settings-tab="appearance" data-i18n="tab_appearance">الجماليات</button>
+          <button class="settings-tab-btn" data-settings-tab="library" data-i18n="tab_library">المكتبة</button>
+          <button class="settings-tab-btn" data-settings-tab="websites" data-i18n="tab_websites">المواقع</button>
+          <button class="settings-tab-btn" data-settings-tab="addons" data-i18n="tab_addons">الإضافات</button>
+          <button class="settings-tab-btn" data-settings-tab="webenhancer" data-i18n="tab_webenhancer">ستريميو ويب</button>
+        </nav>
+
+        <div class="settings-list settings-tab-content active" id="settings-tab-general">
+          <div class="setting-card">
+            <div class="setting-info">
+              <h4 data-i18n="lang_title">اللغة / Language</h4>
+              <p data-i18n="lang_desc">تغيير لغة عرض الواجهة.</p>
+            </div>
+            <select id="setting-language" class="size-select-modern">
+              <option value="ar">العربية (Arabic)</option>
+              <option value="en">English</option>
+            </select>
+          </div>
+
+
+          <div class="setting-card">
+            <div class="setting-info">
+              <h4 data-i18n="detail_style_title">شكل نافذة التفاصيل</h4>
+              <p data-i18n="detail_style_desc">كيف تفضل عرض تفاصيل الأعمال (في شاشة كاملة أم بطاقة عائمة)؟</p>
+            </div>
+            <select id="setting-detail-mode" class="size-select-modern">
+              <option value="fullscreen" data-i18n="style_fullscreen">شاشة كاملة</option>
+              <option value="card" data-i18n="style_card">بطاقة عائمة</option>
+            </select>
+          </div>
+
+          <div class="setting-card">
+            <div class="setting-info">
+              <h4 data-i18n="open_method_title">طريقة الفتح في Stremio</h4>
+              <p data-i18n="open_method_desc">كيف تفضل أن يتم فتح الأعمال عند اختيار "فتح"؟</p>
+            </div>
+            <select id="setting-open-method" class="size-select-modern">
+              <option value="web" data-i18n="open_web">Stremio Web (المتصفح)</option>
+              <option value="app" data-i18n="open_app">تطبيق Stremio</option>
+            </select>
+          </div>
+
+
+        </div>
+
+        <div class="settings-list settings-tab-content hidden" id="settings-tab-appearance">
+          <div class="setting-card">
+            <div class="setting-info">
+              <h4 data-i18n="size_title">حجم الواجهة</h4>
+              <p data-i18n="size_desc">تخصيص أبعاد نافذة الإضافة لتناسب شاشتك المفتوحة.</p>
+            </div>
+            <select id="setting-popup-size" class="size-select-modern">
+              <option value="default" data-i18n="size_default">الافتراضي (عريض)</option>
+              <option value="compact" data-i18n="size_compact">مدمج (أصغر)</option>
+              <option value="mini" data-i18n="size_mini">جوال (عمودي)</option>
+            </select>
+          </div>
+
+          <div class="setting-card">
+            <div class="setting-info">
+              <h4 data-i18n="theme_title">المظهر (الثيم)</h4>
+              <p data-i18n="theme_desc">تخصيص ألوان وشكل الواجهة.</p>
+            </div>
+            <select id="setting-theme" class="size-select-modern">
+              <option value="default" data-i18n="theme_default">الافتراضي</option>
+              <option value="oled" data-i18n="theme_oled">بنفسجي OLED ناعم</option>
+            </select>
+          </div>
+
+          <div class="setting-card">
+            <div class="setting-info">
+              <h4 data-i18n="anim_title">تأثير البطاقات</h4>
+              <p data-i18n="anim_desc">حركة دخول الأعمال عند فتح الإضافة.</p>
+            </div>
+            <select id="setting-card-anim" class="size-select-modern">
+              <option value="spring" data-i18n="anim_spring">الانبثاق المرن</option>
+              <option value="domino" data-i18n="anim_domino">الدومينو</option>
+              <option value="float" data-i18n="anim_float">الصعود والتوهج</option>
+              <option value="flip" data-i18n="anim_flip">الكشف 3D</option>
+              <option value="none" data-i18n="anim_none">بدون تأثير (إلغاء)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="settings-list settings-tab-content hidden" id="settings-tab-library">
+          <div class="setting-card">
+            <div class="setting-info">
+              <h4 data-i18n="sort_title">خيارات الترتيب في المكتبة</h4>
+              <p data-i18n="sort_desc">عرض شريط ترتيب وتصفية الأعمال (آخر مشاهدة، أبجدي، شُوهد/لم يشاهد) أعلى مكتبتك.</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="setting-show-sort" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="setting-card">
+            <div class="setting-info">
+              <h4 data-i18n="meta_addon_title">مصدر وصف العمل</h4>
+              <p data-i18n="meta_addon_desc">اختر الإضافة المفضلة لديك لجلب تفاصيل الأعمال.</p>
+            </div>
+            <select id="setting-meta-addon" class="size-select-modern">
+            </select>
+          </div>
+        </div>
+
+        <div class="settings-list settings-tab-content hidden" id="settings-tab-websites">
+          <div class="setting-card">
+            <div class="setting-info">
+              <h4 data-i18n="autosave_title">الحفظ التلقائي في المواقع</h4>
+              <p data-i18n="autosave_desc">حفظ العمل مباشرة في مكتبتك عند الضغط على الزر في المواقع الخارجية، دون عرض نافذة التفاصيل أولاً.</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="setting-autosave" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="setting-card">
+            <div class="setting-info">
+              <h4 data-i18n="toast_enabled_title">إشعار الحفظ في المكتبة</h4>
+              <p data-i18n="toast_enabled_desc">عرض إشعار صغير في زاوية الشاشة للتأكيد عند حفظ عمل جديد في مكتبتك.</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="setting-toast-enabled" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="setting-card">
+            <div class="setting-info">
+              <h4 data-i18n="toast_position_title">موقع إشعار الحفظ</h4>
+              <p data-i18n="toast_position_desc">اختر في أي زاوية من الشاشة يظهر إشعار الحفظ.</p>
+            </div>
+            <select id="setting-toast-position" class="size-select-modern">
+              <option value="top-right" data-i18n="pos_top_right">فوق يمين</option>
+              <option value="top-left" data-i18n="pos_top_left">فوق يسار</option>
+              <option value="bottom-right" data-i18n="pos_bottom_right">تحت يمين</option>
+              <option value="bottom-left" data-i18n="pos_bottom_left">تحت يسار</option>
+            </select>
+          </div>
+
+          <div class="setting-card sites-card">
+            <div class="setting-info" style="width: 100%; margin-bottom: 15px;">
+              <h4 data-i18n="sites_title">المواقع المدعومة</h4>
+              <p data-i18n="sites_desc">تحكم بظهور الأزرار في كل موقع وماذا تفعل (حفظ أو فتح).</p>
+            </div>
+            <div class="sites-list">
+              <div class="site-toggle">
+                <span>Google Search</span>
+                <div class="site-controls">
+                  <select id="action-google" class="site-action-select">
+                    <option value="save" data-i18n="action_save">حفظ</option>
+                    <option value="open" data-i18n="action_open">فتح</option>
+                  </select>
+                  <label class="toggle-switch"><input type="checkbox" id="site-google" checked><span
+                      class="slider"></span></label>
+                </div>
+              </div>
+              <div class="site-toggle">
+                <span>Letterboxd</span>
+                <div class="site-controls">
+                  <select id="action-letterboxd" class="site-action-select">
+                    <option value="save" data-i18n="action_save">حفظ</option>
+                    <option value="open" data-i18n="action_open">فتح</option>
+                  </select>
+                  <label class="toggle-switch"><input type="checkbox" id="site-letterboxd" checked><span
+                      class="slider"></span></label>
+                </div>
+              </div>
+              <div class="site-toggle">
+                <span>IMDB</span>
+                <div class="site-controls">
+                  <select id="action-imdb" class="site-action-select">
+                    <option value="save" data-i18n="action_save">حفظ</option>
+                    <option value="open" data-i18n="action_open">فتح</option>
+                  </select>
+                  <label class="toggle-switch"><input type="checkbox" id="site-imdb" checked><span
+                      class="slider"></span></label>
+                </div>
+              </div>
+              <div class="site-toggle">
+                <span>TMDB</span>
+                <div class="site-controls">
+                  <select id="action-tmdb" class="site-action-select">
+                    <option value="save" data-i18n="action_save">حفظ</option>
+                    <option value="open" data-i18n="action_open">فتح</option>
+                  </select>
+                  <label class="toggle-switch"><input type="checkbox" id="site-tmdb" checked><span
+                      class="slider"></span></label>
+                </div>
+              </div>
+              <div class="site-toggle">
+                <span>Rotten Tomatoes</span>
+                <div class="site-controls">
+                  <select id="action-rt" class="site-action-select">
+                    <option value="save" data-i18n="action_save">حفظ</option>
+                    <option value="open" data-i18n="action_open">فتح</option>
+                  </select>
+                  <label class="toggle-switch"><input type="checkbox" id="site-rt" checked><span
+                      class="slider"></span></label>
+                </div>
+              </div>
+              <div class="site-toggle">
+                <span>Metacritic</span>
+                <div class="site-controls">
+                  <select id="action-metacritic" class="site-action-select">
+                    <option value="save" data-i18n="action_save">حفظ</option>
+                    <option value="open" data-i18n="action_open">فتح</option>
+                  </select>
+                  <label class="toggle-switch"><input type="checkbox" id="site-metacritic" checked><span
+                      class="slider"></span></label>
+                </div>
+              </div>
+              <div class="site-toggle">
+                <span>Trakt</span>
+                <div class="site-controls">
+                  <select id="action-trakt" class="site-action-select">
+                    <option value="save" data-i18n="action_save">حفظ</option>
+                    <option value="open" data-i18n="action_open">فتح</option>
+                  </select>
+                  <label class="toggle-switch"><input type="checkbox" id="site-trakt" checked><span
+                      class="slider"></span></label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Addons Tab Content -->
+        <div class="settings-list settings-tab-content hidden" id="settings-tab-addons">
+
+          <!-- Warning Banner -->
+          <div class="addon-warning-banner" id="addon-warning-banner">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <span data-i18n="addon_warning">هذا القسم يُعدّل إعدادات Stremio مباشرةً. يُنصح بعمل نسخة احتياطية قبل أي تعديل.</span>
+          </div>
+
+          <!-- ==================== Addon Update Checker ==================== -->
+          <div class="setting-card" id="addon-updates-card">
+            <div class="setting-info" style="width:100%; margin-bottom: 12px; flex-direction: row; justify-content: space-between; align-items: center;">
+              <div>
+                <h4 data-i18n="addon_updates_title">فحص التحديثات</h4>
+                <p data-i18n="addon_updates_desc">تحقق من وجود إصدارات جديدة لإضافاتك المثبتة.</p>
+              </div>
+              <button id="addon-check-updates-btn" class="addon-sync-btn" style="flex-shrink:0;">
+                <svg id="addon-check-updates-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M23 4v6h-6"/><path d="M1 20v-6h6"/>
+                  <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+                </svg>
+                <span data-i18n="addon_updates_check_btn">فحص الآن</span>
+              </button>
+            </div>
+
+            <!-- حالة آخر فحص -->
+            <p id="addon-updates-last-check" style="font-size:11px; color:var(--text-muted); margin:0 0 10px 0; display:none;"></p>
+
+            <!-- مؤشر التحميل -->
+            <div id="addon-updates-spinner" class="addon-loading hidden">
+              <span class="dot-loader"></span>
+            </div>
+
+            <!-- قائمة التحديثات -->
+            <div id="addon-updates-list"></div>
+
+            <!-- حالة: لا توجد تحديثات -->
+            <div id="addon-updates-none" class="hidden" style="display:none; align-items:center; gap:8px; padding:10px 0; color:var(--text-muted); font-size:13px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+              <span data-i18n="addon_updates_none">جميع الإضافات محدّثة ✓</span>
+            </div>
+          </div>
+
+          <!-- Addon Options -->
+          <div class="setting-card">
+            <div class="setting-info">
+              <h4 data-i18n="addon_auto_sync_title">المزامنة التلقائية</h4>
+              <p data-i18n="addon_auto_sync_desc">حفظ أي تغيير فوراً على Stremio عند ترتيب أو حذف إضافة دون الحاجة لضغط المزامنة.</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="addon-auto-sync-checkbox">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="setting-card">
+            <div class="setting-info">
+              <h4 data-i18n="addon_disable_warning_title">إيقاف التنبيهات</h4>
+              <p data-i18n="addon_disable_warning_desc">عدم إظهار التذكير بالنسخ الاحتياطي عند حذف إضافة أو تعديل كتالوج.</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="addon-disable-warning-checkbox">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="setting-card">
+            <div class="setting-info">
+              <h4 data-i18n="addon_disable_protected_title">تحذير الإضافات المحمية</h4>
+              <p data-i18n="addon_disable_protected_desc">إيقاف ظهور رسالة التحذير عند محاولة حذف إضافة أساسية/محمية.</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="addon-disable-protected-warning-checkbox">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <!-- Backup / Restore -->
+          <div class="setting-card addon-backup-card">
+            <div class="setting-info">
+              <h4 data-i18n="addon_backup_title">النسخ الاحتياطي والاستعادة</h4>
+              <p data-i18n="addon_backup_desc">احفظ إعدادات إضافاتك الحالية أو أعدها من ملف سابق.</p>
+            </div>
+            <div class="addon-backup-btns">
+              <button id="addon-backup-btn" class="addon-action-btn backup-btn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span data-i18n="addon_backup_btn">تصدير</span>
+              </button>
+              <label class="addon-action-btn restore-btn" for="addon-restore-input">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                <span data-i18n="addon_restore_btn">استعادة</span>
+              </label>
+              <input type="file" id="addon-restore-input" accept=".json" style="display:none;">
+            </div>
+          </div>
+
+          <!-- Install New Addon -->
+          <div class="setting-card">
+            <div class="setting-info" style="width:100%; margin-bottom: 12px;">
+              <h4 data-i18n="addon_install_title">تثبيت إضافة جديدة</h4>
+              <p data-i18n="addon_install_desc">أدخل رابط manifest.json للإضافة لتثبيتها في حسابك.</p>
+            </div>
+            <div class="addon-install-row">
+              <input type="url" id="addon-install-url" class="addon-url-input" placeholder="https://example.com/manifest.json" dir="ltr">
+              <button id="addon-install-btn" class="addon-action-btn install-btn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                <span data-i18n="addon_install_btn">تثبيت</span>
+              </button>
+            </div>
+            <p id="addon-install-status" class="addon-status-msg hidden"></p>
+          </div>
+
+          <!-- Installed Addons List -->
+          <div class="setting-card" style="padding-bottom: 0;">
+            <div class="setting-info" style="width:100%; margin-bottom: 12px; flex-direction: row; justify-content: space-between; align-items: center;">
+              <div>
+                <h4 data-i18n="addon_list_title">الإضافات المثبتة</h4>
+                <p data-i18n="addon_list_desc">اسحب وأفلت لإعادة الترتيب. انقر "تعديل" للتحكم في الكتالوجات.</p>
+              </div>
+              <div style="display:flex; gap:6px; flex-shrink:0;">
+                <button id="addon-refresh-btn" class="addon-sync-btn" title="تحديث قائمة الإضافات">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+                  <span data-i18n="addon_refresh_btn">تحديث</span>
+                </button>
+                <button id="addon-sync-btn" class="addon-sync-btn" title="مزامنة مع Stremio">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+                  <span data-i18n="addon_sync_btn">مزامنة</span>
+                </button>
+              </div>
+            </div>
+
+            <div id="addon-loading" class="addon-loading hidden">
+              <span class="dot-loader"></span>
+            </div>
+            <div id="addons-list" class="addons-list"></div>
+          </div>
+
+        </div>
+
+        <!-- ==================== Stremio Web Enhancer Tab ==================== -->
+        <div class="settings-list settings-tab-content hidden" id="settings-tab-webenhancer">
+
+          <!-- قسم: تقييمات المجتمع -->
+          <div class="settings-group-title" data-i18n="community_ratings_title">تقييمات المجتمع</div>
+
+          <div class="setting-card">
+            <div class="setting-info">
+              <h4 data-i18n="enable_ratings_title">تفعيل التقييمات</h4>
+              <p data-i18n="enable_ratings_desc">تظهر تقييمات RT وMetacritic وLetterboxd وغيرها بجانب شارة IMDb عند فتح أي عمل.</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="setting-ratings-enabled" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="setting-card">
+            <div class="setting-info">
+              <h4 data-i18n="popup_ratings_title">تقييمات المجتمع في الإضافة</h4>
+              <p data-i18n="popup_ratings_desc">عرض تقييمات المجتمع داخل صفحة تفاصيل العمل عند النقر عليه في قسم "الأعمال".</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="setting-popup-ratings-enabled" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="setting-card" id="sh-ratings-source-card">
+            <div class="setting-info">
+              <h4 data-i18n="ratings_source_title">مصدر التقييمات</h4>
+              <p data-i18n="ratings_source_desc">اختر الخدمة التي تجلب منها التقييمات. كلاهما يحتاج مفتاح API مجاني.</p>
+            </div>
+            <select id="setting-ratings-source" class="size-select-modern">
+              <option value="mdblist" data-i18n="source_mdblist">MDBList (موصى به)</option>
+              <option value="publicmetadb">PublicMetaDB</option>
+            </select>
+          </div>
+
+          <!-- MDBList key -->
+          <div class="setting-card" id="sh-mdblist-card">
+            <div class="setting-info">
+              <h4>MDBList API Key</h4>
+              <p data-i18n="mdblist_key_desc">
+                احصل على مفتاح مجاني من
+                <a href="https://mdblist.com/api/" target="_blank" style="color:var(--accent-light)">mdblist.com/api</a>
+              </p>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+              <input type="password"
+                id="setting-mdblist-key"
+                class="size-select-modern"
+                data-i18n-placeholder="api_key_placeholder"
+                placeholder="أدخل المفتاح هنا..."
+                style="width:170px;font-size:12px;direction:ltr;">
+              <button id="sh-test-mdblist" class="addon-action-btn backup-btn" data-i18n="test_api_btn">اختبار</button>
+            </div>
+          </div>
+
+          <!-- PublicMetaDB key -->
+          <div class="setting-card hidden" id="sh-publicmetadb-card">
+            <div class="setting-info">
+              <h4>PublicMetaDB API Key</h4>
+              <p data-i18n="publicmetadb_key_desc">
+                أنشئ مفتاحاً من
+                <a href="https://publicmetadb.com" target="_blank" style="color:var(--accent-light)">publicmetadb.com</a>
+                ← قسم Developer
+              </p>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+              <input type="password"
+                id="setting-publicmetadb-key"
+                class="size-select-modern"
+                data-i18n-placeholder="api_key_placeholder"
+                placeholder="أدخل المفتاح هنا..."
+                style="width:170px;font-size:12px;direction:ltr;">
+              <button id="sh-test-publicmetadb" class="addon-action-btn backup-btn" data-i18n="test_api_btn">اختبار</button>
+            </div>
+          </div>
+
+          <!-- نتيجة الاختبار -->
+          <div id="sh-api-test-result"
+            style="display:none;padding:8px 12px;border-radius:8px;font-size:12px;
+                   margin-top:-8px;transition:all 0.3s; margin-bottom: 12px;">
+          </div>
+
+          <!-- التحكم بالمنصات -->
+          <div class="setting-card sites-card" id="sh-ratings-filters-card">
+            <div class="setting-info" style="width: 100%; margin-bottom: 15px;">
+              <h4 data-i18n="platforms_filter_title">تخصيص منصات التقييم</h4>
+              <p data-i18n="platforms_filter_desc">اختر المنصات التي ترغب بظهور تقييماتها بجانب العمل.</p>
+            </div>
+            <div class="sites-list">
+              <div class="site-toggle">
+                <span>IMDb</span>
+                <label class="toggle-switch"><input type="checkbox" id="pref-imdb" checked><span class="slider"></span></label>
+              </div>
+              <div class="site-toggle">
+                <span data-i18n="rating_rt_critics">Rotten Tomatoes (النقاد)</span>
+                <label class="toggle-switch"><input type="checkbox" id="pref-rt" checked><span class="slider"></span></label>
+              </div>
+              <div class="site-toggle">
+                <span data-i18n="rating_rt_audience">Rotten Tomatoes (الجمهور)</span>
+                <label class="toggle-switch"><input type="checkbox" id="pref-rtaud" checked><span class="slider"></span></label>
+              </div>
+              <div class="site-toggle">
+                <span data-i18n="rating_meta_critics">Metacritic (النقاد)</span>
+                <label class="toggle-switch"><input type="checkbox" id="pref-metacritic" checked><span class="slider"></span></label>
+              </div>
+              <div class="site-toggle">
+                <span data-i18n="rating_meta_audience">Metacritic (الجمهور)</span>
+                <label class="toggle-switch"><input type="checkbox" id="pref-mcuser" checked><span class="slider"></span></label>
+              </div>
+              <div class="site-toggle">
+                <span>Letterboxd</span>
+                <label class="toggle-switch"><input type="checkbox" id="pref-letterboxd" checked><span class="slider"></span></label>
+              </div>
+              <div class="site-toggle">
+                <span>TMDB</span>
+                <label class="toggle-switch"><input type="checkbox" id="pref-tmdb" checked><span class="slider"></span></label>
+              </div>
+              <div class="site-toggle">
+                <span>Trakt</span>
+                <label class="toggle-switch"><input type="checkbox" id="pref-trakt" checked><span class="slider"></span></label>
+              </div>
+              <div class="site-toggle">
+                <span>Roger Ebert</span>
+                <label class="toggle-switch"><input type="checkbox" id="pref-ebert" checked><span class="slider"></span></label>
+              </div>
+            </div>
+          </div>
+
+          <!-- قسم: التخصيص البصري -->
+          <div class="settings-group-title" style="margin-top:4px;" data-i18n="web_appearance_title">تخصيص مظهر Stremio Web</div>
+
+          <div class="setting-card">
+            <div class="setting-info">
+              <h4 data-i18n="stremio_web_font_title">الخط المخصص</h4>
+              <p data-i18n="stremio_web_font_desc">يُطبَّق فوراً على Stremio Web بعد الاختيار.</p>
+            </div>
+            <select id="setting-web-font" class="size-select-modern">
+              <option value="" data-i18n="font_default">افتراضي (بدون تغيير)</option>
+              <option value="custom" data-i18n="font_custom">تحميل خط من الجهاز...</option>
+              <optgroup label="Arabic Fonts (عربي)">
+                <option value="Thmanyah">ثمانية</option>
+                <option value="Cairo">Cairo</option>
+                <option value="Tajawal">Tajawal</option>
+                <option value="IBM Plex Sans Arabic">IBM Plex Arabic</option>
+              </optgroup>
+              <optgroup label="English Fonts">
+                <option value="Inter">Inter (Modern)</option>
+                <option value="Poppins">Poppins (Geometric)</option>
+                <option value="Montserrat">Montserrat (Classic)</option>
+                <option value="Outfit">Outfit (Clean)</option>
+                <option value="Ubuntu">Ubuntu</option>
+                <option value="Roboto">Roboto</option>
+              </optgroup>
+            </select>
+            <input type="file" id="custom-font-input" accept=".woff,.woff2,.ttf,.otf" style="display:none;">
+            <div id="custom-font-name-display" style="font-size: 11px; color: #a78bfa; margin-top: 8px; display: none; word-break: break-all;">
+              <span id="custom-font-name-text"></span>
+              <span id="custom-font-change-btn" style="cursor: pointer; text-decoration: underline; margin-inline-start: 8px; font-weight: bold;">(تغيير)</span>
+            </div>
+          </div>
+
+          <div class="setting-card">
+            <div class="setting-info">
+              <h4 data-i18n="stremio_web_oled_title">ألوان OLED (أسود عميق)</h4>
+              <p data-i18n="stremio_web_oled_desc">استبدال اللون الرمادي بالأسود الحقيقي للحفاظ على الشاشة.</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="setting-web-oled">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="setting-card">
+            <div class="setting-info" style="width:100%; margin-bottom:12px;">
+              <h4 data-i18n="stremio_web_accent_title">لون مميز مخصص</h4>
+              <p data-i18n="stremio_web_accent_desc">يغير اللون البنفسجي الافتراضي في واجهة Stremio Web.</p>
+            </div>
+            
+            <div class="color-presets" style="display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap; padding:0 2px;">
+               <div class="color-swatch active" data-color="#7b5ea7" style="background:#7b5ea7" title="Default Purple"></div>
+               <div class="color-swatch" data-color="#E50914" style="background:#E50914" title="Red"></div>
+               <div class="color-swatch" data-color="#1DB954" style="background:#1DB954" title="Green"></div>
+               <div class="color-swatch" data-color="#01B4E4" style="background:#01B4E4" title="Blue"></div>
+               <div class="color-swatch" data-color="#F5C518" style="background:#F5C518" title="Yellow"></div>
+               <div class="color-swatch" data-color="#FF3366" style="background:#FF3366" title="Pink"></div>
+               <div class="color-swatch" data-color="#FF8C00" style="background:#FF8C00" title="Orange"></div>
+            </div>
+
+            <div style="display:flex;align-items:center;gap:10px;">
+              <input type="color"
+                id="setting-web-accent"
+                value="#7b5ea7"
+                style="width:36px;height:36px;border:1px solid var(--glass-border);
+                       border-radius:8px;cursor:pointer;background:transparent;padding:0;">
+              
+              <input type="text" id="setting-web-accent-text" class="modern-input" style="width:90px; padding:8px; font-family:monospace; font-size:13px; text-transform:uppercase; border-radius:8px; border:1px solid var(--glass-border); background:rgba(255,255,255,0.05); color:white;" value="#7b5ea7" maxlength="7">
+
+              <button id="sh-reset-accent"
+                class="addon-action-btn"
+                style="background:transparent;border-color:var(--glass-border);color:var(--text-muted); padding: 8px 12px;">
+                <span data-i18n="btn_reset">إعادة تعيين</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="developer-credits">
+          <span data-i18n="dev_credits">صُنع من مُشاهد، إلى كل المشاهدين 🍿</span> <a href="https://3-pr.github.io/" target="_blank" class="dev-link">Yasser</a>
+          <div style="margin-top: 8px; display: flex; flex-direction: column; align-items: center; gap: 6px;">
+            <a href="https://ko-fi.com/V8P5206X9H" id="support-footer-btn" target="_blank" class="kofi-btn-settings" title="Support me on Ko-fi">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+              Support me on Ko-fi
+            </a>
+            <div id="extension-version-display" style="font-size: 11px; color: var(--text-muted); font-family: monospace; letter-spacing: 0.5px; opacity: 0.8;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Catalog Edit Modal -->
+    <div id="catalog-edit-modal" class="modal hidden">
+      <div class="modal-content catalog-modal-content">
+        <div class="catalog-modal-header">
+          <h3 id="catalog-modal-addon-name" style="margin:0; font-size:16px;"></h3>
+          <button id="close-catalog-modal" class="icon-btn" style="padding:6px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+        <p class="catalog-modal-hint" data-i18n="catalog_modal_hint">اسحب لإعادة الترتيب. عدّل الاسم أو أخفِ الكتالوج من شاشتك الرئيسية.</p>
+        <div id="catalog-edit-list" class="catalog-edit-list"></div>
+        <div style="display:flex; gap:8px; margin-top:16px; justify-content: flex-end;">
+          <button id="save-catalog-btn" class="btn-primary" style="flex:1;" data-i18n="save_changes">حفظ</button>
+          <button id="close-catalog-modal-2" class="btn-secondary" style="flex:1;" data-i18n="cancel">إلغاء</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- الشاشة الرئيسية -->
+    <div id="screen-main" class="screen hidden">
+      <!-- Header (Glassmorphism) -->
+      <header class="glass-header">
+        <div class="header-brand">
+          <svg class="header-logo" width="24" height="24" viewBox="0 0 48 48" fill="none">
+            <path d="M20 16l12 8-12 8V16z" fill="#916dd5" />
+          </svg>
+          <div class="header-title-container">
+            <span class="header-title">
+              <a href="https://3-pr.github.io" target="_blank" style="text-decoration: none; color: inherit;">StremioHub</a>
+              <a href="https://ko-fi.com/V8P5206X9H" id="support-header-btn" target="_blank" title="Support me on Ko-fi" class="kofi-icon-header">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+              </a>
+            </span>
+            <span class="header-subtitle">All-in-one</span>
+          </div>
+        </div>
+
+        <nav class="header-tabs">
+          <div class="tab-indicator"></div>
+          <button class="tab-btn active" data-tab="movies" data-i18n="tab_movies">Movies</button>
+          <button class="tab-btn" data-tab="series" data-i18n="tab_series">Series</button>
+          <button class="tab-btn" data-tab="continue" data-i18n="tab_continue">Continue</button>
+        </nav>
+
+        <div class="header-actions">
+          <button id="refresh-btn" class="icon-btn" title="تحديث" data-i18n-title="refresh_btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="23 4 23 10 17 10"></polyline>
+              <polyline points="1 20 1 14 7 14"></polyline>
+              <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+            </svg>
+          </button>
+          <button id="search-toggle" class="icon-btn" title="بحث">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.35-4.35" />
+            </svg>
+          </button>
+          <button id="settings-btn" class="icon-btn" title="الإعدادات" data-i18n-title="settings_btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path
+                d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
+              <circle cx="12" cy="12" r="3" />
+            </svg>
+          </button>
+          <div class="header-avatar" id="home-avatar" title="الحساب" style="cursor: pointer; width: 32px; height: 32px; border-radius: 50%; overflow: hidden; background: rgba(255,255,255,0.1); border: 1px solid var(--glass-border); display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; margin-left: 4px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          </div>
+        </div>
+      </header>
+
+      <!-- Sub Header (Sort & Filter) -->
+      <div id="library-sort-bar" class="glass-subheader">
+        <div class="sort-options">
+          <div class="btn-group">
+            <button class="filter-btn active" data-filter="all" data-i18n="filter_all">الكل</button>
+            <button class="filter-btn" data-filter="watched" data-i18n="filter_watched">شُوهد</button>
+            <button class="filter-btn" data-filter="notwatched" data-i18n="filter_unwatched">لم يشاهد</button>
+          </div>
+          <div class="btn-group">
+            <button class="sort-btn active" data-sort="lastwatched" data-i18n="sort_last_watched">آخر مشاهدة</button>
+            <button class="sort-btn" data-sort="name" data-i18n="sort_alphabetical">A-Z</button>
+            <button class="sort-btn" data-sort="namereverse" data-i18n="sort_alphabetical_reverse">Z-A</button>
+          </div>
+        </div>
+        <div class="local-filter">
+          <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8" />
+            <path d="m21 21-4.35-4.35" />
+          </svg>
+          <input type="text" id="local-filter-input" placeholder="Filter..." data-i18n-placeholder="filter_placeholder">
+        </div>
+      </div>
+
+      <!-- Content Area -->
+      <main class="content-area">
+        <div id="tab-movies" class="tab-content active">
+          <div id="movies-grid" class="items-grid"></div>
+        </div>
+        <div id="tab-series" class="tab-content hidden">
+          <div id="series-grid" class="items-grid"></div>
+        </div>
+        <div id="tab-continue" class="tab-content hidden">
+          <div id="continue-list" class="items-grid"></div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Search Modal Overlay -->
+    <div id="search-modal" class="search-modal hidden glass-modal">
+      <div class="search-modal-container">
+        <div class="search-modal-header">
+          <div class="search-input-wrapper">
+            <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.35-4.35" />
+            </svg>
+            <input type="text" id="global-search-input" placeholder="Search for movies or series..." autocomplete="off"
+              autofocus>
+          </div>
+          <button id="close-search-modal" class="icon-btn close-search-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="search-modal-body">
+          <div id="search-results-movies" class="search-section hidden">
+            <div class="search-section-header">
+              <h3 class="search-section-title" data-i18n="search_movies">Movies Search - Movie</h3>
+            </div>
+            <div class="search-horizontal-wrapper">
+              <div id="search-grid-movies" class="search-grid horizontal-strip"></div>
+            </div>
+          </div>
+          <div id="search-results-series" class="search-section hidden">
+            <div class="search-section-header">
+              <h3 class="search-section-title" data-i18n="search_series">Series Search - Series</h3>
+            </div>
+            <div class="search-horizontal-wrapper">
+              <div id="search-grid-series" class="search-grid horizontal-strip"></div>
+            </div>
+          </div>
+          <div id="search-empty-state" class="empty-state hidden">
+            <div class="empty-state-icon">🔍</div>
+            <div>No results found</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- شاشة التفاصيل -->
+    <div id="screen-detail" class="screen hidden">
+      <div class="detail-overlay-bg"></div>
+      <div class="detail-card-container">
+      <button id="back-btn" class="back-btn" title="رجوع">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="m9 18 6-6-6-6" />
+        </svg>
+      </button>
+
+      <div id="detail-hero" class="detail-hero">
+        <div class="detail-bg"></div>
+        <div class="detail-hero-gradient"></div>
+      </div>
+
+      <div class="detail-content-glass">
+        <div class="detail-header">
+          <img id="detail-poster" class="detail-poster" alt="">
+          <div class="detail-header-info">
+            <h2 id="detail-title"></h2>
+            <div class="detail-meta">
+              <span id="detail-year" class="meta-chip"></span>
+              <span id="detail-runtime" class="meta-chip"></span>
+              <span id="detail-rating" class="rating-badge"></span>
+            </div>
+            <div id="detail-watch-progress" class="watch-progress-tags"></div>
+            <div id="detail-genres" class="genre-tags"></div>
+          </div>
+        </div>
+
+        <div class="detail-description-section">
+          <div class="desc-header">
+            <h3 data-i18n="story_title">القصة</h3>
+            <button id="btn-translate" class="translate-btn" title="ترجمة الوصف" data-i18n-title="translate_btn_title">
+
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
+                <polyline points="16 6 12 2 8 6" />
+                <line x1="12" y1="2" x2="12" y2="15" />
+              </svg>
+              <span data-i18n="translate_btn">ترجمة</span>
+</button>
+          </div>
+          <p id="detail-description"></p>
+        </div>
+
+        <div id="episodes-browser-section" class="detail-episodes-section hidden">
+          <div class="episodes-header">
+            <h3 data-i18n="episodes_title">الحلقات</h3>
+            <div style="display: flex; gap: 8px; align-items: center;">
+              <button id="mark-season-watched-btn" class="season-select-modern" style="padding: 6px 12px; cursor: pointer; display: flex; align-items: center; gap: 4px;" title="تعليم الموسم كمشاهد">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span id="mark-season-text" style="font-size:12px;">مشاهدة الموسم</span>
+              </button>
+              <select id="season-selector" class="season-select-modern"></select>
+            </div>
+          </div>
+          <div id="episodes-list" class="episodes-horizontal-strip"></div>
+        </div>
+
+        <div class="detail-cast-section">
+          <h3 data-i18n="cast_title">طاقم العمل</h3>
+          <div id="detail-cast" class="cast-row"></div>
+        </div>
+
+        <div class="detail-actions">
+          <button id="btn-web" class="btn-primary btn-massive">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="5 3 19 12 5 21 5 3" fill="currentColor" />
+            </svg>
+            <span data-i18n="watch_now">مشاهدة الآن</span>
+          </button>
+
+          <div class="action-row-modern">
+            <button id="btn-app" class="btn-icon-text" title="فتح في التطبيق">
+              <div class="icon-circle">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+                  <line x1="8" y1="21" x2="16" y2="21" />
+                  <line x1="12" y1="17" x2="12" y2="21" />
+                </svg>
+              </div>
+              <span data-i18n="app_btn">التطبيق</span>
+            </button>
+
+            <button id="btn-add" class="btn-icon-text hidden" title="إضافة للمكتبة" data-i18n-title="add_lib_title">
+              <div class="icon-circle">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+              </div>
+              <span data-i18n="add_lib">إضافة</span>
+            </button>
+
+            <button id="btn-watched" class="btn-icon-text success-text" title="تم المشاهدة">
+              <div class="icon-circle">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+              </div>
+              <span>شُوهد</span>
+            </button>
+
+            <button id="btn-remove" class="btn-icon-text danger-text" title="حذف من المكتبة" data-i18n-title="remove_lib_title">
+              <div class="icon-circle">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="3 6 5 6 21 6" />
+                  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                </svg>
+              </div>
+              <span data-i18n="remove_lib">حذف</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container"></div>
+  </div>
+
+  <script src="pako.min.js"></script>
+  <!-- Change Avatar Modal -->
+  <div id="change-avatar-modal" class="modal hidden">
+    <div class="modal-content" style="max-width: 320px; padding: 20px;">
+      <h3 data-i18n="change_avatar_title" style="margin-bottom: 12px; font-size: 16px;">تغيير الشخصية</h3>
+      <div class="avatar-picker-container" id="settings-avatar-picker-list" style="margin-bottom: 12px;">
+        <!-- Avatars populated here -->
+      </div>
+      <div style="display: flex; gap: 8px; margin-top: 16px;">
+        <button id="save-avatar-btn" class="btn-primary" style="flex: 1;">
+          <span data-i18n="save_changes">حفظ</span>
+        </button>
+        <button id="close-avatar-modal-btn" class="btn-secondary" style="flex: 1;">
+          <span data-i18n="cancel">إلغاء</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Account Modal -->
+  <div id="edit-account-modal" class="modal hidden">
+    <div class="modal-content" style="max-width: 340px; padding: 24px; background: rgba(30, 27, 46, 0.95); backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 20px 40px rgba(0,0,0,0.6);">
+      <h3 style="margin-top: 0; margin-bottom: 20px; font-size: 18px;" data-i18n="edit_account">تعديل الحساب</h3>
+      <div class="input-group" style="margin-bottom: 20px;">
+        <label style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--text-secondary);" data-i18n="account_name">اسم الحساب</label>
+        <input type="text" id="edit-account-name-input" class="modern-input" style="width: 100%; box-sizing: border-box; padding: 12px; border-radius: 8px; border: 1px solid var(--glass-border); background: rgba(255, 255, 255, 0.05); color: white;" placeholder="اسم الحساب">
+      </div>
+      <div id="edit-avatar-picker-group" style="margin-bottom: 24px;">
+        <label style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--text-secondary);" data-i18n="choose_avatar">اختر صورتك</label>
+        <div class="avatar-picker-container" id="edit-avatar-picker-list"></div>
+      </div>
+      <div style="display: flex; gap: 12px; justify-content: flex-end;">
+        <button id="save-edit-account-btn" class="btn-primary" style="flex: 1;" data-i18n="save_changes">حفظ</button>
+        <button id="close-edit-account-btn" class="btn-secondary" style="flex: 1;" data-i18n="cancel">إلغاء</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Account Popover -->
+  <div id="account-popover" class="account-popover hidden">
+    <div class="popover-header">
+      <div id="popover-avatar" class="popover-avatar"></div>
+      <div class="popover-user-info">
+        <h4 id="popover-name"></h4>
+        <p id="popover-email"></p>
+      </div>
+    </div>
+    <div class="popover-divider"></div>
+    <div class="popover-menu">
+      <button id="popover-settings-btn" class="popover-menu-item">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+        <span data-i18n="settings_btn">الإعدادات</span>
+      </button>
+      <button id="popover-switch-btn" class="popover-menu-item logout">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
+        <span data-i18n="switch_account_btn">تبديل الحساب</span>
+      </button>
+    </div>
+  </div>
+
+
+  <!-- Scripts -->
+  <script src="avatars-data.js"></script>
+  <script src="stremio.js"></script>
+  <script src="popup.js"></script>
+</body>
+
+</html>

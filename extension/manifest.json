@@ -1,0 +1,96 @@
+{
+  "manifest_version": 3,
+  "name": "__MSG_extensionName__",
+  "version": "1.5.0",
+  "description": "__MSG_extensionDescription__",
+  "default_locale": "en",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "StremioHub"
+  },
+  "permissions": [
+    "storage",
+    "contextMenus",
+    "activeTab",
+    "alarms"
+  ],
+  "host_permissions": [
+    "<all_urls>",
+    "https://api.strem.io/*",
+    "https://v3-cinemeta.strem.io/*",
+    "https://*.strem.io/*",
+    "https://letterboxd.com/*",
+    "https://www.letterboxd.com/*",
+    "https://www.imdb.com/*",
+    "https://www.themoviedb.org/*",
+    "https://www.rottentomatoes.com/*",
+    "https://www.metacritic.com/*",
+    "https://www.google.com/search*",
+    "https://trakt.tv/*",
+    "https://*.trakt.tv/*",
+    "https://mdblist.com/*",
+    "https://api.mdblist.com/*",
+    "https://publicmetadb.com/*",
+    "*://web.stremio.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "*://letterboxd.com/film/*",
+        "*://www.letterboxd.com/film/*",
+        "*://letterboxd.com/*/film/*",
+        "*://www.letterboxd.com/*/film/*",
+        "*://www.imdb.com/title/*",
+        "*://www.themoviedb.org/movie/*",
+        "*://www.themoviedb.org/tv/*",
+        "*://www.rottentomatoes.com/m/*",
+        "*://www.rottentomatoes.com/tv/*",
+        "*://www.metacritic.com/movie/*",
+        "*://www.metacritic.com/tv/*",
+        "*://www.google.com/search*",
+        "*://trakt.tv/movies/*",
+        "*://trakt.tv/shows/*",
+        "*://*.trakt.tv/movies/*",
+        "*://*.trakt.tv/shows/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "css": [
+        "styles/shared.css"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "*://web.stremio.com/*"
+      ],
+      "js": [
+        "stremio-web-enhancer.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "icons/stremio-icon.png",
+        "fonts/thmanyahsans-Regular.woff2",
+        "fonts/thmanyahsans-Bold.woff2",
+        "assets/avatars/*"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  }
+}

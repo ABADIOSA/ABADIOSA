@@ -1,0 +1,12 @@
+/* shared.css — Styles injected in rating sites for the Stremio button */
+/* Minimal — most styles are inline to avoid conflicts with host sites */
+
+#stremio-hub-btn {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif !important;
+  line-height: 1.4 !important;
+  letter-spacing: 0 !important;
+}
+
+#stremio-hub-btn * {
+  box-sizing: border-box !important;
+}

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="248" height="74" viewBox="0 0 248 74">
+  <rect width="248" height="74" rx="6" fill="#2D2D2D"/>
+  <rect x="1" y="1" width="246" height="72" rx="5" fill="none" stroke="#5C5C5C" stroke-width="1.5"/>
+
+  <!-- Chrome icon group -->
+  <g transform="translate(18, 18)">
+    <!-- Outer ring -->
+    <circle cx="19" cy="19" r="19" fill="none"/>
+    <!-- Blue segment -->
+    <path d="M19 0 A19 19 0 0 1 35.45 9.5 L27.73 14.25 A10.4 10.4 0 0 0 19 9.6 Z" fill="#4285F4"/>
+    <!-- Red segment -->
+    <path d="M35.45 9.5 A19 19 0 0 1 35.45 28.5 L27.73 23.75 A10.4 10.4 0 0 0 27.73 14.25 Z" fill="#EA4335"/>
+    <!-- Yellow segment -->
+    <path d="M35.45 28.5 A19 19 0 0 1 2.55 28.5 L10.27 23.75 A10.4 10.4 0 0 0 27.73 23.75 Z" fill="#FBBC05"/>
+    <!-- Green segment -->
+    <path d="M2.55 28.5 A19 19 0 0 1 2.55 9.5 L10.27 14.25 A10.4 10.4 0 0 0 10.27 23.75 Z" fill="#34A853"/>
+    <!-- Blue top-left -->
+    <path d="M2.55 9.5 A19 19 0 0 1 19 0 L19 9.6 A10.4 10.4 0 0 0 10.27 14.25 Z" fill="#4285F4"/>
+    <!-- Center white circle -->
+    <circle cx="19" cy="19" r="10.4" fill="white"/>
+    <!-- Center blue circle -->
+    <circle cx="19" cy="19" r="7.5" fill="#4285F4"/>
+  </g>
+
+  <!-- Text group -->
+  <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" fill="white">
+    <text x="72" y="28" font-size="11" fill="#AAAAAA" font-weight="400">Available in the</text>
+    <text x="72" y="50" font-size="18" font-weight="600" letter-spacing="-0.3">Chrome Web Store</text>
+  </g>
+</svg>

@@ -1,0 +1,14 @@
+{
+  "extensionName": {
+    "message": "StremioHub",
+    "description": "The name of the extension"
+  },
+  "extensionDescription": {
+    "message": "الرفيق الشامل لـ Stremio في متصفحك.",
+    "description": "The description of the extension"
+  },
+  "update_extension": {
+    "message": "تحديث الإضافة",
+    "description": "Button text to update the extension"
+  }
+}

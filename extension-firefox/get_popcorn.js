@@ -1,0 +1,1 @@
+console.log(`<svg viewBox="0 0 24 24" width="13" height="13" fill="#fbbf24"><path d="M12 2C7.58 2 4 5.58 4 10c0 1.25.29 2.43.8 3.47L2 19l4.5 1h11l4.5-1-2.8-5.53A7.95 7.95 0 0020 10c0-4.42-3.58-8-8-8zm-1 3v2H9V5h2zm4 0v2h-2V5h2zm2 3v2h-2V8h2zm-8 0v2H7V8h2zm4 11h-4v-6h4v6z"/></svg>`); // mock
