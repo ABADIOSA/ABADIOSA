@@ -11,8 +11,10 @@
   const getBtnText = (action, hasPlayIcon = false) => {
     const play = hasPlayIcon ? '▶ ' : '';
     if (currentLang === 'ar') {
+      if (action === 'harbor') return play + 'فتح في Harbor';
       return action === 'open' ? play + 'فتح في ستريميو' : play + 'حفظ في ستريميو';
     }
+    if (action === 'harbor') return play + 'Open in Harbor';
     return action === 'open' ? play + 'Open in Stremio' : play + 'Save to Stremio';
   };
 
@@ -177,10 +179,10 @@
     const handleStremioClick = async (e, statusSpan, feedbackCallback) => {
       e.preventDefault();
 
-      if (action === 'open') {
+      if (action === 'open' || action === 'harbor') {
         if (statusSpan) statusSpan.textContent = getStatusText('opening');
         chrome.runtime.sendMessage({
-          type: 'OPEN_IN_STREMIO_DIRECT',
+          type: 'OPEN_IN_STREMIO_DIRECT', forceHarbor: action === 'harbor',
           query: title, year, mediaType: type, imdbId
         }, (res) => {
           if (feedbackCallback) feedbackCallback(res && res.success);
@@ -431,9 +433,9 @@
       e.preventDefault();
       const span = stremioButton.querySelector('span');
 
-      if (action === 'open') {
+      if (action === 'open' || action === 'harbor') {
         span.textContent = getStatusText('opening');
-        chrome.runtime.sendMessage({ type: 'OPEN_IN_STREMIO_DIRECT', query: title, year, mediaType: type }, (res) => {
+        chrome.runtime.sendMessage({ type: 'OPEN_IN_STREMIO_DIRECT', forceHarbor: action === 'harbor', query: title, year, mediaType: type }, (res) => {
           if (res && res.success) {
             if (res.itemMeta && typeof showStremioHubToast === 'function') showStremioHubToast(res.itemMeta);
             span.textContent = getStatusText('opened');
@@ -541,9 +543,9 @@
       const imdbIdMatch = window.location.pathname.match(new RegExp('/title/(tt\\\\d+)'));
       const imdbId = imdbIdMatch ? imdbIdMatch[1] : null;
 
-      if (action === 'open') {
+      if (action === 'open' || action === 'harbor') {
         stremioButton.innerHTML = getStatusText('opening');
-        chrome.runtime.sendMessage({ type: 'OPEN_IN_STREMIO_DIRECT', query: title, year, mediaType: type, imdbId }, (res) => {
+        chrome.runtime.sendMessage({ type: 'OPEN_IN_STREMIO_DIRECT', forceHarbor: action === 'harbor', query: title, year, mediaType: type, imdbId }, (res) => {
           if (res && res.success) {
             if (res.itemMeta && typeof showStremioHubToast === 'function') showStremioHubToast(res.itemMeta);
             stremioButton.innerHTML = getStatusText('opened');
@@ -640,8 +642,8 @@
     stremioButton.addEventListener('click', async (e) => {
       e.preventDefault();
 
-      if (action === 'open') {
-        chrome.runtime.sendMessage({ type: 'OPEN_IN_STREMIO_DIRECT', query: title, year, mediaType: type }, (res) => {
+      if (action === 'open' || action === 'harbor') {
+        chrome.runtime.sendMessage({ type: 'OPEN_IN_STREMIO_DIRECT', forceHarbor: action === 'harbor', query: title, year, mediaType: type }, (res) => {
           showFeedback(res);
         });
         return;
@@ -697,9 +699,9 @@
       e.preventDefault();
       const span = stremioButton.querySelector('span');
 
-      if (action === 'open') {
+      if (action === 'open' || action === 'harbor') {
         span.textContent = getStatusText('opening');
-        chrome.runtime.sendMessage({ type: 'OPEN_IN_STREMIO_DIRECT', query: title, year, mediaType: type }, (res) => {
+        chrome.runtime.sendMessage({ type: 'OPEN_IN_STREMIO_DIRECT', forceHarbor: action === 'harbor', query: title, year, mediaType: type }, (res) => {
           if (res && res.success) {
             if (res.itemMeta && typeof showStremioHubToast === 'function') showStremioHubToast(res.itemMeta);
             span.textContent = getStatusText('opened');
@@ -797,8 +799,8 @@
     stremioButton.addEventListener('click', async (e) => {
       e.preventDefault();
 
-      if (action === 'open') {
-        chrome.runtime.sendMessage({ type: 'OPEN_IN_STREMIO_DIRECT', query: title, year, mediaType: type }, (res) => {
+      if (action === 'open' || action === 'harbor') {
+        chrome.runtime.sendMessage({ type: 'OPEN_IN_STREMIO_DIRECT', forceHarbor: action === 'harbor', query: title, year, mediaType: type }, (res) => {
           showFeedback(res);
         });
         return;
@@ -876,8 +878,8 @@
     stremioButton.addEventListener('click', async (e) => {
       e.preventDefault();
 
-      if (action === 'open') {
-        chrome.runtime.sendMessage({ type: 'OPEN_IN_STREMIO_DIRECT', query: title, year, mediaType: type }, (res) => {
+      if (action === 'open' || action === 'harbor') {
+        chrome.runtime.sendMessage({ type: 'OPEN_IN_STREMIO_DIRECT', forceHarbor: action === 'harbor', query: title, year, mediaType: type }, (res) => {
           showFeedback(res);
         });
         return;
@@ -968,9 +970,9 @@
     const handleAction = async () => {
       const span = wrapper.querySelector('span');
 
-      if (action === 'open') {
+      if (action === 'open' || action === 'harbor') {
         span.textContent = getStatusText('opening');
-        chrome.runtime.sendMessage({ type: 'OPEN_IN_STREMIO_DIRECT', query: title, year, mediaType: type }, (res) => {
+        chrome.runtime.sendMessage({ type: 'OPEN_IN_STREMIO_DIRECT', forceHarbor: action === 'harbor', query: title, year, mediaType: type }, (res) => {
           if (res && res.success) {
             if (res.itemMeta && typeof showStremioHubToast === 'function') showStremioHubToast(res.itemMeta);
             span.textContent = getStatusText('opened');

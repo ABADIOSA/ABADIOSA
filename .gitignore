@@ -2,3 +2,5 @@
 node_modules/
 *.log
 *.zip
+tests/harbor/node_modules/
+tests/harbor/package-lock.json

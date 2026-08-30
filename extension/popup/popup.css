@@ -3434,3 +3434,483 @@ body.theme-oled .addon-card {
 body.theme-oled .tab-indicator {
   background: linear-gradient(135deg, #a855f7, #7e22ce);
 }
+
+/* ==================== Harbor Integration ==================== */
+
+:root {
+  --hb-accent: #38bdf8;
+  --hb-accent-soft: rgba(56, 189, 248, 0.14);
+  --hb-accent-border: rgba(56, 189, 248, 0.35);
+}
+
+/* ── بطاقة التعريف في تبويب الإعدادات ── */
+.hb-intro {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+  border-radius: var(--radius);
+  background: var(--hb-accent-soft);
+  border: 1px solid var(--hb-accent-border);
+}
+
+.hb-intro-icon {
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(56, 189, 248, 0.18);
+  color: var(--hb-accent);
+}
+
+.hb-intro h4 {
+  margin: 0 0 4px 0;
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+.hb-intro p {
+  margin: 0 0 6px 0;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+/* ── صف العنوان/المنفذ ── */
+.hb-conn-card .setting-info {
+  display: block;
+}
+
+.hb-conn-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.hb-input {
+  flex: 1 1 130px;
+  min-width: 110px;
+  padding: 8px 10px;
+  font-family: monospace;
+  font-size: 13px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--glass-border-light);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+}
+
+.hb-input-port {
+  flex: 0 0 88px;
+  min-width: 72px;
+}
+
+.hb-colon {
+  color: var(--text-muted);
+  font-family: monospace;
+}
+
+.hb-test-result {
+  margin-top: 10px;
+  font-size: 12px;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  line-height: 1.5;
+}
+
+.hb-test-result.ok {
+  color: var(--success);
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.hb-test-result.fail {
+  color: var(--danger);
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+}
+
+.hb-links {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.hb-link-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 12px;
+  color: var(--hb-accent);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-family: inherit;
+}
+
+.hb-link-btn:hover {
+  color: var(--text-primary);
+}
+
+.hb-note {
+  font-size: 11px;
+  line-height: 1.7;
+  color: var(--text-muted);
+  margin: 4px 2px 0;
+}
+
+/* ── نقطة الحالة على زر الترويسة ── */
+#harbor-btn {
+  position: relative;
+}
+
+.hb-dot {
+  position: absolute;
+  top: 4px;
+  inset-inline-end: 4px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--success);
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.8);
+}
+
+/* ── شاشة الريموت ── */
+#screen-harbor .header-brand {
+  gap: 8px;
+}
+
+.hb-pill {
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--glass-border-light);
+  background: var(--glass-surface);
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.hb-pill.online {
+  color: var(--success);
+  border-color: rgba(16, 185, 129, 0.35);
+  background: rgba(16, 185, 129, 0.1);
+}
+
+.hb-pill.offline {
+  color: var(--danger);
+  border-color: rgba(239, 68, 68, 0.35);
+  background: rgba(239, 68, 68, 0.1);
+}
+
+/* الشاشة نفسها هي التي تمرّر (‎.screen { overflow-y: auto }‎) والترويسة sticky،
+   لذلك يكفي أن يكون الجسم عموداً عادياً بارتفاع تلقائي. */
+.hb-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ── حالات فارغة ── */
+.hb-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  padding: 28px 20px;
+  border-radius: var(--radius);
+  background: var(--glass-surface);
+  border: 1px solid var(--glass-border);
+}
+
+.hb-state-icon {
+  color: var(--text-muted);
+  opacity: 0.65;
+}
+
+.hb-state h3 {
+  margin: 0;
+  font-size: 15px;
+  color: var(--text-primary);
+}
+
+.hb-state p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.7;
+  max-width: 380px;
+  color: var(--text-secondary);
+}
+
+.hb-state-detail {
+  font-family: monospace;
+  font-size: 11px !important;
+  color: var(--text-muted) !important;
+}
+
+/* ── الآن قيد التشغيل ── */
+.hb-now {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 16px;
+  border-radius: var(--radius);
+  background: var(--glass-surface);
+  border: 1px solid var(--glass-border);
+}
+
+.hb-now-head {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.hb-poster {
+  flex-shrink: 0;
+  width: 74px;
+  height: 111px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.hb-poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hb-now-meta {
+  min-width: 0;
+  flex: 1;
+}
+
+.hb-now-meta h3 {
+  margin: 0 0 6px 0;
+  font-size: 16px;
+  line-height: 1.4;
+  color: var(--text-primary);
+  overflow-wrap: anywhere;
+}
+
+.hb-sub {
+  margin: 0 0 4px 0;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.hb-source {
+  font-family: monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+  overflow-wrap: anywhere;
+}
+
+.hb-target {
+  margin: 6px 0 0 0;
+  font-size: 11px;
+  color: var(--hb-accent);
+}
+
+/* ── شريط التقدّم ── */
+.hb-seek input[type="range"],
+.hb-volume {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.12);
+  outline: none;
+  cursor: pointer;
+}
+
+.hb-seek input[type="range"]::-webkit-slider-thumb,
+.hb-volume::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--hb-accent);
+  border: none;
+  cursor: pointer;
+}
+
+.hb-seek input[type="range"]::-moz-range-thumb,
+.hb-volume::-moz-range-thumb {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--hb-accent);
+  border: none;
+  cursor: pointer;
+}
+
+.hb-times {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+  font-size: 11px;
+  font-family: monospace;
+  color: var(--text-muted);
+  direction: ltr;
+}
+
+/* ── أزرار التحكم ── */
+.hb-transport {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  direction: ltr;
+}
+
+.hb-tbtn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--glass-border-light);
+  background: var(--glass-surface);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+
+.hb-tbtn:hover:not(:disabled) {
+  background: var(--glass-surface-hover);
+  color: var(--text-primary);
+}
+
+.hb-tbtn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.hb-tbtn-main {
+  width: 52px;
+  height: 52px;
+  background: var(--hb-accent);
+  border-color: transparent;
+  color: #06263a;
+}
+
+.hb-tbtn-main:hover:not(:disabled) {
+  background: #7dd3fc;
+  color: #06263a;
+  transform: scale(1.05);
+}
+
+.hb-secondary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  direction: ltr;
+}
+
+.hb-sbtn {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--glass-border-light);
+  background: var(--glass-surface);
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.hb-sbtn:hover:not(:disabled) {
+  color: var(--text-primary);
+  background: var(--glass-surface-hover);
+}
+
+.hb-sbtn.active {
+  color: var(--hb-accent);
+  border-color: var(--hb-accent-border);
+  background: var(--hb-accent-soft);
+}
+
+.hb-sbtn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+/* ── البحث والتنقّل ── */
+.hb-card {
+  padding: 16px;
+  border-radius: var(--radius);
+  background: var(--glass-surface);
+  border: 1px solid var(--glass-border);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.hb-search-row {
+  display: flex;
+  gap: 8px;
+}
+
+.hb-search-row input {
+  flex: 1;
+  min-width: 0;
+  padding: 9px 12px;
+  font-size: 13px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--glass-border-light);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+}
+
+.hb-dpad {
+  display: grid;
+  grid-template-columns: repeat(3, 44px);
+  grid-template-rows: repeat(3, 44px);
+  gap: 6px;
+  justify-content: center;
+  direction: ltr;
+}
+
+.hb-dpad .hb-nav:nth-child(1) { grid-area: 1 / 2; }
+.hb-dpad .hb-nav:nth-child(2) { grid-area: 2 / 1; }
+.hb-dpad .hb-nav:nth-child(3) { grid-area: 2 / 2; }
+.hb-dpad .hb-nav:nth-child(4) { grid-area: 2 / 3; }
+.hb-dpad .hb-nav:nth-child(5) { grid-area: 3 / 1; }
+.hb-dpad .hb-nav:nth-child(6) { grid-area: 3 / 2; }
+
+.hb-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--glass-border-light);
+  background: var(--glass-surface);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+
+.hb-nav:hover {
+  background: var(--glass-surface-hover);
+  color: var(--text-primary);
+}
+
+.hb-nav-select {
+  color: var(--hb-accent);
+  border-color: var(--hb-accent-border);
+  background: var(--hb-accent-soft);
+}

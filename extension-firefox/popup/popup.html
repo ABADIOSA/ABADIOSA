@@ -163,6 +163,7 @@
           <button class="settings-tab-btn" data-settings-tab="websites" data-i18n="tab_websites">المواقع</button>
           <button class="settings-tab-btn" data-settings-tab="addons" data-i18n="tab_addons">الإضافات</button>
           <button class="settings-tab-btn" data-settings-tab="webenhancer" data-i18n="tab_webenhancer">ستريميو ويب</button>
+          <button class="settings-tab-btn" data-settings-tab="harbor" data-i18n="tab_harbor">Harbor</button>
         </nav>
 
         <div class="settings-list settings-tab-content active" id="settings-tab-general">
@@ -197,6 +198,7 @@
             <select id="setting-open-method" class="size-select-modern">
               <option value="web" data-i18n="open_web">Stremio Web (المتصفح)</option>
               <option value="app" data-i18n="open_app">تطبيق Stremio</option>
+              <option value="harbor" data-i18n="open_harbor">Harbor</option>
             </select>
           </div>
 
@@ -312,6 +314,7 @@
                   <select id="action-google" class="site-action-select">
                     <option value="save" data-i18n="action_save">حفظ</option>
                     <option value="open" data-i18n="action_open">فتح</option>
+                    <option value="harbor" data-i18n="action_harbor">Harbor</option>
                   </select>
                   <label class="toggle-switch"><input type="checkbox" id="site-google" checked><span
                       class="slider"></span></label>
@@ -323,6 +326,7 @@
                   <select id="action-letterboxd" class="site-action-select">
                     <option value="save" data-i18n="action_save">حفظ</option>
                     <option value="open" data-i18n="action_open">فتح</option>
+                    <option value="harbor" data-i18n="action_harbor">Harbor</option>
                   </select>
                   <label class="toggle-switch"><input type="checkbox" id="site-letterboxd" checked><span
                       class="slider"></span></label>
@@ -334,6 +338,7 @@
                   <select id="action-imdb" class="site-action-select">
                     <option value="save" data-i18n="action_save">حفظ</option>
                     <option value="open" data-i18n="action_open">فتح</option>
+                    <option value="harbor" data-i18n="action_harbor">Harbor</option>
                   </select>
                   <label class="toggle-switch"><input type="checkbox" id="site-imdb" checked><span
                       class="slider"></span></label>
@@ -345,6 +350,7 @@
                   <select id="action-tmdb" class="site-action-select">
                     <option value="save" data-i18n="action_save">حفظ</option>
                     <option value="open" data-i18n="action_open">فتح</option>
+                    <option value="harbor" data-i18n="action_harbor">Harbor</option>
                   </select>
                   <label class="toggle-switch"><input type="checkbox" id="site-tmdb" checked><span
                       class="slider"></span></label>
@@ -356,6 +362,7 @@
                   <select id="action-rt" class="site-action-select">
                     <option value="save" data-i18n="action_save">حفظ</option>
                     <option value="open" data-i18n="action_open">فتح</option>
+                    <option value="harbor" data-i18n="action_harbor">Harbor</option>
                   </select>
                   <label class="toggle-switch"><input type="checkbox" id="site-rt" checked><span
                       class="slider"></span></label>
@@ -367,6 +374,7 @@
                   <select id="action-metacritic" class="site-action-select">
                     <option value="save" data-i18n="action_save">حفظ</option>
                     <option value="open" data-i18n="action_open">فتح</option>
+                    <option value="harbor" data-i18n="action_harbor">Harbor</option>
                   </select>
                   <label class="toggle-switch"><input type="checkbox" id="site-metacritic" checked><span
                       class="slider"></span></label>
@@ -378,6 +386,7 @@
                   <select id="action-trakt" class="site-action-select">
                     <option value="save" data-i18n="action_save">حفظ</option>
                     <option value="open" data-i18n="action_open">فتح</option>
+                    <option value="harbor" data-i18n="action_harbor">Harbor</option>
                   </select>
                   <label class="toggle-switch"><input type="checkbox" id="site-trakt" checked><span
                       class="slider"></span></label>
@@ -739,6 +748,78 @@
 
         </div>
 
+
+        <div class="settings-list settings-tab-content hidden" id="settings-tab-harbor">
+
+          <div class="hb-intro">
+            <div class="hb-intro-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="5" r="2"/><line x1="12" y1="22" x2="12" y2="7"/>
+                <path d="M5 12H2a10 10 0 0 0 20 0h-3"/>
+              </svg>
+            </div>
+            <div>
+              <h4 data-i18n="harbor_intro_title">التكامل مع Harbor</h4>
+              <p data-i18n="harbor_intro_desc">Harbor مشغّل سطح مكتب مفتوح المصدر لمنظومة إضافات Stremio. يستعمل نفس حساب Stremio، لذلك مكتبتك وإضافاتك متزامنة تلقائياً — وهنا نضيف الفتح المباشر والتحكم بالتشغيل.</p>
+              <a href="https://github.com/harborstremio/harbor" target="_blank" class="dev-link" style="font-size:12px;">github.com/harborstremio/harbor</a>
+            </div>
+          </div>
+
+          <div class="setting-card">
+            <div class="setting-info">
+              <h4 data-i18n="harbor_enable_title">تفعيل التكامل</h4>
+              <p data-i18n="harbor_enable_desc">يُظهر زر Harbor وقائمة السياق وشاشة الريموت.</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="harbor-enabled">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="setting-card">
+            <div class="setting-info">
+              <h4 data-i18n="harbor_open_mode_title">طريقة الفتح في Harbor</h4>
+              <p data-i18n="harbor_open_mode_desc">الرابط العميق يفتح صفحة العمل في تطبيق Harbor. الريموت يدفع البحث إلى نافذة Harbor المفتوحة. الويب يفتح واجهة Harbor في المتصفح.</p>
+            </div>
+            <select id="harbor-open-mode" class="size-select-modern">
+              <option value="deeplink" data-i18n="harbor_mode_deeplink">رابط عميق (التطبيق)</option>
+              <option value="remote" data-i18n="harbor_mode_remote">ريموت (دفع بحث)</option>
+              <option value="web" data-i18n="harbor_mode_web">واجهة الويب</option>
+            </select>
+          </div>
+
+          <div class="setting-card hb-conn-card">
+            <div class="setting-info" style="width:100%;">
+              <h4 data-i18n="harbor_server_title">خادم Harbor المحلي</h4>
+              <p data-i18n="harbor_server_desc">فعّل في Harbor: الإعدادات ← Remote Control (أو Serve Web UI). المنفذ الافتراضي 11471.</p>
+              <div class="hb-conn-row">
+                <input type="text" id="harbor-host" class="modern-input hb-input" dir="ltr" placeholder="127.0.0.1" spellcheck="false">
+                <span class="hb-colon">:</span>
+                <input type="number" id="harbor-port" class="modern-input hb-input hb-input-port" dir="ltr" placeholder="11471" min="1" max="65535">
+                <button id="harbor-test-btn" class="addon-action-btn backup-btn" data-i18n="harbor_test_btn">اختبار</button>
+              </div>
+              <div id="harbor-test-result" class="hb-test-result hidden"></div>
+              <div class="hb-links">
+                <button id="harbor-open-web-btn" class="hb-link-btn" data-i18n="harbor_open_web">فتح واجهة Harbor</button>
+                <button id="harbor-open-remote-btn" class="hb-link-btn" data-i18n="harbor_open_remote">فتح ريموت الجوال</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="setting-card">
+            <div class="setting-info">
+              <h4 data-i18n="harbor_mirror_title">نسخ تثبيت الإضافات إلى Harbor</h4>
+              <p data-i18n="harbor_mirror_desc">عند تثبيت إضافة من StremioHub، افتح أيضاً رابط harbor:// ليعرضها Harbor في نافذة التثبيت.</p>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="harbor-mirror-addons">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <p class="hb-note" data-i18n="harbor_note">ملاحظة: الرابط العميق يعمل فقط إذا كان Harbor هو المسجَّل لفتح روابط stremio:// في نظامك. أما الريموت وواجهة الويب فيحتاجان تشغيل خادم Harbor المحلي.</p>
+        </div>
+
         <div class="developer-credits">
           <span data-i18n="dev_credits">صُنع من مُشاهد، إلى كل المشاهدين 🍿</span> <a href="https://3-pr.github.io/" target="_blank" class="dev-link">Yasser</a>
           <div style="margin-top: 8px; display: flex; flex-direction: column; align-items: center; gap: 6px;">
@@ -811,6 +892,14 @@
               <circle cx="11" cy="11" r="8" />
               <path d="m21 21-4.35-4.35" />
             </svg>
+          </button>
+          <button id="harbor-btn" class="icon-btn hidden" title="Harbor" data-i18n-title="harbor_btn_title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="5" r="2"/><line x1="12" y1="22" x2="12" y2="7"/>
+              <path d="M5 12H2a10 10 0 0 0 20 0h-3"/>
+            </svg>
+            <span id="harbor-btn-dot" class="hb-dot hidden"></span>
           </button>
           <button id="settings-btn" class="icon-btn" title="الإعدادات" data-i18n-title="settings_btn">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -1000,6 +1089,17 @@
               <span data-i18n="app_btn">التطبيق</span>
             </button>
 
+            <button id="btn-harbor" class="btn-icon-text hidden" title="Harbor" data-i18n-title="harbor_open_title">
+              <div class="icon-circle">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="5" r="2"/><line x1="12" y1="22" x2="12" y2="7"/>
+                  <path d="M5 12H2a10 10 0 0 0 20 0h-3"/>
+                </svg>
+              </div>
+              <span>Harbor</span>
+            </button>
+
             <button id="btn-add" class="btn-icon-text hidden" title="إضافة للمكتبة" data-i18n-title="add_lib_title">
               <div class="icon-circle">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
@@ -1034,6 +1134,147 @@
           </div>
         </div>
       </div>
+      </div>
+    </div>
+
+
+    <!-- Harbor Remote Screen -->
+    <div id="screen-harbor" class="screen hidden">
+      <header class="glass-header">
+        <div class="header-brand">
+          <button id="harbor-back-btn" class="icon-btn" title="رجوع" data-i18n-title="back_btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
+            </svg>
+          </button>
+          <div class="header-title-container">
+            <span class="header-title">Harbor</span>
+            <span class="header-subtitle" id="harbor-conn-label" dir="ltr">127.0.0.1:11471</span>
+          </div>
+        </div>
+        <div class="header-actions">
+          <span id="harbor-status-pill" class="hb-pill" data-i18n="harbor_state_connecting">جارِ الاتصال…</span>
+          <button id="harbor-settings-link" class="icon-btn" title="إعدادات Harbor" data-i18n-title="harbor_settings_link">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.2.61.76 1.03 1.4 1.03H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <div class="hb-body">
+
+        <!-- غير متصل -->
+        <div id="harbor-offline" class="hb-state hidden">
+          <div class="hb-state-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+              stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="5" r="2"/><line x1="12" y1="22" x2="12" y2="7"/>
+              <path d="M5 12H2a10 10 0 0 0 20 0h-3"/><line x1="3" y1="3" x2="21" y2="21"/>
+            </svg>
+          </div>
+          <h3 data-i18n="harbor_offline_title">لا يمكن الوصول إلى Harbor</h3>
+          <p data-i18n="harbor_offline_desc">افتح تطبيق Harbor، ثم فعّل من الإعدادات: Remote Control (أو Serve Web UI)، وتأكد من العنوان والمنفذ.</p>
+          <p id="harbor-offline-detail" class="hb-state-detail" dir="ltr"></p>
+          <button id="harbor-retry-btn" class="btn-secondary" data-i18n="harbor_retry">إعادة المحاولة</button>
+        </div>
+
+        <!-- خامل (متصل بلا تشغيل) -->
+        <div id="harbor-idle" class="hb-state hidden">
+          <div class="hb-state-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+              stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/>
+            </svg>
+          </div>
+          <h3 data-i18n="harbor_idle_title">Harbor متصل</h3>
+          <p data-i18n="harbor_idle_desc">لا يوجد تشغيل حالياً. ابحث عن عمل بالأسفل أو استعمل لوحة التنقّل.</p>
+        </div>
+
+        <!-- الآن قيد التشغيل -->
+        <div id="harbor-now" class="hb-now hidden">
+          <div class="hb-now-head">
+            <div class="hb-poster">
+              <img id="harbor-poster" alt="" referrerpolicy="no-referrer">
+            </div>
+            <div class="hb-now-meta">
+              <h3 id="harbor-title"></h3>
+              <p id="harbor-episode" class="hb-sub"></p>
+              <p id="harbor-source" class="hb-sub hb-source" dir="ltr"></p>
+              <p id="harbor-target" class="hb-target"></p>
+            </div>
+          </div>
+
+          <div class="hb-seek">
+            <input type="range" id="harbor-seek" min="0" max="1000" value="0" step="1">
+            <div class="hb-times">
+              <span id="harbor-pos">0:00</span>
+              <span id="harbor-dur">0:00</span>
+            </div>
+          </div>
+
+          <div class="hb-transport">
+            <button id="hb-prev" class="hb-tbtn" title="الحلقة السابقة" data-i18n-title="harbor_prev">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3 6l9-6v12z"/></svg>
+            </button>
+            <button id="hb-back10" class="hb-tbtn" title="‏-10 ثوانٍ" data-i18n-title="harbor_back10">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+            </button>
+            <button id="hb-playpause" class="hb-tbtn hb-tbtn-main" title="تشغيل/إيقاف" data-i18n-title="harbor_playpause">
+              <svg id="hb-icon-play" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              <svg id="hb-icon-pause" class="hidden" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+            </button>
+            <button id="hb-fwd10" class="hb-tbtn" title="‏+10 ثوانٍ" data-i18n-title="harbor_fwd10">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+            </button>
+            <button id="hb-next" class="hb-tbtn" title="الحلقة التالية" data-i18n-title="harbor_next">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16 6h2v12h-2zM6 6l9 6-9 6z"/></svg>
+            </button>
+          </div>
+
+          <div class="hb-secondary">
+            <button id="hb-mute" class="hb-sbtn" title="كتم" data-i18n-title="harbor_mute">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path id="hb-vol-waves" d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14"/><g id="hb-vol-x" class="hidden"><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></g></svg>
+            </button>
+            <input type="range" id="hb-volume" class="hb-volume" min="0" max="100" value="100" step="1">
+            <button id="hb-subs" class="hb-sbtn" title="الترجمة" data-i18n-title="harbor_subs">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="6" y1="14" x2="11" y2="14"/><line x1="14" y1="14" x2="18" y2="14"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- البحث والتنقّل -->
+        <div id="harbor-control-card" class="hb-card hidden">
+          <div class="hb-search-row">
+            <input type="text" id="harbor-search-input" class="modern-input" placeholder="ابحث في Harbor…" data-i18n-placeholder="harbor_search_placeholder">
+            <button id="harbor-search-btn" class="addon-action-btn install-btn" data-i18n="harbor_search_btn">إرسال</button>
+          </div>
+
+          <div class="hb-dpad">
+            <button class="hb-nav" data-nav="up" title="أعلى">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+            </button>
+            <button class="hb-nav" data-nav="left" title="يسار">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <button class="hb-nav hb-nav-select" data-nav="select" title="اختيار" data-i18n-title="harbor_select">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="7"/></svg>
+            </button>
+            <button class="hb-nav" data-nav="right" title="يمين">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+            <button class="hb-nav" data-nav="back" title="رجوع" data-i18n-title="back_btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/></svg>
+            </button>
+            <button class="hb-nav" data-nav="down" title="أسفل">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -1105,6 +1346,7 @@
   <!-- Scripts -->
   <script src="avatars-data.js"></script>
   <script src="stremio.js"></script>
+  <script src="../modules/harbor-core.js"></script>
   <script src="popup.js"></script>
 </body>
 

@@ -1,5 +1,56 @@
 const I18N = {
   ar: {
+    // ── Harbor ──
+    tab_harbor: "Harbor",
+    action_harbor: "Harbor",
+    open_harbor: "Harbor",
+    harbor_btn_title: "ريموت Harbor",
+    harbor_open_title: "فتح في Harbor",
+    harbor_settings_link: "إعدادات Harbor",
+    harbor_intro_title: "التكامل مع Harbor",
+    harbor_intro_desc: "Harbor مشغّل سطح مكتب مفتوح المصدر لمنظومة إضافات Stremio. يستعمل نفس حساب Stremio، لذلك مكتبتك وإضافاتك متزامنة تلقائياً — وهنا نضيف الفتح المباشر والتحكم بالتشغيل.",
+    harbor_enable_title: "تفعيل التكامل",
+    harbor_enable_desc: "يُظهر زر Harbor وقائمة السياق وشاشة الريموت.",
+    harbor_open_mode_title: "طريقة الفتح في Harbor",
+    harbor_open_mode_desc: "الرابط العميق يفتح صفحة العمل في تطبيق Harbor. الريموت يدفع البحث إلى نافذة Harbor المفتوحة. الويب يفتح واجهة Harbor في المتصفح.",
+    harbor_mode_deeplink: "رابط عميق (التطبيق)",
+    harbor_mode_remote: "ريموت (دفع بحث)",
+    harbor_mode_web: "واجهة الويب",
+    harbor_server_title: "خادم Harbor المحلي",
+    harbor_server_desc: "فعّل في Harbor: الإعدادات ← Remote Control (أو Serve Web UI). المنفذ الافتراضي 11471.",
+    harbor_test_btn: "اختبار",
+    harbor_open_web: "فتح واجهة Harbor",
+    harbor_open_remote: "فتح ريموت الجوال",
+    harbor_mirror_title: "نسخ تثبيت الإضافات إلى Harbor",
+    harbor_mirror_desc: "عند تثبيت إضافة من StremioHub، افتح أيضاً رابط harbor:// ليعرضها Harbor في نافذة التثبيت.",
+    harbor_note: "ملاحظة: الرابط العميق يعمل فقط إذا كان Harbor هو المسجَّل لفتح روابط stremio:// في نظامك. أما الريموت وواجهة الويب فيحتاجان تشغيل خادم Harbor المحلي.",
+    harbor_state_connecting: "جارِ الاتصال…",
+    harbor_state_online: "متصل",
+    harbor_state_offline: "غير متصل",
+    harbor_offline_title: "لا يمكن الوصول إلى Harbor",
+    harbor_offline_desc: "افتح تطبيق Harbor، ثم فعّل من الإعدادات: Remote Control (أو Serve Web UI)، وتأكد من العنوان والمنفذ.",
+    harbor_retry: "إعادة المحاولة",
+    harbor_idle_title: "Harbor متصل",
+    harbor_idle_desc: "لا يوجد تشغيل حالياً. ابحث عن عمل بالأسفل أو استعمل لوحة التنقّل.",
+    harbor_search_placeholder: "ابحث في Harbor…",
+    harbor_search_btn: "إرسال",
+    harbor_prev: "الحلقة السابقة",
+    harbor_next: "الحلقة التالية",
+    harbor_back10: "‏-10 ثوانٍ",
+    harbor_fwd10: "‏+10 ثوانٍ",
+    harbor_playpause: "تشغيل / إيقاف",
+    harbor_mute: "كتم الصوت",
+    harbor_subs: "الترجمة",
+    harbor_select: "اختيار",
+    harbor_target_local: "تشغيل على الجهاز",
+    harbor_target_cast: "بثّ إلى {name}",
+    harbor_test_ok: "تم الوصول إلى Harbor خلال {ms} مللي ثانية.",
+    harbor_test_fail: "تعذّر الوصول إلى Harbor. تأكد أن التطبيق يعمل وأن Remote Control مُفعّل.",
+    harbor_msg_disabled: "فعّل تكامل Harbor أولاً من الإعدادات.",
+    harbor_msg_opened: "تم الفتح في Harbor",
+    harbor_msg_sent: "أُرسل البحث إلى Harbor",
+    harbor_msg_failed: "تعذّر الوصول إلى Harbor",
+    harbor_msg_not_found: "لم يُعثر على العمل في كتالوج Stremio",
     app_title: "StremioHub",
     app_subtitle: "All-in-one",
     email_label: "البريد الإلكتروني",
@@ -243,6 +294,57 @@ const I18N = {
     api_testing: "..."
   },
   en: {
+    // ── Harbor ──
+    tab_harbor: "Harbor",
+    action_harbor: "Harbor",
+    open_harbor: "Harbor",
+    harbor_btn_title: "Harbor remote",
+    harbor_open_title: "Open in Harbor",
+    harbor_settings_link: "Harbor settings",
+    harbor_intro_title: "Harbor integration",
+    harbor_intro_desc: "Harbor is an open-source desktop player for the Stremio addon ecosystem. It signs in with the same Stremio account, so your library and addons are already in sync — this adds direct opening and playback control.",
+    harbor_enable_title: "Enable integration",
+    harbor_enable_desc: "Shows the Harbor button, context menu entry and remote screen.",
+    harbor_open_mode_title: "How to open in Harbor",
+    harbor_open_mode_desc: "Deep link opens the title inside the Harbor app. Remote pushes a search into the running Harbor window. Web opens Harbor's UI in the browser.",
+    harbor_mode_deeplink: "Deep link (app)",
+    harbor_mode_remote: "Remote (push search)",
+    harbor_mode_web: "Web UI",
+    harbor_server_title: "Local Harbor server",
+    harbor_server_desc: "In Harbor enable: Settings → Remote Control (or Serve Web UI). Default port is 11471.",
+    harbor_test_btn: "Test",
+    harbor_open_web: "Open Harbor UI",
+    harbor_open_remote: "Open phone remote",
+    harbor_mirror_title: "Mirror addon installs to Harbor",
+    harbor_mirror_desc: "When installing an addon from StremioHub, also open a harbor:// link so Harbor shows it in its installer.",
+    harbor_note: "Note: deep links only work if Harbor is the registered handler for stremio:// links on your system. Remote and Web UI need Harbor's local server running.",
+    harbor_state_connecting: "Connecting…",
+    harbor_state_online: "Connected",
+    harbor_state_offline: "Offline",
+    harbor_offline_title: "Can't reach Harbor",
+    harbor_offline_desc: "Open the Harbor app, then enable Settings → Remote Control (or Serve Web UI), and check the host and port.",
+    harbor_retry: "Retry",
+    harbor_idle_title: "Harbor connected",
+    harbor_idle_desc: "Nothing is playing. Search for a title below or use the navigation pad.",
+    harbor_search_placeholder: "Search Harbor…",
+    harbor_search_btn: "Send",
+    harbor_prev: "Previous episode",
+    harbor_next: "Next episode",
+    harbor_back10: "-10 seconds",
+    harbor_fwd10: "+10 seconds",
+    harbor_playpause: "Play / Pause",
+    harbor_mute: "Mute",
+    harbor_subs: "Subtitles",
+    harbor_select: "Select",
+    harbor_target_local: "Playing on this PC",
+    harbor_target_cast: "Casting to {name}",
+    harbor_test_ok: "Reached Harbor in {ms} ms.",
+    harbor_test_fail: "Couldn't reach Harbor. Make sure the app is running with Remote Control enabled.",
+    harbor_msg_disabled: "Enable the Harbor integration in settings first.",
+    harbor_msg_opened: "Opened in Harbor",
+    harbor_msg_sent: "Search sent to Harbor",
+    harbor_msg_failed: "Couldn't reach Harbor",
+    harbor_msg_not_found: "Title not found in the Stremio catalog",
     app_title: "StremioHub",
     app_subtitle: "All-in-one",
     email_label: "Email Address",
@@ -1212,6 +1314,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   initSettingsAvatarPicker();
   setupAddonManagerListeners();
 
+  // تكامل Harbor
+  await Harbor.load();
+  Harbor.bind();
+  Harbor.reflectHeaderButton();
+  Harbor.reflectDetailButton();
+
   // تحديث الإضافات تلقائياً في الخلفية عند كل فتح للإضافة
   if (state.auth?.authKey) {
     loadAndRenderAddons().catch(() => {});
@@ -1714,13 +1822,16 @@ function setupEventListeners() {
 
   const btnWeb = $('btn-web');
   if (btnWeb) btnWeb.addEventListener('click', () => {
-    if (state.openMethod === 'app') openStremioApp();
+    if (state.openMethod === 'harbor') Harbor.openCurrentDetail();
+    else if (state.openMethod === 'app') openStremioApp();
     else openStremioWeb();
   });
 
   const btnApp = $('btn-app');
   if (btnApp) btnApp.addEventListener('click', () => {
+    // الزر الثانوي يفتح دائماً الوجهة الأخرى: إن كان الأساسي Harbor أو التطبيق فالمتصفح، والعكس
     if (state.openMethod === 'app') openStremioWeb();
+    else if (state.openMethod === 'harbor') openStremioWeb();
     else openStremioApp();
   });
 
@@ -1856,6 +1967,7 @@ function setupEventListeners() {
     $('setting-open-method').addEventListener('change', (e) => {
       state.openMethod = e.target.value;
       chrome.storage.local.set({ openMethod: state.openMethod });
+      Harbor.reflectDetailButton();
       updateWatchButtonsUI();
     });
   }
@@ -2374,6 +2486,7 @@ function renderDetailBasic(item) {
 }
 
 function updateWatchButtonsUI() {
+  Harbor.reflectDetailButton();
   const isApp = state.openMethod === 'app';
   const lang = state.language || 'ar';
   const t = I18N[lang];
@@ -2777,6 +2890,10 @@ function switchSettingsTab(tabId) {
 
   const content = $(`settings-tab-${tabId}`);
   if (content) content.classList.remove('hidden');
+
+  if (tabId === 'harbor') {
+    Harbor.fillSettingsForm();
+  }
 
   // فحص حالة الاتصال التلقائي لمنصات التقييم عند فتح هذا القسم
   if (tabId === 'webenhancer') {
@@ -4336,6 +4453,10 @@ function setupAddonManagerListeners() {
           installStatus.classList.remove('hidden');
         }
         showToast(AddonManager.t('addon_install_ok'), 'success');
+        // نسخ التثبيت إلى Harbor عبر رابط harbor:// إن كان مُفعّلاً
+        if (Harbor.config?.enabled && Harbor.config?.mirrorAddons) {
+          chrome.runtime.sendMessage({ type: 'HARBOR_INSTALL_ADDON', transportUrl: url });
+        }
       } catch (e) {
         if (installStatus) {
           installStatus.textContent = e.message;
@@ -4851,6 +4972,470 @@ function fetchAndRenderPopupRatings(item) {
   });
 }
 
+
+
+// ==================== Harbor Integration ====================
+// جسر التحكم بمشغّل Harbor من داخل الـ Popup.
+// الاتصال بـ WebSocket يبقى هنا (وليس في الـ background) لأن الـ Popup
+// حيّ ما دام مفتوحاً، بينما الـ service worker قد يُوقَف في أي لحظة.
+
+const Harbor = {
+  config: null,
+  remote: null,
+  // سحب المؤشر يوقف تحديث شريط التقدّم حتى لا يقفز تحت اليد
+  seeking: false,
+  lastSnapshot: null,
+  probeTimer: 0,
+
+  tr(key, vars) {
+    const t = I18N[state.language || 'ar'] || I18N.ar;
+    let out = t[key] || key;
+    if (vars) for (const [k, v] of Object.entries(vars)) out = out.replace(`{${k}}`, v);
+    return out;
+  },
+
+  async load() {
+    this.config = await HarborCore.getConfig();
+    return this.config;
+  },
+
+  async save(patch) {
+    this.config = await HarborCore.setConfig(patch);
+    this.reflectHeaderButton();
+    return this.config;
+  },
+
+  get enabled() {
+    return !!this.config?.enabled;
+  },
+
+  /** زر Harbor في ترويسة الشاشة الرئيسية يظهر فقط عند تفعيل التكامل */
+  reflectHeaderButton() {
+    const btn = $('harbor-btn');
+    if (!btn) return;
+    btn.classList.toggle('hidden', !this.enabled);
+    if (!this.enabled) {
+      const dot = $('harbor-btn-dot');
+      if (dot) dot.classList.add('hidden');
+    }
+  },
+
+  /** زر Harbor في شاشة التفاصيل */
+  reflectDetailButton() {
+    const btn = $('btn-harbor');
+    if (!btn) return;
+    // نخفيه عندما تكون طريقة الفتح الأساسية هي Harbor أصلاً (زر "مشاهدة الآن" يقوم بالمهمة)
+    const redundant = state.openMethod === 'harbor';
+    btn.classList.toggle('hidden', !this.enabled || redundant);
+  },
+
+  // ==================== إعدادات التبويب ====================
+
+  async fillSettingsForm() {
+    await this.load();
+    const cfg = this.config;
+    if ($('harbor-enabled')) $('harbor-enabled').checked = cfg.enabled;
+    if ($('harbor-open-mode')) $('harbor-open-mode').value = cfg.openMode;
+    if ($('harbor-host')) $('harbor-host').value = cfg.host;
+    if ($('harbor-port')) $('harbor-port').value = cfg.port;
+    if ($('harbor-mirror-addons')) $('harbor-mirror-addons').checked = cfg.mirrorAddons;
+  },
+
+  async testConnection() {
+    const btn = $('harbor-test-btn');
+    const box = $('harbor-test-result');
+    if (!box) return;
+
+    // خذ ما في الحقول الآن (قد لا يكون محفوظاً بعد)
+    const cfg = {
+      host: $('harbor-host')?.value || this.config?.host,
+      port: $('harbor-port')?.value || this.config?.port
+    };
+
+    if (btn) btn.disabled = true;
+    box.className = 'hb-test-result';
+    box.textContent = this.tr('harbor_state_connecting');
+    box.classList.remove('hidden');
+
+    const result = await chrome.runtime.sendMessage({ type: 'HARBOR_PROBE', config: cfg });
+
+    if (btn) btn.disabled = false;
+    if (result?.online) {
+      box.classList.add('ok');
+      box.textContent = this.tr('harbor_test_ok', { ms: result.ms });
+    } else {
+      box.classList.add('fail');
+      box.textContent = this.tr('harbor_test_fail') + (result?.error ? ` (${result.error})` : '');
+    }
+  },
+
+  // ==================== شاشة الريموت ====================
+
+  open() {
+    showScreen('harbor');
+    this.connect();
+  },
+
+  close() {
+    this.disconnect();
+    showScreen('main');
+  },
+
+  connect() {
+    this.disconnect();
+    if (!this.config) return;
+
+    const label = $('harbor-conn-label');
+    if (label) label.textContent = `${this.config.host}:${this.config.port}`;
+
+    this.setPill('connecting');
+    this.showState('none');
+
+    this.remote = HarborCore.createRemote(this.config);
+    this.remote.on('status', ({ status }) => {
+      if (status === 'connected') {
+        this.setPill('online');
+      } else if (status === 'reconnecting' || status === 'error' || status === 'closed') {
+        this.setPill('offline');
+        // لا نُظهر شاشة "غير متصل" إلا بعد أن نفقد الاتصال فعلاً
+        if (status !== 'closed') this.showState('offline');
+      }
+    });
+    this.remote.on('snapshot', (snap) => this.renderSnapshot(snap));
+    this.remote.on('close', ({ byUs }) => {
+      if (!byUs) this.markDot(false);
+    });
+    this.remote.connect();
+  },
+
+  disconnect() {
+    if (this.remote) {
+      this.remote.close();
+      this.remote = null;
+    }
+  },
+
+  setPill(status) {
+    const pill = $('harbor-status-pill');
+    if (!pill) return;
+    pill.classList.remove('online', 'offline');
+    if (status === 'online') {
+      pill.classList.add('online');
+      pill.textContent = this.tr('harbor_state_online');
+    } else if (status === 'offline') {
+      pill.classList.add('offline');
+      pill.textContent = this.tr('harbor_state_offline');
+    } else {
+      pill.textContent = this.tr('harbor_state_connecting');
+    }
+    this.markDot(status === 'online');
+  },
+
+  markDot(on) {
+    const dot = $('harbor-btn-dot');
+    if (dot) dot.classList.toggle('hidden', !on);
+  },
+
+  /** which: 'offline' | 'idle' | 'now' | 'none' */
+  showState(which) {
+    const map = {
+      offline: 'harbor-offline',
+      idle: 'harbor-idle',
+      now: 'harbor-now'
+    };
+    for (const [key, id] of Object.entries(map)) {
+      const el = $(id);
+      if (el) el.classList.toggle('hidden', key !== which);
+    }
+    const controls = $('harbor-control-card');
+    if (controls) controls.classList.toggle('hidden', which === 'offline' || which === 'none');
+
+    if (which === 'offline') {
+      const detail = $('harbor-offline-detail');
+      if (detail) detail.textContent = `${this.config?.host}:${this.config?.port}${HarborCore.REMOTE_WS_PATH}`;
+    }
+  },
+
+  renderSnapshot(snap) {
+    this.lastSnapshot = snap;
+    this.setPill('online');
+
+    if (snap.idle) {
+      this.showState('idle');
+      return;
+    }
+    this.showState('now');
+
+    const poster = $('harbor-poster');
+    if (poster) {
+      if (snap.posterUrl) {
+        poster.src = snap.posterUrl;
+        poster.style.display = '';
+      } else {
+        poster.removeAttribute('src');
+        poster.style.display = 'none';
+      }
+    }
+
+    const title = $('harbor-title');
+    if (title) title.textContent = snap.mediaTitle || snap.mediaId || '—';
+
+    const ep = $('harbor-episode');
+    if (ep) {
+      if (snap.episode) {
+        const { season, episode, name } = snap.episode;
+        ep.textContent = `S${season}E${episode}${name ? ' · ' + name : ''}`;
+        ep.classList.remove('hidden');
+      } else {
+        ep.textContent = '';
+      }
+    }
+
+    const src = $('harbor-source');
+    if (src) {
+      const parts = [];
+      if (snap.source?.resolution) parts.push(snap.source.resolution);
+      if (snap.source?.quality) parts.push(snap.source.quality);
+      if (snap.source?.releaseGroup) parts.push(snap.source.releaseGroup);
+      src.textContent = parts.length ? parts.join(' · ') : (snap.source?.label || '');
+    }
+
+    const target = $('harbor-target');
+    if (target) {
+      target.textContent = snap.target?.kind === 'cast'
+        ? this.tr('harbor_target_cast', { name: snap.target.label })
+        : this.tr('harbor_target_local');
+    }
+
+    // ── التقدّم ──
+    const seek = $('harbor-seek');
+    const dur = Math.max(0, snap.durationSec || 0);
+    if (seek && !this.seeking) {
+      seek.max = String(Math.max(1, Math.floor(dur)));
+      seek.value = String(Math.floor(Math.min(snap.positionSec || 0, dur)));
+      seek.disabled = dur <= 0;
+    }
+    const posEl = $('harbor-pos');
+    const durEl = $('harbor-dur');
+    if (posEl) posEl.textContent = formatClock(snap.positionSec);
+    if (durEl) durEl.textContent = formatClock(dur);
+
+    // ── التشغيل/الإيقاف ──
+    const iconPlay = $('hb-icon-play');
+    const iconPause = $('hb-icon-pause');
+    if (iconPlay && iconPause) {
+      iconPlay.classList.toggle('hidden', !!snap.playing);
+      iconPause.classList.toggle('hidden', !snap.playing);
+    }
+
+    const prev = $('hb-prev');
+    const next = $('hb-next');
+    if (prev) prev.disabled = !snap.hasPrevEpisode;
+    if (next) next.disabled = !snap.hasNextEpisode;
+
+    // ── الصوت ──
+    const vol = $('hb-volume');
+    if (vol && document.activeElement !== vol) {
+      vol.value = String(Math.round((snap.volume ?? 1) * 100));
+    }
+    const muteBtn = $('hb-mute');
+    if (muteBtn) muteBtn.classList.toggle('active', !!snap.muted);
+    const waves = $('hb-vol-waves');
+    const cross = $('hb-vol-x');
+    if (waves && cross) {
+      waves.classList.toggle('hidden', !!snap.muted);
+      cross.classList.toggle('hidden', !snap.muted);
+    }
+
+    // ── الترجمة ──
+    const subs = $('hb-subs');
+    if (subs) {
+      subs.disabled = !snap.canToggleSubtitles;
+      subs.classList.toggle('active', !!snap.subtitlesOn);
+    }
+  },
+
+  send(command) {
+    if (!this.remote || !this.remote.connected) return false;
+    return this.remote.send(command);
+  },
+
+  async pushSearch(query) {
+    const q = String(query || '').trim();
+    if (!q) return;
+    // إن كان الاتصال قائماً استعمله مباشرةً، وإلا فوّض للـ background
+    if (this.remote && this.remote.connected) {
+      this.send({ action: 'openSearch' });
+      setTimeout(() => this.send({ action: 'setText', value: q }), 450);
+      setTimeout(() => this.send({ action: 'submitText', value: q }), 700);
+      showToast(this.tr('harbor_msg_sent'), 'success');
+      return;
+    }
+    const res = await chrome.runtime.sendMessage({ type: 'HARBOR_SEND_SEARCH', query: q });
+    showToast(res?.ok ? this.tr('harbor_msg_sent') : this.tr('harbor_msg_failed'), res?.ok ? 'success' : 'error');
+  },
+
+  /** يفتح العمل المعروض حالياً في شاشة التفاصيل داخل Harbor */
+  async openCurrentDetail() {
+    if (!state.currentDetail) return;
+    const { libraryItem, meta, activeVideo } = state.currentDetail;
+    const item = libraryItem || meta || {};
+    const res = await chrome.runtime.sendMessage({
+      type: 'OPEN_IN_HARBOR',
+      imdbId: item._id || item.imdb_id || item.id,
+      mediaType: item.type || 'movie',
+      videoId: activeVideo ? activeVideo.id : null,
+      query: item.name || ''
+    });
+    if (res?.success) {
+      showToast(this.tr('harbor_msg_opened'), 'success');
+    } else {
+      const key = res?.error === 'not_found' ? 'harbor_msg_not_found' : 'harbor_msg_failed';
+      showToast(this.tr(key), 'error');
+    }
+  },
+
+  // ==================== الربط بالأحداث ====================
+
+  bind() {
+    // ── إعدادات ──
+    const enabled = $('harbor-enabled');
+    if (enabled) enabled.addEventListener('change', async (e) => {
+      await this.save({ enabled: e.target.checked });
+      this.reflectDetailButton();
+    });
+
+    const mode = $('harbor-open-mode');
+    if (mode) mode.addEventListener('change', (e) => this.save({ openMode: e.target.value }));
+
+    const mirror = $('harbor-mirror-addons');
+    if (mirror) mirror.addEventListener('change', (e) => this.save({ mirrorAddons: e.target.checked }));
+
+    const commitEndpoint = () => this.save({
+      host: $('harbor-host')?.value,
+      port: $('harbor-port')?.value
+    }).then(() => this.fillSettingsForm());
+
+    const host = $('harbor-host');
+    if (host) host.addEventListener('change', commitEndpoint);
+    const port = $('harbor-port');
+    if (port) port.addEventListener('change', commitEndpoint);
+
+    const testBtn = $('harbor-test-btn');
+    if (testBtn) testBtn.addEventListener('click', () => this.testConnection());
+
+    const openWeb = $('harbor-open-web-btn');
+    if (openWeb) openWeb.addEventListener('click', () => {
+      chrome.runtime.sendMessage({ type: 'HARBOR_OPEN_UI', remote: false });
+    });
+
+    const openRemote = $('harbor-open-remote-btn');
+    if (openRemote) openRemote.addEventListener('click', () => {
+      chrome.runtime.sendMessage({ type: 'HARBOR_OPEN_UI', remote: true });
+    });
+
+    // ── الدخول إلى شاشة الريموت والخروج منها ──
+    const headerBtn = $('harbor-btn');
+    if (headerBtn) headerBtn.addEventListener('click', () => this.open());
+
+    const backBtn = $('harbor-back-btn');
+    if (backBtn) backBtn.addEventListener('click', () => this.close());
+
+    const settingsLink = $('harbor-settings-link');
+    if (settingsLink) settingsLink.addEventListener('click', () => {
+      this.disconnect();
+      showScreen('settings');
+      switchSettingsTab('harbor');
+    });
+
+    const retry = $('harbor-retry-btn');
+    if (retry) retry.addEventListener('click', () => this.connect());
+
+    // ── زر Harbor في شاشة التفاصيل ──
+    const detailBtn = $('btn-harbor');
+    if (detailBtn) detailBtn.addEventListener('click', () => this.openCurrentDetail());
+
+    // ── أزرار التشغيل ──
+    const playPause = $('hb-playpause');
+    if (playPause) playPause.addEventListener('click', () => {
+      const playing = !!this.lastSnapshot?.playing;
+      this.send({ action: playing ? 'pause' : 'play' });
+    });
+
+    const relSeek = (delta) => {
+      const snap = this.lastSnapshot;
+      if (!snap || !(snap.durationSec > 0)) return;
+      const next = Math.min(Math.max(0, (snap.positionSec || 0) + delta), snap.durationSec);
+      this.send({ action: 'seek', positionSec: next });
+    };
+    const back10 = $('hb-back10');
+    if (back10) back10.addEventListener('click', () => relSeek(-10));
+    const fwd10 = $('hb-fwd10');
+    if (fwd10) fwd10.addEventListener('click', () => relSeek(10));
+
+    const prevBtn = $('hb-prev');
+    if (prevBtn) prevBtn.addEventListener('click', () => this.send({ action: 'prevEpisode' }));
+    const nextBtn = $('hb-next');
+    if (nextBtn) nextBtn.addEventListener('click', () => this.send({ action: 'nextEpisode' }));
+
+    const seek = $('harbor-seek');
+    if (seek) {
+      seek.addEventListener('pointerdown', () => { this.seeking = true; });
+      seek.addEventListener('input', () => {
+        const posEl = $('harbor-pos');
+        if (posEl) posEl.textContent = formatClock(Number(seek.value));
+      });
+      const commitSeek = () => {
+        if (!this.seeking) return;
+        this.seeking = false;
+        this.send({ action: 'seek', positionSec: Number(seek.value) });
+      };
+      seek.addEventListener('pointerup', commitSeek);
+      seek.addEventListener('change', commitSeek);
+    }
+
+    const mute = $('hb-mute');
+    if (mute) mute.addEventListener('click', () => {
+      this.send({ action: 'setMuted', muted: !this.lastSnapshot?.muted });
+    });
+
+    const volume = $('hb-volume');
+    if (volume) volume.addEventListener('change', () => {
+      this.send({ action: 'setVolume', volume: Number(volume.value) / 100 });
+    });
+
+    const subs = $('hb-subs');
+    if (subs) subs.addEventListener('click', () => this.send({ action: 'toggleSubtitles' }));
+
+    // ── البحث والتنقّل ──
+    const searchBtn = $('harbor-search-btn');
+    const searchInput = $('harbor-search-input');
+    if (searchBtn && searchInput) {
+      const run = () => {
+        this.pushSearch(searchInput.value);
+        searchInput.value = '';
+      };
+      searchBtn.addEventListener('click', run);
+      searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') run();
+      });
+    }
+
+    $$('.hb-nav').forEach((btn) => {
+      btn.addEventListener('click', () => this.send({ action: 'nav', key: btn.dataset.nav }));
+    });
+  }
+};
+
+/** ثوانٍ → H:MM:SS أو M:SS */
+function formatClock(seconds) {
+  const total = Math.max(0, Math.floor(Number(seconds) || 0));
+  const h = Math.floor(total / 3600);
+  const m = Math.floor((total % 3600) / 60);
+  const sec = total % 60;
+  const pad = (n) => String(n).padStart(2, '0');
+  return h > 0 ? `${h}:${pad(m)}:${pad(sec)}` : `${m}:${pad(sec)}`;
+}
 
 // ==================== Firefox Popup Workaround ====================
 document.addEventListener('DOMContentLoaded', () => {

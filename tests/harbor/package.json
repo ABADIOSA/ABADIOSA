@@ -1,0 +1,12 @@
+{
+  "name": "stremiohub-harbor-tests",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node harbor-integration.test.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.49.0",
+    "ws": "^8.18.0"
+  }
+}

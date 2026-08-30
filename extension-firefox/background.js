@@ -1,5 +1,8 @@
 // background.js — StremioHub Service Worker
 
+// جسر Harbor — يضع globalThis.HarborCore (لا يصدّر شيئاً)
+import './modules/harbor-core.js';
+
 // ==================== Context Menu ====================
 async function updateContextMenu() {
   const { language } = await chrome.storage.local.get('language');
@@ -8,12 +11,26 @@ async function updateContextMenu() {
     ? '🔍 Search Stremio for "%s"' 
     : '🔍 ابحث عن "%s" في Stremio';
   
+  const harborTitle = lang === 'en'
+    ? '⚓ Search Harbor for "%s"'
+    : '⚓ ابحث عن "%s" في Harbor';
+
+  const { harborConfig } = await chrome.storage.local.get('harborConfig');
+  const harborEnabled = !!harborConfig?.enabled;
+
   chrome.contextMenus.removeAll(() => {
     chrome.contextMenus.create({
       id: 'search-stremio',
       title: title,
       contexts: ['selection']
     });
+    if (harborEnabled) {
+      chrome.contextMenus.create({
+        id: 'search-harbor',
+        title: harborTitle,
+        contexts: ['selection']
+      });
+    }
   });
 }
 
@@ -164,13 +181,110 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
 });
 
 chrome.storage.onChanged.addListener((changes, area) => {
-  if (area === 'local' && changes.language) {
+  if (area === 'local' && (changes.language || changes.harborConfig)) {
     updateContextMenu();
   }
 });
 
+// ==================== Harbor Bridge ====================
+// التكامل مع مشغّل Harbor: https://github.com/harborstremio/harbor
+// Harbor يستعمل نفس حساب Stremio (api.strem.io) لذلك المكتبة والإضافات
+// متزامنة أصلاً؛ ما ينقص هو "فتح العمل" و"التحكم بالتشغيل" وهو ما يوفّره هذا القسم.
+
+/**
+ * يبحث في Cinemeta ليحوّل عنوان/سنة إلى بيانات العمل الكاملة.
+ * يرجّع null إن لم يُعثر على تطابق.
+ */
+async function resolveCinemetaMatch({ imdbId, mediaType, query, year }) {
+  const type = mediaType || 'movie';
+
+  if (imdbId) {
+    try {
+      const res = await fetch(`https://v3-cinemeta.strem.io/meta/${type}/${imdbId}.json`);
+      if (res.ok) {
+        const data = await res.json();
+        if (data.meta) return data.meta;
+      }
+    } catch { /* نكمل بالبحث بالعنوان */ }
+    // حتى لو فشل Cinemeta نملك المعرّف وهو كافٍ للرابط العميق
+    return { id: imdbId, type, name: query || '' };
+  }
+
+  if (!query) return null;
+
+  try {
+    const res = await fetch(`https://v3-cinemeta.strem.io/catalog/${type}/top/search=${encodeURIComponent(query)}.json`);
+    if (!res.ok) return null;
+    const data = await res.json();
+    let matched = data.metas?.[0];
+    if (year && data.metas) {
+      const exact = data.metas.find(m => m.year == year || (m.releaseInfo && String(m.releaseInfo).includes(year)));
+      if (exact) matched = exact;
+    }
+    return matched || null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * يفتح عملاً في Harbor حسب الوضع المختار في الإعدادات.
+ * يرجّع { success, mode, usedFallback?, error? }
+ */
+async function openInHarbor({ imdbId, mediaType, videoId, query, year }) {
+  const cfg = await HarborCore.getConfig();
+  const type = mediaType || 'movie';
+
+  // نحتاج المعرّف للرابط العميق، والاسم لدفع البحث عبر الريموت
+  let id = imdbId || null;
+  let name = query || '';
+  if (!id || (cfg.openMode === 'remote' && !name)) {
+    const meta = await resolveCinemetaMatch({ imdbId, mediaType: type, query, year });
+    if (meta) {
+      id = id || meta.id;
+      name = name || meta.name || '';
+    }
+  }
+
+  // ── واجهة Harbor على المتصفح ──
+  if (cfg.openMode === 'web') {
+    await chrome.tabs.create({ url: HarborCore.webUiUrl(cfg) });
+    return { success: true, mode: 'web' };
+  }
+
+  // ── دفع البحث عبر الريموت إلى نافذة Harbor المفتوحة ──
+  if (cfg.openMode === 'remote') {
+    if (!name) return { success: false, mode: 'remote', error: 'no_title' };
+    const result = await HarborCore.pushSearch(cfg, name);
+    if (result.ok) return { success: true, mode: 'remote' };
+    // الريموت غير متاح — نرجع للرابط العميق إن كان لدينا معرّف
+    if (id) {
+      await chrome.tabs.create({ url: HarborCore.detailDeepLink(type, id, videoId) });
+      return { success: true, mode: 'deeplink', usedFallback: true, error: result.error };
+    }
+    return { success: false, mode: 'remote', error: result.error || 'unreachable' };
+  }
+
+  // ── الرابط العميق (الوضع الافتراضي) ──
+  if (!id) return { success: false, mode: 'deeplink', error: 'not_found' };
+  await chrome.tabs.create({ url: HarborCore.detailDeepLink(type, id, videoId) });
+  return { success: true, mode: 'deeplink' };
+}
+
 // ==================== Context Menu Click ====================
 chrome.contextMenus.onClicked.addListener(async (info, tab) => {
+  if (info.menuItemId === 'search-harbor') {
+    const query = info.selectionText?.trim();
+    if (!query) return;
+    const cfg = await HarborCore.getConfig();
+    const result = await HarborCore.pushSearch(cfg, query);
+    if (!result.ok) {
+      // الريموت مغلق — افتح واجهة Harbor على المتصفح كبديل
+      await chrome.tabs.create({ url: HarborCore.webUiUrl(cfg) });
+    }
+    return;
+  }
+
   if (info.menuItemId === 'search-stremio') {
     const query = info.selectionText?.trim();
     if (!query) return;
@@ -357,6 +471,72 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     chrome.tabs.create({ url });
   }
 
+  // ── فتح العمل في Harbor مباشرةً ──
+  if (message.type === 'OPEN_IN_HARBOR') {
+    (async () => {
+      try {
+        const result = await openInHarbor(message);
+        sendResponse(result);
+      } catch (err) {
+        sendResponse({ success: false, error: err.message });
+      }
+    })();
+    return true;
+  }
+
+  // ── فحص حالة خادم Harbor المحلي ──
+  if (message.type === 'HARBOR_PROBE') {
+    (async () => {
+      const cfg = message.config || await HarborCore.getConfig();
+      sendResponse(await HarborCore.probe(cfg));
+    })();
+    return true;
+  }
+
+  // ── دفع عبارة بحث إلى نافذة Harbor ──
+  if (message.type === 'HARBOR_SEND_SEARCH') {
+    (async () => {
+      const cfg = await HarborCore.getConfig();
+      sendResponse(await HarborCore.pushSearch(cfg, message.query));
+    })();
+    return true;
+  }
+
+  // ── أمر ريموت واحد (تشغيل/إيقاف/تخطي...) ──
+  if (message.type === 'HARBOR_COMMAND') {
+    (async () => {
+      const cfg = await HarborCore.getConfig();
+      sendResponse(await HarborCore.sendCommandOnce(cfg, message.command));
+    })();
+    return true;
+  }
+
+  // ── تثبيت إضافة في Harbor عبر رابط harbor:// ──
+  if (message.type === 'HARBOR_INSTALL_ADDON') {
+    (async () => {
+      try {
+        const link = HarborCore.addonInstallLink(message.transportUrl);
+        if (!link) throw new Error('invalid_url');
+        await chrome.tabs.create({ url: link });
+        sendResponse({ success: true, link });
+      } catch (err) {
+        sendResponse({ success: false, error: err.message });
+      }
+    })();
+    return true;
+  }
+
+  // ── فتح واجهة Harbor (الكاملة أو ريموت الجوال) ──
+  if (message.type === 'HARBOR_OPEN_UI') {
+    (async () => {
+      const cfg = await HarborCore.getConfig();
+      const url = message.remote ? HarborCore.remoteUiUrl(cfg) : HarborCore.webUiUrl(cfg);
+      await chrome.tabs.create({ url });
+      sendResponse({ success: true, url });
+    })();
+    return true;
+  }
+
   if (message.type === 'SEARCH_IN_POPUP') {
     (async () => {
       await chrome.storage.session.set({ pendingSearch: message.query });
@@ -434,8 +614,25 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type === 'OPEN_IN_STREMIO_DIRECT') {
     (async () => {
       try {
-        let imdbId = message.imdbId;
         const type = message.mediaType || 'movie';
+
+        // طريقة الفتح المختارة في الإعدادات، أو تجاوزها من الزر نفسه
+        const { openMethod } = await chrome.storage.local.get(['openMethod']);
+        const method = message.forceHarbor ? 'harbor' : (openMethod || 'web');
+
+        if (method === 'harbor') {
+          const result = await openInHarbor({
+            imdbId: message.imdbId,
+            mediaType: type,
+            videoId: message.videoId,
+            query: message.query,
+            year: message.year
+          });
+          sendResponse(result);
+          return;
+        }
+
+        let imdbId = message.imdbId;
         
         if (!imdbId && message.query) {
           const searchRes = await fetch(`https://v3-cinemeta.strem.io/catalog/${type}/top/search=${encodeURIComponent(message.query)}.json`);
@@ -452,9 +649,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
         if (!imdbId) throw new Error('Could not find item in Stremio catalog');
 
-        const { openMethod } = await chrome.storage.local.get(['openMethod']);
-        const method = openMethod || 'web';
-        
         const url = method === 'app' 
           ? `stremio:///detail/${type}/${imdbId}`
           : `https://web.stremio.com/#/detail/${type}/${imdbId}`;

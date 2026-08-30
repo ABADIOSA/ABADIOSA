@@ -4,7 +4,7 @@
     "description": "The name of the extension"
   },
   "extensionDescription": {
-    "message": "الرفيق الشامل لـ Stremio في متصفحك.",
+    "message": "الرفيق الشامل لـ Stremio في متصفحك — مع تكامل مع مشغّل Harbor.",
     "description": "The description of the extension"
   },
   "update_extension": {
