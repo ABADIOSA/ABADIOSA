@@ -70,6 +70,8 @@ jobs:
       - name: نشر الإصدار
         uses: softprops/action-gh-release@v2
         with:
+          # تصريح بالوسم ليعمل التشغيل اليدوي أيضاً، لا دفع الوسم فقط
+          tag_name: v${{ steps.version.outputs.version }}
           name: v${{ steps.version.outputs.version }}
           body_path: .github/release-notes/v${{ steps.version.outputs.version }}.md
           fail_on_unmatched_files: true
